@@ -17,8 +17,6 @@ interface AddressWithUnit extends BasicAddress {
   unit: any;
 }
 
-
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   let id = searchParams.get('id');
