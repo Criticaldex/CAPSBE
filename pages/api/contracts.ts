@@ -6,11 +6,12 @@ type ResponseData = {
   message: string;
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler( req: NextApiRequest, res: NextApiResponse) {
+  const { model } = req.body;
+  let { fields, filter } = req.body;
+  if (req.method === 'POST' && model) {
   try {
+    fields = (fields) ? fields.join(' ') : '';
     const db = await mongoose.createConnection('mongodb://trial.soidemdt.com:27017/CAPFA',
       {
         authSource: 'admin',
@@ -20,16 +21,19 @@ export default async function handler(
 
     const schema = mongoose.Schema;
     const contractes2022 = await db.model(
-      'contract',
+      model,
       new schema(
         {
           Indicador: String,
           Resultat: [String]
         }
       )
-    ).find().select('Indicador Resultat -_id');
+    ).find().select(fields);
     res.status(200).json({ contractes2022 });
   } catch (err) {
-    res.status(500).json({ error: (err as Error).message });
+    res.status(500).json({ ERROR: (err as Error).message });
+  }
+} else {
+  res.status(500).send({ ERROR: 'Utiliza una peticion POST para consultar este endpoint!'});
   }
 }
