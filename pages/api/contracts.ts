@@ -14,11 +14,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       fields = (fields) ? fields.join(' ') : '';
 
-      const db = await mongoose.createConnection('mongodb://trial.soidemdt.com:27017/CAPFA',
+      const db = await mongoose.createConnection(`${process.env.MONGO_HOST}/CAPFA`,
         {
-          authSource: 'admin',
-          user: 'Admin',
-          pass: 'DTSoidem.918'
+          authSource: process.env.MONGO_AUTH,
+          user: process.env.MONGO_USER,
+          pass: process.env.MONGO_PASS
         });
       const schema = mongoose.Schema;
       const data = await db.model(
