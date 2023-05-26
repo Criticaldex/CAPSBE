@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         model,
         new schema()
       ).find(filter).select(fields).exec();
-      res.status(200).json({ data });
+      res.status(200).json(data);
     } catch (err) {
       res.status(500).json({ ERROR: (err as Error).message });
     }
