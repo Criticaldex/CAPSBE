@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-async function getContracts() {
-  const res = await fetch('http://localhost:3000/api/contracts',
+const getContracts = (model: string, fields: string[], filter: any) => {
+  return fetch('http://localhost:3000/api/contracts',
     {
       method: 'POST',
       headers: {
@@ -9,31 +9,31 @@ async function getContracts() {
       },
       body: JSON.stringify(
         {
-          model: "contract",
-          fields: [
-            "Indicador",
-            "Resultat",
-            "Any",
-            "Centre",
-            "-_id"
-          ],
-          filter: {
-            Any: "2023",
-            Centre: "0"
-          }
+          model: model,
+          fields: fields,
+          filter: filter
         }
       ),
-    });
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  return res.json();
+    }).then(res => res.json());
 }
 
 export default async function Home() {
-  const data = await getContracts();
-  console.log('DATA: ', data);
-  
+  const model: string = 'contract';
+  const fields: string[] = [
+    "Indicador",
+    "Resultat",
+    "Any",
+    "Centre",
+    "-_id"
+  ]
+  const filter: any = {
+    "Any": "2023",
+    "Centre": "0"
+  };
+
+  const data = await getContracts(model, fields, filter);
+  // console.log('DATA: ', data);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
