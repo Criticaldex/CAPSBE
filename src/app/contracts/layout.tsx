@@ -17,20 +17,18 @@ export default async function ContractsLayout({ children }:any) {
         <title>Indicadors Contracte</title>
       </head>
       <body>
-        <header>
-          <nav>
-            <ul>
-              {links.map(({ label, route }) => (
-                <li key={route}>
-                  <Link href={route}>
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            {children}
-          </nav>
-        </header>
+        <ul>
+          {links.map(({ label, route }) => (
+            <li key={route}>
+              <Link href={route}>
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   )
