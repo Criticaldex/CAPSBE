@@ -9,7 +9,7 @@ const links = [{
   route: '/contracts/2023'
 }]
 
-export default async function ContractsLayout({ children }) {
+export default async function ContractsLayout({ children }:any) {
 
   return (
     <html>
