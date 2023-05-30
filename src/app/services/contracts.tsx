@@ -1,4 +1,4 @@
-export const getContracts = (filter: any) => {
+export const getMongoData = (filter: any) => {
     return fetch('http://localhost:3000/api/contracts',
     {
         method: 'POST',
@@ -32,7 +32,8 @@ export const getCentros = (filter: any) => {
         {
           model: 'licencia',
           fields: [
-            "Centros"
+            "Centros",
+            "-_id"
           ],
           filter: filter
         }
