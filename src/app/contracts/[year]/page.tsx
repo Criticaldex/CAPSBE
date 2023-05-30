@@ -17,9 +17,10 @@ export default async function loadContracts({ params }:any) {
   const { year } = params;
   const centros = await getCleanCenters();
   const indicadoresContrato: Array<IndicatorContract[]> = await Promise.all(centros.map((centro: string, i: number) => {
-    return getMongoData({ "Any": year, "Centre": i.toString() })
+    const res = getMongoData({ "Any": year, "Centre": i.toString() })
+    return(res.data) ? res.data: res;
 }))
-// console.log('centros: ', centros);
+console.log('centros: ', centros);
 
 
   return (

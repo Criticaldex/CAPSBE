@@ -1,5 +1,5 @@
 export const getMongoData = (filter: any) => {
-    return fetch('http://localhost:3000/api/contracts',
+    return fetch('http://localhost:3000/api/getMongoData',
     {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ export const getMongoData = (filter: any) => {
 }
 
 export const getCentros = (filter: any) => {
-  return fetch('http://localhost:3000/api/contracts',
+  return fetch('http://localhost:3000/api/getMongoData',
   {
       method: 'POST',
       headers: {
