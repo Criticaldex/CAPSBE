@@ -2,32 +2,7 @@
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-
-const options = {
-    chart: { type: 'spline'},
-    title: {
-        text: 'My chart'
-    },
-    series: [{
-        name: 'Indicador 1',
-        data: [1, 2, 3, 2 ,1 ,3, 1, 3 ,2 ,3, 1, 1]
-    },
-    {
-        name: 'Indicador 2',
-        data: [3, 2, 1,2 ,3 ,3 ,1 ,1 ,2 ,2 ,2 ,3]
-    },
-    {
-        name: 'Indicador 3',
-        data: [3, 2, 1,2 ,3 ,3 ,1 ,1 ,2 ,2 ,2 ,3]
-    },
-    {
-        name: 'Indicador 4',
-        data: [1, 1, 2, 3, 2 ,1 ,3, 1, 3 ,2 ,3, 1]
-    }],
-    xAxis: {
-        categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
-    }
-}
+import React, { MouseEventHandler } from 'react'
 
 interface IndicatorContract {
     Indicador: string
@@ -38,15 +13,43 @@ interface IndicatorContract {
 
 export default function ContractsChart({infoChart}: any) {
     
+    const options = {
+        chart: { type: 'spline'},
+        lang: {
+            noData: "No hi han dades disponibles"
+        },
+        noData: {
+            style: {
+                fontSize: '26px',
+                fontWeight: 'bold',
+                color: '#666666'
+            },
+        },
+        title: {
+            text: infoChart.tituloGrafica
+        },
+        series: infoChart.chartData,
+        xAxis: {
+            categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre'],
+            startOnTick: true
+        },
+        credits: {
+            text: ""
+        },
+        legend:{ 
+            enabled: true,
+            align: 'right',
+            verticalAlign: 'middle',
+            width: 150
+        },
+        tooltip: {
+            shared: false
+        }
+    }
 
     return (
         <aside>
-            {<div className="text-center pt-10 w-2/3 m-auto">
-                {infoChart.centros.map((nameCenter: string, indice: number) => (
-                    <button className="w-1/3 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" key={indice}>{nameCenter}</button>
-                ))}
-            </div>}
-            <div className='w-9/12 m-auto mt-20'>
+            <div className="w-9/12 m-auto mt-20">
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}
