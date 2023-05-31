@@ -42,9 +42,11 @@ export default async function ContractsChart({ params }: any) {
 
    return (
       <div>
-         <Chart
-            params={options}
-         />
+         <aside>
+            <Chart
+               params={options}
+            />
+         </aside>
       </div>
    )
 }

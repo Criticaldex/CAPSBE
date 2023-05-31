@@ -23,8 +23,8 @@ export default async function loadContracts({ children, params }: any) {
                   </tr>
                </thead>
                <tbody>
-                  {indicadoresContrato[0].map((dato: any, index: number) => (
-                     <tr id={index.toString()} key={index} className="even:bg-gray-100 hover:bg-gray-200 p-96">
+                  {indicadoresContrato[0].map((dato: any, index: string) => (
+                     <tr id={index} key={index} className="even:bg-gray-100 hover:bg-gray-200 p-96">
                         <td className="px-2 py-2" key={dato.Indicador}>{dato.Indicador}</td>
                         {indicadoresContrato.map((contractCentro: any, indice: number) => (
                            <td className="px-2 py-2 text-center" key={index + indice}>{contractCentro[index].Resultat[contractCentro[index].Resultat.length - 1]}</td>
