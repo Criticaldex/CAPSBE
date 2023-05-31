@@ -17,8 +17,8 @@ export default async function loadContracts({ children, params }: any) {
                <thead className="border-b bg-neutral-800 font-medium text-white dark:border-neutral-300 dark:bg-neutral-800">
                   <tr className="text-xl">
                      <th className="px-3 py-3">Indicadores</th>
-                     {centros.map((centro: any) => (
-                        <th className="px-3 py-3 text-center">{centro.name}</th>
+                     {centros.map((centro: any, i: number) => (
+                        <th className="px-3 py-3 text-center" key={i}>{centro.name}</th>
                      ))}
                   </tr>
                </thead>
@@ -35,8 +35,8 @@ export default async function loadContracts({ children, params }: any) {
             </table>
          </div>
          {<div className="text-center pt-10 w-2/3 m-auto">
-            {centros.map((centro: any, indice: number) => (
-               <Link href={centro.link}>
+            {centros.map((centro: any, i: number) => (
+               <Link href={centro.link} key={i}>
                   {centro.name}
                </Link>
             ))}
