@@ -24,7 +24,7 @@ export const getMongoData = (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getChartIndicators = async (data: Array<Object>) => {
+export const getChartIndicators = async (data: any) => {
    return data.map((i: any) => {
       return {
          name: i.Indicador,
@@ -51,4 +51,16 @@ export const getCentros = (filter: any) => {
             }
          ),
       }).then(res => res.json());
+}
+
+export const getCleanCenters = async (year: any) => {
+   const centro: any = await getCentros({});
+   let data = await centro[0].Centros.map((centro: string, i: number) => {
+      return {
+         id: i.toString(),
+         name: centro,
+         link: `/contracts/${year}/${i}`
+      }
+   })
+   return data
 }
