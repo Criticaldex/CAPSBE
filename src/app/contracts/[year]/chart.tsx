@@ -2,7 +2,6 @@
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import React, { MouseEventHandler } from 'react'
 
 interface IndicatorContract {
     Indicador: string
@@ -55,7 +54,6 @@ export default function ContractsChart({infoChart}: any) {
                     options={options}
                 />
             </div>
-
         </aside>
     )
 }
