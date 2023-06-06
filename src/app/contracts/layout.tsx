@@ -1,13 +1,4 @@
-import Link from "next/link"
-
-const links = [{
-   label: '2022',
-   route: '/contracts/2022'
-},
-{
-   label: '2023',
-   route: '/contracts/2023'
-}]
+import GetLinks from "./routing"
 
 export default async function ContractsLayout({ children }: any) {
 
@@ -17,15 +8,7 @@ export default async function ContractsLayout({ children }: any) {
             <title>Indicadors Contracte</title>
          </head>
          <body>
-            <ul>
-               {links.map(({ label, route }) => (
-                  <li key={route}>
-                     <Link href={route}>
-                        {label}
-                     </Link>
-                  </li>
-               ))}
-            </ul>
+            <GetLinks />
             <main>
                {children}
             </main>

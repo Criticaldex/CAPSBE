@@ -1,11 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: { appDir: true, serverComponentsExternalPackages: ["mongoose"] },
-    webpack(config) {
-        config.experiments = { ...config.experiments, topLevelAwait: true };
-        return config;
-    }
+   async redirects() {
+      return [
+         {
+            source: '/',
+            destination: '/contracts/2023/0',
+            permanent: true,
+         },
+         {
+            source: '/contracts',
+            destination: '/contracts/2023/0',
+            permanent: true,
+         },
+         {
+            source: '/contracts/:slug',
+            destination: '/contracts/:slug/0',
+            permanent: true,
+         }
+      ];
+   },
 }
 
-// module.exports = nextConfig
-module.exports = {}
+module.exports = nextConfig
+// module.exports = {}
