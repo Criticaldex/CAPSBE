@@ -33,7 +33,7 @@ export default async function ContractsChart({ params }: any) {
          enabled: true,
          align: 'right',
          verticalAlign: 'middle',
-         width: 150
+         width: 100
       },
       tooltip: {
          shared: false
@@ -41,12 +41,8 @@ export default async function ContractsChart({ params }: any) {
    }
 
    return (
-      <div>
-         <aside>
-            <Chart
-               params={options}
-            />
-         </aside>
-      </div>
+      <Chart
+         params={options}
+      />
    )
 }

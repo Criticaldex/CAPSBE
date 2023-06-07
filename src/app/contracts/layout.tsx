@@ -1,4 +1,13 @@
 import Link from "next/link"
+import { BiCapsule, BiPlusMedical } from "react-icons/bi"
+import { FaCapsules, FaUserNurse } from "react-icons/fa"
+import { RiHospitalFill } from "react-icons/ri"
+import { IoGitCompare } from "react-icons/io5"
+import { AiOutlineFolder } from "react-icons/ai"
+import { RxExit } from "react-icons/rx"
+import Script from "next/script"
+
+import { Chart } from "./[year]/[center]/chart"
 
 const links = [{
    label: '2022',
@@ -9,6 +18,35 @@ const links = [{
    route: '/contracts/2023'
 }]
 
+const navTitlesIcons = [
+   {
+      name: 'Indicadors Contracte',
+      icon: FaCapsules
+   },
+   {
+      name: 'Professionals',
+      icon: FaUserNurse
+   }
+]
+const navTitlesIconsFarma = [
+   {
+      name: 'Els Meus Centres',
+      icon: RiHospitalFill
+   },
+   {
+      name: 'IQF',
+      icon: BiCapsule
+   },
+   {
+      name: 'Comparació',
+      icon: IoGitCompare
+   },
+   {
+      name: 'Arxius',
+      icon: AiOutlineFolder
+   }
+]
+
 export default async function ContractsLayout({ children }: any) {
 
    return (
@@ -16,14 +54,52 @@ export default async function ContractsLayout({ children }: any) {
          <head>
             <title>Indicadors Contracte</title>
          </head>
-         <body>
-            <ul>
-               {links.map(({ label, route }) => (
-                  <li key={route}>
-                     <Link href={route}>
-                        {label}
+         <body className="pl-16 bg-body font-nunito">
+            <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-nav pt-4 pr-3 pb-0 pl-0 hover:w-80 transition-all duration-500">
+               <nav className="text-white p-3 flex flex-col justify-between h-full overflow-hidden">
+                  <div>
+                     <Link href="" className="text-yellow-500 text-xl font-bold grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-7 pl-3">
+                        <BiPlusMedical size={30} />
+                        <span className="text-2xl">CAPFA</span>
                      </Link>
-                  </li>
+                     <div className="flex flex-col justify-between" id="lista">
+                        {navTitlesIcons.map((navTI, index) => (
+                           <Link key={index} href='' className="hover:text-customBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center">
+                              <navTI.icon size={20} />
+                              <span className="text-lg">
+                                 {navTI.name}
+                              </span>
+                           </Link>
+                        ))}
+                        <hr className="my-4" />
+                        <h3 className="pt-2 pb-4 ml-16 text-xl italic font-bold">Farmàcia</h3>
+                        {navTitlesIconsFarma.map((navTI, index) => (
+                           <Link key={index} href='' className="hover:text-customBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0  pl-3 items-center">
+                              <navTI.icon size={20} />
+                              <span className="text-lg">
+                                 {navTI.name}
+                              </span>
+                           </Link>
+                        ))}
+                     </div>
+                  </div>
+                  <a href="#" className="hover:text-customBlue py-2 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-2 pl-3 items-center">
+                     <RxExit size={25} />
+                     <span className="text-2x1">Sortir</span>
+                  </a>
+               </nav>
+            </div>
+            <div className="h-20 bg-white bg-opacity-40 text-right flex justify-end items-center">
+               <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">Indicadors Contracte</h1>
+            </div>
+            <hr className="w-11/12 m-auto mt-0 border-t-2 border-gray-600" />
+            <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
+               {links.map(({ label, route }) => (
+                  <Link key={route} href={route}>
+                     <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
+                        {label}
+                     </li>
+                  </Link>
                ))}
             </ul>
             <main>
