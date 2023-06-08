@@ -1,3 +1,4 @@
+import _ from "lodash"
 export const getMongoData = (filter: any) => {
    return fetch('http://localhost:3000/api/getMongoData',
       {
@@ -24,7 +25,8 @@ export const getMongoData = (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getChartIndicators = async (data: any) => {
+export const getChartIndicators = async (filtros: any) => {
+   const data = await getMongoData(filtros);
    return data.map((i: any) => {
       return {
          name: i.Indicador,
@@ -33,7 +35,12 @@ export const getChartIndicators = async (data: any) => {
    })
 }
 
-export const getCentros = (filter: any) => {
+export const getTableIndicators = async (filtros: any) => {
+   const data = await getMongoData(filtros);
+   return _.groupBy(data, 'Indicador');
+}
+
+const getCentros = (filter: any) => {
    return fetch('http://localhost:3000/api/getMongoData',
       {
          method: 'POST',

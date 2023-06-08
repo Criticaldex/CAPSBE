@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/contracts/[year]/[center]/chart.ts"
+    "src/app/contracts/[year]/[center]/chart.ts",
+    "src/app/contracts/[year]/table.tsx"
   ],
   "exclude": ["node_modules"]
 }
