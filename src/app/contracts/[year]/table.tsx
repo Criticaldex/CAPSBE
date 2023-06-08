@@ -40,9 +40,14 @@ export function ContractsTable({ data, centros }: any) {
       })
    });
 
+   columns.push({
+      name: 'Objectiu',
+      selector: row => row.Objectiu
+   })
+
    let tableData: any = [];
    for (const [key, value] of Object.entries(data)) {
-      let indicador: { [k: string]: any } = { id: `${key}`, Indicador: `${key}`, values: [] };
+      let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], Objectiu: value[0].Objectiu };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          indicador[centro.name] = value[centro.id].Resultat[value[centro.id].Resultat.length - 1];
          indicador.values[centro.id] = {};
