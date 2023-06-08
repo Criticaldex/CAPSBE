@@ -24,6 +24,11 @@ export function Chart({ name, data }: any) {
          categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre'],
          startOnTick: true
       },
+      yAxis: {
+         title: {
+            enabled: false
+         },
+      },
       credits: {
          text: ""
       },
@@ -31,7 +36,7 @@ export function Chart({ name, data }: any) {
          enabled: true,
          align: 'right',
          verticalAlign: 'middle',
-         width: 150
+         width: 125
       },
       tooltip: {
          shared: false
@@ -39,11 +44,13 @@ export function Chart({ name, data }: any) {
    }
 
    return (
-      <div className="w-9/12 m-auto mt-20">
-         <HighchartsReact
-            highcharts={Highcharts}
-            options={options}
-         />
+      <div className="max-h-1/2 ml-2 py-1">
+         <div className="max-h-full px-3 bg-white rounded-xl shadow-lg shadow-gray-400-50">
+            <HighchartsReact
+               highcharts={Highcharts}
+               options={options}
+            />
+         </div>
       </div>
    )
 }
