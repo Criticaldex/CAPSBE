@@ -12,12 +12,10 @@ const ExpandedComponent = ({ data }: any) => {
       }
    })
    return (
-      <pre>
-         <Chart
-            name={data.id}
-            data={infoChart}
-         />
-      </pre>
+      <Chart
+         name={data.id}
+         data={infoChart}
+      />
    );
 }
 
