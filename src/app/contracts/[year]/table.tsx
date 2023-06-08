@@ -12,12 +12,10 @@ const ExpandedComponent = ({ data }: any) => {
       }
    })
    return (
-      <pre>
-         <Chart
-            name={data.id}
-            data={infoChart}
-         />
-      </pre>
+      <Chart
+         name={data.id}
+         data={infoChart}
+      />
    );
 }
 
@@ -25,21 +23,24 @@ export function ContractsTable({ data, centros }: any) {
 
    let columns = [{
       name: 'Indicador',
-      selector: row => row.Indicador,
-      sortable: true,
+      selector: row => row.Indicador
    }];
 
    centros.map((centro: any, i: number) => {
       columns.push({
          name: centro.name,
-         selector: row => row[centro.name],
-         sortable: true,
+         selector: row => row[centro.name]
       })
    });
 
+   columns.push({
+      name: 'Objectiu',
+      selector: row => row.Objectiu
+   })
+
    let tableData: any = [];
    for (const [key, value] of Object.entries(data)) {
-      let indicador: { [k: string]: any } = { id: `${key}`, Indicador: `${key}`, values: [] };
+      let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], Objectiu: value[0].Objectiu };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          indicador[centro.name] = value[centro.id].Resultat[value[centro.id].Resultat.length - 1];
          indicador.values[centro.id] = {};

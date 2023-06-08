@@ -17,6 +17,7 @@ export const getMongoData = (filter: any) => {
                   "Resultat",
                   "Any",
                   "Centre",
+                  "Objectiu",
                   "-_id"
                ],
                filter: filter
