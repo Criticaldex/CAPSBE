@@ -7,7 +7,7 @@ export default async function ContractsLayout({ children }: any) {
          <head>
             <title>Indicadors Contracte</title>
          </head>
-         <body className="pl-16 bg-body font-nunito">
+         <body className="font-nunito">
             <GetNav />
             <div className="h-20 bg-white bg-opacity-40 text-right flex justify-end items-center">
                <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">Indicadors Contracte</h1>

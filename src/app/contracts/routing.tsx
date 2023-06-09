@@ -40,29 +40,35 @@ export function GetNav() {
    const navTitlesIcons = [
       {
          name: 'Indicadors Contracte',
-         icon: FaCapsules
+         icon: FaCapsules,
+         ruta: 'http://localhost/contracts/2023/0'
       },
       {
          name: 'Professionals',
-         icon: FaUserNurse
+         icon: FaUserNurse,
+         ruta: 'https://trial.soidemdt.com:4000/professionals'
       }
    ]
    const navTitlesIconsFarma = [
       {
          name: 'Els Meus Centres',
-         icon: RiHospitalFill
+         icon: RiHospitalFill,
+         ruta: 'https://trial.soidemdt.com:4000/despesa'
       },
       {
          name: 'IQF',
-         icon: BiCapsule
+         icon: BiCapsule,
+         ruta: 'https://trial.soidemdt.com:4000/indicadors'
       },
       {
          name: 'Comparació',
-         icon: IoGitCompare
+         icon: IoGitCompare,
+         ruta: 'https://trial.soidemdt.com:4000/comparaciones'
       },
       {
          name: 'Arxius',
-         icon: AiOutlineFolder
+         icon: AiOutlineFolder,
+         ruta: 'https://trial.soidemdt.com:4000/archivos'
       }
    ]
 
@@ -77,7 +83,7 @@ export function GetNav() {
                </Link>
                <div className="flex flex-col justify-between" id="lista">
                   {navTitlesIcons.map((navTI, index) => (
-                     <Link key={index} href='' className="hover:text-customBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center">
+                     <Link key={index} href={navTI.ruta} className="hover:text-customBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center">
                         <navTI.icon size={20} />
                         <span className="text-lg">
                            {navTI.name}
