@@ -7,13 +7,9 @@ export default async function ContractsChart({ params }: any) {
    const infoChart = await getChartIndicators({ "Any": year, "Centre": center });
 
    return (
-      <div>
-         <aside>
-            <Chart
-               name={centros[center].name}
-               data={infoChart}
-            />
-         </aside>
-      </div>
+      <Chart
+         name={centros[center].name}
+         data={infoChart}
+      />
    )
 }
