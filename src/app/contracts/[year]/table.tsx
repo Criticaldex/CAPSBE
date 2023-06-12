@@ -2,7 +2,6 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { Chart } from "./[center]/chart";
-import { type } from 'os';
 
 const ExpandedComponent = ({ data }: any) => {
    const infoChart = data.values.map((i: any) => {
@@ -50,7 +49,7 @@ export function ContractsTable({ data, centros }: any) {
 
    let tableData: any = [];
    for (const [key, value] of Object.entries(data)) {
-      var objetivo = value[0].Objectiu
+      let objetivo = value[0].Objectiu
       if (objetivo < 0) {
          objetivo = '<' + Math.abs(objetivo)
       }
@@ -67,8 +66,8 @@ export function ContractsTable({ data, centros }: any) {
    const conditionalRowStyles = [
       {
          when: (row: any) => {
-            var pasaObjetivo: boolean[] = []
-            var objetivo = row.Objectiu
+            let pasaObjetivo: boolean[] = []
+            let objetivo = row.Objectiu
             if (objetivo != null && objetivo[0] == '<') {
                objetivo = -row.Objectiu.substring(1)
             }
@@ -85,16 +84,13 @@ export function ContractsTable({ data, centros }: any) {
          },
          style: {
             backgroundColor: 'rgba(63, 195, 128, 0.9)',
-            color: 'white',
-            '&:hover': {
-               cursor: 'pointer',
-            },
+            color: 'white'
          },
       },
       {
          when: (row: any) => {
-            var pasaObjetivo: boolean[] = []
-            var objetivo = row.Objectiu
+            let pasaObjetivo: boolean[] = []
+            let objetivo = row.Objectiu
             if (objetivo != null && objetivo[0] == '<') {
                objetivo = -row.Objectiu.substring(1)
             }
@@ -107,16 +103,13 @@ export function ContractsTable({ data, centros }: any) {
          },
          style: {
             backgroundColor: 'rgba(248, 148, 6, 0.9)',
-            color: 'white',
-            '&:hover': {
-               cursor: 'pointer',
-            },
+            color: 'white'
          },
       },
       {
          when: (row: any) => {
-            var pasaObjetivo: boolean[] = []
-            var objetivo = row.Objectiu
+            let pasaObjetivo: boolean[] = []
+            let objetivo = row.Objectiu
             if (objetivo != null && objetivo[0] == '<') {
                objetivo = -row.Objectiu.substring(1)
             }
@@ -133,7 +126,7 @@ export function ContractsTable({ data, centros }: any) {
          },
          style: {
             backgroundColor: 'rgba(242, 38, 19, 0.9)',
-            color: 'white',
+            color: 'white'
          },
       },
       {

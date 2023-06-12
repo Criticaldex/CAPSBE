@@ -41,34 +41,34 @@ export function GetNav() {
       {
          name: 'Indicadors Contracte',
          icon: FaCapsules,
-         ruta: 'http://localhost/contracts/2023/0'
+         ruta: ''
       },
       {
          name: 'Professionals',
          icon: FaUserNurse,
-         ruta: 'https://trial.soidemdt.com:4000/professionals'
+         ruta: ''
       }
    ]
    const navTitlesIconsFarma = [
       {
          name: 'Els Meus Centres',
          icon: RiHospitalFill,
-         ruta: 'https://trial.soidemdt.com:4000/despesa'
+         ruta: ''
       },
       {
          name: 'IQF',
          icon: BiCapsule,
-         ruta: 'https://trial.soidemdt.com:4000/indicadors'
+         ruta: ''
       },
       {
          name: 'Comparació',
          icon: IoGitCompare,
-         ruta: 'https://trial.soidemdt.com:4000/comparaciones'
+         ruta: ''
       },
       {
          name: 'Arxius',
          icon: AiOutlineFolder,
-         ruta: 'https://trial.soidemdt.com:4000/archivos'
+         ruta: ''
       }
    ]
 
