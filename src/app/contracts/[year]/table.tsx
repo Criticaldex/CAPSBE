@@ -15,6 +15,7 @@ const ExpandedComponent = ({ data }: any) => {
       <Chart
          name={data.id}
          data={infoChart}
+         objectiu={data.Objectiu}
       />
    );
 }

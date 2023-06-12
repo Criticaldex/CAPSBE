@@ -2,7 +2,9 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-export function Chart({ name, data }: any) {
+export function Chart({ name, data, objectiu }: any) {
+
+   if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
 
    const options = {
       chart: { type: 'spline' },
@@ -28,6 +30,11 @@ export function Chart({ name, data }: any) {
          title: {
             enabled: false
          },
+         plotLines: [{
+            color: '#FF0000',
+            width: 2,
+            value: objectiu
+         }]
       },
       credits: {
          text: ""
