@@ -1,5 +1,6 @@
 import React from "react";
-import { getMongoData, getCleanCenters, getTableIndicators } from "../../services/contracts";
+import { getTableIndicators } from "../../services/contracts";
+import { getCleanCenters } from "../../services/centros";
 import Link from "next/link";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";

@@ -1,5 +1,6 @@
 import { Chart } from './chart'
-import { getMongoData, getChartIndicators, getCleanCenters } from "../../../services/contracts";
+import { getChartIndicators } from "../../../services/contracts";
+import { getCleanCenters } from "../../../services/centros";
 
 export default async function ContractsChart({ params }: any) {
    const { year, center } = params;
