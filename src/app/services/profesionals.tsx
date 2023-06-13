@@ -11,13 +11,13 @@ const getMongoData = (filter: any) => {
          },
          body: JSON.stringify(
             {
-               model: 'contract',
+               model: 'profesional',
                fields: [
                   "Indicador",
-                  "Resultat",
-                  "Any",
-                  "Centre",
-                  "Objectiu",
+                  "sector",
+                  "any",
+                  "centre",
+                  "profesionals",
                   "-_id"
                ],
                filter: filter
@@ -31,7 +31,7 @@ export const getChartIndicators = async (filtros: any) => {
    return data.map((i: any) => {
       return {
          name: i.Indicador,
-         data: i.Resultat.map((res: string) => parseFloat(res.replaceAll(',', '.')))
+         data: i.profesionals.map((res: string) => res)
       }
    })
 }
