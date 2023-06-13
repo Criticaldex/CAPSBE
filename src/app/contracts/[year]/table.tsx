@@ -48,7 +48,7 @@ export function ContractsTable({ data, centros }: any) {
    })
 
    let tableData: any = [];
-   for (const [key, value] of Object.entries(data)) {
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
       let objetivo = (value[0].Objectiu < 0) ? `<${Math.abs(value[0].Objectiu)}` : value[0].Objectiu;
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], Objectiu: objetivo };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
@@ -116,7 +116,7 @@ export function ContractsTable({ data, centros }: any) {
          },
       },
       {
-         when: (row: any) => row.Objectiu == null,
+         when: (row: any): any => row.Objectiu == null,
          style: {
             backgroundColor: '#DDDDDD',
             color: 'black',
