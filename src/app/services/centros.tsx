@@ -20,13 +20,13 @@ const getCentros = (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getCleanCenters = async (year: any) => {
+export const getCleanCenters = async (year: any, module: String) => {
    const centro: any = await getCentros({});
    let data = await centro[0].Centros.map((centro: string, i: number) => {
       return {
          id: i.toString(),
          name: centro,
-         link: `/contracts/${year}/${i}`
+         link: `/${module}/${year}/${i}`
       }
    })
    return data

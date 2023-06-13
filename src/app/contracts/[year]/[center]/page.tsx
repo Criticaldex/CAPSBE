@@ -4,7 +4,7 @@ import { getCleanCenters } from "../../../services/centros";
 
 export default async function ContractsChart({ params }: any) {
    const { year, center } = params;
-   const centros = await getCleanCenters(year);
+   const centros = await getCleanCenters(year, 'contracts');
    const infoChart = await getChartIndicators({ "Any": year, "Centre": center });
 
    return (

@@ -8,7 +8,7 @@ import { Chart } from "./[center]/chart";
 export default async function loadContracts({ children, params }: any) {
 
    const { year } = params;
-   const centros = await getCleanCenters(year);
+   const centros = await getCleanCenters(year, 'contracts');
 
    const indicadoresContrato = await getTableIndicators({ "Any": year });
    const infoChart = [
