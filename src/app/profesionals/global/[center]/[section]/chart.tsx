@@ -2,10 +2,28 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-export function Chart({ name, data, objectiu }: any) {
+export function Chart({ name, data, objectiu, index }: any) {
 
-   if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
-
+   const data2: any = [
+      {
+         name: "pepe",
+         data: [
+            91.17,
+            99.64,
+            87.41,
+            74.76,
+         ],
+      },
+      {
+         name: "paco",
+         data: [
+            61.45,
+            65.54,
+            60.7,
+            45.58,
+         ],
+      },
+   ]
    const options = {
       chart: {
          animation: false,
@@ -24,17 +42,22 @@ export function Chart({ name, data, objectiu }: any) {
       },
       series: data,
       title: {
-         text: 'placeholder'
+         text: name
       },
       xAxis: {
-         categories: ['0', '1'],
+         categories: index,
          scrollbar: {
             enabled: true
          },
          tickLength: 0
       },
       yAxis: {
-         max: 100
+         max: 100,
+         plotLines: [{
+            color: '#FF0000',
+            width: 2,
+            value: objectiu
+         }]
       },
       credits: {
          enabled: false
