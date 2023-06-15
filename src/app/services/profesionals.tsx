@@ -52,9 +52,10 @@ export const getChartIndicators = async (filtros: any) => {
 
    let results: any = [];
    for (const [key, value] of (Object.entries(aaa) as [string, any][])) {
-      let result: { name: string, data: number[] } = {
+      let result: { name: string, data: number[], threshold: number } = {
          name: "",
-         data: []
+         data: [],
+         threshold: 0
       };
       result.name = key
       value.map((i: any) => {
