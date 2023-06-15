@@ -1,6 +1,6 @@
 import React from "react";
 import { getTableIndicators } from "../../services/contracts";
-import { getCleanCenters } from "../../services/centros";
+import { getContractsCenters } from "../../services/centros";
 import Link from "next/link";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
@@ -8,7 +8,7 @@ import { Chart } from "./[center]/chart";
 export default async function loadContracts({ children, params }: any) {
 
    const { year } = params;
-   const centros = await getCleanCenters(year);
+   const centros = await getContractsCenters(year);
 
    const indicadoresContrato = await getTableIndicators({ "Any": year });
    const infoChart = [

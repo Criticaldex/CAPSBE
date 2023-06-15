@@ -29,7 +29,7 @@ export function ContractsTable({ data, centros }: any) {
       style: { fontSize: '16px', backgroundColor: '', color: '' }
    }];
 
-   centros.map((centro: any, i: number) => {
+   centros.map((centro: any) => {
       columns.push({
          name: centro.name,
          selector: row => row[centro.name],
@@ -48,11 +48,8 @@ export function ContractsTable({ data, centros }: any) {
    })
 
    let tableData: any = [];
-   for (const [key, value] of Object.entries(data)) {
-      let objetivo = value[0].Objectiu
-      if (objetivo < 0) {
-         objetivo = '<' + Math.abs(objetivo)
-      }
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
+      let objetivo = (value[0].Objectiu < 0) ? `<${Math.abs(value[0].Objectiu)}` : value[0].Objectiu;
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], Objectiu: objetivo };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          indicador[centro.name] = value[centro.id].Resultat[value[centro.id].Resultat.length - 1];
@@ -67,20 +64,15 @@ export function ContractsTable({ data, centros }: any) {
       {
          when: (row: any) => {
             let pasaObjetivo: boolean[] = []
-            let objetivo = row.Objectiu
-            if (objetivo != null && objetivo[0] == '<') {
-               objetivo = -row.Objectiu.substring(1)
-            }
+            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+
             centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
                if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
                else pasaObjetivo.push(false)
             });
 
-            if (objetivo > 0) {
-               if (!pasaObjetivo.includes(false)) return true
-            } else {
-               if (!pasaObjetivo.includes(true)) return true
-            }
+            if (objetivo > 0 && !pasaObjetivo.includes(false)) return true
+            else if (!pasaObjetivo.includes(true)) return true
          },
          style: {
             backgroundColor: 'rgba(63, 195, 128, 0.9)',
@@ -90,10 +82,7 @@ export function ContractsTable({ data, centros }: any) {
       {
          when: (row: any) => {
             let pasaObjetivo: boolean[] = []
-            let objetivo = row.Objectiu
-            if (objetivo != null && objetivo[0] == '<') {
-               objetivo = -row.Objectiu.substring(1)
-            }
+            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
             centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
                if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
                else pasaObjetivo.push(false)
@@ -109,20 +98,17 @@ export function ContractsTable({ data, centros }: any) {
       {
          when: (row: any) => {
             let pasaObjetivo: boolean[] = []
-            let objetivo = row.Objectiu
-            if (objetivo != null && objetivo[0] == '<') {
-               objetivo = -row.Objectiu.substring(1)
-            }
+            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
             centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
                if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) pasaObjetivo.push(true)
                else pasaObjetivo.push(false)
             });
 
             if (objetivo > 0) {
-               if (!pasaObjetivo.includes(false)) return true
-            } else {
-               if (!pasaObjetivo.includes(true)) return true
-            }
+               if (!pasaObjetivo.includes(false)) {
+                  return true
+               }
+            } else if (!pasaObjetivo.includes(true)) return true
          },
          style: {
             backgroundColor: 'rgba(242, 38, 19, 0.9)',
@@ -130,7 +116,7 @@ export function ContractsTable({ data, centros }: any) {
          },
       },
       {
-         when: (row: any) => row.Objectiu == null,
+         when: (row: any): any => row.Objectiu == null,
          style: {
             backgroundColor: '#DDDDDD',
             color: 'black',
