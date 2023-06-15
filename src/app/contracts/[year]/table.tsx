@@ -29,7 +29,7 @@ export function ContractsTable({ data, centros }: any) {
       style: { fontSize: '16px', backgroundColor: '', color: '' }
    }];
 
-   centros.map((centro: any, i: number) => {
+   centros.map((centro: any) => {
       columns.push({
          name: centro.name,
          selector: row => row[centro.name],
