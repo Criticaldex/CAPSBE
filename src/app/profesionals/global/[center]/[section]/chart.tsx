@@ -2,15 +2,79 @@
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-export function Chart({ name, data, objectiu }: any) {
+function renderMarkers(this: any) {
 
-   if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
+   var positions = [75, 80, 50, 10]
+   var chart = this,
+      xAxis = chart.xAxis[0],
+      yAxis = chart.yAxis[0],
+      renderer = chart.renderer,
+      tempArray: any[] = [],
+      singleMarkerPath;
 
+   if (chart.additionalMarkers) {
+      chart.additionalMarkers.forEach(function (marker: any, index: any) {
+         marker.attr({
+            d: "" // Cambia el nuevo path de la marca
+         });
+         marker.dataLabel.attr({
+            text: ""
+         });
+      });
+   }
+
+   positions.forEach(function (position: any, index: any) {
+      singleMarkerPath = [
+         'M', xAxis.toPixels(-0.35 + index), yAxis.toPixels(position),
+         'L', xAxis.toPixels(0.34 + index), yAxis.toPixels(position)
+      ];
+
+      if (!chart.additionalMarkers) {
+         var marker = renderer.path(singleMarkerPath)
+            .attr({
+               'stroke-width': 1.5,
+               stroke: 'red',
+               zIndex: 2,
+            })
+            .add();
+
+         var label = renderer.label(positions[index].toString(), xAxis.toPixels(-0.38 + index), yAxis.toPixels(position) - 20)
+            .css({
+               color: 'black',
+               fontSize: '12px'
+            })
+            .add();
+
+         marker.dataLabel = label; // Asociar la etiqueta al marcador
+         tempArray.push(marker)
+      } else {
+         chart.additionalMarkers[index].attr({
+            d: singleMarkerPath
+         })
+         var label = renderer.label(positions[index].toString(), xAxis.toPixels(-0.38 + index), yAxis.toPixels(position) - 20)
+            .css({
+               color: 'black',
+               fontSize: '12px'
+            })
+            .add();
+         chart.additionalMarkers[index].dataLabel.destroy()
+         chart.additionalMarkers[index].dataLabel = label;
+      }
+   });
+
+   if (!chart.additionalMarkers) {
+      chart.additionalMarkers = tempArray;
+   }
+}
+
+export function Chart({ name, data, objectiu, index }: any) {
    const options = {
       chart: {
          animation: false,
          type: 'column',
-         spacingTop: 40,
+         events: {
+            load: renderMarkers
+         }
       },
       lang: {
          noData: "No hi han dades disponibles"
@@ -24,17 +88,18 @@ export function Chart({ name, data, objectiu }: any) {
       },
       series: data,
       title: {
-         text: 'placeholder'
+         text: name
       },
       xAxis: {
-         categories: ['0', '1'],
+         categories: index,
          scrollbar: {
             enabled: true
          },
          tickLength: 0
       },
       yAxis: {
-         max: 100
+         max: 100,
+         min: 0
       },
       credits: {
          enabled: false

@@ -36,15 +36,35 @@ const getMongoData = (filter: any) => {
 }
 
 export const getChartIndicators = async (filtros: any) => {
-   const data = await getMongoData(filtros);
-   return data.map((i: any) => {
-      for (const [key, value] of (Object.entries(i.professionals) as [string, any][])) {
-         return {
-            name: key,
-            data: value[5]
+   const data = await getTableIndicators(filtros);
+   let res: any = [];
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
+      value.map((i: any) => {
+         for (const [key, value] of (Object.entries(i.professionals) as [string, any][])) {
+            res.push({
+               name: key,
+               data: value[Object.keys(value)[Object.keys(value).length - 1]]
+            })
          }
-      }
-   })
+      })
+   }
+   let aaa = _.groupBy(res, 'name');
+
+   let results: any = [];
+   for (const [key, value] of (Object.entries(aaa) as [string, any][])) {
+      let result: { name: string, data: number[], threshold: number } = {
+         name: "",
+         data: [],
+         threshold: 0
+      };
+      result.name = key
+      value.map((i: any) => {
+         result.data.push(i.data)
+      })
+      results.push(result);
+   }
+
+   return results;
 }
 
 export const getTableIndicators = async (filtros: any) => {
@@ -64,15 +84,6 @@ export const getSections = async (center: any, year: any) => {
 }
 
 export const getProfesionals = async (filtros: any) => {
-   filtros.Indicador = {
-      $in: [
-         "EQAU0208 - DM2: Cribratge peu",
-         "EQAU0235 - HTA: control de la TA en pacients amb IRC",
-         "EQAU0301 - Cribratge del consum d'alcohol",
-         "EQAU0239 - Ús incorrrecte PSA en majors 70 anys",
-         "EQAU0702 - EQAU0702 - Cobertura vacunal sistemàtica infantil"
-      ]
-   }
    const data = await getMongoData(filtros);
    let groupByCentre = _.groupBy(data, 'centre');
    let prof: string[] = [];
@@ -82,4 +93,13 @@ export const getProfesionals = async (filtros: any) => {
       }
    }
    return prof;
+}
+
+export const getIndicators = async (filtros: any) => {
+   const data = await getTableIndicators(filtros);
+   let indi: string[] = [];
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
+      indi.push(key);
+   }
+   return indi;
 }

@@ -40,7 +40,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       };
 
       indicador.map((centre: any) => {
-         console.log('CENTRE: ', centre);
          for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
             fila[key] = prof[Object.keys(prof)[Object.keys(prof).length - 1]];
          }
