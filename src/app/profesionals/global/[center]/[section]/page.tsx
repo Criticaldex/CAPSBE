@@ -14,8 +14,7 @@ export default async function ProfesionalsChart({ params }: any) {
    const profesionals = await getProfesionals(filters);
 
    return (
-      <div className="bg-blue-600">
-         <h1>!!!!!!SECTION {center} / {section}!!!!!</h1>
+      <div>
          <Chart
             name={'maig 2023'}
             data={infoChart}

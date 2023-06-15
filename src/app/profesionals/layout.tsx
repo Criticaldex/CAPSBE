@@ -5,7 +5,7 @@ export default async function ProfesionalsLayout({ children }: any) {
    const centros = await getProfesionalsCenters();
 
    return (
-      <div className="bg-yellow-600">
+      <div>
          <title>Profesionals</title>
          <div className="h-20 bg-white bg-opacity-40 text-right flex justify-end items-center">
             <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">Profesionals</h1>
