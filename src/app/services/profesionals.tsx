@@ -80,8 +80,6 @@ export const getProfesionals = async (filtros: any) => {
       for (const [key] of (Object.entries(value[0].professionals) as [string, any][])) {
          prof.push(key);
       }
-
    }
-
    return prof;
 }
