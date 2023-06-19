@@ -119,9 +119,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
             data={tableData}
             // conditionalRowStyles={conditionalRowStyles}
             theme={'dark'}
-            expandableRows
-            expandableRowsHideExpander
-            expandOnRowClicked
          />
       </div>
    )
