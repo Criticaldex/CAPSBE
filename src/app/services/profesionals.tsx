@@ -1,6 +1,6 @@
 import _ from "lodash"
 const getMongoData = (filter: any) => {
-   filter.Indicador = {
+   filter.indicador = {
       $in: [
          "EQAU0208 - DM2: Cribratge peu",
          "EQAU0235 - HTA: control de la TA en pacients amb IRC",
@@ -20,13 +20,14 @@ const getMongoData = (filter: any) => {
          },
          body: JSON.stringify(
             {
-               model: 'profesional',
+               model: 'profes',
                fields: [
-                  "Indicador",
+                  "indicador",
                   "sector",
                   "any",
                   "centre",
                   "professionals",
+                  "objectiu",
                   "-_id"
                ],
                filter: filter
@@ -70,7 +71,7 @@ export const getChartIndicators = async (filtros: any) => {
 
 export const getTableIndicators = async (filtros: any) => {
    const data = await getMongoData(filtros);
-   return _.groupBy(data, 'Indicador');
+   return _.groupBy(data, 'indicador');
 }
 
 export const getSections = async (center: any, year: any) => {
@@ -82,6 +83,17 @@ export const getSections = async (center: any, year: any) => {
       sectors.push(key);
    }
    return sectors;
+}
+
+export const getYears = async (center: any, section: any) => {
+   let filtros = (center == 'all') ? { 'sector': section.replaceAll('_', ' ') } : { 'sector': section.replaceAll('_', ' '), 'centre': center }
+   const data = await getMongoData(filtros);
+   let groupByYear = _.groupBy(data, 'any');
+   let years: string[] = [];
+   for (const [key, value] of (Object.entries(groupByYear) as [string, any][])) {
+      years.push(key);
+   }
+   return years;
 }
 
 export const getProfesionals = async (filtros: any) => {
@@ -96,6 +108,18 @@ export const getProfesionals = async (filtros: any) => {
    return prof;
 }
 
+export const getCentre = async (profesional: string) => {
+   const data = await getMongoData({});
+   for (let i = 0; i < data.length; i++) {
+      for (const [key, value] of (Object.entries(data[i].professionals) as [string, any][])) {
+         if (key.includes(profesional)) {
+            return data[i].centre;
+         }
+      }
+   }
+
+}
+
 export const getIndicators = async (filtros: any) => {
    const data = await getTableIndicators(filtros);
    let indi: string[] = [];
@@ -103,4 +127,22 @@ export const getIndicators = async (filtros: any) => {
       indi.push(key);
    }
    return indi;
+}
+
+export const getChartIndividual = async (filtros: any, profesional: string) => {
+   const data = await getMongoData(filtros);
+   let chart: any[] = [];
+   let item: { name: string, data: number[] };
+   data.map((d: any, i: number) => {
+      for (const [key, value] of (Object.entries(d.professionals) as [string, any][])) {
+         if (key.includes(profesional)) {
+            chart.push({
+               name: d.indicador,
+               data: value
+            })
+         }
+      }
+   })
+
+   return chart;
 }
