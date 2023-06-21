@@ -4,8 +4,8 @@ export default async function loadProfesionals({ children, params }: any) {
 
    const { view } = params;
    return (
-      <div>
+      <section>
          {children}
-      </div>
+      </section>
    )
 }

@@ -112,7 +112,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
    // ];
 
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div className="rounded-lg overflow-hidden bg-body mb-5">
          <DataTable
             className='max-w-full shadow-lg'
             columns={columns}
