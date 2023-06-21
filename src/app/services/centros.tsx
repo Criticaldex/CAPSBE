@@ -40,6 +40,5 @@ export const getProfesionalsCenters = async () => {
          name: centro
       }
    })
-   data.push();
    return data
 }
