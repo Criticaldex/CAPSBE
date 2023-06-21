@@ -31,7 +31,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       let fila: { [k: string]: any } = {
          id: key,
          Indicador: key,
-         Objectiu: indicador[0].objectiu
+         Objectiu: (indicador[0].objectiu < 0) ? `<${Math.abs(indicador[0].objectiu)}` : indicador[0].objectiu
       };
 
       indicador.map((centre: any) => {
@@ -48,8 +48,8 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
          when: (row: any) => {
             let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
 
-            if (row[profesional] >= Math.abs(objetivo)) return true;
-            else return false;
+            if (objetivo > 0 && row[profesional] >= Math.abs(objetivo)) return true;
+            else if (objetivo < 0 && row[profesional] <= Math.abs(objetivo)) return true;
          },
          style: {
             backgroundColor: 'rgba(63, 195, 128, 0.9)',
@@ -60,7 +60,8 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
          when: (row: any) => {
             let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
 
-            if (row[profesional] <= Math.abs(objetivo)) return true;
+            if (objetivo > 0 && row[profesional] <= Math.abs(objetivo)) return true;
+            else if (objetivo < 0 && row[profesional] >= Math.abs(objetivo)) return true
          },
          style: {
             backgroundColor: 'rgba(242, 38, 19, 0.9)',
