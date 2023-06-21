@@ -47,72 +47,8 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       tableData.push(fila);
    }
 
-   // const conditionalRowStyles = [
-   //    {
-   //       when: (row: any) => {
-   //          let pasaObjetivo: boolean[] = []
-   //          let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-   //          profesionals.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-   //             if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
-   //             else pasaObjetivo.push(false)
-   //          });
-
-   //          if (objetivo > 0 && !pasaObjetivo.includes(false)) return true
-   //          else if (!pasaObjetivo.includes(true)) return true
-   //       },
-   //       style: {
-   //          backgroundColor: 'rgba(63, 195, 128, 0.9)',
-   //          color: 'white'
-   //       },
-   //    },
-   //    {
-   //       when: (row: any) => {
-   //          let pasaObjetivo: boolean[] = []
-   //          let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
-   //          profesionals.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-   //             if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
-   //             else pasaObjetivo.push(false)
-   //          });
-
-   //          if (pasaObjetivo.includes(false) && pasaObjetivo.includes(true)) return true
-   //       },
-   //       style: {
-   //          backgroundColor: 'rgba(248, 148, 6, 0.9)',
-   //          color: 'white'
-   //       },
-   //    },
-   //    {
-   //       when: (row: any) => {
-   //          let pasaObjetivo: boolean[] = []
-   //          let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
-   //          profesionals.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-   //             if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) pasaObjetivo.push(true)
-   //             else pasaObjetivo.push(false)
-   //          });
-
-   //          if (objetivo > 0) {
-   //             if (!pasaObjetivo.includes(false)) {
-   //                return true
-   //             }
-   //          } else if (!pasaObjetivo.includes(true)) return true
-   //       },
-   //       style: {
-   //          backgroundColor: 'rgba(242, 38, 19, 0.9)',
-   //          color: 'white'
-   //       },
-   //    },
-   //    {
-   //       when: (row: any): any => row.Objectiu == null,
-   //       style: {
-   //          backgroundColor: '#DDDDDD',
-   //          color: 'black',
-   //       },
-   //    }
-   // ];
-
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div className="rounded-lg overflow-hidden bg-body mb-5">
          <DataTable
             className='max-w-full shadow-lg'
             columns={columns}

@@ -154,13 +154,11 @@ export function Chart({ name, data, objectiu, index }: any) {
    }
 
    return (
-      <div className="max-h-1/2 mx-2 py-1">
-         <div className="max-h-full px-3 bg-white rounded-xl shadow-lg shadow-gray-400-50">
-            <HighchartsReact
-               highcharts={Highcharts}
-               options={options}
-            />
-         </div>
+      <div className="bg-white rounded-xl shadow-lg shadow-gray-400-50 px-3 mb-2">
+         <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+         />
       </div>
    )
 }
