@@ -22,7 +22,7 @@ export function GetLinksView() {
 
    return (
       <ul className="flex flex-col h-8 my-2 text-black bg-nav border-l-2 rounded-r-md border-gray-200 w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
-         <h4 className="text-white mx-4 py-1 cursor-default">Professionals <span>&#11167;</span></h4>
+         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -57,12 +57,11 @@ export function GetLinksCentro({ centros }: any) {
 
    return (
       <ul className="transition-all duration-500 flex flex-col my-2 text-black bg-nav rounded-l-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-white mx-4 py-1 cursor-default">Centros <span>&#11167;</span></h4>
+         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
                <hr className="w-10/12 m-auto" />
-               <li className="bg-blue-700 py-2 px-5.
-                text-white hover:bg-blue-600">
+               <li className="py-2 px-5 text-white hover:bg-blue-600">
                   {label}
                </li>
             </Link>
