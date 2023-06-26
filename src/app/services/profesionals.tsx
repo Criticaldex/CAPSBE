@@ -11,9 +11,6 @@ const getMongoData = (filter: any) => {
    }
    return fetch('http://localhost:3000/api/getMongoData',
       {
-         next: {
-            revalidate: 10
-         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
