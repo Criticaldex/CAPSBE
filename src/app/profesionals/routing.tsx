@@ -21,12 +21,12 @@ export function GetLinksView() {
    ]
 
    return (
-      <ul className="flex flex-col h-8 my-2 text-black bg-nav border-l-2 rounded-r-md border-gray-200 w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
-         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
+      <ul className="flex flex-col h-8 my-2 bg-nav border-l-2 rounded-r-md border-textColor w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
+         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
                <hr className="w-10/12 m-auto" />
-               <li className="py-2 px-5 text-white hover:bg-blue-600">
+               <li className="py-2 px-5 text-textColor hover:bg-darkBlue">
                   {label}
                </li>
             </Link>
@@ -56,12 +56,12 @@ export function GetLinksCentro({ centros }: any) {
    ))
 
    return (
-      <ul className="transition-all duration-500 flex flex-col my-2 text-black bg-nav rounded-l-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
+      <ul className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-l-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
+         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
                <hr className="w-10/12 m-auto" />
-               <li className="py-2 px-5 text-white hover:bg-blue-600">
+               <li className="py-2 px-5 text-textColor hover:bg-darkBlue">
                   {label}
                </li>
             </Link>
@@ -85,9 +85,9 @@ export function GetLinksSection({ sections }: any) {
    ))
 
    return (
-      <ul className="w-full flex flex-wrap justify-between px-4 my-2 text-black border-gray-900 rounded-md">
+      <ul className="w-full flex flex-wrap justify-between px-4 my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname == route ? 'border-b-4 border-blue-700 bg-gradient-to-b from-stone-800 to-stone-500 text-white text-center' : 'border-b-2 border-stone-700 text-black text-center hover:bg-gradient-to-b hover:from-blue-200 hover:to-transparent'}`} key={route} href={route}>
+            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname == route ? 'border-b-4 border-darkBlue bg-gradient-to-b from-bgDark to-bgLight text-textColor text-center' : 'border-b-2 border-bgLight text-textColor2 text-center hover:bg-gradient-to-b hover:from-bgLight hover:to-bgDark'}`} key={route} href={route}>
                <li className="w-100 ">
                   {label}
                </li>

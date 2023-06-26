@@ -1,7 +1,8 @@
 'use client'
 import React from 'react';
-import DataTable from 'react-data-table-component';
+import DataTable, { createTheme } from 'react-data-table-component';
 import { Chart } from "./[center]/chart";
+import { createThemes } from "@/app/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
    const infoChart = data.values.map((i: any) => {
@@ -44,7 +45,7 @@ export function ContractsTable({ data, centros }: any) {
       selector: row => row.Objectiu,
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: '#666666', color: 'white' }
+      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    })
 
    let tableData: any = [];
@@ -75,8 +76,8 @@ export function ContractsTable({ data, centros }: any) {
             else if (!pasaObjetivo.includes(true)) return true
          },
          style: {
-            backgroundColor: 'rgba(63, 195, 128, 0.9)',
-            color: 'white'
+            backgroundColor: 'var(--green)',
+            color: 'var(--white)',
          },
       },
       {
@@ -91,8 +92,8 @@ export function ContractsTable({ data, centros }: any) {
             if (pasaObjetivo.includes(false) && pasaObjetivo.includes(true)) return true
          },
          style: {
-            backgroundColor: 'rgba(248, 148, 6, 0.9)',
-            color: 'white'
+            backgroundColor: 'var(--orange)',
+            color: 'var(--white)',
          },
       },
       {
@@ -111,27 +112,29 @@ export function ContractsTable({ data, centros }: any) {
             } else if (!pasaObjetivo.includes(true)) return true
          },
          style: {
-            backgroundColor: 'rgba(242, 38, 19, 0.9)',
-            color: 'white'
+            backgroundColor: 'var(--red)',
+            color: 'var(--white)'
          },
       },
       {
          when: (row: any): any => row.Objectiu == null,
          style: {
-            backgroundColor: '#DDDDDD',
-            color: 'black',
+            backgroundColor: 'var(--background-color)',
+            color: 'var(--text-color)',
          },
       }
    ];
 
+   createThemes();
+
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div className="rounded-lg overflow-hidden basis-1/2">
          <DataTable
-            className='max-w-full shadow-lg'
+            className=''
             columns={columns}
             data={tableData}
             conditionalRowStyles={conditionalRowStyles}
-            theme={'dark'}
+            theme={'custom'}
             expandableRows
             expandableRowsHideExpander
             expandOnRowClicked
