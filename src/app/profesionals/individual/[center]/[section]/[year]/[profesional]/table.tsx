@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import { createThemes } from "@/app/styles/themes"
+import { createThemes } from "@/app/styles/themes";
 
 
 export function ProfesionalsTable({ data, profesionals, profesional }: any) {
@@ -54,8 +54,8 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             else if (objetivo < 0 && row[profesional] <= Math.abs(objetivo)) return true;
          },
          style: {
-            backgroundColor: 'var(--green);',
-            color: 'var(--white);'
+            backgroundColor: 'var(--green)',
+            color: 'var(--white)'
          },
       },
       {
@@ -66,15 +66,15 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             else if (objetivo < 0 && row[profesional] >= Math.abs(objetivo)) return true
          },
          style: {
-            backgroundColor: 'var(--red);',
-            color: 'var(--white);'
+            backgroundColor: 'var(--red)',
+            color: 'var(--white)'
          },
       },
       {
          when: (row: any): any => row.Objectiu == null,
          style: {
-            backgroundColor: '#DDDDDD',
-            color: 'black',
+            backgroundColor: 'var(--background-color)',
+            color: 'var(--text-color)',
          },
       }
    ];
@@ -87,9 +87,10 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             className=''
             columns={columns}
             data={tableData}
-            conditionalRowStyles={conditionalRowStyles}
             theme={'custom'}
+            conditionalRowStyles={conditionalRowStyles}
          />
       </div>
    )
+
 };
