@@ -4,25 +4,18 @@ import DataTable, { TableColumn } from 'react-data-table-component';
 
 export function ProfesionalsTable({ data, profesionals }: any) {
 
-   let columns = [{
+   let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
       style: { fontSize: '16px', backgroundColor: '', color: '' },
-      conditionalCellStyles: [{
-         when: (row: any) => true, // Agrega la propiedad "when" con una condición apropiada
-         style: {
-            backgroundColor: 'white',
-            color: 'black'
-         },
-      }]
    }];
 
    profesionals.map((prof: any) => {
       columns.push({
          name: prof,
-         selector: row => row[prof],
+         selector: (row: any) => row[prof],
          sortable: false,
          grow: 1,
          style: { fontSize: '', backgroundColor: '', color: '' },
@@ -32,10 +25,9 @@ export function ProfesionalsTable({ data, profesionals }: any) {
                   let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
 
                   if (objetivo > 0 && row[prof] >= Math.abs(objetivo)) return true;
-                  else {
-                     if (objetivo < 0 && row[prof] <= Math.abs(objetivo)) return true;
-                     else return false
-                  }
+                  else if (objetivo < 0 && row[prof] <= Math.abs(objetivo)) return true;
+                  else return false
+
                },
                style: {
                   backgroundColor: 'rgba(63, 195, 128, 0.9)',
@@ -47,10 +39,9 @@ export function ProfesionalsTable({ data, profesionals }: any) {
                   let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
 
                   if (objetivo > 0 && row[prof] <= Math.abs(objetivo)) return true;
-                  else {
-                     if (objetivo < 0 && row[prof] >= Math.abs(objetivo)) return true
-                     else return false
-                  }
+                  else if (objetivo < 0 && row[prof] >= Math.abs(objetivo)) return true
+                  else return false
+
                },
                style: {
                   backgroundColor: 'rgba(242, 38, 19, 0.9)',
@@ -70,22 +61,14 @@ export function ProfesionalsTable({ data, profesionals }: any) {
 
    columns.push({
       name: 'Objectiu',
-      selector: row => row.Objectiu,
+      selector: (row: any) => row.Objectiu,
       sortable: false,
       grow: 1,
       style: { fontSize: '', backgroundColor: '#666666', color: 'white' },
-      conditionalCellStyles: [{
-         when: () => true, // Agrega la propiedad "when" con una condición apropiada
-         style: {
-            backgroundColor: 'rgba(255,255,255, 1)',
-            color: 'black'
-         },
-      }]
    })
 
    let tableData: any = [];
    for (const [key, indicador] of (Object.entries(data) as [string, any][])) {
-      //let objetivo = (value[0].Objectiu < 0) ? `<${Math.abs(value[0].Objectiu)}` : value[0].Objectiu;
       let fila: { [k: string]: any } = {
          id: key,
          Indicador: key,
