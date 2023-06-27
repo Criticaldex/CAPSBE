@@ -36,7 +36,7 @@ export default async function ProfesionalsChart({ params }: any) {
 
 
    return (
-      <div className="bg-green-300">
+      <div>
          <Chart
             name={chartName}
             data={infoChart}
