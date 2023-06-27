@@ -93,7 +93,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
             className=''
             columns={columns}
             data={tableData}
-            // conditionalRowStyles={conditionalRowStyles}
             theme={'custom'}
          />
       </div>
