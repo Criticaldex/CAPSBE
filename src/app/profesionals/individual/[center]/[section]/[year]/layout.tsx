@@ -7,15 +7,11 @@ export default async function ProfesionalsChart({ children, params }: any) {
    const profesionals = await getProfesionals(filters);
 
    return (
-      <div className="flex">
-         <div className="w-1/4">
-            <GetLinksProfesionals
-               profesionals={profesionals}
-            />
-         </div>
-         <div className="w-3/4">
-            {children}
-         </div>
+      <div className="bg-green-500">
+         <GetLinksProfesionals
+            profesionals={profesionals}
+         />
+         {children}
       </div>
    )
 }

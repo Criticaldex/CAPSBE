@@ -6,7 +6,7 @@ export default async function ProfesionalsChart({ children, params }: any) {
    const years = await getYears(center, section);
 
    return (
-      <div>
+      <div className="bg-green-700">
          <GetLinksYears
             years={years}
          />
