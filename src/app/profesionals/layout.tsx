@@ -8,10 +8,10 @@ export default async function ProfesionalsLayout({ children }: any) {
    return (
       <div>
          <title>Profesionals</title>
-         <div className="h-20 bg-white bg-opacity-40 text-right flex justify-end items-center">
+         <div className="h-20 bg-white bg-opacity-10 text-right flex justify-end items-center">
             <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">Professionals</h1>
          </div>
-         <hr className="w-11/12 m-auto mt-0 border-t-2" />
+         <hr className="w-11/12 m-auto mt-0 border-t-2 border-darkBlue" />
          <div className="w-full flex justify-start absolute top-5 pl-10">
             <GetLinksCentro
                centros={centros}

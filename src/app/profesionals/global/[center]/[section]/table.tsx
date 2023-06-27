@@ -1,6 +1,8 @@
 'use client'
 import React from 'react';
-import DataTable, { TableColumn } from 'react-data-table-component';
+import DataTable from 'react-data-table-component';
+import { createThemes } from "@/app/styles/themes"
+
 
 export function ProfesionalsTable({ data, profesionals }: any) {
 
@@ -64,7 +66,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       selector: (row: any) => row.Objectiu,
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: '#666666', color: 'white' },
+      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    })
 
    let tableData: any = [];
@@ -83,14 +85,16 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       tableData.push(fila);
    }
 
+   createThemes();
+
    return (
-      <div className="rounded-lg overflow-hidden bg-body mb-5">
+      <div className="rounded-lg overflow-hidden mb-5">
          <DataTable
-            className='max-w-full shadow-lg'
+            className=''
             columns={columns}
             data={tableData}
             // conditionalRowStyles={conditionalRowStyles}
-            theme={'dark'}
+            theme={'custom'}
          />
       </div>
    )

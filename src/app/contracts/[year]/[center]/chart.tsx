@@ -29,12 +29,7 @@ export function Chart({ name, data, objectiu }: any) {
       yAxis: {
          title: {
             enabled: false
-         },
-         plotLines: [{
-            color: '#FF0000',
-            width: 2,
-            value: objectiu
-         }]
+         }
       },
       credits: {
          text: ""
@@ -44,15 +39,12 @@ export function Chart({ name, data, objectiu }: any) {
          align: 'right',
          verticalAlign: 'middle',
          width: 125
-      },
-      tooltip: {
-         shared: false
       }
    }
 
    return (
       <div className="max-h-1/2 mx-2 py-1">
-         <div className="max-h-full px-3 bg-white rounded-xl shadow-lg shadow-gray-400-50">
+         <div className="max-h-full px-3 bg-bgLight rounded-md">
             <HighchartsReact
                highcharts={Highcharts}
                options={options}
