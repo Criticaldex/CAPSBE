@@ -32,8 +32,8 @@ export function ProfesionalsTable({ data, profesionals }: any) {
 
                },
                style: {
-                  backgroundColor: 'rgba(63, 195, 128, 0.9)',
-                  color: 'white'
+                  backgroundColor: 'var(--green)',
+                  color: 'var(--white)'
                },
             },
             {
@@ -46,15 +46,15 @@ export function ProfesionalsTable({ data, profesionals }: any) {
 
                },
                style: {
-                  backgroundColor: 'rgba(242, 38, 19, 0.9)',
-                  color: 'white'
+                  backgroundColor: 'var(--red)',
+                  color: 'var(--white)'
                },
             },
             {
                when: (row: any): any => row.Objectiu == null,
                style: {
-                  backgroundColor: '#DDDDDD',
-                  color: 'black',
+                  backgroundColor: 'var(--background-color)',
+                  color: 'var(--text-color)',
                },
             },
          ]

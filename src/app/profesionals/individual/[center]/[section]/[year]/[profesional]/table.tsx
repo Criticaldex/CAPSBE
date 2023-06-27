@@ -66,7 +66,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             else if (objetivo < 0 && row[profesional] >= Math.abs(objetivo)) return true
          },
          style: {
-            backgroundColor: 'var(--orange);',
+            backgroundColor: 'var(--red);',
             color: 'var(--white);'
          },
       },
@@ -92,5 +92,4 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
          />
       </div>
    )
-
 };
