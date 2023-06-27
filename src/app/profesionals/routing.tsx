@@ -56,7 +56,7 @@ export function GetLinksCentro({ centros }: any) {
    ))
 
    return (
-      <ul className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-l-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
+      <ul className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
          <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
