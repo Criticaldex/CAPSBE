@@ -13,12 +13,17 @@ module.exports = {
                'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
          },
          colors: {
-            body: '#F2F2F2',
-            nav: '#262626',
-            customBlue: '#0468BF',
-            softBlue: '#0dcaf0',
-            redCustom: '#ff7b5a',
-            yellowCustom: '#31a84f'
+            nav: 'var(--bg-nav)',
+            textColor: 'var(--text-color)',
+            textColor2: 'var(--text-color-2)',
+            foreground: 'var(--foreground)',
+            chart: 'var(--bg-light)',
+            darkBlue: 'var(--darkBlue)',
+            lightBlue: 'var(--lightBlue)',
+            redCustom: 'var(--redCustom)',
+            yellowCustom: 'var(--yellow)',
+            bgLight: 'var(--bg-light)',
+            bgDark: 'var(--bg-dark)',
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']

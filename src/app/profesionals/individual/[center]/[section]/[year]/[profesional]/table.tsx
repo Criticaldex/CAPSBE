@@ -1,6 +1,8 @@
 'use client'
 import React from 'react';
 import DataTable from 'react-data-table-component';
+import { createThemes } from "@/app/styles/themes"
+
 
 export function ProfesionalsTable({ data, profesionals, profesional }: any) {
 
@@ -23,7 +25,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       selector: (row: any) => row.Objectiu,
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: '#666666', color: 'white' }
+      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    }];
 
    let tableData: any = [];
@@ -52,8 +54,8 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             else return false;
          },
          style: {
-            backgroundColor: 'rgba(63, 195, 128, 0.9)',
-            color: 'white'
+            backgroundColor: 'var(--green);',
+            color: 'var(--white);'
          },
       },
       {
@@ -63,8 +65,8 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             if (row[profesional] <= Math.abs(objetivo)) return true;
          },
          style: {
-            backgroundColor: 'rgba(242, 38, 19, 0.9)',
-            color: 'white'
+            backgroundColor: 'var(--orange);',
+            color: 'var(--white);'
          },
       },
       {
@@ -76,14 +78,16 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       }
    ];
 
+   createThemes();
+
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div className="rounded-lg overflow-hidden basis-1/2">
          <DataTable
-            className='max-w-full shadow-lg'
+            className=''
             columns={columns}
             data={tableData}
             conditionalRowStyles={conditionalRowStyles}
-            theme={'dark'}
+            theme={'custom'}
          />
       </div>
    )

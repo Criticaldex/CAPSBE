@@ -109,52 +109,8 @@ export function Chart({ name, data, objectiu, index }: any) {
       }
    }
 
-   const options2 = {
-      chart: { type: 'spline' },
-      lang: {
-         noData: "No hi han dades disponibles"
-      },
-      noData: {
-         style: {
-            fontSize: '26px',
-            fontWeight: 'bold',
-            color: '#666666'
-         },
-      },
-      title: {
-         text: name
-      },
-      series: data,
-      xAxis: {
-         categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre'],
-         startOnTick: true
-      },
-      yAxis: {
-         title: {
-            enabled: false
-         },
-         plotLines: [{
-            color: '#FF0000',
-            width: 2,
-            value: objectiu
-         }]
-      },
-      credits: {
-         text: ""
-      },
-      legend: {
-         enabled: true,
-         align: 'right',
-         verticalAlign: 'middle',
-         width: 125
-      },
-      tooltip: {
-         shared: false
-      }
-   }
-
    return (
-      <div className="bg-white rounded-xl shadow-lg shadow-gray-400-50 px-3 mb-2">
+      <div className="bg-bgLight rounded-md px-3 mb-2">
          <HighchartsReact
             highcharts={Highcharts}
             options={options}

@@ -3,25 +3,94 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+   --foreground: #ddd;
+   --background-start: #222;
+   --background-end: #222;
+   --background-color: #222;
+   --text-color: #ddd;
+   --text-color-2: #dddddd88;
+   --bg-nav: #161616;
+   --bg-light: #424242;
+   --bg-dark: #333;
+   --red-1: #f22613;
+   --red: #ff4f68;
+   --green: #32c87d;
+   --orange-1: #f29513;
+   --orange: #f8b068;
+   --darkBlue: #0468BF;
+   --lightBlue: #0dcaf0;
+   --yellow: #eab107;
+   --white: #fff;
+   --black: #000;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb:  0, 0, 0;
-    --background-start-rgb: 255, 255, 255;
-    --background-end-rgb: 255, 255, 255;
-  }
+   :root {
+      --foreground: #ddd;
+      --background-start: #222;
+      --background-end: #222;
+      --background-color: #222;
+      --bg-nav: #161616;
+      --text-color: #ddd;
+      --text-color-2: #dddddd88;
+      --bg-light: #424242;
+      --bg-dark: #333;
+   }
+}
+
+@media (prefers-color-scheme: light) {
+   :root {
+      --foreground: #222;
+      --background-start: #ddd;
+      --background-end: #ddd;
+      --background-color: #ddd;
+      --bg-nav: #eee;
+      --text-color: #222;
+      --text-color-2: #33333388;
+      --bg-light: #fff;
+      --bg-dark: #bbb;
+   }
 }
 
 body {
-   color: rgb(var(--foreground-rgb));
-   --tw-bg-opacity: 1;
-   background-color: rgb(242 242 242 / var(--tw-bg-opacity));
-   padding-left: 4rem/* 64px */;
+   color: var(--foreground);
+   background: linear-gradient(to bottom,
+         transparent,
+         var(--background-end)) var(--background-start);
+   padding-left: 4rem;
 }
+
+/* ---------------- HIGHCHARTS CONFIG ---------------- */
+
+.highcharts-background {
+   fill: var(--bg-light);
+}
+
+.highcharts-container text {
+   fill: var(--text-color) !important;
+}
+
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+   fill-opacity: 0.7;
+}
+
+.highcharts-axis-line,
+.highcharts-grid-line {
+   stroke: var(--text-color);
+   stroke-opacity: 0.2;
+}
+
+.highcharts-tooltip-box {
+   fill: var(--background-color);
+}
+
+.highcharts-column-series rect.highcharts-point {
+   stroke: var(--background-color);
+}
+
+/* ----------------------------------------------- */
 
 .iTSJDW {
    display: block !important;
