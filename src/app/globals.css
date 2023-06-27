@@ -23,7 +23,7 @@ body {
    padding-left: 4rem/* 64px */;
 }
 
-.iTSJDW {
+#tabla_contratos > div > div {
    display: block !important;
 }
 

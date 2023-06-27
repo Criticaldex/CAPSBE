@@ -125,7 +125,7 @@ export function ContractsTable({ data, centros }: any) {
    ];
 
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div id='tabla_contratos' className="rounded-lg overflow-hidden basis-1/2 bg-body">
          <DataTable
             className='max-w-full shadow-lg'
             columns={columns}

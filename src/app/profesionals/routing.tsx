@@ -21,8 +21,8 @@ export function GetLinksView() {
    ]
 
    return (
-      <ul className="flex flex-col h-8 my-2 text-black bg-nav border-l-2 rounded-r-md border-gray-200 w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
-         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
+      <ul className="flex flex-col h-8 my-2 text-black bg-nav ml-[2px] rounded-r-md w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
+         <h4 className="text-white mx-4 py-1 cursor-default font-bold">Visualització <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -87,7 +87,7 @@ export function GetLinksSection({ sections }: any) {
    return (
       <ul className="w-full flex flex-wrap justify-between px-4 my-2 text-black border-gray-900 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname == route ? 'border-b-4 border-blue-700 bg-gradient-to-b from-stone-800 to-stone-500 text-white text-center' : 'border-b-2 border-stone-700 text-black text-center hover:bg-gradient-to-b hover:from-blue-200 hover:to-transparent'}`} key={route} href={route}>
+            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname?.includes(route) ? 'border-b-4 border-blue-700 bg-gradient-to-b from-stone-800 to-stone-500 text-white text-center' : 'border-b-2 border-stone-700 text-black text-center hover:bg-gradient-to-b hover:from-blue-200 hover:to-transparent'}`} key={route} href={route}>
                <li className="w-100 ">
                   {label}
                </li>
@@ -116,7 +116,7 @@ export function GetLinksYears({ years }: any) {
       <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
          {links.map(({ label, route }: any) => (
             <Link key={route} href={route}>
-               <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
+               <li className="border border-blue-400 bg-blue-700 my-1 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
                   {label}
                </li>
             </Link>
@@ -142,10 +142,10 @@ export function GetLinksProfesionals({ profesionals }: any) {
    ))
 
    return (
-      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
+      <ul className="m-auto w-11/12 text-black bg-white rounded-md py-1">
          {links.map(({ label, route }: any) => (
-            <Link key={route} href={route}>
-               <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
+            <Link className="w-full" key={route} href={route}>
+               <li className={`border-b border-blue-400 mx-3 py-4 px-3 text-black ${pathname?.includes(route) ? 'bg-customBlue text-white ' : 'hover:bg-gray-200 hover:text-black'}`}>
                   {label}
                </li>
             </Link>
