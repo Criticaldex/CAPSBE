@@ -113,15 +113,17 @@ export function GetLinksYears({ years }: any) {
    ))
 
    return (
-      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
+      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link key={route} href={route}>
-               <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
-                  {label}
-               </li>
-            </Link>
-         ))}
-      </ul>
+            <Link className={
+               `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+               ${pathname?.includes(route) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               key={route} href={route}>
+               <li> {label} </li>
+            </Link >
+         ))
+         }
+      </ul >
    )
 }
 
@@ -142,10 +144,10 @@ export function GetLinksProfesionals({ profesionals }: any) {
    ))
 
    return (
-      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
+      <ul className="m-auto w-11/12 bg-bgDark rounded-md py-1">
          {links.map(({ label, route }: any) => (
-            <Link key={route} href={route}>
-               <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
+            <Link className="w-full" key={route} href={route}>
+               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(route) ? 'bg-darkBlue text-textColor ' : 'hover:bg-bgLight'}`}>
                   {label}
                </li>
             </Link>
