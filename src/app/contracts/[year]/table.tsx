@@ -119,8 +119,8 @@ export function ContractsTable({ data, centros }: any) {
       {
          when: (row: any): any => row.Objectiu == null,
          style: {
-            backgroundColor: 'var(--background-color)',
-            color: 'var(--text-color)',
+            backgroundColor: '',
+            color: '',
          },
       }
    ];
