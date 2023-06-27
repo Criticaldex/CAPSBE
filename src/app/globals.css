@@ -60,6 +60,8 @@ body {
    padding-left: 4rem;
 }
 
+/* ---------------- HIGHCHARTS CONFIG ---------------- */
+
 .highcharts-background {
    fill: var(--bg-light);
 }
@@ -87,6 +89,8 @@ body {
 .highcharts-column-series rect.highcharts-point {
    stroke: var(--background-color);
 }
+
+/* ----------------------------------------------- */
 
 .iTSJDW {
    display: block !important;
