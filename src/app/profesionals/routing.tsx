@@ -87,7 +87,7 @@ export function GetLinksSection({ sections }: any) {
    return (
       <ul className="w-full flex flex-wrap justify-between px-4 my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname == route ? 'border-b-4 border-darkBlue bg-gradient-to-b from-bgDark to-bgLight text-textColor text-center' : 'border-b-2 border-bgLight text-textColor2 text-center hover:bg-gradient-to-b hover:from-bgLight hover:to-bgDark'}`} key={route} href={route}>
+            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-bgDark to-bgLight text-textColor text-center' : 'border-b-2 border-bgLight text-textColor2 text-center hover:bg-gradient-to-b hover:from-bgLight hover:to-bgDark'}`} key={route} href={route}>
                <li className="w-100 ">
                   {label}
                </li>

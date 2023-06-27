@@ -6,13 +6,12 @@ import { createThemes } from "@/app/styles/themes"
 
 export function ProfesionalsTable({ data, profesionals }: any) {
 
-   let columns: any[] = [{
+   let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
       style: { fontSize: '16px', backgroundColor: '', color: '' },
-      conditionalCellStyles: []
    }];
 
    profesionals.map((prof: any) => {
@@ -67,17 +66,15 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       selector: (row: any) => row.Objectiu,
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' },
-      conditionalCellStyles: []
+      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    })
 
    let tableData: any = [];
    for (const [key, indicador] of (Object.entries(data) as [string, any][])) {
-      //let objetivo = (value[0].Objectiu < 0) ? `<${Math.abs(value[0].Objectiu)}` : value[0].Objectiu;
       let fila: { [k: string]: any } = {
          id: key,
          Indicador: key,
-         Objectiu: 'objetivo'
+         Objectiu: (indicador[0].objectiu < 0) ? `<${Math.abs(indicador[0].objectiu)}` : indicador[0].objectiu
       };
 
       indicador.map((centre: any) => {
