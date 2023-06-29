@@ -103,12 +103,13 @@ export function GetLinksYears({ years }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESIONALS_DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESIONALS_DEFAULT_SECTION;
+   const profesional = (pathArray[6]) ? pathArray[6] : process.env.PROFESIONALS_DEFAULT_PROFESIONAL;
 
    let links: object[] = [];
    years.map((label: any) => (
       links.push({
          label: label,
-         route: `/profesionals/${view}/${center}/${section}/${label}`
+         route: `/profesionals/${view}/${center}/${section}/${label}/${profesional}`
       })
    ))
 
@@ -117,7 +118,7 @@ export function GetLinksYears({ years }: any) {
          {links.map(({ label, route }: any) => (
             <Link className={
                `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
-               ${pathname?.includes(route) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
                key={route} href={route}>
                <li> {label} </li>
             </Link >

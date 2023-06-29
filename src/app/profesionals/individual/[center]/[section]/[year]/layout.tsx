@@ -1,4 +1,4 @@
-import { GetLinksProfesionals, GetLinksYears } from "@/app/profesionals/routing";
+import { GetLinksProfesionals } from "@/app/profesionals/routing";
 import { getProfesionals } from "@/services/profesionals";
 
 export default async function ProfesionalsChart({ children, params }: any) {
