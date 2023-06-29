@@ -1,5 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+   experimental: {
+      esmExternals: "loose",
+      serverComponentsExternalPackages: ["mongoose"]
+   },
+   // webpack: (config) => {
+   //    config.experiments = { ...config.experiments, topLevelAwait: true };
+   //    return config;
+   // },
+   // reactStrictMode: true,
+   // serverRuntimeConfig: {
+   //    connectionString: "mongodb://trial.soidemdt.com:27017",
+   //    secret: '363f8db2-57f6-44fa-a253-0f046775b9cf-039decab-4a24-43ba-a965-61df165d50d8'
+   // },
+   // publicRuntimeConfig: {
+   //    apiUrl: process.env.NODE_ENV === 'development'
+   //       ? 'http://localhost:3000/api' // development api
+   //       : 'http://localhost:3000/api' // production api
+   // },
    async redirects() {
       return [
          {

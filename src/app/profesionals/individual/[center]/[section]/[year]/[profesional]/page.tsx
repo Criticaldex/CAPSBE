@@ -1,5 +1,5 @@
-import { getCentre, getChartIndividual, getProfesionals, getTableIndicators } from "@/app/services/profesionals";
-import { getProfesionalsCenters } from "@/app/services/centros";
+import { getCentre, getChartIndividual, getProfesionals, getTableIndicators } from "@/services/profesionals";
+import { getProfesionalsCenters } from "@/services/centros";
 import { Chart } from "./chart";
 import { ProfesionalsTable } from "./table";
 

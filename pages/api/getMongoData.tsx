@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             let { fields } = req.body;
             fields = (fields) ? fields.join(' ') : '';
 
-            const db = await mongoose.createConnection(`${process.env.MONGO_HOST}/CAPFA`,
+            const db = mongoose.createConnection(`${process.env.MONGO_HOST}/CAPFA`,
                {
                   authSource: process.env.MONGO_AUTH,
                   user: process.env.MONGO_USER,

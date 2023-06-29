@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import { createThemes } from "@/app/styles/themes"
+import { createThemes } from "@/styles/themes"
 
 
 export function ProfesionalsTable({ data, profesionals }: any) {

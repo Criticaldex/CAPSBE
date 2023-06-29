@@ -29,7 +29,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/contracts/[year]/[center]/chart.ts",
-    "src/app/contracts/[year]/table.tsx"
+    "src/app/contracts/[year]/table.tsx",
+    "src/lib/dbConnect.js",
+    "src/app/api/contracts"
   ],
   "exclude": ["node_modules"]
 }
