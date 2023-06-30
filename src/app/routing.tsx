@@ -6,6 +6,12 @@ import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
 import { RxExit } from "react-icons/rx"
+import {
+   LoginButton,
+   LogoutButton,
+   ProfileButton,
+   RegisterButton,
+} from "@/components/buttons.component";
 
 export default function GetNav() {
 
@@ -74,10 +80,12 @@ export default function GetNav() {
                   ))}
                </div>
             </div>
-            <a href="#" className="hover:text-darkBlue py-2 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-2 pl-3 items-center">
-               <RxExit size={25} />
-               <span className="text-2x1">Sortir</span>
-            </a>
+            <div>
+               <LoginButton />
+               <RegisterButton />
+               <LogoutButton />
+               <ProfileButton />
+            </div>
          </nav>
       </div>
    )

@@ -2,7 +2,7 @@
 const nextConfig = {
    experimental: {
       esmExternals: "loose",
-      serverComponentsExternalPackages: ["mongoose"]
+      serverComponentsExternalPackages: ["mongoose", "bcryptjs"]
    },
    // webpack: (config) => {
    //    config.experiments = { ...config.experiments, topLevelAwait: true };
