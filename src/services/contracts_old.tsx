@@ -1,14 +1,14 @@
 import _ from "lodash"
-const getContracts = (filter: any) => {
-   return fetch('http://localhost:3000/api/contracts',
+const getMongoData = (filter: any) => {
+   return fetch('http://localhost:3000/api/getMongoData',
       {
-         // cache: 'no-store',
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
          },
          body: JSON.stringify(
             {
+               model: 'contract',
                fields: [
                   "Indicador",
                   "Resultat",
@@ -24,7 +24,7 @@ const getContracts = (filter: any) => {
 }
 
 export const getChartIndicators = async (filtros: any) => {
-   const data = await getContracts(filtros);
+   const data = await getMongoData(filtros);
    return data.map((i: any) => {
       return {
          name: i.Indicador,
@@ -34,6 +34,6 @@ export const getChartIndicators = async (filtros: any) => {
 }
 
 export const getTableIndicators = async (filtros: any) => {
-   const data = await getContracts(filtros);
+   const data = await getMongoData(filtros);
    return _.groupBy(data, 'Indicador');
 }

@@ -1,7 +1,7 @@
 import _ from "lodash"
 
 const getCentros = (filter: any) => {
-   return fetch('http://localhost:3000/api/centers',
+   return fetch('http://localhost:3000/api/getMongoData',
       {
          method: 'POST',
          headers: {
@@ -9,18 +9,20 @@ const getCentros = (filter: any) => {
          },
          body: JSON.stringify(
             {
+               model: 'licencia',
                fields: [
-                  "centers",
+                  "Centros",
                   "-_id"
                ],
+               filter: filter
             }
          ),
       }).then(res => res.json());
 }
 
 export const getContractsCenters = async (year: any) => {
-   const centros: any = await getCentros({});
-   let data = await centros.centers.map((centro: string, i: number) => {
+   const centro: any = await getCentros({});
+   let data = await centro[0].Centros.map((centro: string, i: number) => {
       return {
          id: i.toString(),
          name: centro,
@@ -31,8 +33,8 @@ export const getContractsCenters = async (year: any) => {
 }
 
 export const getProfesionalsCenters = async () => {
-   const centros: any = await getCentros({});
-   let data = await centros.centers.map((centro: string, i: number) => {
+   const centro: any = await getCentros({});
+   let data = await centro[0].Centros.map((centro: string, i: number) => {
       return {
          id: i.toString(),
          name: centro

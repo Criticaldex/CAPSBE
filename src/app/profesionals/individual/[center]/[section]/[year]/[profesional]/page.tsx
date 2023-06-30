@@ -1,4 +1,4 @@
-import { getCentre, getChartIndividual, getProfesionals, getTableIndicators } from "@/services/profesionals";
+import { getCentre, getChartIndividual, getProfesionalsList, getTableIndicators } from "@/services/profesionals";
 import { getProfesionalsCenters } from "@/services/centros";
 import { Chart } from "./chart";
 import { ProfesionalsTable } from "./table";
@@ -26,7 +26,7 @@ export default async function ProfesionalsChart({ params }: any) {
    const { center, section, year, profesional } = params;
 
    let filters = (center == 'all') ? { 'any': year, 'sector': section.replaceAll('_', ' ') } : { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
-   const profesionals = await getProfesionals(filters);
+   const profesionals = await getProfesionalsList(filters);
    const infoChart = await getChartIndividual(filters, profesional);
    //const infoTable = await getTableIndividual(filters);
    const infoTable = await getTableIndicators(filters);

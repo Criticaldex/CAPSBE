@@ -103,7 +103,7 @@ export function GetLinksYears({ years }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESIONALS_DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESIONALS_DEFAULT_SECTION;
-   const profesional = (pathArray[6]) ? pathArray[6] : process.env.PROFESIONALS_DEFAULT_PROFESIONAL;
+   const profesional = (pathArray[6]) ? pathArray[6] : '';
 
    let links: object[] = [];
    years.map((label: any) => (
