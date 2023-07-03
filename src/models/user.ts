@@ -1,21 +1,19 @@
-import mongoose from 'mongoose'
+import mongoose, { Date } from 'mongoose'
 
 export interface UserIface {
-   name: String,
-   lastname: String,
-   username: String,
-   hash: String
+   name: string,
+   lastname: string,
+   email: string,
+   password: string,
    license: {
-      token: String,
+      token: string,
       start: Date,
       end: Date,
-   }
-   server: String,
-   db: String,
-   role: String,
+   },
+   server: string,
+   db: string,
+   role: string,
 }
-
-const Schema = new mongoose.Schema({});
 
 const UserSchema = new mongoose.Schema({
    name: {
@@ -24,13 +22,14 @@ const UserSchema = new mongoose.Schema({
    lastname: {
       type: String,
    },
-   username: {
+   email: {
       type: String,
-      required: [true, 'Please provide a name for this pet.'],
-      maxlength: [30, 'Name cannot be more than 60 characters'],
+      required: [true, 'El correu es obligatori!'],
+      unique: [true, 'Correu ja registrat!']
    },
    hash: {
-      type: String
+      type: String,
+      required: [true, 'La contrasenya es obligatoria!']
    },
    license: {
       token: {

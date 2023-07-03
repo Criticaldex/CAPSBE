@@ -15,12 +15,9 @@ if (!cached) {
    cached = global.mongoose = { conn: null, promise: null }
 }
 
-
-
 async function dbConnect(db) {
    let opts = {
       dbName: db,
-      authSource: process.env.MONGO_AUTH,
       user: process.env.MONGO_USER,
       pass: process.env.MONGO_PASS
    }
@@ -28,7 +25,7 @@ async function dbConnect(db) {
    if (cached.conn && cached.conn.connection.$dbName == db) {
       return cached.conn
    } else {
-      opts.bufferCommands = false,
+      opts.bufferCommands = false;
       await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose

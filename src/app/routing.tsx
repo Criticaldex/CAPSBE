@@ -81,10 +81,7 @@ export default function GetNav() {
                </div>
             </div>
             <div>
-               <LoginButton />
-               <RegisterButton />
                <LogoutButton />
-               <ProfileButton />
             </div>
          </nav>
       </div>

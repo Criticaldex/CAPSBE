@@ -36,43 +36,32 @@ export const authOptions: NextAuthOptions = {
                   ),
                }
             ).then(res => res.json());
-            if (!user || user?.ERROR || !(await compare(credentials.password, user.hash))) {
+            if (!user || user?.ERROR) {
                return null;
             }
-            return {
-               id: user.id,
-               email: user.email,
-               name: user.name,
-               lastname: user.lastname,
-               license: user.license,
-               role: user.role,
-               server: user.server,
-               db: user.db,
-               randomKey: credentials.csrfToken,
-            };
+            return user;
          }
       }),
    ],
    callbacks: {
       session: ({ session, token }) => {
-         //console.log("Session Callback", { session, token });
+         // console.log("Session Callback", { session, token });
+         const u = token.user as unknown as any;
          return {
             ...session,
             user: {
                ...session.user,
-               id: token.id,
-               randomKey: token.randomKey,
+               ...u
             },
          };
       },
       jwt: ({ token, user }) => {
-         //console.log("JWT Callback", { token, user });
+         // console.log("JWT Callback", { token, user });
          if (user) {
             const u = user as unknown as any;
             return {
                ...token,
-               license: u.license,
-               randomKey: u.randomKey,
+               user: u
             };
          }
          return token;
