@@ -1,5 +1,5 @@
 import _ from "lodash"
-const getProfesionals = (filter: any) => {
+const getProfesionals = async (filter: any) => {
    filter.indicador = {
       $in: [
          "EQAU0208 - DM2: Cribratge peu",
@@ -9,7 +9,7 @@ const getProfesionals = (filter: any) => {
          "EQAU0702 - EQAU0702 - Cobertura vacunal sistemàtica infantil"
       ]
    }
-   return fetch('http://localhost:3000/api/profesionals',
+   const prof = await fetch('http://localhost:3000/api/profesionals',
       {
          method: 'POST',
          headers: {
@@ -29,7 +29,11 @@ const getProfesionals = (filter: any) => {
                filter: filter
             }
          ),
-      }).then(res => res.json());
+      });
+
+   return await prof.json();
+
+
 }
 
 export const getChartIndicators = async (filtros: any) => {
@@ -45,10 +49,10 @@ export const getChartIndicators = async (filtros: any) => {
          }
       })
    }
-   let aaa = _.groupBy(res, 'name');
+   let item = _.groupBy(res, 'name');
 
    let results: any = [];
-   for (const [key, value] of (Object.entries(aaa) as [string, any][])) {
+   for (const [key, value] of (Object.entries(item) as [string, any][])) {
       let result: { name: string, data: number[], threshold: number, maxPointWidth: number } = {
          name: "",
          data: [],

@@ -148,7 +148,7 @@ export function GetLinksProfesionals({ profesionals }: any) {
       <ul className="m-auto w-11/12 bg-bgDark rounded-md py-1">
          {links.map(({ label, route }: any) => (
             <Link className="w-full" key={route} href={route}>
-               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(route) ? 'bg-darkBlue text-textColor ' : 'hover:bg-bgLight'}`}>
+               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(label) ? 'bg-darkBlue text-textColor ' : 'hover:bg-bgLight'}`}>
                   {label}
                </li>
             </Link>
