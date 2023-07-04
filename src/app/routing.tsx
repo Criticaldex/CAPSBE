@@ -5,8 +5,8 @@ import { FaCapsules, FaUserNurse } from "react-icons/fa"
 import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
-import { RxExit } from "react-icons/rx"
 import { usePathname } from "next/navigation"
+import { LogoutButton } from "@/components/loginbuttons.component";
 
 export default function GetNav() {
 
@@ -58,7 +58,7 @@ export default function GetNav() {
                </Link>
                <div className="flex flex-col justify-between" id="lista">
                   {navTitlesIcons.map((navTI) => (
-                     <Link key={navTI.route} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center
+                     <Link key={navTI.route} href={navTI.route} className={`hover:text-lightBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={20} />
                         <span className="text-lg">
@@ -78,10 +78,9 @@ export default function GetNav() {
                   ))}
                </div>
             </div>
-            <a href="#" className="hover:text-darkBlue py-2 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-2 pl-3 items-center">
-               <RxExit size={25} />
-               <span className="text-2x1">Sortir</span>
-            </a>
+            <div>
+               <LogoutButton />
+            </div>
          </nav>
       </div>
    )

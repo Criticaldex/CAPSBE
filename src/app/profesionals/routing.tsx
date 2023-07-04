@@ -59,7 +59,7 @@ export function GetLinksCentro({ centros }: any) {
       <ul className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
          <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
          {links.map(({ label, route }: any) => (
-            <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'hover:bg-hover'} px-1`} key={route} href={route}>
+            <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'} px-1`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
                <li className="py-2 px-5">
                   {label}
@@ -103,12 +103,13 @@ export function GetLinksYears({ years }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESIONALS_DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESIONALS_DEFAULT_SECTION;
+   const profesional = (pathArray[6]) ? pathArray[6] : '';
 
    let links: object[] = [];
    years.map((label: any) => (
       links.push({
          label: label,
-         route: `/profesionals/${view}/${center}/${section}/${label}`
+         route: `/profesionals/${view}/${center}/${section}/${label}/${profesional}`
       })
    ))
 
@@ -116,8 +117,8 @@ export function GetLinksYears({ years }: any) {
       <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
          {links.map(({ label, route }: any) => (
             <Link className={
-               `my-1 mx-4 py-2 px-5 rounded-md text-textColor font-bold
-               ${pathname?.includes(route) ? 'bg-darkBlue text-white boton-si' : 'bg-black bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40 boton-no'}`}
+               `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+               ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
                key={route} href={route}>
                <li> {label} </li>
             </Link >
@@ -139,15 +140,16 @@ export function GetLinksProfesionals({ profesionals }: any) {
    profesionals.map((label: any) => (
       links.push({
          label: label,
+         code: label.split('(').pop().split(')')[0],
          route: `/profesionals/${view}/${center}/${section}/${year}/${label.split('(').pop().split(')')[0]}`
       })
    ))
 
    return (
       <ul id="scrollDiv" className="max-h-[41rem] overflow-y-scroll m-auto w-11/12 bg-bgLight rounded-md py-1">
-         {links.map(({ label, route }: any) => (
+         {links.map(({ label, code, route }: any) => (
             <Link className="w-full" key={route} href={route}>
-               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'hover:bg-hover'}`}>
+               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(code) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'}`}>
                   {label}
                </li>
             </Link>

@@ -2,7 +2,7 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { Chart } from "./[center]/chart";
-import { createThemes } from "@/app/styles/themes"
+import { createThemes } from "@/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
    const infoChart = data.values.map((i: any) => {

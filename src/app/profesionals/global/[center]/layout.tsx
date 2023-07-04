@@ -1,4 +1,4 @@
-import { getSections } from "@/app/services/profesionals";
+import { getSections } from "@/services/profesionals";
 import { GetLinksSection } from "../../routing";
 
 export default async function ProfesionalsCenter({ children, params }: any) {
