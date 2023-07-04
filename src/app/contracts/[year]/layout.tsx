@@ -31,7 +31,7 @@ export default async function loadContracts({ children, params }: any) {
             />
             <div className="basis-1/2">
                <Chart
-                  name={'TOTAL EQA'}
+                  name={'TOTAL EQA - (DADES FICTICIES!!!)'}
                   data={infoChart}
                />
                {<div className="text-center m-auto absolute z-10 mt-3">
