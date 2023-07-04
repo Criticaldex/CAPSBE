@@ -106,6 +106,11 @@ export function Chart({ name, data, objectiu, index }: any) {
       },
       tooltip: {
          shared: false,
+      },
+      plotOptions: {
+         series: {
+            borderWidth: 0
+         }
       }
    }
 
