@@ -17,6 +17,7 @@ const getProfesionals = async (filter: any) => {
          },
          body: JSON.stringify(
             {
+               model: 'profesional',
                fields: [
                   "indicador",
                   "sector",
