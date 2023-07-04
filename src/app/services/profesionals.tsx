@@ -17,7 +17,7 @@ const getMongoData = (filter: any) => {
          },
          body: JSON.stringify(
             {
-               model: 'profes',
+               model: 'profesional',
                fields: [
                   "indicador",
                   "sector",
