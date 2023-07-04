@@ -5,13 +5,7 @@ import { FaCapsules, FaUserNurse } from "react-icons/fa"
 import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
-import { RxExit } from "react-icons/rx"
-import {
-   LoginButton,
-   LogoutButton,
-   ProfileButton,
-   RegisterButton,
-} from "@/components/buttons.component";
+import { LogoutButton } from "@/components/loginbuttons.component";
 
 export default function GetNav() {
 

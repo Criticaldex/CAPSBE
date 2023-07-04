@@ -2,7 +2,6 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from 'next/image'
 import { IoIosLogOut, IoIosPerson } from "react-icons/io"
 
 export const LoginButton = () => {
