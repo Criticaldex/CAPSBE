@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 
-export default function GetLinks() {
+export function GetLinksYears() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : ['', 'contracts', '2023', '0'];
    const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
@@ -17,12 +17,38 @@ export default function GetLinks() {
    }]
 
    return (
-      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 text-black border-gray-900 rounded-md">
+      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link key={route} href={route}>
-               <li className="border border-blue-400 bg-blue-700 my-3 mx-4 py-2 px-5 rounded text-white hover:bg-blue-600">
-                  {label}
-               </li>
+            <Link className={
+               `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+               ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               key={route} href={route}>
+               <li> {label} </li>
+            </Link>
+         ))}
+      </ul>
+   )
+}
+
+export function GetLinksCenters(centros: any) {
+   const pathname = usePathname();
+
+   let links: any[] = [];
+
+   centros.centros.map(({ id, name, link }: any) => (
+      links.push({
+         label: name,
+         route: link
+      })
+   ))
+
+   return (
+      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
+         {links.map(({ label, route }: any, i: number) => (
+            <Link className={`border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+            ${pathname?.includes(route) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               key={i} href={route}>
+               <li> {label} </li>
             </Link>
          ))}
       </ul>

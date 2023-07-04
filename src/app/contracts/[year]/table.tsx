@@ -136,7 +136,7 @@ export function ContractsTable({ data, centros }: any) {
             conditionalRowStyles={conditionalRowStyles}
             theme={'custom'}
             expandableRows
-            expandableRowsHideExpander
+            // expandableRowsHideExpander
             expandOnRowClicked
             expandableRowsComponent={ExpandedComponent}
          />
