@@ -29,7 +29,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
                   if (objetivo > 0 && row[prof] >= Math.abs(objetivo)) return true;
                   else if (objetivo < 0 && row[prof] <= Math.abs(objetivo)) return true;
                   else return false
-
                },
                style: {
                   backgroundColor: 'var(--green)',

@@ -168,70 +168,6 @@ export function ContractsTable({ data, centros }: any) {
       tableData.push(indicador);
    }
 
-   const conditionalRowStyles = [
-      {
-         when: (row: any) => {
-            let pasaObjetivo: boolean[] = []
-            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-            centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-               if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
-               else pasaObjetivo.push(false)
-            });
-
-            if (objetivo > 0 && !pasaObjetivo.includes(false)) return true
-            else if (!pasaObjetivo.includes(true)) return true
-         },
-         style: {
-            backgroundColor: 'var(--green)',
-            color: 'var(--white)',
-         },
-      },
-      {
-         when: (row: any) => {
-            let pasaObjetivo: boolean[] = []
-            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
-            centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-               if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
-               else pasaObjetivo.push(false)
-            });
-
-            if (pasaObjetivo.includes(false) && pasaObjetivo.includes(true)) return true
-         },
-         style: {
-            backgroundColor: 'var(--orange)',
-            color: 'var(--white)',
-         },
-      },
-      {
-         when: (row: any) => {
-            let pasaObjetivo: boolean[] = []
-            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
-            centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-               if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) pasaObjetivo.push(true)
-               else pasaObjetivo.push(false)
-            });
-
-            if (objetivo > 0) {
-               if (!pasaObjetivo.includes(false)) {
-                  return true
-               }
-            } else if (!pasaObjetivo.includes(true)) return true
-         },
-         style: {
-            backgroundColor: 'var(--red)',
-            color: 'var(--white)'
-         },
-      },
-      {
-         when: (row: any): any => row.Objectiu == null,
-         style: {
-            backgroundColor: '',
-            color: '',
-         },
-      }
-   ];
-
    createThemes();
 
    return (
@@ -240,7 +176,7 @@ export function ContractsTable({ data, centros }: any) {
             className=''
             columns={columns}
             data={tableData}
-            conditionalRowStyles={conditionalRowStyles}
+            // conditionalRowStyles={conditionalRowStyles}
             theme={'custom'}
             expandableRows
             // expandableRowsHideExpander

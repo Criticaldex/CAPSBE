@@ -6,7 +6,7 @@ import { createThemes } from "@/styles/themes";
 
 export function ProfesionalsTable({ data, profesionals, profesional }: any) {
 
-   let columns = [{
+   let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
@@ -18,7 +18,40 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       selector: (row: any) => row[profesional],
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: '', color: '' }
+      style: { fontSize: '', backgroundColor: '', color: '' },
+      conditionalCellStyles: [
+         {
+            when: (row: any) => {
+               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+
+               if (objetivo > 0 && row[profesional] >= Math.abs(objetivo)) return true;
+               else if (objetivo < 0 && row[profesional] <= Math.abs(objetivo)) return true;
+            },
+            style: {
+               backgroundColor: 'var(--green)',
+               color: 'var(--white)'
+            },
+         },
+         {
+            when: (row: any) => {
+               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+
+               if (objetivo > 0 && row[profesional] <= Math.abs(objetivo)) return true;
+               else if (objetivo < 0 && row[profesional] >= Math.abs(objetivo)) return true
+            },
+            style: {
+               backgroundColor: 'var(--red)',
+               color: 'var(--white)'
+            },
+         },
+         {
+            when: (row: any): any => row.Objectiu == null,
+            style: {
+               backgroundColor: '',
+               color: '',
+            },
+         }
+      ]
    },
    {
       name: 'Objectiu',
@@ -45,40 +78,6 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       tableData.push(fila);
    }
 
-   const conditionalRowStyles = [
-      {
-         when: (row: any) => {
-            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-            if (objetivo > 0 && row[profesional] >= Math.abs(objetivo)) return true;
-            else if (objetivo < 0 && row[profesional] <= Math.abs(objetivo)) return true;
-         },
-         style: {
-            backgroundColor: 'var(--green)',
-            color: 'var(--white)'
-         },
-      },
-      {
-         when: (row: any) => {
-            let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-            if (objetivo > 0 && row[profesional] <= Math.abs(objetivo)) return true;
-            else if (objetivo < 0 && row[profesional] >= Math.abs(objetivo)) return true
-         },
-         style: {
-            backgroundColor: 'var(--red)',
-            color: 'var(--white)'
-         },
-      },
-      {
-         when: (row: any): any => row.Objectiu == null,
-         style: {
-            backgroundColor: '',
-            color: '',
-         },
-      }
-   ];
-
    createThemes();
 
    return (
@@ -88,9 +87,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
             columns={columns}
             data={tableData}
             theme={'custom'}
-            conditionalRowStyles={conditionalRowStyles}
          />
       </div>
    )
-
 };
