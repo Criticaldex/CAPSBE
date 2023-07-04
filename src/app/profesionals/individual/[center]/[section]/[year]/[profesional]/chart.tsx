@@ -42,8 +42,8 @@ export function Chart({ name, data }: any) {
    }
 
    return (
-      <div className="max-h-1/2 mx-2 py-1">
-         <div className="max-h-full px-3 bg-bgLight rounded-md">
+      <div className="max-h-1/2 mx-2 pb-2">
+         <div className="max-h-full px-3 bg-bgLight rounded-md shadow-xl">
             <HighchartsReact
                highcharts={Highcharts}
                options={options}

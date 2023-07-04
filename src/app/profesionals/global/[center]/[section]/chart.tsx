@@ -76,6 +76,7 @@ export function Chart({ name, data, objectiu, index }: any) {
             load: renderMarkers
          }
       },
+      colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
       lang: {
          noData: "No hi han dades disponibles"
       },
@@ -106,11 +107,16 @@ export function Chart({ name, data, objectiu, index }: any) {
       },
       tooltip: {
          shared: false,
+      },
+      plotOptions: {
+         series: {
+            borderWidth: 0
+         }
       }
    }
 
    return (
-      <div className="bg-bgLight rounded-md px-3 mb-2">
+      <div className="bg-bgLight rounded-md px-3 mb-2 shadow-xl">
          <HighchartsReact
             highcharts={Highcharts}
             options={options}

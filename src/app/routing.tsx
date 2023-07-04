@@ -6,8 +6,11 @@ import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
 import { RxExit } from "react-icons/rx"
+import { usePathname } from "next/navigation"
 
 export default function GetNav() {
+
+   const pathname = usePathname();
 
    const navTitlesIcons = [
       {
@@ -55,7 +58,8 @@ export default function GetNav() {
                </Link>
                <div className="flex flex-col justify-between" id="lista">
                   {navTitlesIcons.map((navTI) => (
-                     <Link key={navTI.route} href={navTI.route} className="hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center">
+                     <Link key={navTI.route} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pl-3 items-center
+                     ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={20} />
                         <span className="text-lg">
                            {navTI.label}

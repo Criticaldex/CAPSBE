@@ -27,7 +27,70 @@ export function ContractsTable({ data, centros }: any) {
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
-      style: { fontSize: '16px', backgroundColor: '', color: '' }
+      style: { fontSize: '16px', backgroundColor: '', color: '' },
+      conditionalCellStyles: [
+         {
+            when: (row: any) => {
+               let pasaObjetivo: boolean[] = []
+               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+
+               centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
+                  if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
+                  else pasaObjetivo.push(false)
+               });
+
+               if (objetivo > 0 && !pasaObjetivo.includes(false)) return true
+               else if (!pasaObjetivo.includes(true)) return true
+            },
+            style: {
+               backgroundColor: 'var(--green)',
+               color: 'var(--white)',
+            },
+         },
+         {
+            when: (row: any) => {
+               let pasaObjetivo: boolean[] = []
+               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
+               centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
+                  if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
+                  else pasaObjetivo.push(false)
+               });
+
+               if (pasaObjetivo.includes(false) && pasaObjetivo.includes(true)) return true
+            },
+            style: {
+               backgroundColor: 'var(--orange)',
+               color: 'var(--white)',
+            },
+         },
+         {
+            when: (row: any) => {
+               let pasaObjetivo: boolean[] = []
+               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu
+               centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
+                  if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) pasaObjetivo.push(true)
+                  else pasaObjetivo.push(false)
+               });
+
+               if (objetivo > 0) {
+                  if (!pasaObjetivo.includes(false)) {
+                     return true
+                  }
+               } else if (!pasaObjetivo.includes(true)) return true
+            },
+            style: {
+               backgroundColor: 'var(--red)',
+               color: 'var(--white)'
+            },
+         },
+         {
+            when: (row: any): any => row.Objectiu == null,
+            style: {
+               backgroundColor: '',
+               color: '',
+            },
+         }
+      ]
    }];
 
    centros.map((centro: any) => {
@@ -36,7 +99,50 @@ export function ContractsTable({ data, centros }: any) {
          selector: row => row[centro.name],
          sortable: false,
          grow: 1,
-         style: { fontSize: '', backgroundColor: '', color: '' }
+         style: { fontSize: '', backgroundColor: '', color: '' },
+         conditionalCellStyles: [
+            {
+               when: (row: any) => {
+                  let pasaObjetivo: boolean[] = []
+                  let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+                  if (objetivo > 0) {
+                     if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) return true
+                     else return false
+                  } else {
+                     if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) return true
+                     else return false
+                  }
+               },
+               style: {
+                  backgroundColor: 'var(--green)',
+                  color: 'var(--white)',
+               },
+            },
+            {
+               when: (row: any) => {
+                  let pasaObjetivo: boolean[] = []
+                  let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
+                  if (objetivo > 0) {
+                     if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) return true
+                     else return false
+                  } else {
+                     if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) return true
+                     else return false
+                  }
+               },
+               style: {
+                  backgroundColor: 'var(--red)',
+                  color: 'var(--white)'
+               },
+            },
+            {
+               when: (row: any): any => row.Objectiu == null,
+               style: {
+                  backgroundColor: '',
+                  color: '',
+               },
+            }
+         ]
       })
    });
 
@@ -45,7 +151,8 @@ export function ContractsTable({ data, centros }: any) {
       selector: row => row.Objectiu,
       sortable: false,
       grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
+      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' },
+      conditionalCellStyles: []
    })
 
    let tableData: any = [];
@@ -130,10 +237,10 @@ export function ContractsTable({ data, centros }: any) {
    return (
       <div id='tabla_contratos' className="rounded-lg overflow-hidden basis-1/2 bg-body">
          <DataTable
-            className=''
+            className='shadow-xl'
             columns={columns}
             data={tableData}
-            conditionalRowStyles={conditionalRowStyles}
+            //conditionalRowStyles={conditionalRowStyles}
             theme={'custom'}
             expandableRows
             expandableRowsHideExpander

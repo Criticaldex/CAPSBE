@@ -18,6 +18,7 @@
    --orange-1: #f29513;
    --orange: #f8b068;
    --darkBlue: #0468BF;
+   --darkBlue2: #418acab2;
    --lightBlue: #0dcaf0;
    --yellow: #eab107;
    --white: #fff;
@@ -27,28 +28,36 @@
 @media (prefers-color-scheme: dark) {
    :root {
       --foreground: #ddd;
-      --background-start: #222;
-      --background-end: #222;
-      --background-color: #222;
+      --background-start: #333;
+      --background-end: #333;
+      --background-color: #333;
       --bg-nav: #161616;
       --text-color: #ddd;
-      --text-color-2: #dddddd88;
-      --bg-light: #424242;
-      --bg-dark: #333;
+      --text-color-2: #bbb;
+      --bg-light: #222;
+      --bg-dark: var(--darkBlue);
+      --contrario: #f2f2f2;
+      --color-button: black;
+      --pestanaDark: rgb(131, 131, 131);
+      --pestanaLight: rgba(85, 85, 85, 0.9);
    }
 }
 
 @media (prefers-color-scheme: light) {
    :root {
       --foreground: #222;
-      --background-start: #ddd;
-      --background-end: #ddd;
-      --background-color: #ddd;
-      --bg-nav: #eee;
-      --text-color: #222;
-      --text-color-2: #33333388;
-      --bg-light: #fff;
-      --bg-dark: #bbb;
+      --background-start: #F2F2F2;
+      --background-end: #F2F2F2;
+      --background-color: #F2F2F2;
+      --bg-nav: #a1a1a1;
+      --text-color: #333333;
+      --text-color-2: #666666;
+      --bg-light: var(--white);
+      --bg-dark: var(--darkBlue);
+      --contrario: #262626;
+      --color-button: white;
+      --pestanaDark: rgba(38,38,38, 0.9);
+      --pestanaLight: rgb(131, 131, 131);
    }
 }
 
@@ -76,6 +85,10 @@ body {
    fill-opacity: 0.7;
 }
 
+.highcharts-title{
+   text-transform: capitalize;
+}
+
 .highcharts-axis-line,
 .highcharts-grid-line {
    stroke: var(--text-color);
@@ -98,4 +111,33 @@ body {
 
 .gWFUca {
    white-space: pre-wrap !important;
+}
+
+/* ----------------------------------------------- */
+
+#scrollDiv::-webkit-scrollbar {
+   width: 7px;
+}
+
+#scrollDiv::-webkit-scrollbar-track {
+   border-radius: 10px;
+}
+
+#scrollDiv::-webkit-scrollbar-thumb {
+   background: var(--foreground); 
+   border-radius: 5px;
+}
+
+.boton-no{
+   box-shadow: 0 4px #999;
+}
+.boton-si{
+   position: relative;
+   bottom: -2px;
+   box-shadow: 0 2px #666;
+}
+
+.boton-no:active {
+   box-shadow: 0 2px #666;
+   transform: translateY(2px);
 }

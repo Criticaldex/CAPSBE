@@ -7,7 +7,7 @@ export function Chart({ name, data, objectiu }: any) {
    if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
 
    const options = {
-      chart: { type: 'spline' },
+      chart: { type: 'spline', spacingTop: 20 },
       lang: {
          noData: "No hi han dades disponibles"
       },
@@ -43,8 +43,8 @@ export function Chart({ name, data, objectiu }: any) {
    }
 
    return (
-      <div className="max-h-1/2 mx-2 py-1">
-         <div className="max-h-full px-3 bg-bgLight rounded-md">
+      <div className="max-h-1/2 mx-2 pb-1">
+         <div className="max-h-full px-3 bg-bgLight rounded-md shadow-xl">
             <HighchartsReact
                highcharts={Highcharts}
                options={options}
