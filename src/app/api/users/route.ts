@@ -9,12 +9,12 @@ export async function POST(request: Request) {
    try {
       const session = await getServerSession(authOptions);
 
-      if (!session) {
-         return new NextResponse(
-            JSON.stringify({ message: "You are not logged in" }),
-            { status: 401 }
-         );
-      }
+      // if (!session) {
+      //    return new NextResponse(
+      //       JSON.stringify({ message: "You are not logged in" }),
+      //       { status: 401 }
+      //    );
+      // }
       const body: UserIface = await request.json();
       const saltRounds = 10;
       const aYearFromNow = new Date();
@@ -35,8 +35,8 @@ export async function POST(request: Request) {
       };
 
       await dbConnect(process.env.MONGO_AUTH_DB);
-      await User.create(fields);
-      return NextResponse.json('OK');
+      const user = await User.create(fields);
+      return NextResponse.json(`Usuari ${user.email} creat!`);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
    }
