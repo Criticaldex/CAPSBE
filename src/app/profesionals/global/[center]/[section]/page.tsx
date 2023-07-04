@@ -1,4 +1,4 @@
-import { getChartIndicators, getIndicators, getProfesionals, getTableIndicators } from "@/app/services/profesionals";
+import { getChartIndicators, getIndicators, getProfesionalsList, getTableIndicators } from "@/services/profesionals";
 import { Chart } from "./chart";
 import { ProfesionalsTable } from "./table";
 
@@ -11,7 +11,7 @@ export default async function ProfesionalsChart({ params }: any) {
    const indicadors = await getIndicators(filters);
    const infoChart = await getChartIndicators(filters);
    const infoTable = await getTableIndicators(filters);
-   const profesionals = await getProfesionals(filters);
+   const profesionals = await getProfesionalsList(filters);
 
    return (
       <div className="px-6">

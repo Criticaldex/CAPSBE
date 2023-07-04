@@ -1,6 +1,6 @@
 import { Chart } from './chart'
-import { getChartIndicators } from "../../../services/contracts";
-import { getContractsCenters } from "../../../services/centros";
+import { getChartIndicators } from "@/services/contracts";
+import { getContractsCenters } from "@/services/centros";
 
 export default async function ContractsChart({ params }: any) {
    const { year, center } = params;

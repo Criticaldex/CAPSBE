@@ -1,5 +1,5 @@
 import React from "react";
-import { getProfesionalsCenters } from "../services/centros"
+import { getProfesionalsCenters } from "@/services/centros"
 import { GetLinksView, GetLinksCentro } from "./routing"
 
 export default async function ProfesionalsLayout({ children }: any) {

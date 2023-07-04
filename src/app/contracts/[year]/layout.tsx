@@ -1,6 +1,6 @@
 import React from "react";
-import { getTableIndicators } from "@/app/services/contracts";
-import { getContractsCenters } from "@/app/services/centros";
+import { getTableIndicators } from "@/services/contracts";
+import { getContractsCenters } from "@/services/centros";
 import Link from "next/link";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
