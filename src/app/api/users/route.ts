@@ -9,12 +9,12 @@ export async function POST(request: Request) {
    try {
       const session = await getServerSession(authOptions);
 
-      // if (!session) {
-      //    return new NextResponse(
-      //       JSON.stringify({ message: "You are not logged in" }),
-      //       { status: 401 }
-      //    );
-      // }
+      if (!session) {
+         return new NextResponse(
+            JSON.stringify({ message: "You are not logged in" }),
+            { status: 401 }
+         );
+      }
       const body: UserIface = await request.json();
       const saltRounds = 10;
       const aYearFromNow = new Date();
