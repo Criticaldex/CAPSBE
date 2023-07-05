@@ -23,7 +23,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
          maxWidth: '100px',
          compact: true,
          center: true,
-         allowOverflow: true,
+         wrap: true,
          grow: 1,
          style: { fontSize: '', backgroundColor: '', color: '' },
          conditionalCellStyles: [
@@ -73,7 +73,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       maxWidth: '100px',
       compact: true,
       center: true,
-      allowOverflow: true,
+      wrap: true,
       grow: 1,
       style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    })
