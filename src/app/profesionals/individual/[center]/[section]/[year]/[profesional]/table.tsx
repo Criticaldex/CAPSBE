@@ -11,7 +11,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
-      style: { fontSize: '16px', backgroundColor: '', color: '' }
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' }
    },
    {
       name: profesional,
@@ -81,7 +81,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md overflow-hidden basis-1/2">
+      <div className="rounded-md overflow-hidden">
          <DataTable
             className=''
             columns={columns}

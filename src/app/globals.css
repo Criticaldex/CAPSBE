@@ -22,6 +22,7 @@
    --yellow: #eab107;
    --white: #fff;
    --black: #000;
+   --table-size-text: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
