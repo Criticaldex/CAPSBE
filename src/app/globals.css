@@ -96,6 +96,8 @@ body {
    display: block !important;
 }
 
-.gWFUca {
-   white-space: pre-wrap !important;
+/* wrap table headers text */
+
+.rdt_TableCol_Sortable>div {
+   white-space: pre-wrap;
 }
