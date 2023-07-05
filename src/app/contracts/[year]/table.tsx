@@ -171,7 +171,7 @@ export function ContractsTable({ data, centros }: any) {
    createThemes();
 
    return (
-      <div id='tabla_contratos' className="rounded-lg overflow-hidden basis-1/2 bg-body">
+      <div id='tabla_contratos' className="rounded-md overflow-hidden basis-1/2 bg-body">
          <DataTable
             className=''
             columns={columns}

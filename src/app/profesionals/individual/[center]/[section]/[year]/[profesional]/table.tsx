@@ -81,7 +81,7 @@ export function ProfesionalsTable({ data, profesionals, profesional }: any) {
    createThemes();
 
    return (
-      <div className="rounded-lg overflow-hidden basis-1/2">
+      <div className="rounded-md overflow-hidden basis-1/2">
          <DataTable
             className=''
             columns={columns}

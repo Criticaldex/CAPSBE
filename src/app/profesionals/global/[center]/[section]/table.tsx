@@ -10,7 +10,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
-      grow: 7,
+      grow: 6,
       style: { fontSize: '16px', backgroundColor: '', color: '' },
    }];
 
@@ -19,6 +19,11 @@ export function ProfesionalsTable({ data, profesionals }: any) {
          name: prof,
          selector: (row: any) => row[prof],
          sortable: false,
+         minWidth: '30px',
+         maxWidth: '100px',
+         compact: true,
+         center: true,
+         allowOverflow: true,
          grow: 1,
          style: { fontSize: '', backgroundColor: '', color: '' },
          conditionalCellStyles: [
@@ -64,6 +69,11 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       name: 'Objectiu',
       selector: (row: any) => row.Objectiu,
       sortable: false,
+      minWidth: '30px',
+      maxWidth: '100px',
+      compact: true,
+      center: true,
+      allowOverflow: true,
       grow: 1,
       style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    })
@@ -87,7 +97,7 @@ export function ProfesionalsTable({ data, profesionals }: any) {
    createThemes();
 
    return (
-      <div className="rounded-lg overflow-hidden mb-5">
+      <div className="rounded-md overflow-hidden mb-5">
          <DataTable
             className=''
             columns={columns}
