@@ -21,7 +21,7 @@ export default async function loadContracts({ children, params }: any) {
                data={indicadoresContrato}
                centros={centros}
             />
-            <div className="basis-1/2">
+            <div className="w-1/2">
                <Chart
                   name={'TOTAL EQA'}
                   data={eqas}
