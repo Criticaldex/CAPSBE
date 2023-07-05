@@ -21,6 +21,11 @@ const nextConfig = {
    async redirects() {
       return [
          {
+            source: '/',
+            destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
+            permanent: false,
+         },
+         {
             source: '/contracts',
             destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
             permanent: false,
