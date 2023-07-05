@@ -22,12 +22,12 @@ const ExpandedComponent = ({ data }: any) => {
 
 export function ContractsTable({ data, centros }: any) {
 
-   let columns = [{
+   let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
-      style: { fontSize: '16px', backgroundColor: '', color: '' },
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       conditionalCellStyles: [
          {
             when: (row: any) => {
@@ -96,8 +96,12 @@ export function ContractsTable({ data, centros }: any) {
    centros.map((centro: any) => {
       columns.push({
          name: centro.name,
-         selector: row => row[centro.name],
+         selector: (row: any) => row[centro.name],
          sortable: false,
+         minWidth: '30px',
+         compact: true,
+         center: true,
+         wrap: true,
          grow: 1,
          style: { fontSize: '', backgroundColor: '', color: '' },
          conditionalCellStyles: [
@@ -148,7 +152,7 @@ export function ContractsTable({ data, centros }: any) {
 
    columns.push({
       name: 'Objectiu',
-      selector: row => row.Objectiu,
+      selector: (row: any) => row.Objectiu,
       sortable: false,
       grow: 1,
       style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' },

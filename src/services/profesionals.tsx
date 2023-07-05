@@ -6,7 +6,7 @@ const getProfesionals = async (filter: any) => {
          "EQAU0235 - HTA: control de la TA en pacients amb IRC",
          "EQAU0301 - Cribratge del consum d'alcohol",
          "EQAU0239 - Ús incorrrecte PSA en majors 70 anys",
-         "EQAU0702 - EQAU0702 - Cobertura vacunal sistemàtica infantil"
+         "EQAU0702 - Cobertura vacunal sistemàtica infantil"
       ]
    }
    const prof = await fetch('http://localhost:3000/api/profesionals',

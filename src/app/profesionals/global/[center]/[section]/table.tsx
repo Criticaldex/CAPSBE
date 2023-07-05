@@ -3,15 +3,15 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
 
-
 export function ProfesionalsTable({ data, profesionals }: any) {
 
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
-      grow: 6,
-      style: { fontSize: '16px', backgroundColor: '', color: '' },
+      grow: 7,
+      minWidth: '400px',
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    }];
 
    profesionals.map((prof: any) => {
@@ -20,7 +20,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
          selector: (row: any) => row[prof],
          sortable: false,
          minWidth: '30px',
-         maxWidth: '100px',
          compact: true,
          center: true,
          wrap: true,
@@ -70,7 +69,6 @@ export function ProfesionalsTable({ data, profesionals }: any) {
       selector: (row: any) => row.Objectiu,
       sortable: false,
       minWidth: '30px',
-      maxWidth: '100px',
       compact: true,
       center: true,
       wrap: true,
@@ -106,5 +104,4 @@ export function ProfesionalsTable({ data, profesionals }: any) {
          />
       </div>
    )
-
 };

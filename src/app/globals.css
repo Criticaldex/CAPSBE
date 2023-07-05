@@ -14,6 +14,7 @@
    --bg-dark: #333;
    --red-1: #f22613;
    --red: #ff4f68;
+   --darkRed: #7f1d1d;
    --green: #32c87d;
    --orange-1: #f29513;
    --orange: #f8b068;
@@ -22,6 +23,7 @@
    --yellow: #eab107;
    --white: #fff;
    --black: #000;
+   --table-size-text: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
