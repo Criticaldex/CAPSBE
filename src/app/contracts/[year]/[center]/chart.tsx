@@ -1,6 +1,7 @@
 'use client'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+require('highcharts/modules/exporting')(Highcharts)
 
 export function Chart({ name, data, objectiu }: any) {
 
@@ -29,7 +30,12 @@ export function Chart({ name, data, objectiu }: any) {
       yAxis: {
          title: {
             enabled: false
-         }
+         },
+         plotLines: [{
+            color: 'red',
+            width: 2,
+            value: objectiu
+         }]
       },
       credits: {
          text: ""
