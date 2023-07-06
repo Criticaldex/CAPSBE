@@ -6,6 +6,7 @@ import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
 import { LogoutButton } from "@/components/loginbuttons.component";
+import { NextAuthProvider } from "@/app/providers";
 
 export default function GetNav() {
 
@@ -76,7 +77,9 @@ export default function GetNav() {
                </div>
             </div>
             <div>
-               <LogoutButton />
+               <NextAuthProvider>
+                  <LogoutButton />
+               </NextAuthProvider>
             </div>
          </nav>
       </div>

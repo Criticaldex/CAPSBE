@@ -1,7 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import GetNav from './routing'
-import { NextAuthProvider } from "./providers";
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -21,10 +20,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
    return (
       <html lang="en">
          <body className={inter.className}>
-            <NextAuthProvider>
-               <GetNav />
-               {children}
-            </NextAuthProvider>
+            <GetNav />
+            {children}
          </body>
       </html>
    )
