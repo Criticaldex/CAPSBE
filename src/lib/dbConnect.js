@@ -24,7 +24,7 @@ async function dbConnect(db) {
    if (cached.conn && cached.conn.connection.$dbName == db) {
       return cached.conn
    } else {
-      opts.bufferCommands = false;
+      // opts.bufferCommands = false;
       await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose

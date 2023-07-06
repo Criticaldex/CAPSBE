@@ -133,3 +133,4 @@ yarn.lock
 mongo/
 .env.production
 .env.development
+.nvmrc
