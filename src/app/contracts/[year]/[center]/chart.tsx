@@ -12,7 +12,9 @@ export function Chart({ name, data, objectiu }: any) {
    if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
 
    const options = {
-      chart: { type: 'spline' },
+      chart: {
+         type: 'spline'
+      },
       lang: {
          noData: "No hi han dades disponibles"
       },
@@ -41,14 +43,39 @@ export function Chart({ name, data, objectiu }: any) {
             value: objectiu
          }]
       },
-      credits: {
-         text: ""
-      },
       legend: {
          enabled: true,
          align: 'right',
          verticalAlign: 'middle',
          width: 125
+      },
+      navigation: {
+         buttonOptions: {
+            theme: {
+               stroke: 'var(--darkBlue)',
+               fill: 'var(--bg-dark)',
+               states: {
+                  hover: {
+                     fill: 'var(--bg-light)',
+                  },
+                  select: {
+                     stroke: 'var(--darkBlue)',
+                     fill: 'var(--darkBlue)'
+                  }
+               }
+            }
+         },
+         menuStyle: {
+            background: 'var(--bg-dark)'
+         },
+         menuItemStyle: {
+            borderLeft: '2px solid var(--darkBlue)',
+            borderRadius: 0,
+            color: 'var(--text-color)',
+         },
+         menuItemHoverStyle: {
+            background: 'var(--bg-light)'
+         }
       }
    }
 
