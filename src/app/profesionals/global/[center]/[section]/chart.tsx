@@ -2,6 +2,8 @@
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
+import { chartOptions } from '@/components/chart.components'
+
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
@@ -74,22 +76,12 @@ function renderMarkers(this: any) {
 
 export function Chart({ name, data, objectiu, index }: any) {
    const options = {
+      ...chartOptions,
       chart: {
-         animation: false,
          type: 'column',
          events: {
             load: renderMarkers
          }
-      },
-      lang: {
-         noData: "No hi han dades disponibles"
-      },
-      noData: {
-         style: {
-            fontSize: '26px',
-            fontWeight: 'bold',
-            color: '#666666'
-         },
       },
       series: data,
       title: {
@@ -97,54 +89,16 @@ export function Chart({ name, data, objectiu, index }: any) {
       },
       xAxis: {
          categories: index,
-         scrollbar: {
-            enabled: true
-         },
-         tickLength: 0
       },
       yAxis: {
+         ...chartOptions.yAxis,
          max: 100,
          min: 0
       },
-      credits: {
-         enabled: false
+      legend: {
+         ...chartOptions.legend,
+         width: 250
       },
-      tooltip: {
-         shared: false,
-      },
-      plotOptions: {
-         series: {
-            borderWidth: 0
-         }
-      },
-      navigation: {
-         buttonOptions: {
-            theme: {
-               stroke: 'var(--darkBlue)',
-               fill: 'var(--bg-dark)',
-               states: {
-                  hover: {
-                     fill: 'var(--bg-light)',
-                  },
-                  select: {
-                     stroke: 'var(--darkBlue)',
-                     fill: 'var(--darkBlue)'
-                  }
-               }
-            }
-         },
-         menuStyle: {
-            background: 'var(--bg-dark)'
-         },
-         menuItemStyle: {
-            borderLeft: '2px solid var(--darkBlue)',
-            borderRadius: 0,
-            color: 'var(--text-color)',
-         },
-         menuItemHoverStyle: {
-            background: 'var(--bg-light)'
-         }
-      }
    }
 
    return (

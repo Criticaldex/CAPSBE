@@ -2,6 +2,8 @@
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
+import { chartOptions } from '@/components/chart.components'
+
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
@@ -9,68 +11,18 @@ if (typeof Highcharts === "object") {
 
 export function Chart({ name, data }: any) {
    const options = {
+      ...chartOptions,
       chart: {
-         animation: false,
-         type: 'spline',
-      },
-      lang: {
-         noData: "No hi han dades disponibles"
-      },
-      noData: {
-         style: {
-            fontSize: '26px',
-            fontWeight: 'bold',
-            color: '#666666'
-         },
+         type: 'spline'
       },
       series: data,
       title: {
          text: name
       },
-      xAxis: {
-         categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre'],
-         scrollbar: {
-            enabled: true
-         },
-         tickLength: 0
-      },
       yAxis: {
+         ...chartOptions.yAxis,
          max: 100,
          min: 0
-      },
-      credits: {
-         enabled: false
-      },
-      tooltip: {
-         shared: false,
-      },
-      navigation: {
-         buttonOptions: {
-            theme: {
-               stroke: 'var(--darkBlue)',
-               fill: 'var(--bg-dark)',
-               states: {
-                  hover: {
-                     fill: 'var(--bg-light)',
-                  },
-                  select: {
-                     stroke: 'var(--darkBlue)',
-                     fill: 'var(--darkBlue)'
-                  }
-               }
-            }
-         },
-         menuStyle: {
-            background: 'var(--bg-dark)'
-         },
-         menuItemStyle: {
-            borderLeft: '2px solid var(--darkBlue)',
-            borderRadius: 0,
-            color: 'var(--text-color)',
-         },
-         menuItemHoverStyle: {
-            background: 'var(--bg-light)'
-         }
       }
    }
 
