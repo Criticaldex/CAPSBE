@@ -1,6 +1,11 @@
 'use client'
 import Highcharts from 'highcharts'
+import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
+
+if (typeof Highcharts === "object") {
+   HighchartsExporting(Highcharts)
+}
 
 function renderMarkers(this: any) {
 
@@ -110,6 +115,34 @@ export function Chart({ name, data, objectiu, index }: any) {
       plotOptions: {
          series: {
             borderWidth: 0
+         }
+      },
+      navigation: {
+         buttonOptions: {
+            theme: {
+               stroke: 'var(--darkBlue)',
+               fill: 'var(--bg-dark)',
+               states: {
+                  hover: {
+                     fill: 'var(--bg-light)',
+                  },
+                  select: {
+                     stroke: 'var(--darkBlue)',
+                     fill: 'var(--darkBlue)'
+                  }
+               }
+            }
+         },
+         menuStyle: {
+            background: 'var(--bg-dark)'
+         },
+         menuItemStyle: {
+            borderLeft: '2px solid var(--darkBlue)',
+            borderRadius: 0,
+            color: 'var(--text-color)',
+         },
+         menuItemHoverStyle: {
+            background: 'var(--bg-light)'
          }
       }
    }

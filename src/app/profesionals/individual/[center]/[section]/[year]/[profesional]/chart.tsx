@@ -1,6 +1,11 @@
 'use client'
 import Highcharts from 'highcharts'
+import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
+
+if (typeof Highcharts === "object") {
+   HighchartsExporting(Highcharts)
+}
 
 export function Chart({ name, data }: any) {
    const options = {
@@ -38,6 +43,34 @@ export function Chart({ name, data }: any) {
       },
       tooltip: {
          shared: false,
+      },
+      navigation: {
+         buttonOptions: {
+            theme: {
+               stroke: 'var(--darkBlue)',
+               fill: 'var(--bg-dark)',
+               states: {
+                  hover: {
+                     fill: 'var(--bg-light)',
+                  },
+                  select: {
+                     stroke: 'var(--darkBlue)',
+                     fill: 'var(--darkBlue)'
+                  }
+               }
+            }
+         },
+         menuStyle: {
+            background: 'var(--bg-dark)'
+         },
+         menuItemStyle: {
+            borderLeft: '2px solid var(--darkBlue)',
+            borderRadius: 0,
+            color: 'var(--text-color)',
+         },
+         menuItemHoverStyle: {
+            background: 'var(--bg-light)'
+         }
       }
    }
 

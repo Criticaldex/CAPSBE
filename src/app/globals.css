@@ -63,7 +63,6 @@ body {
 }
 
 /* ---------------- HIGHCHARTS CONFIG ---------------- */
-
 .highcharts-background {
    fill: var(--bg-light);
 }
@@ -92,13 +91,8 @@ body {
    stroke: var(--background-color);
 }
 
-/* ----------------------------------------------- */
 
-#tabla_contratos>div>div {
-   display: block !important;
-}
-
-/* wrap table headers text */
+/* -----------------------wrap table headers text----------------------- */
 
 .rdt_TableCol_Sortable>div {
    white-space: pre-wrap;
