@@ -36,7 +36,7 @@ export function Chart({ name, data, objectiu }: any) {
             enabled: false
          },
          plotLines: [{
-            color: 'red',
+            color: 'var(--red)',
             width: 2,
             value: objectiu
          }]
