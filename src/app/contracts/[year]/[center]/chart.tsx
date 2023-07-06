@@ -1,7 +1,9 @@
 'use client'
 import Highcharts from 'highcharts'
+import HC_exporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
-require('highcharts/modules/exporting')(Highcharts)
+
+HC_exporting(Highcharts)
 
 export function Chart({ name, data, objectiu }: any) {
 
