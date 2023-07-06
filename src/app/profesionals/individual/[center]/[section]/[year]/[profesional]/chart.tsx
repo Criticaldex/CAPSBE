@@ -1,9 +1,11 @@
 'use client'
 import Highcharts from 'highcharts'
-import HC_exporting from 'highcharts/modules/exporting'
+import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
 
-HC_exporting(Highcharts)
+if (typeof Highcharts === "object") {
+   HighchartsExporting(Highcharts)
+}
 
 export function Chart({ name, data }: any) {
    const options = {
