@@ -1,4 +1,5 @@
 import _ from "lodash"
+
 const getContracts = (filter: any) => {
    return fetch('http://localhost:3000/api/contracts',
       {

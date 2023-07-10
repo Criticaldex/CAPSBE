@@ -1,4 +1,5 @@
 import _ from "lodash"
+
 const getProfesionals = async (filter: any) => {
    filter.indicador = {
       $in: [
