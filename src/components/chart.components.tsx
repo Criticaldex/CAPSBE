@@ -65,5 +65,10 @@ export const chartOptions = {
       menuItemHoverStyle: {
          background: 'var(--bg-light)'
       }
+   },
+   plotOptions: {
+      series: {
+         borderWidth: 0
+      }
    }
 };
