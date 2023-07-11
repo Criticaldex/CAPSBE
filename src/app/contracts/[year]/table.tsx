@@ -3,7 +3,6 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import { Chart } from "./[center]/chart";
 import { createThemes } from "@/styles/themes"
-import { cellStylesValues } from "@/components/table.component"
 
 const ExpandedComponent = ({ data }: any) => {
    const infoChart = data.values.map((i: any) => {
@@ -172,6 +171,7 @@ export function ContractsTable({ data, centros }: any) {
       let objetivo = (value[0].objectiu < 0) ? `<${Math.abs(value[0].objectiu)}` : value[0].objectiu;
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: objetivo };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
+         indicador.Indicador = `${value[centro.id].identificador} - ${value[centro.id].indicador}`;
          indicador[centro.name] = value[centro.id].resultat[value[centro.id].resultat.length - 1];
          indicador.values[centro.id] = {};
          indicador.values[centro.id].data = value[centro.id].resultat;
@@ -197,5 +197,4 @@ export function ContractsTable({ data, centros }: any) {
          />
       </div>
    )
-
 };

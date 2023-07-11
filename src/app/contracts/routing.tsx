@@ -2,19 +2,18 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 
-export function GetLinksYears() {
+export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : ['', 'contracts', '2023', '0'];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESIONALS_DEFAULT_CENTER;
 
-   const links = [{
-      label: '2022',
-      route: `/contracts/2022/${center}`
-   },
-   {
-      label: '2023',
-      route: `/contracts/2023/${center}`
-   }]
+   let links: object[] = [];
+   years.map((label: any) => (
+      links.push({
+         label: label,
+         route: `/contracts/${label}/${center}`
+      })
+   ))
 
    return (
       <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
@@ -24,9 +23,9 @@ export function GetLinksYears() {
                ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
                key={route} href={route}>
                <li> {label} </li>
-            </Link>
+            </Link >
          ))}
-      </ul>
+      </ul >
    )
 }
 

@@ -43,10 +43,12 @@ export const getTableIndicators = async (year: string) => {
    return _.groupBy(data, 'indicador');
 }
 
-export const getYearsContracts = async (year: string) => {
+export const getYears = async () => {
    const data = await getContracts({});
-   const years = _.groupBy(data, 'any');
-   for (const [key, value] of (Object.entries(years) as [string, any][])) {
-
+   const yearsGroup = _.groupBy(data, 'any');
+   let years: string[] = []
+   for (const [key, value] of (Object.entries(yearsGroup) as [string, any][])) {
+      years.push(key);
    }
+   return years;
 }
