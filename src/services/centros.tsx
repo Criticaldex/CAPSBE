@@ -30,7 +30,7 @@ export const getContractsCenters = async (year: any) => {
    })
 }
 
-export const getProfesionalsCenters = async () => {
+export const getProfessionalsCenters = async () => {
    const centros: any = await getCentros();
    return await centros.centers.map((centro: string, i: number) => {
       return {

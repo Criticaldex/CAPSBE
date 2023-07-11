@@ -1,5 +1,5 @@
 import dbConnect from '@/lib/dbConnect'
-import Profesional from '@/models/profesional'
+import Professional from '@/models/professional'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
@@ -7,8 +7,8 @@ export async function POST(request: Request) {
       const body = await request.json()
       const fields = (body.fields) ? body.fields.join(' ') : '';
       await dbConnect(process.env.MONGO_DB);
-      const profesional: any = await Profesional.find(body.filter).select(fields).lean();
-      return NextResponse.json(profesional);
+      const professional: any = await Professional.find(body.filter).select(fields).lean();
+      return NextResponse.json(professional);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
    }
