@@ -3,7 +3,9 @@ import _ from "lodash"
 const getContracts = (filter: any) => {
    return fetch('http://localhost:3000/api/contracts',
       {
-         cache: 'no-store',
+         next: {
+            tags: ['dbData']
+         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',

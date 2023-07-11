@@ -22,7 +22,6 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function ContractsTable({ data, centros }: any) {
-
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -123,12 +122,12 @@ export function ContractsTable({ data, centros }: any) {
             },
             {
                when: (row: any) => {
-                  let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
-                  if (objetivo > 0) {
-                     if (row[centro.name] >= objetivo) return true
+                  // let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
+                  if (!row.invers) {
+                     if (row[centro.name] >= row.objectiu) return true
                      else return false
                   } else {
-                     if (row[centro.name] <= objetivo) return true
+                     if (row[centro.name] <= row.objectiu.replace(/\D/g, '')) return true
                      else return false
                   }
                },
@@ -139,12 +138,12 @@ export function ContractsTable({ data, centros }: any) {
             },
             {
                when: (row: any) => {
-                  let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
-                  if (objetivo > 0) {
-                     if (row[centro.name] <= objetivo) return true
+                  // let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
+                  if (!row.invers) {
+                     if (row[centro.name] <= row.objectiu) return true
                      else return false
                   } else {
-                     if (row[centro.name] >= objetivo) return true
+                     if (row[centro.name] >= row.objectiu.replace(/\D/g, '')) return true
                      else return false
                   }
                },
@@ -168,11 +167,13 @@ export function ContractsTable({ data, centros }: any) {
 
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      let objetivo = (value[0].objectiu < 0) ? `<${Math.abs(value[0].objectiu)}` : value[0].objectiu;
+      let objetivo = (value[0].invers) ? `< ${value[0].objectiu}` : value[0].objectiu;
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: objetivo };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          indicador.Indicador = `${value[centro.id].identificador} - ${value[centro.id].indicador}`;
          indicador[centro.name] = value[centro.id].resultat[value[centro.id].resultat.length - 1];
+         indicador.invers = value[centro.id].invers;
+         //values for the chart
          indicador.values[centro.id] = {};
          indicador.values[centro.id].data = value[centro.id].resultat;
          indicador.values[centro.id].name = centro.name;

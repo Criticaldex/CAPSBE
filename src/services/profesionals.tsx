@@ -12,7 +12,9 @@ const getProfesionals = async (filter: any) => {
    }
    const prof = await fetch('http://localhost:3000/api/profesionals',
       {
-         cache: 'no-store',
+         next: {
+            tags: ['dbData']
+         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',

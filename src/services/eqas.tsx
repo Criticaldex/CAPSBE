@@ -3,7 +3,9 @@ import _ from "lodash"
 const getEqas = (filter: any) => {
    return fetch('http://localhost:3000/api/eqas',
       {
-         cache: 'no-store',
+         next: {
+            tags: ['dbData']
+         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
