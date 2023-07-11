@@ -10,8 +10,14 @@ export async function POST(request: Request) {
       try {
          const user: any = await User.findOne({ "email": body.email }).select('-_id').lean();
          if (user && await compare(body.password, user.hash)) {
-            const { hash, ...userWithoutHash } = user;
-            return NextResponse.json(userWithoutHash);
+            const date = new Date();
+            if (user.license.start < date && user.license.end > date) {
+               process.env.MONGO_DB = user.db;
+               const { hash, ...userWithoutHash } = user;
+               return NextResponse.json(userWithoutHash);
+            } else {
+               return NextResponse.json({ ERROR: "La llicencia ha caducat!" });
+            }
          } else {
             return NextResponse.json({ ERROR: "Email o contrasenya incorrectes!" });
          }

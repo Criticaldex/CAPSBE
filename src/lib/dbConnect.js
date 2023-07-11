@@ -17,6 +17,7 @@ if (!cached) {
 async function dbConnect(db) {
    let opts = {
       dbName: db,
+      authSource: process.env.MONGO_AUTH,
       user: process.env.MONGO_USER,
       pass: process.env.MONGO_PASS
    }
@@ -25,6 +26,7 @@ async function dbConnect(db) {
       return cached.conn
    } else {
       // opts.bufferCommands = false;
+      // opts.autoCreate = false;
       await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose

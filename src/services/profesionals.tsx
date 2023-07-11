@@ -25,6 +25,7 @@ const getProfesionals = async (filter: any) => {
                   "centre",
                   "professionals",
                   "objectiu",
+                  "invers",
                   "-_id"
                ],
                filter: filter
@@ -33,8 +34,6 @@ const getProfesionals = async (filter: any) => {
       });
 
    return await prof.json();
-
-
 }
 
 export const getChartIndicators = async (filtros: any) => {

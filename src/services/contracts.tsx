@@ -3,7 +3,7 @@ import _ from "lodash"
 const getContracts = (filter: any) => {
    return fetch('http://localhost:3000/api/contracts',
       {
-         // cache: 'no-store',
+         cache: 'no-store',
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -11,11 +11,13 @@ const getContracts = (filter: any) => {
          body: JSON.stringify(
             {
                fields: [
-                  "Indicador",
-                  "Resultat",
-                  "Any",
-                  "Centre",
-                  "Objectiu",
+                  "identificador",
+                  "indicador",
+                  "resultat",
+                  "any",
+                  "centre",
+                  "objectiu",
+                  "invers",
                   "-_id"
                ],
                filter: filter
@@ -24,17 +26,27 @@ const getContracts = (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getChartIndicators = async (filtros: any) => {
-   const data = await getContracts(filtros);
+export const getChartIndicators = async (year: string, center: string) => {
+   const filter = { "any": year, "centre": center };
+   const data = await getContracts(filter);
+
    return data.map((i: any) => {
       return {
-         name: i.Indicador,
-         data: i.Resultat.map((res: string) => parseFloat(res.replaceAll(',', '.')))
+         name: i.identificador,
+         data: i.resultat
       }
    })
 }
 
-export const getTableIndicators = async (filtros: any) => {
-   const data = await getContracts(filtros);
-   return _.groupBy(data, 'Indicador');
+export const getTableIndicators = async (year: string) => {
+   const data = await getContracts({ "any": year });
+   return _.groupBy(data, 'indicador');
+}
+
+export const getYearsContracts = async (year: string) => {
+   const data = await getContracts({});
+   const years = _.groupBy(data, 'any');
+   for (const [key, value] of (Object.entries(years) as [string, any][])) {
+
+   }
 }

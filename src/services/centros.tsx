@@ -1,5 +1,3 @@
-import _ from "lodash"
-
 const getCentros = (filter: any) => {
    return fetch('http://localhost:3000/api/centers',
       {

@@ -5,7 +5,7 @@ import { ProfesionalsTable } from "./table";
 export default async function ProfesionalsChart({ params }: any) {
    const { center, section } = params;
 
-   const date = new Date();;
+   const date = new Date();
    let year = date.getFullYear().toString();
    let filters = (center == 'all') ? { 'any': year, 'sector': section.replaceAll('_', ' ') } : { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
    const indicadors = await getIndicators(filters);
