@@ -1,6 +1,7 @@
-const getCentros = (filter: any) => {
+const getCentros = () => {
    return fetch('http://localhost:3000/api/centers',
       {
+         cache: 'no-store',
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -17,7 +18,7 @@ const getCentros = (filter: any) => {
 }
 
 export const getContractsCenters = async (year: any) => {
-   const centros: any = await getCentros({});
+   const centros: any = await getCentros();
    let data = await centros.centers.map((centro: string, i: number) => {
       return {
          id: i.toString(),
@@ -29,7 +30,7 @@ export const getContractsCenters = async (year: any) => {
 }
 
 export const getProfesionalsCenters = async () => {
-   const centros: any = await getCentros({});
+   const centros: any = await getCentros();
    let data = await centros.centers.map((centro: string, i: number) => {
       return {
          id: i.toString(),

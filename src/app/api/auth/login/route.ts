@@ -12,6 +12,7 @@ export async function POST(request: Request) {
          if (user && await compare(body.password, user.hash)) {
             const date = new Date();
             if (user.license.start < date && user.license.end > date) {
+               await dbConnect(user.db);
                process.env.MONGO_DB = user.db;
                const { hash, ...userWithoutHash } = user;
                return NextResponse.json(userWithoutHash);

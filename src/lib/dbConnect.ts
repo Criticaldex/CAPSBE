@@ -1,6 +1,7 @@
+import { isUndefined } from 'lodash'
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGO_HOST
+const MONGODB_URI = process.env.MONGO_HOST as string
 
 if (!MONGODB_URI) {
    throw new Error(
@@ -14,10 +15,9 @@ if (!cached) {
    cached = global.mongoose = { conn: null, promise: null }
 }
 
-async function dbConnect(db) {
+async function dbConnect(db: any) {
    let opts = {
       dbName: db,
-      authSource: process.env.MONGO_AUTH,
       user: process.env.MONGO_USER,
       pass: process.env.MONGO_PASS
    }
@@ -27,10 +27,15 @@ async function dbConnect(db) {
    } else {
       // opts.bufferCommands = false;
       // opts.autoCreate = false;
-      await mongoose.disconnect();
+      await mongoose.connection.close();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose
       })
+      // Logic to check that the database is connected properly
+      mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+      mongoose.connection.once('open', () => {
+         console.log('Database connected: ', db);
+      });
    }
 
    try {

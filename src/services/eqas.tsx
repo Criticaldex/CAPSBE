@@ -3,7 +3,7 @@ import _ from "lodash"
 const getEqas = (filter: any) => {
    return fetch('http://localhost:3000/api/eqas',
       {
-         // cache: 'no-store',
+         cache: 'no-store',
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -22,7 +22,6 @@ const getEqas = (filter: any) => {
 export const getEqasContracts = async (year: string, centers: any) => {
    const filter = { 'any': year }
    const data = await getEqas(filter);
-   console.log('EQAS: ', data);
 
    return data.map((i: any) => {
       return {
