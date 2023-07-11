@@ -1,16 +1,16 @@
 import _ from "lodash"
 
 const getProfesionals = async (filter: any) => {
-   filter.indicador = {
+   filter.identificador = {
       $in: [
-         "EQAU0208 - DM2: Cribratge peu",
-         "EQAU0235 - HTA: control de la TA en pacients amb IRC",
-         "EQAU0301 - Cribratge del consum d'alcohol",
-         "EQAU0239 - Ús incorrrecte PSA en majors 70 anys",
-         "EQAU0702 - Cobertura vacunal sistemàtica infantil"
+         "EQAU0208",
+         "EQAU0235",
+         "EQAU0301",
+         "EQAU0239",
+         "EQAU0702"
       ]
    }
-   const prof = await fetch('http://localhost:3000/api/profesionals',
+   return fetch('http://localhost:3000/api/professionals',
       {
          next: {
             tags: ['dbData']
@@ -34,9 +34,7 @@ const getProfesionals = async (filter: any) => {
                filter: filter
             }
          ),
-      });
-
-   return await prof.json();
+      }).then(res => res.json());
 }
 
 export const getChartIndicators = async (filtros: any) => {
