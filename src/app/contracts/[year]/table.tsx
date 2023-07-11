@@ -109,18 +109,6 @@ export function ContractsTable({ data, centros }: any) {
          style: { fontSize: '', backgroundColor: '', color: '' },
          conditionalCellStyles: [
             {
-               when: (row: any): any => {
-                  if (row.objectiu) {
-                     return false;
-                  }
-                  return true;
-               },
-               style: {
-                  backgroundColor: '',
-                  color: '',
-               },
-            },
-            {
                when: (row: any) => {
                   // let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
                   if (!row.invers) {
@@ -150,6 +138,18 @@ export function ContractsTable({ data, centros }: any) {
                style: {
                   backgroundColor: 'var(--red)',
                   color: 'var(--white)'
+               },
+            },
+            {
+               when: (row: any): any => {
+                  if (row.objectiu) {
+                     return false;
+                  }
+                  return true;
+               },
+               style: {
+                  backgroundColor: '',
+                  color: '',
                },
             }
          ]
