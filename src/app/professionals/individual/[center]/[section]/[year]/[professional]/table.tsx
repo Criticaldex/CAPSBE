@@ -22,22 +22,28 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
       conditionalCellStyles: [
          {
             when: (row: any) => {
-               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-               if (objetivo > 0 && row[professional] >= Math.abs(objetivo)) return true;
-               else if (objetivo < 0 && row[professional] <= Math.abs(objetivo)) return true;
+               if (!row.Invers) {
+                  if (row[professional] >= row.Objectiu) return true
+                  else return false
+               } else {
+                  if (row[professional] <= row.Objectiu.replace(/\D/g, '')) return true
+                  else return false
+               }
             },
             style: {
                backgroundColor: 'var(--green)',
-               color: 'var(--white)'
+               color: 'var(--white)',
             },
          },
          {
             when: (row: any) => {
-               let objetivo = (row.Objectiu != null && row.Objectiu[0] == '<') ? -row.Objectiu.substring(1) : row.Objectiu;
-
-               if (objetivo > 0 && row[professional] <= Math.abs(objetivo)) return true;
-               else if (objetivo < 0 && row[professional] >= Math.abs(objetivo)) return true
+               if (!row.Invers) {
+                  if (row[professional] <= row.Objectiu) return true
+                  else return false
+               } else {
+                  if (row[professional] >= row.Objectiu.replace(/\D/g, '')) return true
+                  else return false
+               }
             },
             style: {
                backgroundColor: 'var(--red)',
@@ -45,7 +51,12 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
             },
          },
          {
-            when: (row: any): any => row.Objectiu == null,
+            when: (row: any): any => {
+               if (row.Objectiu) {
+                  return false;
+               }
+               return true;
+            },
             style: {
                backgroundColor: '',
                color: '',
@@ -66,7 +77,8 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
       let fila: { [k: string]: any } = {
          id: key,
          Indicador: key,
-         Objectiu: (indicador[0].objectiu < 0) ? `<${Math.abs(indicador[0].objectiu)}` : indicador[0].objectiu
+         Objectiu: (indicador[0].objectiu) ? ((indicador[0].invers) ? `< ${indicador[0].objectiu}` : indicador[0].objectiu) : '',
+         Invers: indicador[0].invers
       };
 
       indicador.map((centre: any) => {

@@ -40,8 +40,7 @@ function renderMarkers(this: any) {
          var marker = renderer.path(singleMarkerPath)
             .attr({
                'stroke-width': 1.5,
-               stroke: 'red',
-               zIndex: 2,
+               stroke: 'var(--red)',
             })
             .add();
 

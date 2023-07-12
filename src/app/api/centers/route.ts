@@ -6,7 +6,8 @@ export async function POST(request: Request) {
    try {
       const body = await request.json();
       const fields = (body.fields) ? body.fields.join(' ') : '';
-      await dbConnect(process.env.MONGO_DB);
+      const db = body.db;
+      await dbConnect(db);
       const centros: any = await Center.findOne({}).select(fields).lean();
       return NextResponse.json(centros);
    } catch (err) {

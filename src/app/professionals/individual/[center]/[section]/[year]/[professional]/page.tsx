@@ -34,7 +34,6 @@ export default async function ProfessionalsChart({ params }: any) {
    let profName = await professionalName(professionals, professional);
    const chartName = await professionalName(professionals, professional) + ' - ' + await centerName(professional);
 
-
    return (
       <div>
          <Chart

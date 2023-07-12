@@ -32,9 +32,12 @@ async function dbConnect(db: any) {
          return mongoose
       })
       // Logic to check that the database is connected properly
-      mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+      mongoose.connection.on('error', console.error.bind(console, '-------------------CONNECTION ERROR:'));
       mongoose.connection.once('open', () => {
-         console.log('Database connected: ', db);
+         console.log('------------------- DATABASE CONNECTED:', db, '-------------------');
+      });
+      mongoose.connection.once('close', () => {
+         console.log('------------------- DATABASE CONNECTION CLOSED -------------------');
       });
    }
 

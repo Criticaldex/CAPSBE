@@ -1,6 +1,9 @@
 import _ from "lodash"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const getProfessionals = async (filter: any) => {
+   const session = await getServerSession(authOptions)
    filter.identificador = {
       $in: [
          "EQAU0208",
@@ -23,6 +26,7 @@ const getProfessionals = async (filter: any) => {
             {
                fields: [
                   "indicador",
+                  "identificador",
                   "sector",
                   "any",
                   "centre",
@@ -31,7 +35,8 @@ const getProfessionals = async (filter: any) => {
                   "invers",
                   "-_id"
                ],
-               filter: filter
+               filter: filter,
+               db: session?.user.db
             }
          ),
       }).then(res => res.json());
