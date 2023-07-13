@@ -2,47 +2,54 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 
-export default function GetLinks() {
+export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : ['', 'contracts', '2023', '0'];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
 
-   const links = [{
-      label: '2022',
-      route: `/contracts/2022/${center}`
-   },
-   {
-      label: '2023',
-      route: `/contracts/2023/${center}`
-   }]
+   let links: object[] = [];
+   years.map((label: any) => (
+      links.push({
+         label: label,
+         route: `/contracts/${label}/${center}`
+      })
+   ))
 
    return (
-      <div className="flex justify-end m-auto mr-3 my-2">
+      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`my-1 mx-4 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`} key={route} href={route}>
-               {label}
-            </Link>
+            <Link className={
+               `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+               ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               key={route} href={route}>
+               <li> {label} </li>
+            </Link >
          ))}
-      </div>
+      </ul >
    )
 }
 
-
-export function CenterChartButtons({ year, centros }: any) {
+export function GetLinksCenters(centros: any) {
    const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : ['', 'contracts', '2023', '0'];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
 
+   let links: any[] = [];
+
+   centros.centros.map(({ id, name, link }: any) => (
+      links.push({
+         label: name,
+         route: link
+      })
+   ))
 
    return (
-      <div className="text-center m-auto absolute z-10 mt-4">
-         {centros.map((centro: any, i: number) => (
-            <Link href={centro.link} key={i} className={`my-1 mx-4 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-               ${pathname?.includes(centro.link) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`}>
-               {centro.name}
+      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
+         {links.map(({ label, route }: any, i: number) => (
+            <Link className={`border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+            ${pathname?.includes(route) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               key={i} href={route}>
+               <li> {label} </li>
             </Link>
          ))}
-      </div>
+      </ul>
    )
 }
