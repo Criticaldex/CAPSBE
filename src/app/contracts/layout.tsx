@@ -1,5 +1,5 @@
-import GetLinks from "./routing"
-import { GetLinksYears, getYears } from "@/services/contracts";
+import { GetLinksYears } from "./routing";
+import { getYears } from "@/services/contracts";
 
 export default async function ContractsLayout({ children }: any) {
    const years = await getYears();
@@ -11,7 +11,7 @@ export default async function ContractsLayout({ children }: any) {
          </div>
          <hr className="w-11/12 m-auto mt-0 border-t-2 border-bgLight" />
          <GetLinksYears
-         // years={years}
+            years={years}
          />
          <main>
             {children}
