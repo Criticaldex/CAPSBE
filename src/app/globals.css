@@ -40,8 +40,8 @@
       --bg-dark: #333;
       --contrario: #f2f2f2;
       --color-button: black;
-      --pestanaDark: rgb(131, 131, 131);
-      --pestanaLight: rgba(85, 85, 85, 0.9);
+      --pestanaDark: #838383;
+      --pestanaLight: #555555e6;
    }
 }
 
@@ -58,8 +58,8 @@
       --bg-dark: #bbb;
       --contrario: #262626;
       --color-button: white;
-      --pestanaDark: rgba(38, 38, 38, 0.9);
-      --pestanaLight: rgb(131, 131, 131);
+      --pestanaDark: #262626e6;
+      --pestanaLight: #838383;
    }
 }
 
@@ -104,13 +104,6 @@ body {
    stroke: var(--background-color);
 }
 
-
-/* -----------------------wrap table headers text----------------------- */
-
-.gWFUca {
-   white-space: pre-wrap !important;
-}
-
 /* ----------------------------------------------- */
 
 #scrollDiv::-webkit-scrollbar {
@@ -124,21 +117,6 @@ body {
 #scrollDiv::-webkit-scrollbar-thumb {
    background: var(--foreground);
    border-radius: 5px;
-}
-
-.boton-no {
-   box-shadow: 0 4px #999;
-}
-
-.boton-si {
-   position: relative;
-   bottom: -2px;
-   box-shadow: 0 2px #666;
-}
-
-.boton-no:active {
-   box-shadow: 0 2px #666;
-   transform: translateY(2px);
 }
 
 .rdt_TableCol_Sortable>div {
