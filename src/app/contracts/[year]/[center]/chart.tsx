@@ -19,7 +19,8 @@ export function Chart({ name, data, objectiu }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         type: 'spline'
+         type: 'spline',
+         spacingTop: 30
       },
       title: {
          text: name

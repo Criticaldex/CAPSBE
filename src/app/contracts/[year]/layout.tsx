@@ -4,7 +4,6 @@ import { getContractsCenters } from "@/services/centros";
 import { getEqasContracts } from "@/services/eqas";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
-import { usePathname } from "next/navigation";
 import { CenterChartButtons } from "../routing";
 
 export default async function loadContracts({ children, params }: any) {
