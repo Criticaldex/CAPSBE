@@ -7,6 +7,7 @@ import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
 import { usePathname } from "next/navigation"
 import { LogoutButton } from "@/components/loginbuttons.component";
+import { NextAuthProvider } from "@/app/providers";
 
 export default function GetNav() {
 
@@ -21,29 +22,29 @@ export default function GetNav() {
       {
          label: 'Professionals',
          icon: FaUserNurse,
-         route: '/profesionals'
+         route: '/professionals'
       }
    ]
    const navTitlesIconsFarma = [
       {
          label: 'Els Meus Centres',
          icon: RiHospitalFill,
-         route: ''
+         route: '/'
       },
       {
          label: 'IQF',
          icon: BiCapsule,
-         route: ''
+         route: '/'
       },
       {
          label: 'Comparació',
          icon: IoGitCompare,
-         route: ''
+         route: '/'
       },
       {
          label: 'Arxius',
          icon: AiOutlineFolder,
-         route: ''
+         route: '/'
       }
    ]
 
@@ -68,8 +69,9 @@ export default function GetNav() {
                   ))}
                   <hr className="my-4 border-textColor" />
                   <h3 className="pt-2 pb-4 ml-16 text-xl italic font-bold">Farmàcia</h3>
+                  <h3 className="pt-2 pb-4 ml-16 text-xl italic font-bold">¡en desenvolupament!</h3>
                   {navTitlesIconsFarma.map((navTI) => (
-                     <Link key={navTI.route} href='navTI.route' className="hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0  pl-3 items-center">
+                     <Link key={navTI.label} href={navTI.route} className="hover:text-darkRed pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0  pl-3 items-center">
                         <navTI.icon size={20} />
                         <span className="text-lg">
                            {navTI.label}
@@ -79,7 +81,9 @@ export default function GetNav() {
                </div>
             </div>
             <div>
-               <LogoutButton />
+               <NextAuthProvider>
+                  <LogoutButton />
+               </NextAuthProvider>
             </div>
          </nav>
       </div>

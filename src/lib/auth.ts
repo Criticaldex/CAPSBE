@@ -5,6 +5,7 @@ import { compare } from 'bcryptjs';
 export const authOptions: NextAuthOptions = {
    session: {
       strategy: "jwt",
+      maxAge: 1 * 8 * 60 * 60, // 8 hores
    },
    providers: [
       CredentialsProvider({
@@ -43,6 +44,9 @@ export const authOptions: NextAuthOptions = {
          }
       }),
    ],
+   pages: {
+      signIn: "/auth/signin"
+   },
    callbacks: {
       session: ({ session, token }) => {
          // console.log("Session Callback", { session, token });

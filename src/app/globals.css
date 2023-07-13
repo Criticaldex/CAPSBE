@@ -14,6 +14,7 @@
    --bg-dark: #333;
    --red-1: #f22613;
    --red: #ff4f68;
+   --darkRed: #7f1d1d;
    --green: #32c87d;
    --orange-1: #f29513;
    --orange: #f8b068;
@@ -23,6 +24,7 @@
    --yellow: #eab107;
    --white: #fff;
    --black: #000;
+   --table-size-text: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,7 +58,7 @@
       --bg-dark: var(--darkBlue);
       --contrario: #262626;
       --color-button: white;
-      --pestanaDark: rgba(38,38,38, 0.9);
+      --pestanaDark: rgba(38, 38, 38, 0.9);
       --pestanaLight: rgb(131, 131, 131);
    }
 }
@@ -70,7 +72,6 @@ body {
 }
 
 /* ---------------- HIGHCHARTS CONFIG ---------------- */
-
 .highcharts-background {
    fill: var(--bg-light);
 }
@@ -85,7 +86,7 @@ body {
    fill-opacity: 0.7;
 }
 
-.highcharts-title{
+.highcharts-title {
    text-transform: capitalize;
 }
 
@@ -103,11 +104,8 @@ body {
    stroke: var(--background-color);
 }
 
-/* ----------------------------------------------- */
 
-#tabla_contratos>div>div {
-   display: block !important;
-}
+/* -----------------------wrap table headers text----------------------- */
 
 .gWFUca {
    white-space: pre-wrap !important;
@@ -124,14 +122,15 @@ body {
 }
 
 #scrollDiv::-webkit-scrollbar-thumb {
-   background: var(--foreground); 
+   background: var(--foreground);
    border-radius: 5px;
 }
 
-.boton-no{
+.boton-no {
    box-shadow: 0 4px #999;
 }
-.boton-si{
+
+.boton-si {
    position: relative;
    bottom: -2px;
    box-shadow: 0 2px #666;
@@ -140,4 +139,8 @@ body {
 .boton-no:active {
    box-shadow: 0 2px #666;
    transform: translateY(2px);
+}
+
+.rdt_TableCol_Sortable>div {
+   white-space: pre-wrap;
 }

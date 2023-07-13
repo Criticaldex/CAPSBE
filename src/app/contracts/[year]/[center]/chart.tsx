@@ -1,44 +1,38 @@
 'use client'
 import Highcharts from 'highcharts'
+import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
+import { chartOptions } from '@/components/chart.components'
+
+if (typeof Highcharts === "object") {
+   HighchartsExporting(Highcharts)
+}
 
 export function Chart({ name, data, objectiu }: any) {
-
-   if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
-
+   let max = 0;
+   data.forEach((elem: any) => {
+      elem.data.map((i: any) => {
+         max = (i > max) ? i : max;
+      });
+   });
+   max = (objectiu > max) ? objectiu : max;
    const options = {
-      chart: { type: 'spline', spacingTop: 20 },
-      lang: {
-         noData: "No hi han dades disponibles"
-      },
-      noData: {
-         style: {
-            fontSize: '26px',
-            fontWeight: 'bold',
-            color: '#666666'
-         },
+      ...chartOptions,
+      chart: {
+         type: 'spline'
       },
       title: {
          text: name
       },
       series: data,
-      xAxis: {
-         categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre'],
-         startOnTick: true
-      },
       yAxis: {
-         title: {
-            enabled: false
-         }
-      },
-      credits: {
-         text: ""
-      },
-      legend: {
-         enabled: true,
-         align: 'right',
-         verticalAlign: 'middle',
-         width: 125
+         ...chartOptions.yAxis,
+         max: max,
+         plotLines: [{
+            color: 'var(--red)',
+            width: 2,
+            value: objectiu
+         }]
       }
    }
 

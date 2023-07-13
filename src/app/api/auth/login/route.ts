@@ -2,6 +2,7 @@ import dbConnect from '@/lib/dbConnect'
 import User from '@/models/user'
 import { compare } from 'bcryptjs';
 import { NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 
 export async function POST(request: Request) {
    const body = await request.json()
@@ -10,8 +11,16 @@ export async function POST(request: Request) {
       try {
          const user: any = await User.findOne({ "email": body.email }).select('-_id').lean();
          if (user && await compare(body.password, user.hash)) {
-            const { hash, ...userWithoutHash } = user;
-            return NextResponse.json(userWithoutHash);
+            const date = new Date();
+            if (user.license.start < date && user.license.end > date) {
+               process.env.MONGO_DB = user.db;
+               await dbConnect(process.env.MONGO_DB); //create connection to new db instead of AuthDB
+               revalidateTag('dbData'); //get new data instead of the one from cache
+               const { hash, ...userWithoutHash } = user;
+               return NextResponse.json(userWithoutHash);
+            } else {
+               return NextResponse.json({ ERROR: "La llicencia ha caducat!" });
+            }
          } else {
             return NextResponse.json({ ERROR: "Email o contrasenya incorrectes!" });
          }

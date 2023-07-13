@@ -1,7 +1,7 @@
 import React from "react";
 import { getTableIndicators } from "@/services/contracts";
 import { getContractsCenters } from "@/services/centros";
-import Link from "next/link";
+import { getEqasContracts } from "@/services/eqas";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
 import { usePathname } from "next/navigation";
@@ -11,18 +11,9 @@ export default async function loadContracts({ children, params }: any) {
 
    const { year } = params;
    const centros = await getContractsCenters(year);
+   const eqas = await getEqasContracts(year, centros);
 
-   const indicadoresContrato = await getTableIndicators({ "Any": year });
-   const infoChart = [
-      {
-         name: 'Sarria',
-         data: [646, 321, 753, 914, 453, 367, 354, 489, 452, 574, 478, 358]
-      },
-      {
-         name: 'Vallplasa',
-         data: [367, 354, 489, 452, 574, 478, 358, 646, 321, 753, 914, 453]
-      }
-   ]
+   const indicadoresContrato = await getTableIndicators(year);
 
    return (
       <article className="min-h-fit">
@@ -31,18 +22,18 @@ export default async function loadContracts({ children, params }: any) {
                data={indicadoresContrato}
                centros={centros}
             />
-            <div className="basis-1/2">
+            <div className="w-1/2">
                <Chart
                   name={'TOTAL EQA'}
-                  data={infoChart}
+                  data={eqas}
                />
                <CenterChartButtons
                   year={year}
                   centros={centros}
                />
                {children}
-            </div>
-         </section>
-      </article>
+            </div >
+         </section >
+      </article >
    );
 }
