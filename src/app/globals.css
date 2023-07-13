@@ -25,6 +25,7 @@
    --white: #fff;
    --black: #000;
    --table-size-text: 14px;
+   --pestanaHover: #1f96ff1a;
 }
 
 @media (prefers-color-scheme: dark) {
