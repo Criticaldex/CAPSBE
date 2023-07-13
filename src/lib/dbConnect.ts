@@ -14,17 +14,10 @@ let cached = global.mongoose
 
 if (!cached) {
    cached = global.mongoose = { conn: null, promise: null }
+
 }
 
 async function dbConnect(db: any) {
-   // Logic to check that the database is connected properly
-   mongoose.connection.on('error', console.error.bind(console, 'CONNECTION ERROR:'));
-   mongoose.connection.once('open', () => {
-      console.log('------------------- DATABASE CONNECTED:', db, '-------------------');
-   });
-   mongoose.connection.once('close', () => {
-      console.log('------------------- DATABASE CONNECTION CLOSED -------------------');
-   });
 
    let opts: any = {
       dbName: db,
@@ -32,18 +25,23 @@ async function dbConnect(db: any) {
       pass: process.env.MONGO_PASS
    }
 
-   if (cached.conn && cached.conn.connection.$dbName == db) {
+   if (cached?.conn?.connection?.$dbName == db) {
       return cached.conn
    } else if (db) {
+      // Logic to check that the database is connected properly
+      mongoose.connection.on('error', console.error.bind(console, 'CONNECTION ERROR:'));
+      mongoose.connection.once('open', () => {
+         console.log('------------------- DATABASE CONNECTED:', db, '-------------------');
+      });
+      mongoose.connection.once('close', () => {
+         console.log('------------------- DATABASE CONNECTION CLOSED -------------------');
+      });
       opts.bufferCommands = false;
       opts.autoCreate = false;
       await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose
       })
-   } else {
-      await mongoose.disconnect();
-      cached.promise = null;
    }
 
    try {
