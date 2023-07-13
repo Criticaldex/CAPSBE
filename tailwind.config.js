@@ -31,7 +31,7 @@ module.exports = {
             colorButton: 'var(--color-button)',
             pestanaDark: 'var(--pestanaDark)',
             pestanaLight: 'var(--pestanaLight)',
-            pestanaHover: 'rgba(31,150,255, 0.1)'
+            pestanaHover: 'var(--pestanaHover)'
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']
