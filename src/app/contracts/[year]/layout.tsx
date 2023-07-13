@@ -4,7 +4,7 @@ import { getContractsCenters } from "@/services/centros";
 import { getEqasContracts } from "@/services/eqas";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
-import { CenterChartButtons } from "../routing";
+import { GetLinksCenters } from "../routing";
 
 export default async function loadContracts({ children, params }: any) {
 
@@ -26,8 +26,7 @@ export default async function loadContracts({ children, params }: any) {
                   name={'TOTAL EQA'}
                   data={eqas}
                />
-               <CenterChartButtons
-                  year={year}
+               <GetLinksCenters
                   centros={centros}
                />
                {children}
