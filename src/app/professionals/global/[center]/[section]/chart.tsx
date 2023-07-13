@@ -99,4 +99,13 @@ export function Chart({ name, data, objectiu, index }: any) {
          width: 250
       },
    }
+
+   return (
+      <div className="bg-bgLight rounded-md px-3 mb-2">
+         <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+         />
+      </div>
+   )
 }
