@@ -1,9 +1,6 @@
 import _ from "lodash"
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 const getEqas = async (filter: any) => {
-   const session = await getServerSession(authOptions)
    return fetch('http://localhost:3000/api/eqas',
       {
          next: {
@@ -19,7 +16,6 @@ const getEqas = async (filter: any) => {
                   "-_id"
                ],
                filter: filter,
-               db: session?.user.db
             }
          ),
       }).then(res => res.json());

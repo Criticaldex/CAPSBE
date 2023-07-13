@@ -1,8 +1,5 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 const getCentros = async () => {
-   const session = await getServerSession(authOptions)
    return fetch('http://localhost:3000/api/centers',
       {
          next: {
@@ -18,7 +15,6 @@ const getCentros = async () => {
                   "centers",
                   "-_id"
                ],
-               db: session?.user.db
             }
          ),
       }).then(res => res.json());
