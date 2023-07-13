@@ -36,33 +36,33 @@ const nextConfig = {
             permanent: false,
          },
          {
-            source: '/profesionals',
-            destination: `/profesionals/${process.env.PROFESIONALS_DEFAULT_VIEW}/${process.env.PROFESIONALS_DEFAULT_CENTER}/${process.env.PROFESIONALS_DEFAULT_SECTION}`,
+            source: '/professionals',
+            destination: `/professionals/${process.env.PROFESSIONALS_DEFAULT_VIEW}/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
-            source: '/profesionals/global',
-            destination: `/profesionals/global/${process.env.PROFESIONALS_DEFAULT_CENTER}/${process.env.PROFESIONALS_DEFAULT_SECTION}`,
+            source: '/professionals/global',
+            destination: `/professionals/global/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
-            source: '/profesionals/global/:centre',
-            destination: `/profesionals/global/:centre/${process.env.PROFESIONALS_DEFAULT_SECTION}`,
+            source: '/professionals/global/:centre',
+            destination: `/professionals/global/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
-            source: '/profesionals/individual',
-            destination: `/profesionals/individual/${process.env.PROFESIONALS_DEFAULT_CENTER}/${process.env.PROFESIONALS_DEFAULT_SECTION}/${process.env.PROFESIONALS_DEFAULT_YEAR}`,
+            source: '/professionals/individual',
+            destination: `/professionals/individual/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
             permanent: false,
          },
          {
-            source: '/profesionals/individual/:centre',
-            destination: `/profesionals/individual/:centre/${process.env.PROFESIONALS_DEFAULT_SECTION}/${process.env.PROFESIONALS_DEFAULT_YEAR}`,
+            source: '/professionals/individual/:centre',
+            destination: `/professionals/individual/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
             permanent: false,
          },
          {
-            source: '/profesionals/individual/:centre/:section',
-            destination: `/profesionals/individual/:centre/:section/${process.env.PROFESIONALS_DEFAULT_YEAR}`,
+            source: '/professionals/individual/:centre/:section',
+            destination: `/professionals/individual/:centre/:section/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
             permanent: false,
          }
       ];

@@ -1,8 +1,14 @@
 import _ from "lodash"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-const getEqas = (filter: any) => {
+const getEqas = async (filter: any) => {
+   const session = await getServerSession(authOptions)
    return fetch('http://localhost:3000/api/eqas',
       {
+         next: {
+            tags: ['dbData']
+         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -12,7 +18,8 @@ const getEqas = (filter: any) => {
                fields: [
                   "-_id"
                ],
-               filter: filter
+               filter: filter,
+               db: session?.user.db
             }
          ),
       }).then(res => res.json());
@@ -21,6 +28,7 @@ const getEqas = (filter: any) => {
 export const getEqasContracts = async (year: string, centers: any) => {
    const filter = { 'any': year }
    const data = await getEqas(filter);
+
    return data.map((i: any) => {
       return {
          name: centers[i.centre].name,

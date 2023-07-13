@@ -1,8 +1,13 @@
-import _ from "lodash"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-const getCentros = (filter: any) => {
+const getCentros = async () => {
+   const session = await getServerSession(authOptions)
    return fetch('http://localhost:3000/api/centers',
       {
+         next: {
+            tags: ['dbData']
+         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
@@ -13,30 +18,29 @@ const getCentros = (filter: any) => {
                   "centers",
                   "-_id"
                ],
+               db: session?.user.db
             }
          ),
       }).then(res => res.json());
 }
 
 export const getContractsCenters = async (year: any) => {
-   const centros: any = await getCentros({});
-   let data = await centros.centers.map((centro: string, i: number) => {
+   const centros: any = await getCentros();
+   return await centros.centers.map((centro: string, i: number) => {
       return {
          id: i.toString(),
          name: centro,
          link: `/contracts/${year}/${i}`
       }
    })
-   return data
 }
 
-export const getProfesionalsCenters = async () => {
-   const centros: any = await getCentros({});
-   let data = await centros.centers.map((centro: string, i: number) => {
+export const getProfessionalsCenters = async () => {
+   const centros: any = await getCentros();
+   return await centros.centers.map((centro: string, i: number) => {
       return {
          id: i.toString(),
          name: centro
       }
    })
-   return data
 }

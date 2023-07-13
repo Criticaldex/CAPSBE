@@ -12,7 +12,7 @@ export default async function loadContracts({ children, params }: any) {
    const centros = await getContractsCenters(year);
    const eqas = await getEqasContracts(year, centros);
 
-   const indicadoresContrato = await getTableIndicators({ "Any": year });
+   const indicadoresContrato = await getTableIndicators(year);
 
    return (
       <article className="min-h-fit">

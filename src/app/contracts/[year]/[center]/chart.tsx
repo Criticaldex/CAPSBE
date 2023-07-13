@@ -9,8 +9,13 @@ if (typeof Highcharts === "object") {
 }
 
 export function Chart({ name, data, objectiu }: any) {
-   if (objectiu && objectiu[0] == '<') objectiu = parseFloat(objectiu.substring(1))
-
+   let max = 0;
+   data.forEach((elem: any) => {
+      elem.data.map((i: any) => {
+         max = (i > max) ? i : max;
+      });
+   });
+   max = (objectiu > max) ? objectiu : max;
    const options = {
       ...chartOptions,
       chart: {
@@ -22,6 +27,7 @@ export function Chart({ name, data, objectiu }: any) {
       series: data,
       yAxis: {
          ...chartOptions.yAxis,
+         max: max,
          plotLines: [{
             color: 'var(--red)',
             width: 2,

@@ -19,7 +19,7 @@ export default function GetNav() {
       {
          label: 'Professionals',
          icon: FaUserNurse,
-         route: '/profesionals'
+         route: '/professionals'
       }
    ]
    const navTitlesIconsFarma = [
