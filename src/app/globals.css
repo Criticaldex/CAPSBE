@@ -19,11 +19,13 @@
    --orange-1: #f29513;
    --orange: #f8b068;
    --darkBlue: #0468BF;
+   --darkBlue2: #023A6B99;
    --lightBlue: #0dcaf0;
    --yellow: #eab107;
    --white: #fff;
    --black: #000;
    --table-size-text: 14px;
+   --pestanaHover: #1f96ff1a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,9 +36,13 @@
       --background-color: #222;
       --bg-nav: #161616;
       --text-color: #ddd;
-      --text-color-2: #dddddd88;
+      --text-color-2: #bbb;
       --bg-light: #424242;
       --bg-dark: #333;
+      --contrario: #f2f2f2;
+      --color-button: black;
+      --pestanaDark: #838383;
+      --pestanaLight: #555555e6;
    }
 }
 
@@ -51,6 +57,10 @@
       --text-color-2: #33333388;
       --bg-light: #fff;
       --bg-dark: #bbb;
+      --contrario: #262626;
+      --color-button: white;
+      --pestanaDark: #262626e6;
+      --pestanaLight: #838383;
    }
 }
 
@@ -77,6 +87,10 @@ body {
    fill-opacity: 0.7;
 }
 
+.highcharts-title {
+   text-transform: capitalize;
+}
+
 .highcharts-axis-line,
 .highcharts-grid-line {
    stroke: var(--text-color);
@@ -91,8 +105,20 @@ body {
    stroke: var(--background-color);
 }
 
+/* ----------------------------------------------- */
 
-/* -----------------------wrap table headers text----------------------- */
+#scrollDiv::-webkit-scrollbar {
+   width: 7px;
+}
+
+#scrollDiv::-webkit-scrollbar-track {
+   border-radius: 10px;
+}
+
+#scrollDiv::-webkit-scrollbar-thumb {
+   background: var(--foreground);
+   border-radius: 5px;
+}
 
 .rdt_TableCol_Sortable>div {
    white-space: pre-wrap;

@@ -19,12 +19,19 @@ module.exports = {
             foreground: 'var(--foreground)',
             chart: 'var(--bg-light)',
             darkBlue: 'var(--darkBlue)',
+            darkBlue2: 'var(--darkBlue2)',
             lightBlue: 'var(--lightBlue)',
             red: 'var(--red)',
             darkRed: 'var(--darkRed)',
             yellowCustom: 'var(--yellow)',
             bgLight: 'var(--bg-light)',
             bgDark: 'var(--bg-dark)',
+            contrario: 'var(--contrario)',
+            hover: 'var(--background-start)',
+            colorButton: 'var(--color-button)',
+            pestanaDark: 'var(--pestanaDark)',
+            pestanaLight: 'var(--pestanaLight)',
+            pestanaHover: 'var(--pestanaHover)'
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']

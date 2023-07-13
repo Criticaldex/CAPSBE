@@ -1,4 +1,4 @@
-import { GetLinksYears } from "./routing"
+import { GetLinksYears } from "./routing";
 import { getYears } from "@/services/contracts";
 
 export default async function ContractsLayout({ children }: any) {

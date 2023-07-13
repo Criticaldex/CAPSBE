@@ -186,7 +186,7 @@ export function ContractsTable({ data, centros }: any) {
    return (
       <div id='tabla_contratos' className="rounded-md overflow-hidden w-1/2 bg-body">
          <DataTable
-            className=''
+            className='shadow-xl'
             columns={columns}
             data={tableData}
             // conditionalRowStyles={conditionalRowStyles}

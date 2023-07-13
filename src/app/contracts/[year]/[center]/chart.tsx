@@ -19,7 +19,8 @@ export function Chart({ name, data, objectiu }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         type: 'spline'
+         type: 'spline',
+         spacingTop: 30
       },
       title: {
          text: name
@@ -37,8 +38,8 @@ export function Chart({ name, data, objectiu }: any) {
    }
 
    return (
-      <div className="max-h-1/2 mx-2 py-1">
-         <div className="max-h-full px-3 bg-bgLight rounded-md">
+      <div className="max-h-1/2 mx-2 pb-1">
+         <div className="max-h-full px-3 bg-bgLight rounded-md shadow-xl">
             <HighchartsReact
                highcharts={Highcharts}
                options={options}

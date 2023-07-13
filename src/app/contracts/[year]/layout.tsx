@@ -30,8 +30,8 @@ export default async function loadContracts({ children, params }: any) {
                   centros={centros}
                />
                {children}
-            </div>
-         </section>
+            </div >
+         </section >
       </article >
    );
 }
