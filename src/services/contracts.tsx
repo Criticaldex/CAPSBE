@@ -1,9 +1,6 @@
 import _ from "lodash"
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 const getContracts = async (filter: any) => {
-   const session = await getServerSession(authOptions)
    return fetch('http://localhost:3000/api/contracts',
       {
          next: {
@@ -26,7 +23,6 @@ const getContracts = async (filter: any) => {
                   "-_id"
                ],
                filter: filter,
-               db: session?.user.db
             }
          ),
       }).then(res => res.json());

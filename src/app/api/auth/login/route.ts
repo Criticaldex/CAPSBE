@@ -13,9 +13,9 @@ export async function POST(request: Request) {
          if (user && await compare(body.password, user.hash)) {
             const date = new Date();
             if (user.license.start < date && user.license.end > date) {
-               await dbConnect(user.db); //create connection to new db instead of AuthDB
-               revalidateTag('dbData'); //get new data instead of the one from cache
                process.env.MONGO_DB = user.db;
+               await dbConnect(process.env.MONGO_DB); //create connection to new db instead of AuthDB
+               revalidateTag('dbData'); //get new data instead of the one from cache
                const { hash, ...userWithoutHash } = user;
                return NextResponse.json(userWithoutHash);
             } else {

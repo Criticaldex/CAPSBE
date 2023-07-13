@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 const MONGODB_URI = process.env.MONGO_HOST as string
 
+
 if (!MONGODB_URI) {
    throw new Error(
       'Please define the MONGO_HOST environment variable inside .env.local'
@@ -16,7 +17,16 @@ if (!cached) {
 }
 
 async function dbConnect(db: any) {
-   let opts = {
+   // Logic to check that the database is connected properly
+   mongoose.connection.on('error', console.error.bind(console, 'CONNECTION ERROR:'));
+   mongoose.connection.once('open', () => {
+      console.log('------------------- DATABASE CONNECTED:', db, '-------------------');
+   });
+   mongoose.connection.once('close', () => {
+      console.log('------------------- DATABASE CONNECTION CLOSED -------------------');
+   });
+
+   let opts: any = {
       dbName: db,
       user: process.env.MONGO_USER,
       pass: process.env.MONGO_PASS
@@ -24,21 +34,16 @@ async function dbConnect(db: any) {
 
    if (cached.conn && cached.conn.connection.$dbName == db) {
       return cached.conn
-   } else {
-      // opts.bufferCommands = false;
-      // opts.autoCreate = false;
-      await mongoose.connection.close();
+   } else if (db) {
+      opts.bufferCommands = false;
+      opts.autoCreate = false;
+      await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
          return mongoose
       })
-      // Logic to check that the database is connected properly
-      mongoose.connection.on('error', console.error.bind(console, '-------------------CONNECTION ERROR:'));
-      mongoose.connection.once('open', () => {
-         console.log('------------------- DATABASE CONNECTED:', db, '-------------------');
-      });
-      mongoose.connection.once('close', () => {
-         console.log('------------------- DATABASE CONNECTION CLOSED -------------------');
-      });
+   } else {
+      await mongoose.disconnect();
+      cached.promise = null;
    }
 
    try {
