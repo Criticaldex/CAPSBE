@@ -10,7 +10,6 @@ export async function POST(request: Request) {
       const dbName = body.db;
       await dbConnect();
       const db = mongoose.connection.useDb(dbName, { useCache: true });
-      // console.log('<----------DATABASE SWITCHED on Eqas:', dbName, '---------->');
       if (!db.models.eqa) {
          db.model('eqa', eqaSchema);
       }

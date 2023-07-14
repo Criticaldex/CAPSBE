@@ -5,9 +5,6 @@ const getCentros = async () => {
    const session = await getSession();
    return fetch('http://localhost:3000/api/centers',
       {
-         next: {
-            tags: ['dbData']
-         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',

@@ -7,9 +7,6 @@ const getContracts = async (filter: any) => {
 
    return fetch('http://localhost:3000/api/contracts',
       {
-         next: {
-            tags: ['dbData']
-         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
