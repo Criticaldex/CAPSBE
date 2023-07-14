@@ -30,10 +30,10 @@ async function dbConnect() {
       // Logic to check that the database is connected properly
       mongoose.connection.on('error', console.error.bind(console, 'CONNECTION ERROR:'));
       mongoose.connection.once('open', () => {
-         console.log('<-----DATABASE CONNECTION OPEN ON:', MONGODB_URL, '----->');
+         console.log('<----------DATABASE CONNECTION OPEN ON:', MONGODB_URL, '---------->');
       });
       mongoose.connection.once('close', () => {
-         console.log('<-----DATABASE CONNECTION CLOSED----->');
+         console.log('<----------DATABASE CONNECTION CLOSED---------->');
       });
       // await mongoose.disconnect();
       cached.promise = mongoose.connect(MONGODB_URL, opts).then((mongoose) => {

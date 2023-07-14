@@ -1,6 +1,8 @@
 import _ from "lodash"
+import { getSession } from "@/services/session"
 
 const getEqas = async (filter: any) => {
+   const session = await getSession();
    return fetch('http://localhost:3000/api/eqas',
       {
          next: {
@@ -12,6 +14,7 @@ const getEqas = async (filter: any) => {
          },
          body: JSON.stringify(
             {
+               db: session?.user.db,
                fields: [
                   "-_id"
                ],

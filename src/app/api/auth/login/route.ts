@@ -10,6 +10,7 @@ export async function POST(request: Request) {
    if (body.email && body.password) {
       await dbConnect();
       const db = mongoose.connection.useDb('Auth', { useCache: true });
+      console.log('<----------DATABASE SWITCHED: Auth---------->');
       if (!db.models.user) {
          db.model('user', userSchema);
       }
@@ -18,8 +19,8 @@ export async function POST(request: Request) {
          if (user && await compare(body.password, user.hash)) {
             const date = new Date();
             if (user.license.start < date && user.license.end > date) {
-               process.env.MONGO_DB = user.db;
-               revalidateTag('dbData'); //get new data instead of the one from cache
+               // process.env.MONGO_DB = user.db;
+               // revalidateTag('dbData'); //get new data instead of the one from cache
                const { hash, ...userWithoutHash } = user;
                return NextResponse.json(userWithoutHash);
             } else {

@@ -1,5 +1,8 @@
+import { getSession } from "@/services/session"
+
 
 const getCentros = async () => {
+   const session = await getSession();
    return fetch('http://localhost:3000/api/centers',
       {
          next: {
@@ -11,6 +14,7 @@ const getCentros = async () => {
          },
          body: JSON.stringify(
             {
+               db: session?.user.db,
                fields: [
                   "centers",
                   "-_id"
