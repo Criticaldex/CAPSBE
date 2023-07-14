@@ -1,11 +1,12 @@
+import mongoose from 'mongoose'
 import dbConnect from '@/lib/dbConnect'
-import User, { UserIface } from '@/models/user'
+import userSchema, { UserIface } from '@/schemas/user'
 import { NextResponse } from "next/server";
 import { hash } from 'bcryptjs';
 
 export async function POST(request: Request) {
    try {
-      const session = false;
+      const session = true;
 
       if (!session) {
          return new NextResponse(
@@ -32,8 +33,13 @@ export async function POST(request: Request) {
          role: (body.role) ? body.role : null
       };
 
-      await dbConnect(process.env.MONGO_AUTH_DB);
-      const user = await User.create(fields);
+      const dbName = body.db;
+      await dbConnect();
+      const db = mongoose.connection.useDb(dbName, { useCache: true });
+      if (!db.models.user) {
+         db.model('user', userSchema);
+      }
+      const user = await db.models.user.create(fields);
       return NextResponse.json(`Usuari ${user.email} creat!`);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

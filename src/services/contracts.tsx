@@ -12,6 +12,7 @@ const getContracts = async (filter: any) => {
          },
          body: JSON.stringify(
             {
+               db: 'SaVa',
                fields: [
                   "identificador",
                   "indicador",

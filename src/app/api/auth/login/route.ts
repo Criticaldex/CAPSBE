@@ -1,5 +1,6 @@
+import mongoose from 'mongoose'
 import dbConnect from '@/lib/dbConnect'
-import User from '@/models/user'
+import userSchema from '@/schemas/user'
 import { compare } from 'bcryptjs';
 import { NextResponse } from 'next/server'
 import { revalidateTag } from 'next/cache'
@@ -7,14 +8,17 @@ import { revalidateTag } from 'next/cache'
 export async function POST(request: Request) {
    const body = await request.json()
    if (body.email && body.password) {
-      await dbConnect('Auth');
+      await dbConnect();
+      const db = mongoose.connection.useDb('Auth', { useCache: true });
+      if (!db.models.user) {
+         db.model('user', userSchema);
+      }
       try {
-         const user: any = await User.findOne({ "email": body.email }).select('-_id').lean();
+         const user: any = await db.models.user.findOne({ "email": body.email }).select('-_id').lean();
          if (user && await compare(body.password, user.hash)) {
             const date = new Date();
             if (user.license.start < date && user.license.end > date) {
                process.env.MONGO_DB = user.db;
-               await dbConnect(process.env.MONGO_DB); //create connection to new db instead of AuthDB
                revalidateTag('dbData'); //get new data instead of the one from cache
                const { hash, ...userWithoutHash } = user;
                return NextResponse.json(userWithoutHash);

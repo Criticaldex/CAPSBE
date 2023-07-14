@@ -1,13 +1,19 @@
+import mongoose from 'mongoose'
 import dbConnect from '@/lib/dbConnect'
-import Professional from '@/models/professional'
+import professionalSchema from '@/schemas/professional'
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
    try {
       const body = await request.json()
       const fields = (body.fields) ? body.fields.join(' ') : '';
-      await dbConnect(process.env.MONGO_DB);
-      const professional: any = await Professional.find(body.filter).select(fields).lean();
+      const dbName = body.db;
+      await dbConnect();
+      const db = mongoose.connection.useDb(dbName, { useCache: true });
+      if (!db.models.professional) {
+         db.model('professional', professionalSchema);
+      }
+      const professional: any = await db.models.professional.find(body.filter).select(fields).lean();
       return NextResponse.json(professional);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
