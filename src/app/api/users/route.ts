@@ -33,7 +33,7 @@ export async function POST(request: Request) {
          role: (body.role) ? body.role : null
       };
 
-      const dbName = body.db;
+      const dbName = 'Auth';
       await dbConnect();
       const db = mongoose.connection.useDb(dbName, { useCache: true });
       if (!db.models.user) {
