@@ -28,7 +28,6 @@ module.exports = {
             bgDark: 'var(--bg-dark)',
             contrario: 'var(--contrario)',
             hover: 'var(--background-start)',
-            colorButton: 'var(--color-button)',
             pestanaDark: 'var(--pestanaDark)',
             pestanaLight: 'var(--pestanaLight)',
             pestanaHover: 'var(--pestanaHover)'
