@@ -40,7 +40,6 @@
       --bg-light: #424242;
       --bg-dark: #333;
       --contrario: #f2f2f2;
-      --color-button: black;
       --pestanaDark: #838383;
       --pestanaLight: #555555e6;
    }
@@ -58,7 +57,6 @@
       --bg-light: #fff;
       --bg-dark: #bbb;
       --contrario: #262626;
-      --color-button: white;
       --pestanaDark: #262626e6;
       --pestanaLight: #838383;
    }

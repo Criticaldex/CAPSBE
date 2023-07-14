@@ -1,6 +1,9 @@
 import _ from "lodash"
+import { getSession } from "@/services/session"
 
 const getProfessionals = async (filter: any) => {
+   const session = await getSession();
+
    filter.identificador = {
       $in: [
          "EQAU0208",
@@ -12,15 +15,13 @@ const getProfessionals = async (filter: any) => {
    }
    return fetch('http://localhost:3000/api/professionals',
       {
-         next: {
-            tags: ['dbData']
-         },
          method: 'POST',
          headers: {
             'Content-type': 'application/json',
          },
          body: JSON.stringify(
             {
+               db: session?.user.db,
                fields: [
                   "indicador",
                   "identificador",
