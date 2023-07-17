@@ -167,7 +167,7 @@ export function ContractsTable({ data, centros }: any) {
 
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      let objetivo = (value[0].invers) ? `< ${value[0].objectiu}` : value[0].objectiu;
+      let objetivo = (value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu;
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: objetivo };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          indicador.Indicador = `${value[centro.id].identificador} - ${value[centro.id].indicador}`;

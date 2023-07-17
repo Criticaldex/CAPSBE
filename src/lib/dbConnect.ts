@@ -20,8 +20,8 @@ async function dbConnect() {
    let opts: any = {
       user: process.env.MONGO_USER,
       pass: process.env.MONGO_PASS,
-      bufferCommands: false,
-      autoCreate: false,
+      // bufferCommands: false,
+      // autoCreate: false,
    }
 
    if (cached.conn) {
