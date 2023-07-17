@@ -8,7 +8,7 @@ if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
 }
 
-export function Chart({ name, data, objectiu }: any) {
+export function Chart({ name, data, objectiu, invers }: any) {
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
@@ -16,6 +16,7 @@ export function Chart({ name, data, objectiu }: any) {
       });
    });
    max = (objectiu > max) ? objectiu : max;
+   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
    const options = {
       ...chartOptions,
       chart: {
@@ -32,7 +33,7 @@ export function Chart({ name, data, objectiu }: any) {
          plotLines: [{
             color: 'var(--red)',
             width: 2,
-            value: objectiu
+            value: obj
          }]
       }
    }
