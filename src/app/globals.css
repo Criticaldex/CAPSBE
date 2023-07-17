@@ -121,3 +121,7 @@ body {
 .rdt_TableCol_Sortable>div {
    white-space: pre-wrap;
 }
+
+#tabla_contratos > div > div {
+   display: block !important;
+}
