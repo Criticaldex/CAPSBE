@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation';
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
 
    let links: object[] = [];
    years.map((label: any) => (
       links.push({
          label: label,
-         route: `/contracts/${label}/${center}`
+         route: `/dashboard/${label}`
       })
    ))
 
