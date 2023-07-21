@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import GetNav from './routing'
+import { NextAuthProvider } from "./providers";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +15,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <html lang="en">
          <body className={inter.className}>
             <GetNav />
-            {children}
+            <NextAuthProvider>
+               {children}
+            </NextAuthProvider>
          </body>
       </html>
    )

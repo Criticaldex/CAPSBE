@@ -45,3 +45,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ ERROR: (err as Error).message });
    }
 }
+
+export async function GET(request: Request) {
+   try {
+      const { searchParams } = new URL(request.url)
+      const database = searchParams.get('db');
+      const filter = database ? { db: database } : {}
+      const dbName = 'Auth';
+      await dbConnect();
+      const db = mongoose.connection.useDb(dbName, { useCache: true });
+      if (!db.models.user) {
+         db.model('user', userSchema);
+      }
+      const users = await db.models.user.find(filter).select('-_id -hash').lean();
+      return NextResponse.json(users);
+   } catch (err) {
+      return NextResponse.json({ ERROR: (err as Error).message });
+   }
+}
