@@ -95,8 +95,7 @@ export function Chart({ name, data, objectiu, index }: any) {
          min: 0
       },
       legend: {
-         ...chartOptions.legend,
-         width: 250
+         enabled: false
       },
    }
 
