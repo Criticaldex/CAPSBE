@@ -100,7 +100,7 @@ export function ContractsTable({ data, centros }: any) {
       columns.push({
          name: centro.name,
          cell: (row: any) => (
-            <div title={row.objectiu}>
+            <div data-tag="allowRowEvents" title={row.objectiu}>
                {row[centro.name]}
             </div>
          ),
