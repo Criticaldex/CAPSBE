@@ -34,17 +34,17 @@ export default async function loadContracts({ children, params }: any) {
          </section >
          <div className="flex flex-row justify-between px-5">
             <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
-               <Chart
-                  name={'TOTAL EQA'}
-                  data={eqas}
-               />
-            </div>
-            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
                <GetLinksCenters
                   centros={centros}
                />
                {children}
             </div >
+            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
+               <Chart
+                  name={'TOTAL EQA'}
+                  data={eqas}
+               />
+            </div>
          </div >
       </article >
    );
