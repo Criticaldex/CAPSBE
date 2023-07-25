@@ -182,18 +182,16 @@ export function ContractsTable({ data, centros }: any) {
    createThemes();
 
    return (
-      <div id='tabla_contratos' className="rounded-md overflow-hidden w-1/2 bg-body">
-         <DataTable
-            className='shadow-xl'
-            columns={columns}
-            data={tableData}
-            // conditionalRowStyles={conditionalRowStyles}
-            theme={'custom'}
-            expandableRows
-            // expandableRowsHideExpander
-            expandOnRowClicked
-            expandableRowsComponent={ExpandedComponent}
-         />
-      </div>
+      <DataTable
+         className='shadow-xl'
+         columns={columns}
+         data={tableData}
+         // conditionalRowStyles={conditionalRowStyles}
+         theme={'custom'}
+         expandableRows
+         // expandableRowsHideExpander
+         expandOnRowClicked
+         expandableRowsComponent={ExpandedComponent}
+      />
    )
 };

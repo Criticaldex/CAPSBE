@@ -29,13 +29,15 @@ export function GetLinksYears({ years }: any) {
 
 export function GetLinksCenters(centros: any) {
    const pathname = usePathname();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const year = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_YEAR;
 
    let links: any[] = [];
 
-   centros.centros.map(({ id, name, link }: any) => (
+   centros.centros.map(({ id, name }: any) => (
       links.push({
          label: name,
-         route: link
+         route: `/dashboard/${year}/${id}`
       })
    ))
 

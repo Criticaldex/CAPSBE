@@ -1,6 +1,6 @@
 import React from "react";
 import { getTableIndicators } from "@/services/contracts";
-import { getContractsCenters } from "@/services/centros";
+import { getCenters } from "@/services/centros";
 import { getEqasContracts } from "@/services/eqas";
 import { ContractsTable } from "./table"
 import { Chart } from "./[center]/chart";
@@ -9,7 +9,7 @@ import { GetLinksCenters } from "../routing";
 export default async function loadContracts({ children, params }: any) {
 
    const { year } = params;
-   const centros = await getContractsCenters(year);
+   const centros = await getCenters();
    const eqas = await getEqasContracts(year, centros);
 
    const indicadoresContrato = await getTableIndicators(year);
