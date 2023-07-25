@@ -39,13 +39,9 @@ export function Chart({ name, data, objectiu, invers }: any) {
    }
 
    return (
-      <div className="max-h-1/2 mx-2 pb-1">
-         <div className="max-h-full px-3 bg-bgLight rounded-md shadow-xl">
-            <HighchartsReact
-               highcharts={Highcharts}
-               options={options}
-            />
-         </div>
-      </div>
+      <HighchartsReact
+         highcharts={Highcharts}
+         options={options}
+      />
    )
 }
