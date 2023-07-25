@@ -16,22 +16,36 @@ export default async function loadContracts({ children, params }: any) {
 
    return (
       <article className="min-h-fit">
-         <section className="flex flex-row justify-between px-5">
-            <ContractsTable
-               data={indicadoresContrato}
-               centros={centros}
-            />
-            <div className="w-1/2">
+         <section className="flex flex-row justify-between px-5 mb-2">
+            <div id='tabla_contratos' className="rounded-md overflow-hidden w-3/4 bg-body">
+               <ContractsTable
+                  data={indicadoresContrato}
+                  centros={centros}
+               />
+            </div>
+            <div className="w-1/4">
+               <div className="mx-2 mb-2 p-1 h-max bg-bgLight rounded-md shadow-xl">
+                  <Chart className="h-max"
+                     name={'TOTAL EQA'}
+                     data={eqas}
+                  />
+               </div>
+            </div >
+         </section >
+         <div className="flex flex-row justify-between px-5">
+            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
                <Chart
                   name={'TOTAL EQA'}
                   data={eqas}
                />
+            </div>
+            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
                <GetLinksCenters
                   centros={centros}
                />
                {children}
             </div >
-         </section >
+         </div >
       </article >
    );
 }
