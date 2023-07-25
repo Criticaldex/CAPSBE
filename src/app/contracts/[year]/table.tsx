@@ -99,7 +99,11 @@ export function ContractsTable({ data, centros }: any) {
    centros.map((centro: any) => {
       columns.push({
          name: centro.name,
-         selector: (row: any) => row[centro.name],
+         cell: (row: any) => (
+            <div data-tag="allowRowEvents" title={row.objectiu}>
+               {row[centro.name]}
+            </div>
+         ),
          sortable: false,
          minWidth: '30px',
          compact: true,
@@ -154,15 +158,6 @@ export function ContractsTable({ data, centros }: any) {
       })
    });
 
-   columns.push({
-      name: 'objectiu',
-      selector: (row: any) => row.objectiu,
-      sortable: false,
-      grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' },
-      conditionalCellStyles: []
-   })
-
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
       let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
@@ -182,18 +177,16 @@ export function ContractsTable({ data, centros }: any) {
    createThemes();
 
    return (
-      <div id='tabla_contratos' className="rounded-md overflow-hidden w-1/2 bg-body">
-         <DataTable
-            className='shadow-xl'
-            columns={columns}
-            data={tableData}
-            // conditionalRowStyles={conditionalRowStyles}
-            theme={'custom'}
-            expandableRows
-            // expandableRowsHideExpander
-            expandOnRowClicked
-            expandableRowsComponent={ExpandedComponent}
-         />
-      </div>
+      <DataTable
+         className='shadow-xl'
+         columns={columns}
+         data={tableData}
+         // conditionalRowStyles={conditionalRowStyles}
+         theme={'custom'}
+         expandableRows
+         // expandableRowsHideExpander
+         expandOnRowClicked
+         expandableRowsComponent={ExpandedComponent}
+      />
    )
 };
