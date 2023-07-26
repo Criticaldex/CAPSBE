@@ -6,7 +6,7 @@ export default async function ProfessionalsCenter({ children, params }: any) {
    const sections = await getSections(center, process.env.PROFESSIONALS_DEFAULT_YEAR)
 
    return (
-      <div>
+      <div className="mx-4">
          <GetLinksSection
             sections={sections}
          />
