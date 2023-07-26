@@ -7,8 +7,8 @@ export default async function ProfessionalsChart({ children, params }: any) {
    const professionals = await getProfessionalsList(filters);
 
    return (
-      <div className="flex pr-2">
-         <div className="w-1/4">
+      <div className="flex items-stretch">
+         <div className="w-1/4 mb-1 h-[41rem]">
             <GetLinksProfessionals
                professionals={professionals}
             />
