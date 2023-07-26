@@ -4,12 +4,14 @@ import { usePathname } from 'next/navigation';
 
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const section = (pathArray[3]) ? pathArray[3] : process.env.DASHBOARD_DEFAULT_SECTION;
 
    let links: object[] = [];
    years.map((label: any) => (
       links.push({
          label: label,
-         route: `/dashboard/${label}`
+         route: `/dashboard/${label}/${section}`
       })
    ))
 
