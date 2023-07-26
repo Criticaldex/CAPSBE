@@ -35,7 +35,7 @@ export default async function ProfessionalsChart({ params }: any) {
    const chartName = await professionalName(professionals, professional) + ' - ' + await centerName(professional);
 
    return (
-      <div>
+      <div className="h-[41rem]">
          <Chart
             name={chartName}
             data={infoChart}
