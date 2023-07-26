@@ -1,4 +1,4 @@
-import { GetLinksYears } from "./routing";
+import { GetLinksYears, GetSectionButtons } from "./routing";
 import { getYears } from "@/services/contracts";
 
 export default async function ContractsLayout({ children }: any) {
@@ -10,10 +10,14 @@ export default async function ContractsLayout({ children }: any) {
             <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">Indicadors Contracte</h1>
          </div>
          <hr className="w-11/12 m-auto mt-0 border-t-2 border-bgLight" />
-         <GetLinksYears
-            years={years}
-         />
-         <main>
+         <main className="m-2">
+            <div className="flex justify-between mb-2">
+               <GetSectionButtons />
+               <GetLinksYears
+                  years={years}
+               />
+            </div>
+
             {children}
          </main>
       </div>

@@ -1,50 +1,39 @@
-import { getTableIndicators } from "@/services/indicators";
 import { getCenters } from "@/services/centros";
 import { getEqasContracts } from "@/services/eqas";
-import { ContractsTable } from "./table"
-import { Chart } from "./[center]/chart";
-import { GetLinksCenters } from "../routing";
+import { Chart } from "./chart";
 
-export default async function loadContracts({ children, params }: any) {
-
+export default async function LayoutDashboard({ children, params }: any) {
    const { year } = params;
    const centros = await getCenters();
    const eqas = await getEqasContracts(year, centros);
 
-   const indicadores = await getTableIndicators(year);
-
    return (
       <article className="min-h-fit">
-         <section className="flex flex-row justify-between px-5 mb-2">
-            <div id='tabla_contratos' className="rounded-md overflow-hidden w-3/4 bg-body">
-               <ContractsTable
-                  data={indicadores}
-                  centros={centros}
-               />
-            </div>
-            <div className="w-1/4">
-               <div className="mx-2 mb-2 p-1 h-max bg-bgLight rounded-md shadow-xl">
-                  <Chart className="h-max"
-                     name={'TOTAL EQA'}
-                     data={eqas}
-                  />
-               </div>
-            </div >
-         </section >
-         <div className="flex flex-row justify-between px-5">
-            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
-               <GetLinksCenters
-                  centros={centros}
-               />
+         <section className="flex flex-row justify-between mx-2 mb-2">
+            <div id='tabla_dashboard' className="w-3/4 h-auto bg-bgLight rounded-md shadow-xl">
                {children}
-            </div >
-            <div className="w-1/2 mr-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
+            </div>
+            <div className="w-1/4 p-1 ml-2 h-auto bg-bgLight rounded-md shadow-xl">
                <Chart
                   name={'TOTAL EQA'}
                   data={eqas}
                />
             </div>
-         </div >
-      </article >
+         </section>
+         <div className="flex flex-row justify-between mx-2 mb-2">
+            <div className="w-1/3 p-1 mr-2 bg-bgLight rounded-md shadow-xl">
+               <Chart
+                  name={'TOTAL EQA'}
+                  data={eqas}
+               />
+            </div>
+            <div className="w-1/3 p-1 mr-2 bg-bgLight rounded-md shadow-xl">
+               <h1 className="text-center text-xl font-bold my-4">DMA</h1>
+            </div>
+            <div className="w-1/3 p-1 bg-bgLight rounded-md shadow-xl">
+               <h1 className="text-center text-xl font-bold my-4">IQF</h1>
+            </div>
+         </div>
+      </article>
    );
 }

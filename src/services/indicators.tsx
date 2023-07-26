@@ -1,7 +1,6 @@
 import _ from "lodash"
 import { getSession } from "@/services/session"
 
-
 const getIndicators = async (filter: any) => {
    const session = await getSession();
 
@@ -42,8 +41,47 @@ export const getChartIndicators = async (year: string, center: string) => {
    })
 }
 
-export const getTableIndicators = async (year: string) => {
-   const data = await getIndicators({ "any": year });
+export const getTableIndicatorsNoCpr = async (year: string) => {
+   const filter: any = {
+      identificador: {
+         $nin: [
+            "GESTINF05",
+            "PLA006",
+            "POBATINF01",
+            "CRONICITAT_RES",
+            "GC0005",
+            "NUT01",
+            "FIS01",
+            "BEN01",
+            "BENRES01",
+            "EQA0208"
+         ]
+      },
+      any: year
+   };
+   const data = await getIndicators(filter);
+   return _.groupBy(data, 'identificador');
+}
+
+export const getTableIndicatorsCpr = async (year: string) => {
+   const filter: any = {
+      identificador: {
+         $in: [
+            "GESTINF05",
+            "PLA006",
+            "POBATINF01",
+            "CRONICITAT_RES",
+            "GC0005",
+            "NUT01",
+            "FIS01",
+            "BEN01",
+            "BENRES01",
+            "EQA0208"
+         ]
+      },
+      any: year
+   };
+   const data = await getIndicators(filter);
    return _.groupBy(data, 'identificador');
 }
 

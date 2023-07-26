@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import { Chart } from "./[center]/chart";
+import { Chart } from "../chart";
 import { createThemes } from "@/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
@@ -11,6 +11,7 @@ const ExpandedComponent = ({ data }: any) => {
          data: i.data
       }
    })
+
    return (
       <Chart
          name={data.id}
@@ -21,85 +22,23 @@ const ExpandedComponent = ({ data }: any) => {
    );
 }
 
-export function ContractsTable({ data, centros }: any) {
+export function DashboardTable({ data, centros }: any) {
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
       sortable: false,
       grow: 7,
       style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      conditionalCellStyles: [
-         // {
-         //    when: (row: any) => {
-         //       let pasaObjetivo = 0;
-         //       let objetivo = (row.objectiu && row.invers) ? -row.objectiu : row.objectiu;
-         //       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-         //          if (objetivo > 0) {
-         //             if (row[centro.name] >= objetivo) pasaObjetivo++;
-         //          } else {
-         //             if (row[centro.name] <= objetivo) pasaObjetivo++;
-         //          }
-         //       })
-         //       if (pasaObjetivo == 2) {
-         //          return true;
-         //       } return false;
-
-         //    },
-         //    style: {
-         //       backgroundColor: 'var(--green)',
-         //       color: 'var(--white)',
-         //    },
-         // },
-         // {
-         //    when: (row: any) => {
-         //       let pasaObjetivo = 0;
-         //       let objetivo = (row.objectiu != null && row.objectiu[0] == '<') ? -row.objectiu.substring(1) : row.objectiu
-         //       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-         //          if (parseFloat(row[centro.name].replace(',', '.')) >= Math.abs(objetivo)) pasaObjetivo.push(true)
-         //          else pasaObjetivo.push(false)
-         //       });
-
-         //       if (pasaObjetivo.includes(false) && pasaObjetivo.includes(true)) return true
-         //    },
-         //    style: {
-         //       backgroundColor: 'var(--orange)',
-         //       color: 'var(--white)',
-         //    },
-         // },
-         // {
-         //    when: (row: any) => {
-         //       let pasaObjetivo = 0;
-         //       let objetivo = (row.objectiu != null && row.objectiu[0] == '<') ? -row.objectiu.substring(1) : row.objectiu
-         //       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-         //          if (parseFloat(row[centro.name].replace(',', '.')) <= Math.abs(objetivo)) pasaObjetivo.push(true)
-         //          else pasaObjetivo.push(false)
-         //       });
-
-         //       if (objetivo > 0) {
-         //          if (!pasaObjetivo.includes(false)) {
-         //             return true
-         //          }
-         //       } else if (!pasaObjetivo.includes(true)) return true
-         //    },
-         //    style: {
-         //       backgroundColor: 'var(--red)',
-         //       color: 'var(--white)'
-         //    },
-         // },
-         // {
-         //    when: (row: any): any => row.objectiu == null,
-         //    style: {
-         //       backgroundColor: '',
-         //       color: '',
-         //    },
-         // }
-      ]
    }];
 
    centros.map((centro: any) => {
       columns.push({
          name: centro.name,
-         selector: (row: any) => row[centro.name],
+         cell: (row: any) => (
+            <div data-tag="allowRowEvents" title={row.objectiu}>
+               {row[centro.name]}
+            </div>
+         ),
          sortable: false,
          minWidth: '30px',
          compact: true,
@@ -154,15 +93,6 @@ export function ContractsTable({ data, centros }: any) {
       })
    });
 
-   columns.push({
-      name: 'objectiu',
-      selector: (row: any) => row.objectiu,
-      sortable: false,
-      grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' },
-      conditionalCellStyles: []
-   })
-
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
       let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
@@ -183,13 +113,10 @@ export function ContractsTable({ data, centros }: any) {
 
    return (
       <DataTable
-         className='shadow-xl'
          columns={columns}
          data={tableData}
-         // conditionalRowStyles={conditionalRowStyles}
          theme={'custom'}
          expandableRows
-         // expandableRowsHideExpander
          expandOnRowClicked
          expandableRowsComponent={ExpandedComponent}
       />
