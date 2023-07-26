@@ -127,16 +127,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .pl {
 	display: block;
 	width: 6.25em;
@@ -149,13 +139,6 @@ body {
 	animation-name: ball;
 }
 
-/* Dark theme  */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--bg: hsl(var(--hue),10%,10%);
-		--fg: hsl(var(--hue),10%,90%);
-	}
-}
 
 /* Animation */
 @keyframes ring {
