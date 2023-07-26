@@ -24,7 +24,7 @@ export default async function loadContracts({ children, params }: any) {
                />
             </div>
             <div className="w-1/4">
-               <div className="mx-2 mb-2 p-1 h-max bg-bgLight rounded-md shadow-xl">
+               <div className="mx-2 mb-2 p-1 bg-bgLight rounded-md shadow-xl">
                   <Chart className="h-max"
                      name={'TOTAL EQA'}
                      data={eqas}

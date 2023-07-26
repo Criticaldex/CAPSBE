@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 import React from "react";
+import { BiChevronDown } from 'react-icons/bi'
 
 export function GetLinksView() {
    const pathname = usePathname();
@@ -22,7 +23,7 @@ export function GetLinksView() {
 
    return (
       <ul className="flex flex-col h-8 my-2 bg-nav ml-[2px] rounded-r-md w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
-         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
+         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Professionals <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'hover:bg-hover'}`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -61,7 +62,7 @@ export function GetLinksCentro({ centros }: any) {
    return (
       <ul onMouseOver={(e) => { e.currentTarget.style.height = longitudStr }} onMouseOut={(e) => { e.currentTarget.style.height = '2rem' }}
          className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
+         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Centros <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'} px-1`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
