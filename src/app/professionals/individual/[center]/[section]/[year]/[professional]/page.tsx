@@ -1,5 +1,5 @@
 import { getCentre, getChartIndividual, getProfessionalsList, getTableIndicators } from "@/services/professionals";
-import { getProfessionalsCenters } from "@/services/centros";
+import { getCenters } from "@/services/centros";
 import { Chart } from "./chart";
 import { ProfessionalsTable } from "./table";
 
@@ -13,7 +13,7 @@ async function professionalName(professionals: string[], professional: string) {
 
 async function centerName(professional: string) {
    const centreProf = await getCentre(professional);
-   const centres = await getProfessionalsCenters();
+   const centres = await getCenters();
 
    for (let index = 0; index < centres.length; index++) {
       if (centres[index].id == centreProf) {

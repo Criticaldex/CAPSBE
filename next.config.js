@@ -22,7 +22,7 @@ const nextConfig = {
       return [
          {
             source: '/',
-            destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
+            destination: `/dashboard/${process.env.CONTRACTS_DEFAULT_YEAR}`,
             permanent: false,
          },
          {
