@@ -84,10 +84,12 @@ export function GetLinksSection({ sections }: any) {
       })
    ))
 
+   let num_pestanas = links.length
+
    return (
       <ul className="w-full flex flex-wrap justify-between px-4 my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white text-center' : 'border-b-2 border-contrario text-textColor2 text-center hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
+            <Link className={`w-1/${num_pestanas} pr-1 my-3 py-1 px-5 rounded text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white text-center' : 'border-b-2 border-contrario text-textColor2 text-center hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
                <li className="w-100 ">
                   {label}
                </li>
