@@ -15,7 +15,11 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
    },
    {
       name: professional,
-      selector: (row: any) => row[professional],
+      cell: (row: any) => (
+         <div title={row.Objectiu}>
+            {row[professional]}
+         </div>
+      ),
       sortable: false,
       grow: 1,
       style: { fontSize: '', backgroundColor: '', color: '' },
@@ -63,13 +67,6 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
             },
          }
       ]
-   },
-   {
-      name: 'Objectiu',
-      selector: (row: any) => row.Objectiu,
-      sortable: false,
-      grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
    }];
 
    let tableData: any = [];
@@ -93,7 +90,7 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md overflow-hidden">
+      <div className="rounded-md overflow-hidden pr-2">
          <DataTable
             className=''
             columns={columns}

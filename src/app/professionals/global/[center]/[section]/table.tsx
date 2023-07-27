@@ -17,7 +17,11 @@ export function ProfessionalsTable({ data, professionals }: any) {
    professionals.map((prof: any) => {
       columns.push({
          name: prof,
-         selector: (row: any) => row[prof],
+         cell: (row: any) => (
+            <div title={row.Objectiu}>
+               {row[prof]}
+            </div>
+         ),
          sortable: false,
          minWidth: '30px',
          compact: true,
@@ -71,18 +75,6 @@ export function ProfessionalsTable({ data, professionals }: any) {
          ]
       })
    });
-
-   columns.push({
-      name: 'Objectiu',
-      selector: (row: any) => row.Objectiu,
-      sortable: false,
-      minWidth: '30px',
-      compact: true,
-      center: true,
-      wrap: true,
-      grow: 1,
-      style: { fontSize: '', backgroundColor: 'var(--bg-light)', color: 'var(--text-color)' }
-   })
 
    let tableData: any = [];
    for (const [key, indicador] of (Object.entries(data) as [string, any][])) {

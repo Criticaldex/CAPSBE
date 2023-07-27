@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 import React from "react";
+import { BiChevronDown } from 'react-icons/bi'
 
 export function GetLinksView() {
    const pathname = usePathname();
@@ -22,7 +23,7 @@ export function GetLinksView() {
 
    return (
       <ul className="flex flex-col h-8 my-2 bg-nav ml-[2px] rounded-r-md w-fit overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[7.3rem] transition-all duration-500">
-         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Professionals <span>&#11167;</span></h4>
+         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Professionals <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'hover:bg-hover'}`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -55,9 +56,13 @@ export function GetLinksCentro({ centros }: any) {
       })
    ))
 
+   const longitud = 34 + 41 * links.length
+   const longitudStr = longitud.toString() + 'px'
+
    return (
-      <ul className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-textColor mx-4 py-1 cursor-default font-bold">Centros <span>&#11167;</span></h4>
+      <ul onMouseOver={(e) => { e.currentTarget.style.height = longitudStr }} onMouseOut={(e) => { e.currentTarget.style.height = '2rem' }}
+         className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
+         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Centros <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'} px-1`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -85,10 +90,10 @@ export function GetLinksSection({ sections }: any) {
    ))
 
    return (
-      <ul className="w-full flex flex-wrap justify-between px-4 my-2 rounded-md">
+      <ul className="w-full flex justify-between my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`w-1/5 pr-1 my-3 py-1 px-5 rounded text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white text-center' : 'border-b-2 border-contrario text-textColor2 text-center hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
-               <li className="w-100 ">
+            <Link className={`grow pr-1 my-2 p-1 rounded-md text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white text-center' : 'border-b-2 border-contrario text-textColor2 text-center hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
+               <li>
                   {label}
                </li>
             </Link>
@@ -146,7 +151,7 @@ export function GetLinksProfessionals({ professionals }: any) {
    ))
 
    return (
-      <ul id="scrollDiv" className="max-h-[41rem] overflow-y-scroll m-auto w-11/12 bg-bgLight rounded-md py-1">
+      <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] mr-2 bg-bgLight rounded-md py-1">
          {links.map(({ label, code, route }: any) => (
             <Link className="w-full" key={route} href={route}>
                <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(code) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'}`}>

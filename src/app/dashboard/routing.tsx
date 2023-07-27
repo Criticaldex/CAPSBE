@@ -5,20 +5,20 @@ import { usePathname } from 'next/navigation';
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.CONTRACTS_DEFAULT_CENTER;
+   const section = (pathArray[3]) ? pathArray[3] : process.env.DASHBOARD_DEFAULT_SECTION;
 
    let links: object[] = [];
    years.map((label: any) => (
       links.push({
          label: label,
-         route: `/contracts/${label}/${center}`
+         route: `/dashboard/${label}/${section}`
       })
    ))
 
    return (
-      <div className="flex justify-end m-auto mr-3 my-2">
+      <div className="flex">
          {links.map(({ label, route }: any) => (
-            <Link className={`my-1 mx-4 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
+            <Link className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
             ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`} key={route} href={route}>
                {label}
             </Link>
@@ -37,7 +37,7 @@ export function GetLinksCenters(centros: any) {
    centros.centros.map(({ id, name }: any) => (
       links.push({
          label: name,
-         route: `/contracts/${year}/${id}`
+         route: `/dashboard/${year}/${id}`
       })
    ))
 
@@ -47,6 +47,34 @@ export function GetLinksCenters(centros: any) {
             <Link href={centro.route} key={i} className={`my-1 mx-4 py-2.5 px-5 rounded-md text-textColor font-bold border border-darkBlue
             ${pathname?.includes(centro.route) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`}>
                {centro.label}
+            </Link>
+         ))}
+      </div>
+   )
+}
+
+export function GetSectionButtons() {
+   const pathname = usePathname();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const year = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+
+   let links: object[] = [{
+      label: 'General',
+      route: `/dashboard/${year}/general`
+   }, {
+      label: 'CPR',
+      route: `/dashboard/${year}/cpr`
+   }, {
+      label: 'Contractes',
+      route: `/dashboard/${year}/contractes`
+   }];
+
+   return (
+      <div className="flex">
+         {links.map(({ label, route }: any) => (
+            <Link className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
+            ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`} key={route} href={route}>
+               {label}
             </Link>
          ))}
       </div>
