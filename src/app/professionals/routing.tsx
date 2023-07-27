@@ -44,7 +44,7 @@ export function GetLinksCentro({ centros }: any) {
 
    let links = [
       {
-         label: 'Todos',
+         label: 'Tots',
          route: `/professionals/${view}/all/${section}`
       }
    ];
@@ -62,7 +62,7 @@ export function GetLinksCentro({ centros }: any) {
    return (
       <ul onMouseOver={(e) => { e.currentTarget.style.height = longitudStr }} onMouseOut={(e) => { e.currentTarget.style.height = '2rem' }}
          className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Centros <BiChevronDown size={25} /></h4>
+         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Centres <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'} px-1`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
