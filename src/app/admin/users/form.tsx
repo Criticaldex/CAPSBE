@@ -1,114 +1,44 @@
-"use client";
+'use client';
 
-import { signIn } from "next-auth/react";
-import { ChangeEvent, useState } from "react";
+import { Path, useForm, UseFormRegister, SubmitHandler } from "react-hook-form";
+import { UserIface } from "@/schemas/user";
 
-export const RegisterForm = ({ session }: any) => {
-   let [loading, setLoading] = useState(false);
-   let [formValues, setFormValues] = useState({
-      email: "",
-      license: "123",
-      db: session.user.db,
-      server: session.user.server,
-      password: "",
-      name: "",
-      lastname: "",
-      role: "2"
-   });
+type InputProps = {
+   label: string;
+   value: Path<UserIface>;
+   register: UseFormRegister<UserIface>;
+   required: boolean;
+};
 
-   const onSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setLoading(true);
+// The following component is an example of your existing Input Component
+const Input = ({ label, value, register, required }: InputProps) => (
+   <>
+      <label className="text-center">{label}</label>
+      <input id={value} className="text-black" {...register(value, { required })} />
+   </>
+);
 
-      try {
-         const res = await fetch("/api/users", {
-            method: "POST",
-            body: JSON.stringify(formValues),
-            headers: {
-               "Content-Type": "application/json",
-            },
-         });
+export const UsersForm = (row: any) => {
+   const { register, handleSubmit, setValue } = useForm<UserIface>();
 
-         setLoading(false);
-         if (!res.ok) {
-            alert((await res.json()).message);
-            return;
-         }
-
-         signIn(undefined, { callbackUrl: "/" });
-      } catch (error: any) {
-         setLoading(false);
-         console.error(error);
-         alert(error.message);
-      }
-   };
-
-   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setFormValues({ ...formValues, [name]: value });
+   const onSubmit: SubmitHandler<UserIface> = data => {
+      alert(JSON.stringify(data));
    };
 
    return (
       <form
          id="userForm"
-         onSubmit={onSubmit}
-         style={{
-            display: "flex",
-            flexDirection: "column",
-            width: 500,
-            rowGap: 10,
-         }}
+         className="flex flex-col gap-2 grow rounded-md p-2 bg-bgLight"
+         onSubmit={handleSubmit(onSubmit)}
       >
-         <label htmlFor="email">Email</label>
-         <input
-            required
-            id="formEmail"
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            style={{ padding: "1rem" }}
-         />
-         <label htmlFor="password">Contrasenya</label>
-         <input
-            required
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            style={{ padding: "1rem" }}
-         />
-         <label htmlFor="name">Nom</label>
-         <input
-            required
-            id="formName"
-            type="text"
-            name="name"
-            value={formValues.name}
-            onChange={handleChange}
-            style={{ padding: "1rem" }}
-         />
-         <label htmlFor="lastname">Cognoms</label>
-         <input
-            required
-            id="formLastname"
-            type="text"
-            name="lastname"
-            value={formValues.lastname}
-            onChange={handleChange}
-            style={{ padding: "1rem" }}
-         />
-         <button
-            style={{
-               backgroundColor: `${loading ? 'var(--bg-dark)' : 'var(--darkBlue)'}`,
-               color: "#fff",
-               padding: "1rem",
-               cursor: "pointer",
-            }}
-            disabled={loading}
-         >
-            {loading ? "loading..." : "Register"}
+         <Input label="Email" value="email" register={register} required />
+         <Input label="Contrasenya" value="password" register={register} required />
+         <Input label="Nom" value="name" register={register} required={false} />
+         <Input label="Cognom" value="lastname" register={register} required={false} />
+         <button type="button" onClick={() => setValue("name", "Pepito")}>
+            Set First Name Value
          </button>
+         <input type="submit" />
       </form>
    );
 };

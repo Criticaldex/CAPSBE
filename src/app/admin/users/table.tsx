@@ -2,9 +2,9 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
-import $ from "jquery";
+import { UsersForm } from "./form";
 
-export function ContractsTable({ users, session }: any) {
+export function AdminTable({ users, session }: any) {
    let columns: any = [
       {
          name: 'Email',
@@ -55,9 +55,14 @@ export function ContractsTable({ users, session }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         cell: () => <button onClick={clickHandler}>Delete</button>,
+         name: 'Accions',
+         cell: (row: any) => (
+            <div className='flex flex-col'>
+               <button onClick={editHandler(row)}>Edit</button>
+               <button onClick={deleteHandler(row)}>Delete</button>
+            </div>
+         ),
          ignoreRowClick: true,
-         allowOverflow: true,
          button: true,
       }
    ];
@@ -67,27 +72,21 @@ export function ContractsTable({ users, session }: any) {
    createThemes();
 
    return (
-      <div id='tabla_usuarios' className="rounded-md overflow-hidden w-1/2 bg-body">
-         <DataTable
-            className='shadow-xl'
-            columns={columns}
-            data={tableData}
-            theme={'custom'}
-            onRowClicked={onRowClicked}
-         />
-      </div>
+      <DataTable
+         columns={columns}
+         data={tableData}
+         theme={'custom'}
+      />
    )
 };
 
-function clickHandler(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {
-   console.log('Clicked!!!')
-   // throw new Error('Function not implemented.');
+const editHandler = (row: any) => (event: any) => {
+   console.log('EDIT:', row);
+   const form = document.getElementById('userForm');
+   form.setValue("name", "Grace")
 }
 
-const onRowClicked = (row: any, event: any) => {
-   console.log('CLICKED row: ', row);
-   document.getElementById("formEmail").value = row.email;
-   document.getElementById("formName").value = row.name;
-   document.getElementById("formLastname").value = row.lastname;
-};
+const deleteHandler = (row: any) => (event: any) => {
+   console.log('DELETE: ', row)
+}
 

@@ -9,8 +9,8 @@ export default async function ContractsLayout({ children }: any) {
             <GetLinksAdmin />
             <h1 className="right-0 absolute mr-10 text-right justify-end font-semibold text-2xl italic">Panell Administració</h1>
          </div>
-         <hr className="w-11/12 m-auto mt-0 border-t-2 border-bgLight" />
-         <main>
+         <hr className="w-11/12 m-auto mt-0 border-t-2 border-darkBlue" />
+         <main className="m-4">
             {children}
          </main>
       </div>
