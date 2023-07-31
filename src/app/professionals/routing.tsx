@@ -154,7 +154,7 @@ export function GetLinksProfessionals({ professionals }: any) {
       <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] mr-2 bg-bgLight rounded-md py-1">
          {links.map(({ label, code, route }: any) => (
             <Link className="w-full" key={route} href={route}>
-               <li className={`border-b border-darkBlue mx-3 py-4 px-3 text-textColor ${pathname?.includes(code) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'}`}>
+               <li className={`border-b border-contrario mx-3 py-4 px-3 text-textColor ${pathname?.includes(code) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'}`}>
                   {label}
                </li>
             </Link>
