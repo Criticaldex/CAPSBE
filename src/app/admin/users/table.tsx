@@ -1,10 +1,26 @@
 'use client'
-import React from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
-import { UsersForm } from "./form";
+import { UsersForm } from "@/components/userForm.component";
+import { UserIface } from "@/schemas/user";
+import { Path, useForm, UseFormSetValue, UseFormRegister, SubmitHandler, UseFormReset } from "react-hook-form";
 
 export function AdminTable({ users, session }: any) {
+   const [modalFormData, setModalFormData] = useState({});
+   const [showModal, setShowModal] = useState(false);
+
+   const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors }
+   } = useForm<UserIface>({ defaultValues: modalFormData });
+
+   const onSubmit: SubmitHandler<UserIface> = data => {
+      alert(JSON.stringify(data));
+   };
+
    let columns: any = [
       {
          name: 'Email',
@@ -58,7 +74,7 @@ export function AdminTable({ users, session }: any) {
          name: 'Accions',
          cell: (row: any) => (
             <div className='flex flex-col'>
-               <button onClick={editHandler(row)}>Edit</button>
+               <button onClick={editHandler(row, setShowModal, setModalFormData, reset)}>Edit</button>
                <button onClick={deleteHandler(row)}>Delete</button>
             </div>
          ),
@@ -72,18 +88,40 @@ export function AdminTable({ users, session }: any) {
    createThemes();
 
    return (
-      <DataTable
-         columns={columns}
-         data={tableData}
-         theme={'custom'}
-      />
+      <div className="flex flex-row flex-nowrap justify-between mt-2">
+         <div className="flex mr-2 basis-3/4 rounded-md">
+            <DataTable
+               columns={columns}
+               data={tableData}
+               theme={'custom'}
+            />
+         </div>
+         <div className="flex basis-1/4 rounded-md bg-light">
+            {showModal && (
+               <UsersForm
+                  register={register}
+                  handleSubmit={handleSubmit}
+                  user={session.user}
+                  data={modalFormData}
+                  setShowModal={setShowModal}
+               />
+            )}
+         </div>
+      </div>
    )
 };
 
-const editHandler = (row: any) => (event: any) => {
+const editHandler = (
+   row: UserIface,
+   setShowModal: Dispatch<SetStateAction<boolean>>,
+   setModalFormData: Dispatch<SetStateAction<UserIface>>,
+   reset: UseFormReset<UserIface>
+) => (event: any) => {
    console.log('EDIT:', row);
-   const form = document.getElementById('userForm');
-   form.setValue("name", "Grace")
+   // setModalFormData(row);
+   setShowModal(true);
+   reset(row)
+
 }
 
 const deleteHandler = (row: any) => (event: any) => {

@@ -50,21 +50,6 @@ export default function Contracts() {
                </button>
             )}
 
-            <input
-               name="email"
-               placeholder="email"
-               {...register('email')}
-            />
-
-            <input
-               name="keepValue"
-               placeholder="keepValue"
-               ref={register}
-               style={{
-                  display: true ? "block" : "none" // toggle the visbility of an input
-               }}
-            />
-
             {true && (
                <input
                   placeholder="ghost"
