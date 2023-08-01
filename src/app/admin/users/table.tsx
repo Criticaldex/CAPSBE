@@ -7,15 +7,13 @@ import { UserIface } from "@/schemas/user";
 import { Path, useForm, UseFormSetValue, UseFormRegister, SubmitHandler, UseFormReset } from "react-hook-form";
 
 export function AdminTable({ users, session }: any) {
-   const [modalFormData, setModalFormData] = useState({});
-   const [showModal, setShowModal] = useState(false);
 
    const {
       register,
       handleSubmit,
       reset,
       formState: { errors }
-   } = useForm<UserIface>({ defaultValues: modalFormData });
+   } = useForm<UserIface>();
 
    const onSubmit: SubmitHandler<UserIface> = data => {
       alert(JSON.stringify(data));
@@ -74,7 +72,7 @@ export function AdminTable({ users, session }: any) {
          name: 'Accions',
          cell: (row: any) => (
             <div className='flex flex-col'>
-               <button onClick={editHandler(row, setShowModal, setModalFormData, reset)}>Edit</button>
+               <button onClick={editHandler(row, reset)}>Edit</button>
                <button onClick={deleteHandler(row)}>Delete</button>
             </div>
          ),
@@ -97,15 +95,10 @@ export function AdminTable({ users, session }: any) {
             />
          </div>
          <div className="flex basis-1/4 rounded-md bg-light">
-            {showModal && (
-               <UsersForm
-                  register={register}
-                  handleSubmit={handleSubmit}
-                  user={session.user}
-                  data={modalFormData}
-                  setShowModal={setShowModal}
-               />
-            )}
+            <UsersForm
+               register={register}
+               handleSubmit={handleSubmit}
+            />
          </div>
       </div>
    )
@@ -113,15 +106,10 @@ export function AdminTable({ users, session }: any) {
 
 const editHandler = (
    row: UserIface,
-   setShowModal: Dispatch<SetStateAction<boolean>>,
-   setModalFormData: Dispatch<SetStateAction<UserIface>>,
    reset: UseFormReset<UserIface>
 ) => (event: any) => {
-   console.log('EDIT:', row);
-   // setModalFormData(row);
-   setShowModal(true);
+   // console.log('EDIT:', row);
    reset(row)
-
 }
 
 const deleteHandler = (row: any) => (event: any) => {
