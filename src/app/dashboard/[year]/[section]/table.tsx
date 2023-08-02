@@ -35,7 +35,7 @@ export function DashboardTable({ data, centros }: any) {
       columns.push({
          name: centro.name,
          cell: (row: any) => (
-            <div data-tag="allowRowEvents" title={row.objectiu}>
+            <div className={`${row.objectiu == '' ? '' : 'tags'} w-full text-center`} data-tag="allowRowEvents" data-gloss={`Objectiu: ${row.objectiu}`}>
                {row[centro.name]}
             </div>
          ),
