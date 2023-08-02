@@ -149,3 +149,14 @@ export const getChartIndividual = async (filtros: any, professional: string) => 
 
    return chart;
 }
+
+export const getMonth = async (filtros: any) => {
+   const data = await getProfessionals(filtros);
+   const meses = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+   let mes = 0;
+   for (const [key, value] of (Object.entries(data[0].professionals) as [string, any][])) {
+      if (mes < value.length - 1) mes = value.length - 1
+   }
+
+   return meses[mes];
+}
