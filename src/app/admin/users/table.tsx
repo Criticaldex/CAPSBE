@@ -1,29 +1,67 @@
 'use client'
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
 import { UsersForm } from "@/components/userForm.component";
 import { UserIface } from "@/schemas/user";
-import { Path, useForm, UseFormSetValue, UseFormRegister, SubmitHandler, UseFormReset } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormReset } from "react-hook-form";
+import { deleteUser, getUsers } from '@/services/users';
+import { confirmAlert } from 'react-confirm-alert'; // Import
 
 export function AdminTable({ users, session }: any) {
+
+   const [rows, setRows] = useState(users);
 
    const {
       register,
       handleSubmit,
       reset,
-      formState: { errors }
+      clearErrors,
+      formState,
+      formState: { errors, isDirty, dirtyFields }
    } = useForm<UserIface>();
 
-   const onSubmit: SubmitHandler<UserIface> = data => {
-      alert(JSON.stringify(data));
-   };
+   const editHandler = (row: UserIface, reset: UseFormReset<UserIface>) => (event: any) => {
+      console.log(row);
+
+      reset(row)
+   }
+
+   const deleteHandler = (row: any) => (event: any) => {
+      confirmAlert({
+         // title: 'Eliminar Usuari',
+         message: 'Vols eliminar l\'usuari: \n' + row.email + ' ?',
+         buttons: [
+            {
+               label: 'Eliminar',
+               onClick: async () => {
+                  const del = await deleteUser(row.email);
+                  if (del) {
+                     setRows(await getUsers());
+                  }
+               }
+            },
+            {
+               label: 'Millor no toco res :S',
+               // onClick: () => alert('Click No')
+            }
+         ]
+      });
+   }
+
+   // useEffect(() => {
+   //    console.log('ERRORS: ', formState.errors);
+   //    console.log('TOUCHED: ', formState.touchedFields);
+   //    console.log('Dirty: ', formState.isDirty);
+   //    console.log('Fields: ', formState.dirtyFields);
+   // }, [formState])
 
    let columns: any = [
       {
          name: 'Email',
          selector: (row: any) => row.email,
          sortable: true,
+         grow: 2,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
@@ -42,10 +80,11 @@ export function AdminTable({ users, session }: any) {
          name: 'Server',
          selector: (row: any) => row.server,
          sortable: true,
+         grow: 2,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'databse',
+         name: 'database',
          selector: (row: any) => row.db,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
@@ -57,15 +96,10 @@ export function AdminTable({ users, session }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'License Start',
-         selector: (row: any) => row.license.start,
+         name: 'Licencia',
+         selector: (row: any) => Intl.DateTimeFormat("es-ES").format(new Date(row.license.start)) + ' - ' + Intl.DateTimeFormat("es-ES").format(new Date(row.license.end)),
          sortable: true,
-         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
-         name: 'License End',
-         selector: (row: any) => row.license.end,
-         sortable: true,
+         grow: 2,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
@@ -81,16 +115,15 @@ export function AdminTable({ users, session }: any) {
       }
    ];
 
-   let tableData: any = users;
 
    createThemes();
 
    return (
-      <div className="flex flex-row flex-nowrap justify-between mt-2">
-         <div className="flex mr-2 basis-3/4 rounded-md">
+      <div className="flex mt-2">
+         <div className="mr-2 basis-3/4 rounded-md">
             <DataTable
                columns={columns}
-               data={tableData}
+               data={rows}
                theme={'custom'}
             />
          </div>
@@ -98,21 +131,12 @@ export function AdminTable({ users, session }: any) {
             <UsersForm
                register={register}
                handleSubmit={handleSubmit}
+               errors={errors}
+               clearErrors={clearErrors}
+               setRows={setRows}
             />
          </div>
       </div>
    )
 };
-
-const editHandler = (
-   row: UserIface,
-   reset: UseFormReset<UserIface>
-) => (event: any) => {
-   // console.log('EDIT:', row);
-   reset(row)
-}
-
-const deleteHandler = (row: any) => (event: any) => {
-   console.log('DELETE: ', row)
-}
 

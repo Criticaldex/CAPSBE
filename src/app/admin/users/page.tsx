@@ -1,8 +1,6 @@
-import { UsersForm } from "@/components/userForm.component";
 import { getSession } from "@/services/session"
 import { AdminTable } from "./table"
 import { getUsers } from "@/services/users"
-import { useState } from "react";
 
 export default async function RegisterPage() {
    const session = await getSession();
