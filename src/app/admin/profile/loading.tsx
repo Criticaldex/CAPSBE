@@ -1,3 +1,5 @@
+import { Loading } from "@/components/loading.component";
+
 export default async function ContractsLoading() {
-   return (<h1>loading...</h1>)
+   return (<Loading />)
 }
