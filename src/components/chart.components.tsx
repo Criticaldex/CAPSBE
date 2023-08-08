@@ -36,9 +36,6 @@ export const chartOptions = {
    },
    legend: {
       enabled: true,
-      align: 'right',
-      verticalAlign: 'middle',
-      width: 125
    },
    navigation: {
       buttonOptions: {
