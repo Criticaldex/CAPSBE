@@ -92,7 +92,7 @@ export function GetLinksSection({ sections }: any) {
    return (
       <ul className="w-full flex justify-between my-2 rounded-md">
          {links.map(({ label, route }: any) => (
-            <Link className={`grow pr-1 my-2 p-1 rounded-md text-xl ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white text-center' : 'border-b-2 border-contrario text-textColor2 text-center hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
+            <Link className={`grow p-1 rounded-md text-xl text-center ${pathname?.includes(route) ? 'border-b-4 border-darkBlue bg-gradient-to-b from-pestanaDark to-pestanaLight text-white' : 'border-b-2 border-contrario text-textColor2 hover:bg-gradient-to-b hover:from-pestanaHover hover:to-transparent'}`} key={route} href={route}>
                <li>
                   {label}
                </li>
@@ -119,10 +119,10 @@ export function GetLinksYears({ years }: any) {
    ))
 
    return (
-      <ul className="m-auto w-11/12 flex flex-wrap items-end justify-end my-2 rounded-md">
+      <ul className="m-auto w-full flex flex-wrap items-end justify-end mb-2 rounded-md">
          {links.map(({ label, route }: any) => (
             <Link className={
-               `border border-darkBlue my-1 mx-4 py-2 px-5 rounded-md text-textColor
+               `border border-darkBlue ml-8 py-2 px-5 rounded-md text-textColor
                ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
                key={route} href={route}>
                <li> {label} </li>
@@ -151,7 +151,7 @@ export function GetLinksProfessionals({ professionals }: any) {
    ))
 
    return (
-      <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] mr-2 bg-bgLight rounded-md py-1">
+      <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] bg-bgLight rounded-md">
          {links.map(({ label, code, route }: any) => (
             <Link className="w-full" key={route} href={route}>
                <li className={`border-b border-contrario mx-3 py-4 px-3 text-textColor ${pathname?.includes(code) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'}`}>

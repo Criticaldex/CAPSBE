@@ -14,14 +14,19 @@ export default async function ProfessionalsChart({ params }: any) {
    const professionals = await getProfessionalsList(filters);
    const monthName = await getMonth(filters)
 
+   const indicadorsNames = indicadors.map((ind: any) => ind.name)
+   const indicadorsObj = indicadors.map((ind: any) => ind.obj)
+
    return (
       <div>
-         <Chart
-            name={monthName + ' ' + year}
-            data={infoChart}
-            index={indicadors}
-            objectiu={50}
-         />
+         <div className="mb-2">
+            <Chart
+               name={monthName + ' ' + year}
+               data={infoChart}
+               index={indicadorsNames}
+               objectius={indicadorsObj}
+            />
+         </div>
          <ProfessionalsTable
             data={infoTable}
             professionals={professionals}

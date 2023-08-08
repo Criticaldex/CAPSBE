@@ -125,9 +125,9 @@ export const getCentre = async (professional: string) => {
 
 export const getIndicators = async (filtros: any) => {
    const data = await getTableIndicators(filtros);
-   let indi: string[] = [];
+   let indi: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      indi.push(key);
+      indi.push({ 'name': key, 'obj': data[key][0].invers == false ? data[key][0].objectiu : -data[key][0].objectiu });
    }
    return indi;
 }
