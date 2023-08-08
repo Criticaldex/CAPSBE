@@ -21,7 +21,6 @@ export function AdminTable({ users, session }: any) {
       handleSubmit,
       reset,
       clearErrors,
-      formState,
       formState: { errors, isDirty, dirtyFields }
    } = useForm<UserIface>();
 
@@ -33,7 +32,6 @@ export function AdminTable({ users, session }: any) {
 
    const deleteHandler = (row: any) => (event: any) => {
       confirmAlert({
-         // title: 'Eliminar Usuari',
          message: 'Vols eliminar l\'usuari: \n' + row.email + ' ?',
          buttons: [
             {
@@ -48,18 +46,10 @@ export function AdminTable({ users, session }: any) {
             },
             {
                label: 'Millor no toco res :S',
-               // onClick: () => alert('Click No')
             }
          ]
       });
    }
-
-   // useEffect(() => {
-   //    console.log('ERRORS: ', formState.errors);
-   //    console.log('TOUCHED: ', formState.touchedFields);
-   //    console.log('Dirty: ', formState.isDirty);
-   //    console.log('Fields: ', formState.dirtyFields);
-   // }, [formState])
 
    let columns: any = [
       {
