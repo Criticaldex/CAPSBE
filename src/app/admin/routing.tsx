@@ -2,10 +2,13 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 
-export function GetLinksAdmin() {
+
+export function GetLinksAdmin({ session }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+
+
 
    let links: object[] = [
       {
@@ -13,14 +16,17 @@ export function GetLinksAdmin() {
          route: `/admin/profile`
       },
       {
-         label: 'Usuaris',
-         route: `/admin/users`
-      },
-      {
          label: 'Objectius',
          route: `/admin/objectives`
       }
    ];
+
+   if (session?.user.role == "0") {
+      links.push({
+         label: 'Usuaris',
+         route: `/admin/users`
+      })
+   }
 
    return (
       <div className="flex justify-start mr-3 my-2">
