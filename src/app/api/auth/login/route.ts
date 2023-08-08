@@ -16,7 +16,7 @@ export async function POST(request: Request) {
          const user: any = await db.models.user.findOne({ "email": body.email }).select('-_id').lean();
          if (user && await compare(body.password, user.hash)) {
             const date = new Date();
-            if (user.license.start < date && user.license.end > date) {
+            if (new Date(user.license.start) < date && new Date(user.license.end) > date) {
                const { hash, ...userWithoutHash } = user;
                return NextResponse.json(userWithoutHash);
             } else {
