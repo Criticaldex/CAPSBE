@@ -1,9 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import GetNav from './routing'
-import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextAuthProvider } from "./providers";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,15 +11,13 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-   const session = await getServerSession(authOptions);
-   if (!session) {
-      redirect("/api/auth/signin");
-   }
    return (
       <html lang="en">
          <body className={inter.className}>
             <GetNav />
-            {children}
+            <NextAuthProvider>
+               {children}
+            </NextAuthProvider>
          </body>
       </html>
    )

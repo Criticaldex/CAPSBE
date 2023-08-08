@@ -6,7 +6,7 @@ import { RiHospitalFill } from "react-icons/ri"
 import { IoGitCompare } from "react-icons/io5"
 import { AiOutlineFolder } from "react-icons/ai"
 import { usePathname } from "next/navigation"
-import { LogoutButton } from "@/components/loginbuttons.component";
+import { LogoutButton, ProfileButton } from "@/components/loginbuttons.component";
 import { NextAuthProvider } from "@/app/providers";
 
 export default function GetNav() {
@@ -53,7 +53,7 @@ export default function GetNav() {
       <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-nav pt-4 pr-3 pb-0 pl-0 hover:w-80 transition-all duration-500">
          <nav className="text-textColor p-3 flex flex-col justify-between h-full overflow-hidden">
             <div>
-               <Link href="" className="text-yellowCustom text-xl font-bold grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-7 pl-2">
+               <Link href="/" className="text-yellowCustom text-xl font-bold grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-7 pl-2">
                   <BiPlusMedical size={30} />
                   <span className="text-2xl">CAPFA</span>
                </Link>
@@ -82,7 +82,10 @@ export default function GetNav() {
             </div>
             <div>
                <NextAuthProvider>
-                  <LogoutButton />
+                  <div>
+                     <ProfileButton />
+                     <LogoutButton />
+                  </div>
                </NextAuthProvider>
             </div>
          </nav>

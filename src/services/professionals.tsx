@@ -125,9 +125,9 @@ export const getCentre = async (professional: string) => {
 
 export const getIndicators = async (filtros: any) => {
    const data = await getTableIndicators(filtros);
-   let indi: string[] = [];
+   let indi: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      indi.push(key);
+      indi.push({ 'name': key, 'obj': data[key][0].invers == false ? data[key][0].objectiu : -data[key][0].objectiu });
    }
    return indi;
 }
@@ -148,4 +148,12 @@ export const getChartIndividual = async (filtros: any, professional: string) => 
    })
 
    return chart;
+}
+
+export const getMonth = async (filtros: any) => {
+   const data = await getProfessionals(filtros);
+   const meses = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+   let mes = data[0].professionals[Object.keys(data[0].professionals)[0]].length - 1;
+
+   return meses[mes];
 }
