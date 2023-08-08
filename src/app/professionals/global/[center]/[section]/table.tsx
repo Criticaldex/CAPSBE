@@ -18,7 +18,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
       columns.push({
          name: prof,
          cell: (row: any) => (
-            <div title={row.Objectiu}>
+            <div className={`${row.Objectiu == '' ? '' : 'tags'} w-full text-center`} data-gloss={`Objectiu: ${row.Objectiu}`}>
                {row[prof]}
             </div>
          ),
@@ -96,7 +96,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md overflow-hidden mb-5">
+      <div className="rounded-md mb-5 tablaObjetivos">
          <DataTable
             className=''
             columns={columns}

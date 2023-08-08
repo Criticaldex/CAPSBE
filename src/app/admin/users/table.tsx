@@ -114,7 +114,7 @@ export function AdminTable({ users, session }: any) {
    createThemes();
 
    return (
-      <div className="flex flex-wrap mt-2">
+      <div className="flex mt-2">
          <ToastContainer />
          <div className="mr-2 mb-2 basis-3/4 rounded-md">
             <DataTable

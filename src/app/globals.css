@@ -194,6 +194,52 @@ body {
    }
 }
 
+
+.tablaObjetivos>div>div {
+   display: block !important;
+}
+
+.tablaObjetivos>div {
+   overflow-y: inherit !important;
+   overflow-x: inherit !important;
+}
+
+
+.tags {
+   display: inline;
+   position: relative;
+}
+
+.tags:hover:after {
+   background: #333;
+   background: rgba(0, 0, 0, .8);
+   border-radius: 5px;
+   color: #fff;
+   content: attr(data-gloss);
+   top: -30px;
+   right: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   margin: auto;
+   padding: 5px 3px;
+   position: absolute;
+   z-index: 99999999998;
+   width: fit-content;
+   white-space: nowrap;
+   text-align: center;
+}
+
+.tags:hover:before {
+   border: solid;
+   border-color: rgba(0, 0, 0, .8) transparent;
+   border-width: 6px 6px 0 6px;
+   content: "";
+   top: -5px;
+   left: 45%;
+   position: absolute;
+   z-index: 99;
+}
+
 /* FORM  */
 
 #validation-error::before {
