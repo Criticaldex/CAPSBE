@@ -1,18 +1,18 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
 import { UsersForm } from "@/components/userForm.component";
 import { UserIface } from "@/schemas/user";
-import { useForm, SubmitHandler, UseFormReset } from "react-hook-form";
+import { useForm, UseFormReset } from "react-hook-form";
 import { deleteUser, getUsers } from '@/services/users';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert';
 import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export function AdminTable({ users, session }: any) {
+export function AdminTable({ users }: any) {
 
    const [rows, setRows] = useState(users);
 
