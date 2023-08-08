@@ -3,10 +3,23 @@
 import { UserIface } from "@/schemas/user";
 import { getUsers, upsertUser } from "@/services/users";
 
-export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows }: any) => {
+
+export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
    const onSubmit = handleSubmit(async (data: UserIface) => {
-      await upsertUser(data);
-      setRows(await getUsers());
+      if (isDirty) {
+         const upsert = await upsertUser(data);
+         if (upsert.lastErrorObject?.updatedExisting) {
+            toast.success('Usuari Modificat!', { theme: "colored" });
+         } else {
+            toast.success('Usuari Afegit!', { theme: "colored" });
+         }
+         reset(upsert.value);
+         setRows(await getUsers());
+      } else {
+         toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
+      }
+
+
    });
 
    return (
@@ -16,8 +29,8 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          onSubmit={onSubmit}
       >
          <div className="inline-flex justify-end">
-            <label className="flex self-center">Email:</label>
-            <input type="email" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.email ? 'border-foreground' : 'border-red'}`} {...register("email", {
+            <label htmlFor="email" className="flex self-center">Email:</label>
+            <input id="email" type="email" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.email ? 'border-foreground' : 'border-red'}`} {...register("email", {
                required: 'Camp obligatori',
                minLength: {
                   value: 5,
@@ -35,13 +48,13 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          </div>
          {errors.email && <p role="alert" className="text-red self-end">⚠ {errors.email?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Contrasenya:</label>
-            <input type="password" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.password ? 'border-foreground' : 'border-red'}`} {...register("password")} />
+            <label htmlFor="password" className="self-center">Contrasenya:</label>
+            <input id="password" type="password" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.password ? 'border-foreground' : 'border-red'}`} {...register("password")} />
          </div>
          {errors.password && <p role="alert" className="text-red self-end">⚠ {errors.password?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Nom:</label>
-            <input className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.name ? 'border-foreground' : 'border-red'}`} {...register("name", {
+            <label htmlFor="name" className="self-center">Nom:</label>
+            <input id="name" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.name ? 'border-foreground' : 'border-red'}`} {...register("name", {
                maxLength: {
                   value: 30,
                   message: 'Valor maxim 30 caracters'
@@ -50,8 +63,8 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          </div>
          {errors.name && <p role="alert" className="text-red self-end">⚠ {errors.name?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Cognom:</label>
-            <input className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.lastname ? 'border-foreground' : 'border-red'}`} {...register("lastname", {
+            <label htmlFor="lastname" className="self-center">Cognom:</label>
+            <input id="lastname" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.lastname ? 'border-foreground' : 'border-red'}`} {...register("lastname", {
                maxLength: {
                   value: 30,
                   message: 'Valor maxim 30 caracters'
@@ -60,33 +73,33 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          </div>
          {errors.lastname && <p role="alert" className="text-red self-end">⚠ {errors.lastname?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Servidor:</label>
-            <input className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.server ? 'border-foreground' : 'border-red'}`} {...register("server")} />
+            <label htmlFor="server" className="self-center">Servidor:</label>
+            <input id="server" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.server ? 'border-foreground' : 'border-red'}`} {...register("server")} />
          </div>
          <div className="inline-flex justify-end">
-            <label className="self-center">DB:</label>
-            <input className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.db ? 'border-foreground' : 'border-red'}`} {...register("db", {
+            <label htmlFor="db" className="self-center">DB:</label>
+            <input id="db" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.db ? 'border-foreground' : 'border-red'}`} {...register("db", {
                required: 'Camp obligatori',
             })} />
          </div>
          {errors.db && <p role="alert" className="text-red self-end">⚠ {errors.db?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Rol:</label>
-            <input className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.role ? 'border-foreground' : 'border-red'}`} {...register("role", {
+            <label htmlFor="role" className="self-center">Rol:</label>
+            <input id="role" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.role ? 'border-foreground' : 'border-red'}`} {...register("role", {
                required: 'Camp obligatori',
             })} />
          </div>
          {errors.role && <p role="alert" className="text-red self-end">⚠ {errors.role?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Inici Llicencia:</label>
-            <input type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.start ? 'border-foreground' : 'border-red'}`} {...register("license.start", {
+            <label htmlFor="licenseStart" className="self-center">Inici Llicencia:</label>
+            <input id="licenseStart" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.start ? 'border-foreground' : 'border-red'}`} {...register("license.start", {
                required: 'Camp obligatori',
             })} />
          </div>
          {errors.license?.start && <p role="alert" className="text-red self-end">⚠ {errors.license?.start?.message}</p>}
          <div className="inline-flex justify-end">
-            <label className="self-center">Fi Llicencia:</label>
-            <input type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.end ? 'border-foreground' : 'border-red'}`} {...register("license.end", {
+            <label htmlFor="licenseEnd" className="self-center">Fi Llicencia:</label>
+            <input id="licenseEnd" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.end ? 'border-foreground' : 'border-red'}`} {...register("license.end", {
                required: 'Camp obligatori',
             })} />
          </div>

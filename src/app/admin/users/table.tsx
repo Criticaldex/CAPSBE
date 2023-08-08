@@ -7,6 +7,10 @@ import { UserIface } from "@/schemas/user";
 import { useForm, SubmitHandler, UseFormReset } from "react-hook-form";
 import { deleteUser, getUsers } from '@/services/users';
 import { confirmAlert } from 'react-confirm-alert'; // Import
+import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function AdminTable({ users, session }: any) {
 
@@ -37,6 +41,7 @@ export function AdminTable({ users, session }: any) {
                onClick: async () => {
                   const del = await deleteUser(row.email);
                   if (del) {
+                     toast.error('Usuari Eliminat!!', { theme: "colored" });
                      setRows(await getUsers());
                   }
                }
@@ -97,7 +102,7 @@ export function AdminTable({ users, session }: any) {
       },
       {
          name: 'Licencia',
-         selector: (row: any) => Intl.DateTimeFormat("es-ES").format(new Date(row.license.start)) + ' - ' + Intl.DateTimeFormat("es-ES").format(new Date(row.license.end)),
+         selector: (row: any) => Intl.DateTimeFormat("es-ES").format(new Date(row.license?.start)) + ' - ' + Intl.DateTimeFormat("es-ES").format(new Date(row.license?.end)),
          sortable: true,
          grow: 2,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
@@ -105,9 +110,9 @@ export function AdminTable({ users, session }: any) {
       {
          name: 'Accions',
          cell: (row: any) => (
-            <div className='flex flex-col'>
-               <button onClick={editHandler(row, reset)}>Edit</button>
-               <button onClick={deleteHandler(row)}>Delete</button>
+            <div className='flex flex-row'>
+               <FaPenToSquare onClick={editHandler(row, reset)} className='cursor-pointer m-1'>Edit</FaPenToSquare>
+               <FaTrashCan onClick={deleteHandler(row)} className='cursor-pointer m-1'>Delete</FaTrashCan>
             </div>
          ),
          ignoreRowClick: true,
@@ -119,8 +124,9 @@ export function AdminTable({ users, session }: any) {
    createThemes();
 
    return (
-      <div className="flex mt-2">
-         <div className="mr-2 basis-3/4 rounded-md">
+      <div className="flex flex-wrap mt-2">
+         <ToastContainer />
+         <div className="mr-2 mb-2 basis-3/4 rounded-md">
             <DataTable
                columns={columns}
                data={rows}
@@ -134,6 +140,10 @@ export function AdminTable({ users, session }: any) {
                errors={errors}
                clearErrors={clearErrors}
                setRows={setRows}
+               toast={toast}
+               isDirty={isDirty}
+               dirtyFields={dirtyFields}
+               reset={reset}
             />
          </div>
       </div>

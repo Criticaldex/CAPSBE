@@ -84,6 +84,8 @@ export async function PATCH(request: Request) {
          upsert: true,
          rawResult: true
       }).lean();
+      const { hash, ...userWithoutHash } = res.value;
+      res.value = userWithoutHash;
       return NextResponse.json(res);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
