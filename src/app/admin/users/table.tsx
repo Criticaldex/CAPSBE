@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
-import { UsersForm } from "@/components/userForm.component";
+import { UsersForm } from "./form";
 import { UserIface } from "@/schemas/user";
 import { useForm, UseFormReset } from "react-hook-form";
 import { deleteUser, getUsers } from '@/services/users';

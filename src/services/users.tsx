@@ -26,14 +26,10 @@ export const getUsersbyDB = async () => {
 }
 
 export const upsertUser = async (data: UserIface) => {
-   // const data: UserIface = await request.json();
    const saltRounds = 10;
-   const aYearFromNow = new Date();
-   // aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
    if (data.password) {
       data.hash = await hash(data.password, saltRounds);
    }
-   const { license, ...userWithoutLicense } = data;
 
    return fetch('http://localhost:3000/api/users',
       {
