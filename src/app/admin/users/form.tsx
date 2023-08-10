@@ -18,8 +18,6 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
       }
-
-
    });
 
    return (
