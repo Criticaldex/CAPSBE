@@ -31,14 +31,15 @@ export function GetLinksYears({ years }: any) {
 export function GetLinksCenters(centros: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const up = (pathArray[2]) ? pathArray[2] : null;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
 
    let links: any[] = [];
 
    centros.centros.map(({ id, name }: any) => (
       links.push({
          label: name,
-         route: `/dashboard/${year}/${id}`
+         route: `/dashboard/${up}/${year}/${id}`
       })
    ))
 
@@ -57,17 +58,18 @@ export function GetLinksCenters(centros: any) {
 export function GetSectionButtons() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const up = (pathArray[2]) ? pathArray[2] : null;
 
    let links: object[] = [{
       label: 'General',
-      route: `/dashboard/${year}/general`
+      route: `/dashboard/${up}/${year}/general`
    }, {
       label: 'CPR',
-      route: `/dashboard/${year}/cpr`
+      route: `/dashboard/${up}/${year}/cpr`
    }, {
       label: 'Contractes',
-      route: `/dashboard/${year}/contractes`
+      route: `/dashboard/${up}/${year}/contractes`
    }];
 
    return (
