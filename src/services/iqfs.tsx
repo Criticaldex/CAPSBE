@@ -19,7 +19,6 @@ export const getIqf = async (up: string) => {
 
 export const getIqfDashboard = async (up: string) => {
    const iqf = await getIqf(up);
-   console.log(iqf);
    const data = [{
       name: 'universal',
       data: iqf.puntuacio_universals
