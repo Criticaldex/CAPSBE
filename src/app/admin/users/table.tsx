@@ -25,8 +25,6 @@ export function AdminTable({ users }: any) {
    } = useForm<UserIface>();
 
    const editHandler = (row: UserIface, reset: UseFormReset<UserIface>) => (event: any) => {
-      console.log(row);
-
       reset(row)
    }
 

@@ -23,10 +23,11 @@ const getCentros = async () => {
 
 export const getCenters = async () => {
    const centros: any = await getCentros();
-   return await centros.centers.map((centro: string, i: number) => {
+   return await centros.centers.map((centro: any, i: number) => {
       return {
-         id: i.toString(),
-         name: centro,
+         id: centro.id,
+         name: centro.name,
+         up: centro.up,
       }
    })
 }
