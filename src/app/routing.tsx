@@ -34,7 +34,7 @@ export default function GetNav() {
       {
          label: 'IQF',
          icon: BiCapsule,
-         route: '/'
+         route: '/iqf'
       },
       {
          label: 'Comparació',

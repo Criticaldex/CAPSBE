@@ -11,7 +11,6 @@ import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export function AdminTable({ users }: any) {
 
    const [rows, setRows] = useState(users);
