@@ -8,14 +8,17 @@ if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
 }
 
-export function ChartDetall({ name, data, objectius, categories }: any) {
+export function ChartDetail({ name, data, objectius, categories }: any) {
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max) ? i : max;
       });
    });
-   // max = (objectiu > max) ? objectiu : max;>
+   objectius.forEach((elem: any) => {
+      max = (elem.value > max) ? elem.value : max;
+   });
+
    const options = {
       ...chartOptions,
       chart: {
@@ -28,7 +31,7 @@ export function ChartDetall({ name, data, objectius, categories }: any) {
       series: data,
       yAxis: {
          ...chartOptions.yAxis,
-         max: null,
+         max: max,
          plotLines: objectius
       },
       tooltip: {
