@@ -7,8 +7,8 @@ import { getSession } from "@/services/session";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year } = params;
-   let seccioUni = 'matma';
-   let seccioHiper = 'aines';
+   let seccioUni = 'biosimilars';
+   let seccioHiper = 'benzodiazepines';
    let seccioSele = 'mpoc_seleccio';
    const session = await getSession();
    const centros = await getCenters();

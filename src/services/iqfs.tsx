@@ -199,7 +199,8 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
          }
       })
 
-      let dades: any = ''
+      let dades: any = '';
+
       switch (seccio) {
          case 'biosimilars':
             dades = iqf['indicadors_universals_(biosimilars)'].biosimilars['%'];
@@ -241,15 +242,7 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
          }
       })
 
-      let dades: any = ''
-      switch (seccio) {
-         case 'aines':
-            dades = iqf['indicadors_dhiperprescripcio'].aines.dhd;
-            break;
-         default:
-            dades = iqf['indicadors_dhiperprescripcio'].aines.dhd;
-            break;
-      }
+      const dades = iqf['indicadors_dhiperprescripcio'][seccio].dhd;
 
       const map = dades.map((item: any) => {
          if (!item) {
@@ -355,7 +348,7 @@ export const getPlotLines = async (seccio: any) => {
                text: '3p'
             }
          }, {
-            color: 'var(--orange)',
+            color: 'var(--red)',
             value: 17,
             label: {
                text: '1p'
