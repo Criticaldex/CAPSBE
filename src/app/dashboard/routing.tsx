@@ -39,7 +39,7 @@ export function GetLinksCenters(centros: any) {
    centros.centros.map(({ id, name, up }: any) => (
       links.push({
          label: name,
-         route: `/dashboard/${up}/${year}/${section}`
+         route: `/dashboard/${id}/${year}/${section}`
       })
    ))
 
