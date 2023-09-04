@@ -8,7 +8,7 @@ if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
 }
 
-export function Chart({ name, data, objectiu, categories }: any) {
+export function Chart({ name, data, objectiu, categories, setter }: any) {
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
@@ -28,12 +28,7 @@ export function Chart({ name, data, objectiu, categories }: any) {
       series: data,
       yAxis: {
          ...chartOptions.yAxis,
-         max: max,
-         // plotLines: [{
-         //    color: 'var(--red)',
-         //    width: 2,
-         //    value: obj
-         // }]
+         max: max
       },
       xAxis: {
          categories: categories,
@@ -47,8 +42,14 @@ export function Chart({ name, data, objectiu, categories }: any) {
             dataLabels: {
                enabled: true,
                color: 'white'
+            },
+            events: {
+               click: function (event: any) {
+                  setter(event.point.category);
+                  console.log('event: ', event.point.category);
+               }
             }
-         }
+         },
       }
    }
 
@@ -59,3 +60,4 @@ export function Chart({ name, data, objectiu, categories }: any) {
       />
    )
 }
+

@@ -1,5 +1,4 @@
 import _ from "lodash"
-import { getSession } from "@/services/session"
 
 const getIqfs = async (filter: any) => {
    return fetch('http://localhost:3000/api/iqfs',
