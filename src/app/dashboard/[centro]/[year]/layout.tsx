@@ -5,8 +5,14 @@ import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 
 export default async function LayoutDashboard({ children, params }: any) {
-   const { year, up } = params;
+   const { year, centro } = params;
+   let up: string = '';
    const centros = await getCenters();
+   centros.map((center: any) => {
+      if (center.id == centro) {
+         up = center.up
+      }
+   })
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
