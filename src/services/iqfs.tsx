@@ -1,7 +1,7 @@
 import _ from "lodash"
 
 const getIqfs = async (filter: any) => {
-   return fetch('http://localhost:3000/api/iqfs',
+   return fetch(`http://localhost:3000/api/iqfs`,
       {
          method: 'POST',
          headers: {
