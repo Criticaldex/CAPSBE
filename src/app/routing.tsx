@@ -27,24 +27,9 @@ export default function GetNav() {
    ]
    const navTitlesIconsFarma = [
       {
-         label: 'Els Meus Centres',
-         icon: RiHospitalFill,
-         route: '/'
-      },
-      {
          label: 'IQF',
          icon: BiCapsule,
          route: '/iqf'
-      },
-      {
-         label: 'Comparació',
-         icon: IoGitCompare,
-         route: '/'
-      },
-      {
-         label: 'Arxius',
-         icon: AiOutlineFolder,
-         route: '/'
       }
    ]
 
@@ -68,10 +53,14 @@ export default function GetNav() {
                      </Link>
                   ))}
                   <hr className="my-4 border-textColor" />
-                  <h3 className="pt-2 pb-4 ml-16 text-xl italic font-bold">Farmàcia</h3>
-                  <h3 className="pt-2 pb-4 ml-16 text-xl italic font-bold whitespace-nowrap">¡en desenvolupament!</h3>
+                  <div className="text-yellowCustom text-xl font-bold grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-7 pl-2">
+                     <FaCapsules size={30} />
+                     <h3>
+                        Farmàcia
+                     </h3>
+                  </div>
                   {navTitlesIconsFarma.map((navTI) => (
-                     <Link key={navTI.label} href={navTI.route} className="hover:text-darkRed pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0  pl-3 items-center">
+                     <Link key={navTI.label} href={navTI.route} className="hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0  pl-3 items-center">
                         <navTI.icon size={20} />
                         <span className="text-lg">
                            {navTI.label}

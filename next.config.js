@@ -64,6 +64,11 @@ const nextConfig = {
             source: '/professionals/individual/:centre/:section',
             destination: `/professionals/individual/:centre/:section/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
             permanent: false,
+         },
+         {
+            source: '/iqf',
+            destination: `/iqf/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            permanent: false,
          }
       ];
    },
