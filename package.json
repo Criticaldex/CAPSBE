@@ -3,10 +3,10 @@
    "version": "0.1.0",
    "private": true,
    "scripts": {
-      "dev": "next dev",
+      "dev": "node server-ssh.js",
       "build": "next build",
       "start": "next start",
-      "start-ssl": "node server.js",
+      "start-ssl": "NODE_ENV=production node server-ssh.js",
       "lint": "next lint",
       "lint-fix": "next lint --fix",
       "info": "next info"
