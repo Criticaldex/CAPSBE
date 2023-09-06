@@ -1,7 +1,11 @@
 import _ from "lodash"
 
+// const url = 'http://192.168.1.167:3000';
+// const url = 'http://localhost:3000';
+const url = 'http://trial.soidemdt.com:3000';
+
 const getIqfs = async (filter: any) => {
-   return fetch(`http://localhost:3000/api/iqfs`,
+   return fetch(`${url}/api/iqfs`,
       {
          method: 'POST',
          headers: {
@@ -19,7 +23,7 @@ const getIqfs = async (filter: any) => {
 }
 
 export const getIqf = async (up: string) => {
-   return fetch(`http://localhost:3000/api/iqfs/${up}`,
+   return fetch(`${url}/api/iqfs/${up}`,
       {
          method: 'GET'
       }).then(res => res.json());
