@@ -5,7 +5,7 @@ import { getSession } from "@/services/session"
 const getContracts = async (filter: any) => {
    const session = await getSession();
 
-   return fetch('http://localhost:3000/api/contracts',
+   return fetch(`http://localhost:${process.env.PORT}/api/contracts`,
       {
          method: 'POST',
          headers: {

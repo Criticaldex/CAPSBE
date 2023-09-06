@@ -2,10 +2,10 @@ const { createServer: createHttpsServer } = require('https');
 const next = require('next');
 const fs = require('fs');
 
-const env = process.env.NODE_ENV === 'production';
-const app = next({ env });
+// const env = process.env.NODE_ENV === 'production';
+const app = next();
 const handle = app.getRequestHandler();
-const PORT = 3333;
+const PORT = process.env.PORT || 3000;
 
 if (!fs.existsSync('C:/Program Files/Splunk/etc/auth/certificados-trial')) {
    console.error('\nError: Missing SSL certificates\n');
@@ -25,7 +25,7 @@ app
 
       return server.listen(PORT, (err) => {
          if (err) throw err;
-         console.log('> Ready on https://trial.soidemdt.com:3333')
+         console.log(`> Ready on https://trial.soidemdt.com:${PORT}`)
       });
    })
    .catch((err) => {
