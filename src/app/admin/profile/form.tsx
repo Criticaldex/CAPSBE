@@ -5,7 +5,6 @@ import { upsertUser } from "@/services/users";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-
 export const UsersForm = ({ session, toast }: any) => {
    const {
       register,
@@ -19,8 +18,7 @@ export const UsersForm = ({ session, toast }: any) => {
       if (session.user) {
          reset(session.user);
       }
-   }, [])
-
+   }, [reset, session.user])
 
    const onSubmit: SubmitHandler<UserIface> = async (data) => {
       if (isDirty == true) {
