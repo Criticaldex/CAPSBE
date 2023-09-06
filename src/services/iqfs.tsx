@@ -1,8 +1,8 @@
 import _ from "lodash"
 
 // const url = 'http://192.168.1.167:3000';
-const url = 'http://localhost:3333';
-// const url = 'http://trial.soidemdt.com:3000';
+// const url = 'http://localhost:3333';
+const url = 'http://trial.soidemdt.com:3000';
 // const url = 'http://trial.soidemdt.com:3333';
 
 const getIqfs = async (filter: any) => {
