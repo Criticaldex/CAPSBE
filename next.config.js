@@ -4,7 +4,6 @@ const nextConfig = {
       esmExternals: "loose",
       serverComponentsExternalPackages: ["mongoose", "bcryptjs"]
    },
-   distDir: 'build',
    // webpack: (config) => {
    //    config.experiments = { ...config.experiments, topLevelAwait: true };
    //    return config;
