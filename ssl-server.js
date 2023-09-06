@@ -2,8 +2,8 @@ const { createServer: createHttpsServer } = require('https');
 const next = require('next');
 const fs = require('fs');
 
-// const env = process.env.NODE_ENV === 'production';
-const app = next();
+const prod = process.env.NODE_ENV === 'production';
+const app = next({ prod });
 const handle = app.getRequestHandler();
 const PORT = process.env.PORT || 3000;
 

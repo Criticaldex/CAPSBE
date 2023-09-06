@@ -3,7 +3,7 @@ import { getSession } from "@/services/session"
 
 const getCentros = async () => {
    const session = await getSession();
-   return fetch(`http://localhost:${process.env.PORT}/api/centers`,
+   return fetch(`${process.env.NEXTAUTH_URL}/api/centers`,
       {
          method: 'POST',
          headers: {

@@ -13,7 +13,7 @@ const getProfessionals = async (filter: any) => {
          "EQAU0702"
       ]
    }
-   return fetch(`http://localhost:${process.env.PORT}/api/professionals`,
+   return fetch(`${process.env.NEXTAUTH_URL}/api/professionals`,
       {
          method: 'POST',
          headers: {
