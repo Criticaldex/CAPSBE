@@ -11,7 +11,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
       sortable: false,
       grow: 7,
       minWidth: '400px',
-      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '', },
    }];
 
    professionals.map((prof: any) => {
@@ -23,7 +23,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
             </div>
          ),
          sortable: false,
-         minWidth: '30px',
+         minWidth: '70px',
          compact: true,
          center: true,
          wrap: true,
@@ -96,7 +96,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md mb-5 tablaObjetivos">
+      <div className="rounded-md mb-5 tablaObjetivos overflow-x-auto bg-bgLight">
          <DataTable
             className=''
             columns={columns}
