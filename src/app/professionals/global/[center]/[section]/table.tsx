@@ -23,7 +23,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
             </div>
          ),
          sortable: false,
-         minWidth: '30px',
+         minWidth: '70px',
          compact: true,
          center: true,
          wrap: true,
@@ -96,7 +96,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md mb-5 tablaObjetivos">
+      <div className="rounded-md mb-5 tablaObjetivos overflow-x-auto bg-bgLight">
          <DataTable
             className=''
             columns={columns}
