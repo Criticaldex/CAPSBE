@@ -26,13 +26,8 @@ const nextConfig = {
             permanent: false,
          },
          {
-            source: '/contracts',
-            destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
-            permanent: false,
-         },
-         {
-            source: '/contracts/:slug',
-            destination: `/contracts/:slug/${process.env.CONTRACTS_DEFAULT_CENTER}`,
+            source: '/dashboard',
+            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
