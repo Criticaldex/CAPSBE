@@ -11,7 +11,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
       sortable: false,
       grow: 7,
       minWidth: '400px',
-      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '', },
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    }];
 
    professionals.map((prof: any) => {
