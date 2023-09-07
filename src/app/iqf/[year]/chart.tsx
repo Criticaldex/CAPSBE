@@ -50,6 +50,9 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
                }
             }
          },
+         column: {
+            maxPointWidth: 60
+         }
       }
    }
 
