@@ -15,9 +15,9 @@ export default function GetNav() {
 
    const navTitlesIcons = [
       {
-         label: 'Indicadors Contracte',
+         label: 'Dashboard',
          icon: FaCapsules,
-         route: '/contracts'
+         route: '/dashboard'
       },
       {
          label: 'Professionals',
