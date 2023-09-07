@@ -7,10 +7,12 @@ import { getBasal, getIqfDashboard } from "@/services/iqfs";
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
    let up: string = '';
+   let nameCentro: string = '';
    const centros = await getCenters();
    centros.map((center: any) => {
       if (center.id == centro) {
          up = center.up
+         nameCentro = center.name
       }
    })
    const eqas = await getEqasContracts(year, centros);
@@ -36,7 +38,7 @@ export default async function LayoutDashboard({ children, params }: any) {
             </div>
             <div className="w-1/2 p-1 bg-bgLight rounded-md shadow-xl">
                <Iqf
-                  name={'IQF'}
+                  name={`IQF ${nameCentro}`}
                   data={iqf}
                   objectiu={basal}
                />
