@@ -307,30 +307,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'matma':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 0.71,
             label: {
                text: '10p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 0.81,
             label: {
                text: '8p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 0.94,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 1.04,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 1.30,
             label: {
                text: '2p'
@@ -341,18 +346,21 @@ export const getPlotLines = async (seccio: any) => {
       case 'biosimilars':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 32,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 24,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 17,
             label: {
                text: '1p'
@@ -365,30 +373,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'aines':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 22.3,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 26.7,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 30,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 33.7,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 37.5,
             label: {
                text: '1p'
@@ -399,30 +412,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'antiulcerosos':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 96.1,
             label: {
                text: '9p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 103.9,
             label: {
                text: '7p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 112.9,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 119.9,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 126.1,
             label: {
                text: '1p'
@@ -434,12 +452,14 @@ export const getPlotLines = async (seccio: any) => {
          //SYSADOA al pdf
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 1,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 1.6,
             label: {
                text: '1p'
@@ -450,30 +470,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'benzodiazepines':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 56.2,
             label: {
                text: '7p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 63.4,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 68.8,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 77.1,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 86.1,
             label: {
                text: '1p'
@@ -484,30 +509,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'antiespasmodics':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 5.8,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 6.7,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 7.4,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 8.2,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 9.1,
             label: {
                text: '1p'
@@ -519,30 +549,35 @@ export const getPlotLines = async (seccio: any) => {
          //Antibiotics al pdf
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 5.8,
             label: {
                text: '10p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 6.8,
             label: {
                text: '8p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 7.7,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 8.6,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 9.3,
             label: {
                text: '2p'
@@ -555,30 +590,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'antihipertensius':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 71,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 70,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 68,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 66,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 64,
             label: {
                text: '1p'
@@ -589,18 +629,21 @@ export const getPlotLines = async (seccio: any) => {
       case 'ibp':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 90,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 89,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 87,
             label: {
                text: '2p'
@@ -611,30 +654,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'osteoporosi':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 64,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 61,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 58,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 53,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 48,
             label: {
                text: '1p'
@@ -645,24 +693,28 @@ export const getPlotLines = async (seccio: any) => {
       case 'hipocolesterolemiants':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 80,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 78,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 75,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 73,
             label: {
                text: '1p'
@@ -673,30 +725,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'antidepressius_1a_linia':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 66,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 65,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 63,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 62,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 59,
             label: {
                text: '1p'
@@ -707,12 +764,14 @@ export const getPlotLines = async (seccio: any) => {
       case 'antidepressius_2a_linia':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 41,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 36,
             label: {
                text: '1p'
@@ -723,18 +782,21 @@ export const getPlotLines = async (seccio: any) => {
       case 'hipoglucemiants_monoterapia_recomanada':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 77,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 75,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 74,
             label: {
                text: '2p'
@@ -745,18 +807,21 @@ export const getPlotLines = async (seccio: any) => {
       case 'hipoglucemiants_biterapia_recomanada':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 46,
             label: {
                text: '4p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 41,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 39,
             label: {
                text: '2p'
@@ -767,30 +832,35 @@ export const getPlotLines = async (seccio: any) => {
       case 'mpoc_seleccio':
          plotlines = [{
             color: 'var(--green)',
+            width: 2,
             value: 37,
             label: {
                text: '7p'
             }
          }, {
             color: 'var(--yellow)',
+            width: 2,
             value: 35,
             label: {
                text: '5p'
             }
          }, {
             color: 'var(--orange)',
+            width: 2,
             value: 32,
             label: {
                text: '3p'
             }
          }, {
             color: 'var(--orange-1)',
+            width: 2,
             value: 30,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
+            width: 2,
             value: 26,
             label: {
                text: '1p'

@@ -204,13 +204,13 @@ body {
    overflow-x: inherit !important;
 }
 
-.tablaObjetivos >div>div>div>div>div>div:first-child {
+.tablaObjetivos>div>div>div>div>div>div:first-child {
    position: sticky;
    left: 0;
    z-index: 1;
    background: var(--bg-light);
    border-right: solid 1px var(--contrario);
- }
+}
 
 
 .tags {

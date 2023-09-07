@@ -67,7 +67,8 @@ export const chartOptions = {
    },
    plotOptions: {
       series: {
-         borderWidth: 0
+         borderWidth: 0,
+         maxPointWidth: 100,
       }
    }
 };

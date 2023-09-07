@@ -38,10 +38,12 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
       },
       plotOptions: {
          series: {
-            borderWidth: 0,
+            ...chartOptions.plotOptions.series,
             dataLabels: {
                enabled: true,
-               color: 'white'
+               style: {
+                  textOutline: 'none'
+               }
             },
             events: {
                click: function (event: any) {

@@ -35,14 +35,16 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
          plotLines: objectius
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.y} punts</b><br/>'
+         pointFormat: '{series.name}: <b>{point.y}</b><br/>'
       },
       plotOptions: {
          series: {
-            borderWidth: 0,
+            ...chartOptions.plotOptions.series,
             dataLabels: {
                enabled: true,
-               color: 'white'
+               style: {
+                  textOutline: 'none'
+               }
             }
          }
       }
