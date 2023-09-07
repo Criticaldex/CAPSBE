@@ -6,7 +6,7 @@ import { getPlotLines, getHiperDetall } from "@/services/iqfs";
 import { Loading } from "@/components/loading.component";
 
 export function ChartContainer({ year, centros, hiper }: any) {
-   const [seccio, setSeccio] = useState('benzodiazepines');
+   const [seccio, setSeccio] = useState('aines');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
    const [isLoading, setLoading] = useState(true)

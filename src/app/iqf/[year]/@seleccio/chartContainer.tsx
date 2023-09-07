@@ -6,7 +6,7 @@ import { getPlotLines, getSeleccioDetall } from "@/services/iqfs";
 import { Loading } from "@/components/loading.component";
 
 export function ChartContainer({ year, centros, seleccio }: any) {
-   const [seccio, setSeccio] = useState('mpoc_seleccio');
+   const [seccio, setSeccio] = useState('antihipertensius');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
    const [isLoading, setLoading] = useState(true)
