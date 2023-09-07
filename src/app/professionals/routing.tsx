@@ -62,7 +62,7 @@ export function GetLinksCentro({ centros }: any) {
    return (
       <ul onMouseOver={(e) => { e.currentTarget.style.height = longitudStr }} onMouseOut={(e) => { e.currentTarget.style.height = '2rem' }}
          className="transition-all duration-500 flex flex-col my-2 bg-nav rounded-s-md w-fit h-8 overflow-hidden z-10 text-center hover:rounded-b-md hover:h-[9.9rem]">
-         <h4 className="text-textColor ml-4 mr-3 py-1 cursor-default font-bold flex">Centres <BiChevronDown size={25} /></h4>
+         <h4 className="text-textColor m-auto py-1 cursor-default font-bold flex">Centres <BiChevronDown size={25} /></h4>
          {links.map(({ label, route }: any) => (
             <Link className={`${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'hover:bg-hover'} px-1`} key={route} href={route}>
                <hr className="w-10/12 m-auto" />
@@ -160,5 +160,24 @@ export function GetLinksProfessionals({ professionals }: any) {
             </Link>
          ))}
       </ul>
+   )
+}
+
+
+export function GetCenter({ centros }: any) {
+   const pathname = usePathname();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+
+   var centro = 'Tots';
+
+   if (center != 'all') {
+      centros.forEach((element: any) => {
+         if (element.id == center) centro = element.name
+      });
+   }
+
+   return (
+      <h1 className="right-0 w-auto mr-10 font-semibold text-2xl italic">{centro}</h1>
    )
 }
