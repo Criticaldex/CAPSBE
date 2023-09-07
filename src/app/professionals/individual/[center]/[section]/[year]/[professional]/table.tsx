@@ -90,7 +90,7 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md overflow-hidden pr-2 tablaObjetivos">
+      <div className="rounded-md overflow-hidden pl-2 tablaObjetivos">
          <DataTable
             className=''
             columns={columns}
