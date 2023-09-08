@@ -32,7 +32,8 @@ module.exports = {
             pestanaLight: 'var(--pestanaLight)',
             pestanaHover: 'var(--pestanaHover)',
             bgNavGlobal: 'var(--bg-nav-global)',
-            bgTextNav: 'var(--bg-text-nav)',
+            TextNav: 'var(--textNav)',
+            spacerNav: 'var(--spacerNav)',
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']

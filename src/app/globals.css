@@ -27,9 +27,9 @@
    --black: #000;
    --table-size-text: 14px;
    --pestanaHover: #1f96ff1a;
-
    --bg-nav-global: #161616;
-   --bg-text-nav: #ddd
+   --textNav: #ddd;
+   --spacerNav: #424242;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -213,6 +213,7 @@ body {
    z-index: 1;
    background: var(--bg-light);
    border-right: solid 1px var(--contrario);
+   margin-right: 10px;
 }
 
 
