@@ -4,14 +4,14 @@ import userIface, { UserIface } from "@/schemas/user";
 import { hash } from 'bcryptjs';
 
 export const getUsers = async () => {
-   return fetch(`${process.env.NEXTAUTH_URL}/api/users`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`,
       {
          method: 'GET'
       }).then(res => res.json());
 }
 
 export const getUser = async (email: string) => {
-   return fetch(`${process.env.NEXTAUTH_URL}/api/users/${email}`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${email}`,
       {
          method: 'GET'
       }).then(res => res.json());
@@ -19,7 +19,7 @@ export const getUser = async (email: string) => {
 
 export const getUsersbyDB = async () => {
    const session = await getSession();
-   return fetch(`${process.env.NEXTAUTH_URL}/api/users?db=${session?.user.db}`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?db=${session?.user.db}`,
       {
          method: 'GET'
       }).then(res => res.json());
@@ -31,7 +31,7 @@ export const upsertUser = async (data: UserIface) => {
       data.hash = await hash(data.password, saltRounds);
    }
 
-   return fetch(`${process.env.NEXTAUTH_URL}/api/users`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`,
       {
          method: 'PATCH',
          headers: {
@@ -42,7 +42,7 @@ export const upsertUser = async (data: UserIface) => {
 }
 
 export const deleteUser = async (email: string) => {
-   return fetch(`${process.env.NEXTAUTH_URL}/api/users/${email}`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${email}`,
       {
          method: 'DELETE',
          headers: {

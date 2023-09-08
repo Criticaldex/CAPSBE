@@ -1,12 +1,7 @@
 import _ from "lodash"
 
-// const url = 'http://192.168.1.167:3000';
-// const url = 'http://localhost:3000';
-// const url = 'http://trial.soidemdt.com:3000';
-const url = 'https://soidem.vercel.app';
-
 const getIqfs = async (filter: any) => {
-   return fetch(`${url}/api/iqfs`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs`,
       {
          method: 'POST',
          headers: {
@@ -24,7 +19,7 @@ const getIqfs = async (filter: any) => {
 }
 
 export const getIqf = async (up: string) => {
-   return fetch(`${url}/api/iqfs/${up}`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${up}`,
       {
          method: 'GET'
       }).then(res => res.json());

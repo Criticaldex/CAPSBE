@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
          },
          async authorize(credentials: any) {
             const { email, password } = credentials as any
-            const user = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/login`,
+            const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
                {
                   method: 'POST',
                   headers: {
