@@ -42,12 +42,7 @@ export function GetLinksCentro({ centros }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
 
-   let links = [
-      {
-         label: 'Tots',
-         route: `/professionals/${view}/all/${section}`
-      }
-   ];
+   let links: any = [];
 
    centros.map(({ id, name }: any) => (
       links.push({
