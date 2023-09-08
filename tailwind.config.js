@@ -30,7 +30,10 @@ module.exports = {
             hover: 'var(--background-start)',
             pestanaDark: 'var(--pestanaDark)',
             pestanaLight: 'var(--pestanaLight)',
-            pestanaHover: 'var(--pestanaHover)'
+            pestanaHover: 'var(--pestanaHover)',
+            bgNavGlobal: 'var(--bg-nav-global)',
+            TextNav: 'var(--textNav)',
+            spacerNav: 'var(--spacerNav)',
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']

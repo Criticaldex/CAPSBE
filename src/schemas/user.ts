@@ -5,10 +5,10 @@ export interface UserIface {
    lastname: string,
    email: string,
    password: string,
+   hash: string,
    license: {
-      token: string,
-      start: Date,
-      end: Date,
+      start: string,
+      end: string,
    },
    server: string,
    db: string,
@@ -32,14 +32,11 @@ const UserSchema = new mongoose.Schema({
       required: [true, 'La contrasenya es obligatoria!']
    },
    license: {
-      token: {
+      start: {
          type: String,
       },
-      start: {
-         type: Date,
-      },
       end: {
-         type: Date,
+         type: String,
       }
    },
    server: {

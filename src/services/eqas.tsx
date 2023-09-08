@@ -3,7 +3,7 @@ import { getSession } from "@/services/session"
 
 const getEqas = async (filter: any) => {
    const session = await getSession();
-   return fetch('http://localhost:3000/api/eqas',
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/eqas`,
       {
          method: 'POST',
          headers: {

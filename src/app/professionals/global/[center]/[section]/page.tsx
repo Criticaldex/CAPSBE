@@ -1,4 +1,4 @@
-import { getChartIndicators, getIndicators, getProfessionalsList, getTableIndicators } from "@/services/professionals";
+import { getChartIndicators, getIndicators, getMonth, getProfessionalsList, getTableIndicators } from "@/services/professionals";
 import { Chart } from "./chart";
 import { ProfessionalsTable } from "./table";
 
@@ -12,15 +12,21 @@ export default async function ProfessionalsChart({ params }: any) {
    const infoChart = await getChartIndicators(filters);
    const infoTable = await getTableIndicators(filters);
    const professionals = await getProfessionalsList(filters);
+   const monthName = await getMonth(filters)
+
+   const indicadorsNames = indicadors.map((ind: any) => ind.name)
+   const indicadorsObj = indicadors.map((ind: any) => ind.obj)
 
    return (
-      <div className="px-6">
-         <Chart
-            name={'maig 2023'}
-            data={infoChart}
-            index={indicadors}
-            objectiu={50}
-         />
+      <div>
+         <div className="mb-2">
+            <Chart
+               name={monthName + ' ' + year}
+               data={infoChart}
+               index={indicadorsNames}
+               objectius={indicadorsObj}
+            />
+         </div>
          <ProfessionalsTable
             data={infoTable}
             professionals={professionals}

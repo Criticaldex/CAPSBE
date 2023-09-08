@@ -22,17 +22,12 @@ const nextConfig = {
       return [
          {
             source: '/',
-            destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
+            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
-            source: '/contracts',
-            destination: `/contracts/${process.env.CONTRACTS_DEFAULT_YEAR}/${process.env.CONTRACTS_DEFAULT_CENTER}`,
-            permanent: false,
-         },
-         {
-            source: '/contracts/:slug',
-            destination: `/contracts/:slug/${process.env.CONTRACTS_DEFAULT_CENTER}`,
+            source: '/dashboard',
+            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
@@ -63,6 +58,11 @@ const nextConfig = {
          {
             source: '/professionals/individual/:centre/:section',
             destination: `/professionals/individual/:centre/:section/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
+            permanent: false,
+         },
+         {
+            source: '/iqf',
+            destination: `/iqf/${process.env.DASHBOARD_DEFAULT_YEAR}`,
             permanent: false,
          }
       ];

@@ -36,9 +36,6 @@ export const chartOptions = {
    },
    legend: {
       enabled: true,
-      align: 'right',
-      verticalAlign: 'middle',
-      width: 125
    },
    navigation: {
       buttonOptions: {
@@ -70,7 +67,8 @@ export const chartOptions = {
    },
    plotOptions: {
       series: {
-         borderWidth: 0
+         borderWidth: 0,
+         maxPointWidth: 100,
       }
    }
 };
