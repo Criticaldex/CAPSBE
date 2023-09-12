@@ -29,13 +29,13 @@ export const getIqfDashboard = async (up: string) => {
    const iqf = await getIqf(up);
    const data = [{
       name: 'universal',
-      data: iqf.puntuacio_universals
+      data: iqf.puntuacio_universals.slice(2)
    }, {
       name: 'selecció',
-      data: iqf.puntuacio_seleccio
+      data: iqf.puntuacio_seleccio.slice(2)
    }, {
       name: 'hiperprescripció',
-      data: iqf.puntuacio_hiperprescripcio
+      data: iqf.puntuacio_hiperprescripcio.slice(2)
    }]
    return data;
 }
