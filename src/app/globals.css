@@ -27,6 +27,9 @@
    --black: #000;
    --table-size-text: 14px;
    --pestanaHover: #1f96ff1a;
+   --bg-nav-global: #161616;
+   --textNav: #ddd;
+   --spacerNav: #424242;
    --hiper: #B1B163;
    --hiper2: #B1B16350;
    --seleccio: #9DA2EE;
@@ -215,7 +218,8 @@ body {
    left: 0;
    z-index: 1;
    background: var(--bg-light);
-   border-right: solid 1px var(--contrario);
+   border-right: solid 1px var(--bg-dark);
+   margin-right: 10px;
 }
 
 

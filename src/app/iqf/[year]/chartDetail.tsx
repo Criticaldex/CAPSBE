@@ -22,7 +22,7 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         type: 'line',
+         type: 'spline',
          spacingTop: 30
       },
       title: {

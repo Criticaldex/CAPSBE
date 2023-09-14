@@ -27,6 +27,9 @@ export function Iqf({ name, data, objectiu, invers }: any) {
          text: name
       },
       series: data,
+      xAxis: {
+         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
+      },
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
@@ -34,12 +37,29 @@ export function Iqf({ name, data, objectiu, invers }: any) {
             color: 'var(--red)',
             width: 2,
             value: obj
-         }]
+         }],
+         stackLabels: {
+            enabled: true,
+            style: {
+               textOutline: 'none'
+            },
+            total: '',
+            formatter: function () {
+               return '<b>' + this.total + '</b>'
+            },
+            y: -3
+         },
       },
       plotOptions: {
          series: {
             borderWidth: 0,
-            stacking: 'normal'
+            stacking: 'normal',
+            dataLabels: {
+               enabled: true,
+               style: {
+                  textOutline: 'none'
+               },
+            }
          }
       },
       tooltip: {
