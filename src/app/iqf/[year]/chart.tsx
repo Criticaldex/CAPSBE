@@ -9,6 +9,17 @@ if (typeof Highcharts === "object") {
 }
 
 export function Chart({ name, data, objectiu, categories, setter }: any) {
+
+   let colors = Highcharts.getOptions().colors || ['black', 'black', 'black']
+   let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
+   centrosClass.forEach(clase => {
+      let algo = document.getElementsByClassName(clase)
+      for (var i = 0; i < algo.length; i++) {
+         let p = algo[i].getElementsByTagName('p')
+         p[0].style.color = colors[i].toString()
+      };
+   })
+
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
