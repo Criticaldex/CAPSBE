@@ -27,15 +27,16 @@ export const getIqf = async (up: string) => {
 
 export const getIqfDashboard = async (up: string) => {
    const iqf = await getIqf(up);
+   let primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const data = [{
       name: 'universal',
-      data: iqf.puntuacio_universals
+      data: iqf.puntuacio_universals.slice(primerIndiceNoNulo)
    }, {
       name: 'selecció',
-      data: iqf.puntuacio_seleccio
+      data: iqf.puntuacio_seleccio.slice(primerIndiceNoNulo)
    }, {
       name: 'hiperprescripció',
-      data: iqf.puntuacio_hiperprescripcio
+      data: iqf.puntuacio_hiperprescripcio.slice(primerIndiceNoNulo)
    }]
    return data;
 }
