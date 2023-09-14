@@ -22,6 +22,7 @@ module.exports = {
             darkBlue2: 'var(--darkBlue2)',
             lightBlue: 'var(--lightBlue)',
             red: 'var(--red)',
+            green: 'var(--green)',
             darkRed: 'var(--darkRed)',
             yellowCustom: 'var(--yellow)',
             bgLight: 'var(--bg-light)',
@@ -34,6 +35,12 @@ module.exports = {
             bgNavGlobal: 'var(--bg-nav-global)',
             TextNav: 'var(--textNav)',
             spacerNav: 'var(--spacerNav)',
+            hiper: 'var(--hiper)',
+            hiper2: 'var(--hiper2)',
+            seleccio: 'var(--seleccio)',
+            seleccio2: 'var(--seleccio2)',
+            universals: 'var(--universals)',
+            universals2: 'var(--universals2)'
          },
          fontFamily: {
             nunito: ['Nunito', 'sans-serif']

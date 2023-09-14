@@ -81,7 +81,6 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
       indicador.map((centre: any) => {
          for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
             fila[key] = prof[Object.keys(prof)[Object.keys(prof).length - 1]];
-
          }
       });
       tableData.push(fila);
@@ -90,7 +89,7 @@ export function ProfessionalsTable({ data, professionals, professional }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md overflow-hidden pl-2 tablaObjetivos">
+      <div className="rounded-md overflow-hidden pl-2">
          <DataTable
             className=''
             columns={columns}

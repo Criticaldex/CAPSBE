@@ -3,30 +3,28 @@ import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
+import highchartsMore from "highcharts/highcharts-more.js"
+import solidGauge from "highcharts/modules/solid-gauge.js";
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
+   highchartsMore(Highcharts);
+   solidGauge(Highcharts);
 }
 
-export function ChartDetail({ name, data, objectius, categories }: any) {
-   let max = 0;
-   data.forEach((elem: any) => {
-      elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-      });
-   });
-   objectius.forEach((elem: any) => {
-      max = (elem.value > max) ? elem.value : max;
-   });
+export function TrendChart({ data, numColor }: any) {
 
    const options = {
       ...chartOptions,
       chart: {
-         type: 'spline',
-         spacingTop: 30
+         type: 'line',
+         spacingTop: 30,
+         height: '15%',
+         margin: [0, 0, 0, 0],
+         spacing: [0, 0, 0, 0],
       },
       title: {
-         text: name
+         text: ""
       },
       series: data,
       xAxis: {
@@ -34,23 +32,25 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
       },
       yAxis: {
          ...chartOptions.yAxis,
-         max: max,
-         plotLines: objectius,
-         min: null,
-      },
-      tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b><br/>'
+         max: Math.max(...data.data) + 1,
+         min: Math.min(...data.data) - 1,
+         gridLineWidth: 0,
       },
       plotOptions: {
          series: {
             ...chartOptions.plotOptions.series,
-            dataLabels: {
-               enabled: true,
-               style: {
-                  textOutline: 'none'
-               }
-            }
+            marker: {
+               enabled: true
+            },
+            lineWidth: 3,
+            color: 'black'
          }
+      },
+      exporting: {
+         enabled: false
+      },
+      legend: {
+         enabled: false
       }
    }
 
