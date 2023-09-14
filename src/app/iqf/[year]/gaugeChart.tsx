@@ -64,7 +64,7 @@ export function GaugeChart({ data, numColor }: any) {
          background: {
             outerRadius: '79%',
             innerRadius: '56%',
-            backgroundColor: Highcharts.color(numColor).setOpacity(0.3).get(),
+            backgroundColor: numColor + '50',
             borderWidth: 0
          }
       },
