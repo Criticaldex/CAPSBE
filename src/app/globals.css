@@ -30,6 +30,12 @@
    --bg-nav-global: #161616;
    --textNav: #ddd;
    --spacerNav: #424242;
+   --hiper: #B1B163;
+   --hiper2: #B1B16350;
+   --seleccio: #9DA2EE;
+   --seleccio2: #9DA2EE50;
+   --universals: #B05AAA;
+   --universals2: #B05AAA50;
 }
 
 @media (prefers-color-scheme: dark) {
