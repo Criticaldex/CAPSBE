@@ -36,7 +36,6 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
          ...chartOptions.yAxis,
          max: max,
          plotLines: objectius,
-         min: null,
       },
       tooltip: {
          pointFormat: '{series.name}: <b>{point.y}</b><br/>'
