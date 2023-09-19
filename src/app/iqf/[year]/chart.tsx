@@ -21,7 +21,7 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
             p[0].style.color = colors[i].toString()
          };
       })
-   })
+   }, [])
 
    let max = 0;
    data.forEach((elem: any) => {
