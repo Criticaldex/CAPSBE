@@ -98,13 +98,17 @@ export function DashboardTable({ data, centros }: any) {
       let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
       let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: obj };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-         indicador.Indicador = `${value[centro.id].identificador} - ${value[centro.id].indicador}`;
-         indicador[centro.name] = value[centro.id].resultat[value[centro.id].resultat.length - 1];
-         indicador.invers = value[centro.id].invers;
-         //values for the chart
-         indicador.values[centro.id] = {};
-         indicador.values[centro.id].data = value[centro.id].resultat;
-         indicador.values[centro.id].name = centro.name;
+         value.forEach((val: any) => {
+            if (val.centre == centro.id) {
+               indicador.Indicador = `${val.identificador} - ${val.indicador}`;
+               indicador[centro.name] = val.resultat[val.resultat.length - 1];
+               indicador.invers = val.invers;
+               //values for the chart
+               indicador.values[centro.id] = {};
+               indicador.values[centro.id].data = val.resultat;
+               indicador.values[centro.id].name = centro.name;
+            }
+         });
       });
       tableData.push(indicador);
    }
