@@ -3,8 +3,8 @@ import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
-import highchartsMore from "highcharts/highcharts-more.js"
-import solidGauge from "highcharts/modules/solid-gauge.js";
+import highchartsMore from "highcharts/highcharts-more"
+import solidGauge from "highcharts/modules/solid-gauge";
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
