@@ -19,16 +19,17 @@ export function TrendChart({ data, numColor }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         type: 'line',
+         type: 'spline',
          spacingTop: 30,
-         height: '15%',
+         height: '25%',
+         width: 200,
          margin: [0, 0, 0, 0],
          spacing: [0, 0, 0, 0],
       },
       title: {
          text: ""
       },
-      series: data,
+      series: [data],
       xAxis: {
          categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
       },
@@ -45,7 +46,7 @@ export function TrendChart({ data, numColor }: any) {
                enabled: true
             },
             lineWidth: 3,
-            color: 'black'
+            color: numColor
          }
       },
       exporting: {
