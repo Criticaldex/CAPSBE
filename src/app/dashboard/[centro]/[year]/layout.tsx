@@ -3,6 +3,8 @@ import { getEqasContracts } from "@/services/eqas";
 import { Chart } from "./chart";
 import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
+import { getDmaAssignada, getDmaDashboard } from "@/services/dmas";
+import { Dma } from "./dma";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
@@ -18,6 +20,37 @@ export default async function LayoutDashboard({ children, params }: any) {
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
+   const dma = await getDmaDashboard(up);
+   const dma_assignada = await getDmaAssignada(up);
+
+   function calcularRegresionLineal(datos: any[]) {
+      var sumaX = 0;
+      var sumaY = 0;
+      var sumaXY = 0;
+      var sumaX2 = 0;
+
+      for (var i = 0; i < datos.length; i++) {
+         sumaX += i;
+         sumaY += datos[i];
+         sumaXY += i * datos[i];
+         sumaX2 += i * i;
+      }
+
+      var n = datos.length;
+      var pendiente = (n * sumaXY - sumaX * sumaY) / (n * sumaX2 - sumaX * sumaX);
+      var intercepto = (sumaY - pendiente * sumaX) / n;
+
+      return { pendiente: pendiente, intercepto: intercepto };
+   }
+
+   // Calcular la regresión lineal
+   var regresion = calcularRegresionLineal(dma[0].data);
+
+   // Crear un conjunto de datos para la línea de tendencia
+   var lineaTendencia = [];
+   for (var i = 0; i < 9; i++) {
+      lineaTendencia.push(regresion.pendiente * i + regresion.intercepto);
+   }
 
    return (
       <article className="min-h-fit">
@@ -33,10 +66,15 @@ export default async function LayoutDashboard({ children, params }: any) {
             </div>
          </section>
          <div className="flex flex-row justify-between mx-2 mb-2">
-            <div className="w-1/2 p-1 mr-2 bg-bgLight rounded-md shadow-xl">
-               <h1 className="text-center text-xl font-bold my-4">DMA</h1>
+            <div className="w-1/2 p-1 mr-1 bg-bgLight rounded-md shadow-xl">
+               <Dma
+                  name={`DMA ${nameCentro}`}
+                  data={dma}
+                  objectiu={dma_assignada}
+                  regresion={lineaTendencia}
+               />
             </div>
-            <div className="w-1/2 p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="w-1/2 p-1 ml-1 bg-bgLight rounded-md shadow-xl">
                <Iqf
                   name={`IQF ${nameCentro}`}
                   data={iqf}
