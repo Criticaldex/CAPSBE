@@ -15,9 +15,9 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
    let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
    useEffect(() => {
       centrosClass.forEach(clase => {
-         let algo = document.getElementsByClassName(clase)
-         for (var i = 0; i < algo.length; i++) {
-            let p = algo[i].getElementsByTagName('p')
+         let contenedor = document.getElementsByClassName(clase)
+         for (var i = 0; i < contenedor.length; i++) {
+            let p = contenedor[i].getElementsByTagName('p')
             p[0].style.color = colors[i].toString()
          };
       })

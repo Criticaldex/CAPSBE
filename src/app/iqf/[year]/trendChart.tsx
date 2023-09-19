@@ -44,7 +44,7 @@ export function TrendChart({ data, numColor }: any) {
                enabled: true
             },
             lineWidth: 3,
-            color: 'black'
+            color: numColor
          }
       },
       exporting: {
