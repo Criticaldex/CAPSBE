@@ -1,14 +1,10 @@
 'use client'
-import { getCenters } from "@/services/centros";
-import { getTotalsIqf } from "@/services/iqfs";
 import { GaugeChart } from "./gaugeChart";
-import Highcharts, { color } from "highcharts";
 import { TrendChart } from "./trendChart";
 
 export function Totals({ iqfTotals }: any) {
    const iqf = iqfTotals
    const colores = ["#2caffe", "#544fc5", "#00e272", "#fe6a35", "#6b8abc", "#d568fb", "#2ee0ca", "#fa4b42", "#feb56a", "#91e8e12"]
-   // const colores = Highcharts.getOptions().colors || []
 
    return (
       <section className="flex justify-around bg-bgLight w-full rounded-md py-2">
