@@ -10,13 +10,13 @@ export default async function LayoutDashboard({ children, params }: any) {
    let up: string = '';
    let nameCentro: string = '';
    const centros = await getCenters();
-   const calls = await getCallsToday(centro);
    centros.map((center: any) => {
       if (center.id == centro) {
          up = center.up
          nameCentro = center.name
       }
    })
+   const calls = await getCallsToday();
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);

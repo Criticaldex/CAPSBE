@@ -17,7 +17,7 @@ const getCalls = async (filter: any) => {
                   "any",
                   "mes",
                   "dia",
-                  "centre",
+                  "centro",
                   "abandoned",
                   "offered",
                   "answered",
@@ -32,13 +32,21 @@ const getCalls = async (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getCallsToday = async (center: string) => {
+export const getCallsToday = async () => {
    const pad = '00';
    const day = (pad + (new Date().getDate() - 1)).slice(-pad.length);
    const month = (pad + (new Date().getMonth() + 1)).slice(-pad.length);
    const year = new Date().getFullYear().toString();
 
-   const filter = { "centro": center, "any": year, "mes": month, "dia": day };
+   const filter = {
+      centro: {
+         $nin: [
+            "GS-PEDIATRIA",
+            "Average",
+         ]
+      },
+      "any": year, "mes": month, "dia": day
+   };
    return await getCalls(filter);
 
    // return data.map((i: any) => {

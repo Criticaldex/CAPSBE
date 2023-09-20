@@ -3,7 +3,6 @@ import React from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes";
 
-
 export function ProfessionalsTable({ data, professionals, professional }: any) {
 
    let columns: any = [{
