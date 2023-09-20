@@ -3,6 +3,8 @@ import { getEqasContracts } from "@/services/eqas";
 import { Chart } from "./chart";
 import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
+import { getDmaAssignada, getDmaDashboard, getRegressioLineal } from "@/services/dmas";
+import { Dma } from "./dma";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
@@ -19,6 +21,10 @@ export default async function LayoutDashboard({ children, params }: any) {
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
 
+   const dma = await getDmaDashboard(up);
+   const dma_assignada = await getDmaAssignada(up);
+   const dma_regressio_lineal = await getRegressioLineal(up, dma);
+
    return (
       <article className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
@@ -33,10 +39,15 @@ export default async function LayoutDashboard({ children, params }: any) {
             </div>
          </section>
          <div className="flex flex-row justify-between mx-2 mb-2">
-            <div className="w-1/2 p-1 mr-2 bg-bgLight rounded-md shadow-xl">
-               <h1 className="text-center text-xl font-bold my-4">DMA</h1>
+            <div className="w-1/2 p-1 mr-1 bg-bgLight rounded-md shadow-xl">
+               <Dma
+                  name={`DMA ${nameCentro}`}
+                  data={dma}
+                  objectiu={dma_assignada}
+                  regresion={dma_regressio_lineal}
+               />
             </div>
-            <div className="w-1/2 p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="w-1/2 p-1 ml-1 bg-bgLight rounded-md shadow-xl">
                <Iqf
                   name={`IQF ${nameCentro}`}
                   data={iqf}

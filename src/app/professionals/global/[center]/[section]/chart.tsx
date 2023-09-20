@@ -1,6 +1,7 @@
 'use client'
 import Highcharts from 'highcharts/highstock'
 import HighchartsExporting from 'highcharts/modules/exporting'
+import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 import React from 'react'
@@ -8,6 +9,7 @@ import React from 'react'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
+   HighchartsExportData(Highcharts)
 }
 
 var objetivos: any[] = []

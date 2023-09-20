@@ -1,11 +1,13 @@
 'use client'
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
+import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
+   HighchartsExportData(Highcharts)
 }
 
 export function ChartDetail({ name, data, objectius, categories }: any) {
@@ -36,7 +38,6 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
          ...chartOptions.yAxis,
          max: max,
          plotLines: objectius,
-         min: null,
       },
       tooltip: {
          pointFormat: '{series.name}: <b>{point.y}</b><br/>'

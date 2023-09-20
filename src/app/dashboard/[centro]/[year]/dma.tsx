@@ -10,15 +10,10 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function Iqf({ name, data, objectiu, invers }: any) {
+export function Dma({ name, data, objectiu, regresion }: any) {
    let max = 0;
-   data.forEach((elem: any) => {
-      elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-      });
-   });
+   max = Math.max(...data.data)
    max = (objectiu > max) ? objectiu : max;
-   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
    const options = {
       ...chartOptions,
       chart: {
@@ -28,29 +23,31 @@ export function Iqf({ name, data, objectiu, invers }: any) {
       title: {
          text: name
       },
-      series: data,
+      series: [
+         data,
+         {
+            type: 'line',
+            name: 'Línea de Tendencia',
+            data: regresion,
+            color: 'var(--yellow)'
+         }
+      ],
       xAxis: {
-         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
+         categories: ['Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
       },
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
+         min: null,
          plotLines: [{
             color: 'var(--red)',
             width: 2,
-            value: obj
-         }],
-         stackLabels: {
-            enabled: true,
-            style: {
-               textOutline: 'none'
-            },
-            total: '',
-            formatter: function () {
-               return '<b>' + this.total + '</b>'
-            },
-            y: -3
-         },
+            value: objectiu,
+            label: {
+               text: parseFloat(objectiu.toFixed(2)).toLocaleString()
+
+            }
+         }]
       },
       plotOptions: {
          series: {
@@ -62,10 +59,20 @@ export function Iqf({ name, data, objectiu, invers }: any) {
                   textOutline: 'none'
                },
             }
+         },
+         line: {
+            lineWidth: 2,
+            marker: {
+               enabled: false
+            },
+            dataLabels: {
+               enabled: false
+            },
+            connectNulls: true
          }
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)<br/>'
+         pointFormat: '{series.name}: <b>{point.y}</b>'
       }
    }
 

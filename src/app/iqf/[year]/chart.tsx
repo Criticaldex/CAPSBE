@@ -1,24 +1,29 @@
 'use client'
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
+import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
+import { useEffect } from 'react'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
+   HighchartsExportData(Highcharts)
 }
 
 export function Chart({ name, data, objectiu, categories, setter }: any) {
 
    let colors = ["#2caffe", "#544fc5", "#00e272", "#fe6a35", "#6b8abc", "#d568fb", "#2ee0ca", "#fa4b42", "#feb56a", "#91e8e12"]
    let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
-   centrosClass.forEach(clase => {
-      let algo = document.getElementsByClassName(clase)
-      for (var i = 0; i < algo.length; i++) {
-         let p = algo[i].getElementsByTagName('p')
-         p[0].style.color = colors[i].toString()
-      };
-   })
+   useEffect(() => {
+      centrosClass.forEach(clase => {
+         let contenedor = document.getElementsByClassName(clase)
+         for (var i = 0; i < contenedor.length; i++) {
+            let p = contenedor[i].getElementsByTagName('p')
+            p[0].style.color = colors[i].toString()
+         };
+      })
+   }, [])
 
    let max = 0;
    data.forEach((elem: any) => {

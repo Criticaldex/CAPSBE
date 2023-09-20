@@ -1,6 +1,7 @@
 'use client'
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
+import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 import highchartsMore from "highcharts/highcharts-more.js"
@@ -8,6 +9,7 @@ import solidGauge from "highcharts/modules/solid-gauge.js";
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
+   HighchartsExportData(Highcharts)
    highchartsMore(Highcharts);
    solidGauge(Highcharts);
 }
@@ -17,16 +19,17 @@ export function TrendChart({ data, numColor }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         type: 'line',
+         type: 'spline',
          spacingTop: 30,
-         height: '15%',
+         height: '25%',
+         width: 200,
          margin: [0, 0, 0, 0],
          spacing: [0, 0, 0, 0],
       },
       title: {
          text: ""
       },
-      series: data,
+      series: [data],
       xAxis: {
          categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
       },
@@ -43,7 +46,7 @@ export function TrendChart({ data, numColor }: any) {
                enabled: true
             },
             lineWidth: 3,
-            color: 'black'
+            color: numColor
          }
       },
       exporting: {
