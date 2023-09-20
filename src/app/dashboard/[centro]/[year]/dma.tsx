@@ -10,15 +10,10 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function Dma({ name, data, objectiu, regresion, invers }: any) {
+export function Dma({ name, data, objectiu, regresion }: any) {
    let max = 0;
-   data.forEach((elem: any) => {
-      elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-      });
-   });
+   max = Math.max(...data.data)
    max = (objectiu > max) ? objectiu : max;
-   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
    const options = {
       ...chartOptions,
       chart: {
@@ -29,12 +24,12 @@ export function Dma({ name, data, objectiu, regresion, invers }: any) {
          text: name
       },
       series: [
-         data[0],
+         data,
          {
             type: 'line',
             name: 'Línea de Tendencia',
             data: regresion,
-            color: 'black'
+            color: 'var(--yellow)'
          }
       ],
       xAxis: {
@@ -43,10 +38,15 @@ export function Dma({ name, data, objectiu, regresion, invers }: any) {
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
+         min: null,
          plotLines: [{
             color: 'var(--red)',
             width: 2,
-            value: obj
+            value: objectiu,
+            label: {
+               text: parseFloat(objectiu.toFixed(2)).toLocaleString()
+
+            }
          }]
       },
       plotOptions: {
@@ -67,11 +67,12 @@ export function Dma({ name, data, objectiu, regresion, invers }: any) {
             },
             dataLabels: {
                enabled: false
-            }
+            },
+            connectNulls: true
          }
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)<br/>'
+         pointFormat: '{series.name}: <b>{point.y}</b>'
       }
    }
 
