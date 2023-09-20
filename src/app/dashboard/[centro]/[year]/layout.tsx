@@ -3,12 +3,14 @@ import { getEqasContracts } from "@/services/eqas";
 import { Chart } from "./chart";
 import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
+import { getCallsToday } from "@/services/calls";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
    let up: string = '';
    let nameCentro: string = '';
    const centros = await getCenters();
+   const calls = await getCallsToday(centro);
    centros.map((center: any) => {
       if (center.id == centro) {
          up = center.up
@@ -44,6 +46,16 @@ export default async function LayoutDashboard({ children, params }: any) {
                />
             </div>
          </div>
+         <div className="flex flex-row justify-between mx-2 mb-2">
+            <div className="w-screen p-1 bg-bgLight rounded-md shadow-xl">
+               <Iqf
+                  name={`CALLS`}
+                  data={iqf}
+                  objectiu={basal}
+               />
+            </div>
+         </div>
       </article>
    );
 }
+
