@@ -4,6 +4,7 @@ import { Chart } from "./chart";
 import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 import { getCallsToday } from "@/services/calls";
+import { CallsTable } from "./table";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
@@ -48,10 +49,9 @@ export default async function LayoutDashboard({ children, params }: any) {
          </div>
          <div className="flex flex-row justify-between mx-2 mb-2">
             <div className="w-screen p-1 bg-bgLight rounded-md shadow-xl">
-               <Iqf
-                  name={`CALLS`}
-                  data={iqf}
-                  objectiu={basal}
+               <CallsTable
+                  data={calls}
+                  centros={centros}
                />
             </div>
          </div>

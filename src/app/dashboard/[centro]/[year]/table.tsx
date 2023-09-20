@@ -22,7 +22,7 @@ const ExpandedComponent = ({ data }: any) => {
    );
 }
 
-export function DashboardTable({ data, centros }: any) {
+export function CallsTable({ data, centros }: any) {
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
