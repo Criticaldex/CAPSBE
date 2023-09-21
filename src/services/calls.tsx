@@ -43,18 +43,12 @@ export const getCallsToday = async () => {
          $nin: [
             "GS-PEDIATRIA",
             "Average",
+            "Total",
          ]
       },
       "any": year, "mes": month, "dia": day
    };
    return await getCalls(filter);
-
-   // return data.map((i: any) => {
-   //    return {
-   //       name: i.identificador,
-   //       data: i.resultat
-   //    }
-   // })
 }
 
 export const getTableIndicatorsNoCpr = async (year: string) => {

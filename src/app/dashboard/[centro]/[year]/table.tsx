@@ -16,7 +16,7 @@ const ExpandedComponent = ({ data }: any) => {
       <Chart
          name={data.id}
          data={infoChart}
-         objectiu={data.objectiu}
+         objectiu={0}
          invers={data.invers}
       />
    );
@@ -24,105 +24,85 @@ const ExpandedComponent = ({ data }: any) => {
 
 export function CallsTable({ data, centros }: any) {
    let columns: any = [{
-      name: 'Indicador',
-      selector: (row: any) => row.Indicador,
-      sortable: false,
-      grow: 7,
+      name: 'Centre',
+      selector: (row: any) => row.centro,
+      sortable: true,
+      grow: 5,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'abandoned',
+      selector: (row: any) => row.abandoned,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'answered',
+      selector: (row: any) => row.answered,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'offered',
+      selector: (row: any) => row.offered,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'overflowed',
+      selector: (row: any) => row.overflowed,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'answered_time',
+      selector: (row: any) => row.answered_time,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
+      style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+   },
+   {
+      name: 'abandoned_time',
+      selector: (row: any) => row.abandoned_time,
+      sortable: true,
+      minWidth: '50px',
+      wrap: true,
+      grow: 2,
       style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    }];
 
-   centros.map((centro: any) => {
-      columns.push({
-         name: centro.name,
-         cell: (row: any) => (
-            <div className={`${row.objectiu == '' ? '' : 'tags'} w-full text-center`} data-tag="allowRowEvents" data-gloss={`Objectiu: ${row.objectiu}`}>
-               {row[centro.name]}
-            </div>
-         ),
-         sortable: false,
-         minWidth: '30px',
-         compact: true,
-         center: true,
-         wrap: true,
-         grow: 1,
-         style: { fontSize: '', backgroundColor: '', color: '' },
-         conditionalCellStyles: [
-            {
-               when: (row: any) => {
-                  if (!row.invers) {
-                     if (row[centro.name] >= row.objectiu) return true
-                     else return false
-                  } else {
-                     if (row[centro.name] <= row.objectiu.replace(/\D/g, '')) return true
-                     else return false
-                  }
-               },
-               style: {
-                  backgroundColor: 'var(--green)',
-                  color: 'var(--white)',
-               },
-            },
-            {
-               when: (row: any) => {
-                  if (!row.invers) {
-                     if (row[centro.name] <= row.objectiu) return true
-                     else return false
-                  } else {
-                     if (row[centro.name] >= row.objectiu.replace(/\D/g, '')) return true
-                     else return false
-                  }
-               },
-               style: {
-                  backgroundColor: 'var(--red)',
-                  color: 'var(--white)'
-               },
-            },
-            {
-               when: (row: any): any => {
-                  if (row.objectiu) {
-                     return false;
-                  }
-                  return true;
-               },
-               style: {
-                  backgroundColor: '',
-                  color: '',
-               },
-            }
-         ]
-      })
-   });
-
-   let tableData: any = [];
-   for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
-      let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: obj };
-      centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-         value.forEach((val: any) => {
-            if (val.centre == centro.id) {
-               indicador.Indicador = `${val.identificador} - ${val.indicador}`;
-               indicador[centro.name] = val.resultat[val.resultat.length - 1];
-               indicador.invers = val.invers;
-               //values for the chart
-               indicador.values[centro.id] = {};
-               indicador.values[centro.id].data = val.resultat;
-               indicador.values[centro.id].name = centro.name;
-            }
-         });
+   data.map((center: any) => {
+      centros.map((centro: any) => {
+         if (center.centro == centro.id) {
+            center.centro = centro.name;
+         }
       });
-      tableData.push(indicador);
-   }
+   });
 
    createThemes();
 
    return (
       <DataTable
          columns={columns}
-         data={tableData}
+         data={data}
          theme={'custom'}
-         expandableRows
-         expandOnRowClicked
-         expandableRowsComponent={ExpandedComponent}
+      // expandableRows
+      // expandOnRowClicked
+      //expandableRowsComponent={ExpandedComponent}
       />
    )
 };

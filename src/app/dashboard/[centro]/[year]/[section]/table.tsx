@@ -96,7 +96,7 @@ export function DashboardTable({ data, centros }: any) {
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
       let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
-      let indicador: { [k: string]: any } = { id: key, Indicador: key, values: [], objectiu: obj };
+      let indicador: { [k: string]: any } = { id: key, Indicador: '', values: [], objectiu: obj };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          value.forEach((val: any) => {
             if (val.centre == centro.id) {
