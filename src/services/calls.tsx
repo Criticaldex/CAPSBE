@@ -81,7 +81,7 @@ export const getDashboardChart = async (year: string, month: string, center: str
       yAxis: 1
    }, {
       type: 'column',
-      name: 'Temps penjada',
+      name: 'Temps abandó',
       data: [],
       yAxis: 1
    },];
