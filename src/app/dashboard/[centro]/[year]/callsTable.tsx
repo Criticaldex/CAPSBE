@@ -38,7 +38,6 @@ const ExpandedComponent = ({ data }: any) => {
    console.log(monthString);
 
    useEffect(() => {
-      setLoading(true);
       getDashboardChart(year, monthString, data.centro)
          .then((res: any) => {
             setDetall(res);
