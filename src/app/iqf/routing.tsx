@@ -17,7 +17,7 @@ export function GetLinksYears({ years }: any) {
       <div className="flex">
          {links.map(({ label, route }: any) => (
             <Link className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'bg-bgDark bg-opacity-20 dark:bg-opacity-80 hover:bg-opacity-40'}`} key={route} href={route}>
+            ${pathname?.includes(route) ? 'bg-darkBlue text-white' : 'bg-bgDark hover:bg-bgLight'}`} key={route} href={route}>
                {label}
             </Link>
          ))}
