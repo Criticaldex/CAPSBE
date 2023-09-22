@@ -32,7 +32,7 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
       },
       series: data,
       xAxis: {
-         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
+         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
       },
       yAxis: {
          ...chartOptions.yAxis,

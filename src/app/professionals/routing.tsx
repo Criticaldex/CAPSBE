@@ -117,8 +117,8 @@ export function GetLinksYears({ years }: any) {
       <ul className="m-auto w-full flex flex-wrap items-end justify-end mb-2 rounded-md">
          {links.map(({ label, route }: any) => (
             <Link className={
-               `border border-darkBlue ml-8 py-2 px-5 rounded-md text-textColor
-               ${pathname?.includes(label) ? 'bg-darkBlue' : 'hover:bg-bgLight bg-bgDark'}`}
+               `my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
+               ${pathname?.includes(label) ? 'bg-darkBlue text-white' : 'hover:bg-bgLight'}`}
                key={route} href={route}>
                <li> {label} </li>
             </Link >

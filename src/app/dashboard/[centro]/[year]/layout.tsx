@@ -5,6 +5,8 @@ import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 import { getDmaAssignada, getDmaDashboard, getRegressioLineal } from "@/services/dmas";
 import { Dma } from "./dma";
+import { getCallsToday } from "@/services/calls";
+import { CallsTable } from "./callsTable";
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
@@ -17,6 +19,8 @@ export default async function LayoutDashboard({ children, params }: any) {
          nameCentro = center.name
       }
    })
+
+   const calls = await getCallsToday();
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
@@ -55,6 +59,15 @@ export default async function LayoutDashboard({ children, params }: any) {
                />
             </div>
          </div>
+         <div className="flex flex-row justify-between mx-2 mb-2">
+            <div className="w-screen p-1 bg-bgLight rounded-md shadow-xl">
+               <CallsTable
+                  data={calls}
+                  centros={centros}
+               />
+            </div>
+         </div>
       </article>
    );
 }
+
