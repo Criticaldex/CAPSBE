@@ -27,7 +27,7 @@ export function Dma({ name, data, objectiu, regresion }: any) {
          data,
          {
             type: 'line',
-            name: 'Línea de Tendencia',
+            name: 'Línia de Tendència',
             data: regresion,
             color: 'var(--yellow)'
          }
