@@ -12,13 +12,16 @@ if (typeof Highcharts === "object") {
 
 export function ChartDetail({ name, data, objectius, categories }: any) {
    let max = 0;
+   let min = 100;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max) ? i : max;
+         min = (i < min) ? i : min;
       });
    });
    objectius.forEach((elem: any) => {
       max = (elem.value > max) ? elem.value : max;
+      min = (elem.value < min) ? elem.value : min;
    });
 
    const options = {
@@ -37,6 +40,7 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
+         min: min,
          plotLines: objectius,
       },
       tooltip: {
