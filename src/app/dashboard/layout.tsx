@@ -24,8 +24,6 @@ export default async function ContractsLayout({ children }: any) {
          </div>
          <hr className="w-11/12 m-auto mt-0 border-t-2 border-darkBlue" />
          <main className="m-2">
-
-
             {children}
          </main>
       </div>

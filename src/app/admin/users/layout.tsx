@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
+import { getSession } from "@/services/session"
 import { authOptions } from '@/lib/auth';
 
 export default async function UsersLayout({ children }: any) {
-   const session = await getServerSession(authOptions);
+   const session = await getSession();
    if (session?.user.role != "0") {
       redirect("/admin/profile");
    }
