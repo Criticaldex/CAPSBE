@@ -1,18 +1,18 @@
 'use client'
-import { Chart } from "../chart";
-import { ChartDetail } from "../chartDetail";
+import { Chart } from "./chart";
+import { ChartDetail } from "./chartDetail";
 import { useState, useEffect } from "react";
-import { getPlotLines, getSeleccioDetall } from "@/services/iqfs";
+import { getPlotLines, getUniversalsDetall } from "@/services/iqfs";
 import { Loading } from "@/components/loading.component";
 
-export function ChartContainer({ year, centros, seleccio }: any) {
-   const [seccio, setSeccio] = useState('antihipertensius');
+export function UniversalsContainer({ year, centros, universals }: any) {
+   const [seccio, setSeccio] = useState('matma');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
    const [isLoading, setLoading] = useState(true)
 
    useEffect(() => {
-      getSeleccioDetall(year, centros, seccio)
+      getUniversalsDetall(year, centros, seccio)
          .then((res: any) => {
             setDetall(res)
             getPlotLines(seccio)
@@ -21,29 +21,28 @@ export function ChartContainer({ year, centros, seleccio }: any) {
                   setLoading(false)
                });
          });
-
    }, [seccio, year, centros])
 
    if (isLoading) return <Loading />
 
    return (
       <article>
-         <div className="m-2 mb-1 flex justify-between bg-bgLight rounded-md p-4 border-4 border-seleccio">
-            <h1 className="uppercase text-2xl">Totals Selecció</h1>
-            {seleccio.data.map(({ name, total }: any, index: number) => (
-               <div className="grow text-center centrosSeleccio" key={index}>
-                  <p className="w-fit m-auto border-y-2 border-seleccio px-4 rounded h-full text-xl font-bold">
+         <div className="m-2 mb-1 flex justify-between bg-bgLight border-4 border-universals rounded-md p-4">
+            <h1 className="uppercase text-2xl">Totals Universals</h1>
+            {universals.data.map(({ name, total }: any, index: number) => (
+               <div className="grow text-center centrosUniversals" key={index}>
+                  <p className={`w-fit m-auto border-y-2 border-universals px-4 rounded h-full text-xl font-bold`}>
                      {name}: {total[total.length - 1]}
                   </p>
                </div>
             ))}
          </div>
-         <section className="grid grid-cols-2 mx-2 mb-2 bg-seleccio p-1 rounded-lg">
+         <section className="grid grid-cols-2 mx-2 mb-2 bg-universals p-1 rounded-lg">
             <div className="p-1 h-auto bg-bgLight rounded-md shadow-xl">
                <Chart
-                  name={'Selecció'}
-                  data={seleccio.data}
-                  categories={seleccio.categories}
+                  name={'Universals'}
+                  data={universals.data}
+                  categories={universals.categories}
                   setter={setSeccio}
                />
             </div>
