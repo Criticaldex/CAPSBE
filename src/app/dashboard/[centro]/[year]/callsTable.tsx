@@ -67,7 +67,7 @@ const ExpandedComponent = ({ data }: any) => {
    );
 }
 
-export function CallsTable({ data, callsMonth, centros }: any) {
+export function CallsTable({ data, centros }: any) {
    let columns: any = [{
       name: 'Centre',
       selector: (row: any) => row.centroName,
@@ -108,7 +108,7 @@ export function CallsTable({ data, callsMonth, centros }: any) {
       style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    },
    {
-      name: 'Temps resposta',
+      name: 'Temps Resposta',
       selector: (row: any) => row.answered_time,
       sortable: true,
       minWidth: '50px',
@@ -116,7 +116,7 @@ export function CallsTable({ data, callsMonth, centros }: any) {
       style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    },
    {
-      name: 'Temps penjada',
+      name: 'Temps Abandó',
       selector: (row: any) => row.abandoned_time,
       sortable: true,
       minWidth: '50px',

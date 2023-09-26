@@ -8,6 +8,7 @@ export default async function LayoutDashboard({ children, hiper, seleccio, unive
 
    const iqfTotals = await getTotalsIqf(year, centros);
 
+
    return (
       <article className="min-h-fit">
          <div className="w-full mb-1 rounded-md px-2">
