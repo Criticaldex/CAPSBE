@@ -1,9 +1,9 @@
 import { GetLinksAdmin } from "./routing";
-import { getServerSession } from 'next-auth';
+import { getSession } from "@/services/session"
 import { authOptions } from '@/lib/auth';
 
 export default async function ContractsLayout({ children }: any) {
-   const session = await getServerSession(authOptions);
+   const session = await getSession();
    return (
       <div>
          <title>Admin</title>
