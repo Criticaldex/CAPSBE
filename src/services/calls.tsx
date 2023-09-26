@@ -76,12 +76,12 @@ export const getDashboardChart = async (year: string, month: string, center: str
       data: []
    }, {
       type: 'column',
-      name: 'Temps resposta',
+      name: 'Temps Resposta',
       data: [],
       yAxis: 1
    }, {
       type: 'column',
-      name: 'Temps abandó',
+      name: 'Temps Abandó',
       data: [],
       yAxis: 1
    },];
