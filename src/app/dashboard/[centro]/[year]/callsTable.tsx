@@ -6,16 +6,30 @@ import { createThemes } from "@/styles/themes"
 import { getDashboardChart, getDashboardChartDays } from "@/services/calls";
 import { Loading } from "@/components/loading.component";
 
-const monthHandler = (month: number, setMonth: any, setMonthString: any, modifier: any) => (event: any) => {
+const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, setYearString: any, modifier: string) => (event: any) => {
    const pad = '00';
    switch (modifier) {
       case '<':
-         setMonth(month - 1)
-         setMonthString((pad + month).slice(-pad.length));
+         if (month == 0) {
+            setMonth(11)
+            setMonthString('12')
+            setYear(year - 1)
+            setYearString((year - 1).toString())
+         } else {
+            setMonth(month - 1)
+            setMonthString((pad + month).slice(-pad.length));
+         }
          break;
       case '>':
-         setMonth(month + 1);
-         setMonthString((pad + (month + 2)).slice(-pad.length));
+         if (month == 11) {
+            setMonth(0)
+            setMonthString('1')
+            setYear(year + 1)
+            setYearString((year + 1).toString())
+         } else {
+            setMonth(month + 1);
+            setMonthString((pad + (month + 2)).slice(-pad.length));
+         }
          break;
       default:
          break;
@@ -24,11 +38,13 @@ const monthHandler = (month: number, setMonth: any, setMonthString: any, modifie
 
 const ExpandedComponent = ({ data }: any) => {
    const pad = '00';
-   const year = new Date().getFullYear().toString();
+   // const year = new Date().getFullYear().toString();
    const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
 
    const [month, setMonth] = useState(new Date().getMonth());
+   const [year, setYear] = useState(new Date().getFullYear());
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
+   const [yearString, setYearString] = useState(new Date().getFullYear().toString());
    const [detall, setDetall] = useState(null);
    const [days, setDays] = useState(null);
    const [isLoading, setLoading] = useState(true);
@@ -38,25 +54,25 @@ const ExpandedComponent = ({ data }: any) => {
    console.log(monthString);
 
    useEffect(() => {
-      getDashboardChart(year, monthString, data.centro)
+      getDashboardChart(yearString, monthString, data.centro)
          .then((res: any) => {
             setDetall(res);
             console.log(res);
-            getDashboardChartDays(year, monthString, data.centro)
+            getDashboardChartDays(yearString, monthString, data.centro)
                .then((res: any) => {
                   setDays(res);
                   setLoading(false);
                });
          });
-   }, [year, monthString, data.centro])
+   }, [yearString, monthString, data.centro])
 
    if (isLoading) return <Loading />
 
    return (
       <>
          <div className='flex justify-center'>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, '<')}>&lt;</button>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, '>')}>&gt;</button>
+            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '<')}>&lt;</button>
+            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '>')}>&gt;</button>
          </div>
          <Chart
             name={monthName[month] + ' ' + year}

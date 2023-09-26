@@ -48,12 +48,9 @@ export function Chart({ name, data, days }: any) {
    }
 
    return (
-      <>
-
-         <HighchartsReact
-            highcharts={Highcharts}
-            options={options}
-         />
-      </>
+      <HighchartsReact
+         highcharts={Highcharts}
+         options={options}
+      />
    )
 }
