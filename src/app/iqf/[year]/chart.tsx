@@ -64,7 +64,6 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
             events: {
                click: function (event: any) {
                   setter(event.point.category);
-                  console.log('event: ', event.point.category);
                }
             }
          },
