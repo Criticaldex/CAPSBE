@@ -37,6 +37,9 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
       xAxis: {
          categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
       },
+      legend: {
+         enabled: false,
+      },
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
