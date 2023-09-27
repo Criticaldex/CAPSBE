@@ -67,8 +67,8 @@ export default async function LayoutDashboard({ children, params }: any) {
             </div>
          </div>
          {session?.user.db == 'Capsbe' &&
-            <div className="flex flex-row justify-between mx-2 mb-2">
-               <div className="w-screen p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="flex mx-2 mb-2">
+               <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
                   <CallsTable
                      data={calls}
                      centros={centros}

@@ -152,13 +152,17 @@ export function CallsTable({ data, centros }: any) {
    createThemes();
 
    return (
-      <DataTable
-         columns={columns}
-         data={data}
-         theme={'custom'}
-         expandableRows
-         expandOnRowClicked
-         expandableRowsComponent={ExpandedComponent}
-      />
+      <div className='flex-col grow'>
+         <a className="flex justify-center text-xl font-bold">Trucades</a>
+         <DataTable
+            className='flex'
+            columns={columns}
+            data={data}
+            theme={'custom'}
+            expandableRows
+            expandOnRowClicked
+            expandableRowsComponent={ExpandedComponent}
+         />
+      </div>
    )
 };
