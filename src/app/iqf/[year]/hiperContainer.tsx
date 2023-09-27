@@ -27,7 +27,7 @@ export function HiperContainer({ year, centros, hiper }: any) {
    if (isLoading) return <Loading />
 
    return (
-      <article>
+      <div>
          <section className="grid grid-cols-2 gap-1 m-2 bg-hiper p-1 rounded-md">
             <div className="col-span-2 flex bg-bgLight rounded-md p-3">
                <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals Hiperprescipció</h1>
@@ -57,6 +57,6 @@ export function HiperContainer({ year, centros, hiper }: any) {
                />
             </div>
          </section>
-      </article>
+      </div>
    );
 }

@@ -35,7 +35,7 @@ export default async function LayoutDashboard({ children, params }: any) {
    }
 
    return (
-      <article className="min-h-fit">
+      <div className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
             <div id='tabla_dashboard' className="w-3/4 h-auto bg-bgLight rounded-md shadow-xl">
                {children}
@@ -76,7 +76,7 @@ export default async function LayoutDashboard({ children, params }: any) {
                </div>
             </div>
          }
-      </article>
+      </div>
    );
 }
 

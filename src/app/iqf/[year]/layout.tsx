@@ -15,12 +15,10 @@ export default async function LayoutDashboard({ children, params }: any) {
    const iqfTotals = await getTotalsIqf(year, centros);
 
    return (
-      <article className="min-h-fit">
-         <div className="w-full mb-1 rounded-md px-2">
-            <Totals
-               iqfTotals={iqfTotals}
-            />
-         </div>
+      <div className="min-h-fit">
+         <Totals
+            iqfTotals={iqfTotals}
+         />
          {children}
          <UniversalsContainer
             year={year}
@@ -37,6 +35,6 @@ export default async function LayoutDashboard({ children, params }: any) {
             centros={centros}
             seleccio={seleccio}
          />
-      </article>
+      </div>
    );
 }
