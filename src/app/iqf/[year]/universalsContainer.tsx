@@ -26,7 +26,7 @@ export function UniversalsContainer({ year, centros, universals }: any) {
    if (isLoading) return <Loading />
 
    return (
-      <article>
+      <div>
          <section className="grid grid-cols-2 gap-1 m-2 bg-universals p-1 rounded-md">
             <div className="col-span-2 flex bg-bgLight rounded-md p-3">
                <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals Universals</h1>
@@ -56,6 +56,6 @@ export function UniversalsContainer({ year, centros, universals }: any) {
                />
             </div>
          </section>
-      </article>
+      </div>
    );
 }
