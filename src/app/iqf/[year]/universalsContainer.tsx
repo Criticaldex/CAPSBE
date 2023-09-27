@@ -27,18 +27,20 @@ export function UniversalsContainer({ year, centros, universals }: any) {
 
    return (
       <article>
-         <div className="m-2 mb-1 flex justify-between bg-bgLight border-4 border-universals rounded-md p-4">
-            <h1 className="uppercase text-2xl">Totals Universals</h1>
-            {universals.data.map(({ name, total }: any, index: number) => (
-               <div className="grow text-center centrosUniversals" key={index}>
-                  <p className={`w-fit m-auto border-y-2 border-universals px-4 rounded h-full text-xl font-bold`}>
-                     {name}: {total[total.length - 1]}
-                  </p>
+         <section className="grid grid-cols-2 gap-1 m-2 bg-universals p-1 rounded-md">
+            <div className="col-span-2 flex bg-bgLight rounded-md p-3">
+               <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals Universals</h1>
+               <div className="flex grow justify-around text-center">
+                  {universals.data.map(({ name, total }: any, index: number) => (
+                     <div className="centrosUniversals" key={index}>
+                        <p className="flex p-2 rounded-md border-y-2 h-full text-xl font-bold">
+                           {name}: {total[total.length - 1]}
+                        </p>
+                     </div>
+                  ))}
                </div>
-            ))}
-         </div>
-         <section className="grid grid-cols-2 mx-2 mb-2 bg-universals p-1 rounded-lg">
-            <div className="p-1 h-auto bg-bgLight rounded-md shadow-xl">
+            </div>
+            <div className="p-1 bg-bgLight rounded-md shadow-xl">
                <Chart
                   name={'Universals'}
                   data={universals.data}
@@ -46,7 +48,7 @@ export function UniversalsContainer({ year, centros, universals }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 ml-2 h-auto bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md shadow-xl">
                <ChartDetail
                   name={seccio}
                   data={detall}
