@@ -7,19 +7,19 @@ export function Totals({ iqfTotals }: any) {
    const colores = ["#2caffe", "#544fc5", "#00e272", "#fe6a35", "#6b8abc", "#d568fb", "#2ee0ca", "#fa4b42", "#feb56a", "#91e8e12"]
 
    return (
-      <section className="flex flex-wrap justify-around bg-bgLight w-full rounded-md py-2 overflow-hidden">
+      <section className="flex m-2 justify-around bg-bgLight rounded-md p-3 overflow-hidden">
          {iqf.map((total: any, index: number) => (
-            <div key={index} className={`text-center flex-1 flex flex-col m-auto`}>
+            <div key={index} className={`text-center flex-auto w-48 max-w-sm flex flex-col`}>
                <div className="text-2xl font-bold">
                   {total.name}
                </div>
-               <div className={`text-center max-w-min m-auto`}>
+               <div className="text-center grow m-2">
                   <GaugeChart
                      data={total}
                      numColor={colores[index]}
                   />
                </div>
-               <div className={`text-center max-w-sm m-auto flex`}>
+               <div className="text-center max-w-sm m-auto flex">
                   <div>
                      <TrendChart
                         data={total}
