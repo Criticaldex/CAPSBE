@@ -1,6 +1,6 @@
 export default async function ContractsLayout({ children }: any) {
    return (
-      <div>
+      <div className="w-screen h-screen">
          {children}
       </div>
    )
