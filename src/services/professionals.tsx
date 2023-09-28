@@ -77,9 +77,8 @@ export const getTableIndicators = async (filtros: any) => {
    return _.groupBy(data, 'indicador');
 }
 
-export const getSections = async (center: any, year: any) => {
-   let filtros = (center == 'all') ? { 'any': year } : { 'any': year, 'centre': center }
-   const data = await getProfessionals(filtros);
+export const getSections = async () => {
+   const data = await getProfessionals({});
    let groupBySec = _.groupBy(data, 'sector');
    let sectors: string[] = [];
    for (const [key, value] of (Object.entries(groupBySec) as [string, any][])) {
@@ -88,9 +87,8 @@ export const getSections = async (center: any, year: any) => {
    return sectors;
 }
 
-export const getYears = async (center: any, section: any) => {
-   let filtros = (center == 'all') ? { 'sector': section.replaceAll('_', ' ') } : { 'sector': section.replaceAll('_', ' '), 'centre': center }
-   const data = await getProfessionals(filtros);
+export const getYears = async () => {
+   const data = await getProfessionals({});
    let groupByYear = _.groupBy(data, 'any');
    let years: string[] = [];
    for (const [key, value] of (Object.entries(groupByYear) as [string, any][])) {
