@@ -25,6 +25,7 @@ export default async function LayoutDashboard({ children, params }: any) {
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
+
    let dma = null;
    let dma_assignada = null;
    let dma_regressio_lineal = null;
@@ -33,6 +34,7 @@ export default async function LayoutDashboard({ children, params }: any) {
       dma_assignada = await getDmaAssignada(up);
       dma_regressio_lineal = await getRegressioLineal(up, dma);
    }
+
    return (
       <div className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
