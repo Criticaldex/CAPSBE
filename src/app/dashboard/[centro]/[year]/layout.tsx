@@ -33,7 +33,6 @@ export default async function LayoutDashboard({ children, params }: any) {
       dma_assignada = await getDmaAssignada(up);
       dma_regressio_lineal = await getRegressioLineal(up, dma);
    }
-
    return (
       <div className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
