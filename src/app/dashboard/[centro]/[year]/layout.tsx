@@ -25,6 +25,7 @@ export default async function LayoutDashboard({ children, params }: any) {
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
+  
    let dma = null;
    let dma_assignada = null;
    let dma_regressio_lineal = null;
