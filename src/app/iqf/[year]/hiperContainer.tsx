@@ -1,11 +1,11 @@
 'use client'
-import { Chart } from "../chart";
-import { ChartDetail } from "../chartDetail";
+import { Chart } from "./chart";
+import { ChartDetail } from "./chartDetail";
 import { useState, useEffect } from "react";
 import { getPlotLines, getHiperDetall } from "@/services/iqfs";
 import { Loading } from "@/components/loading.component";
 
-export function ChartContainer({ year, centros, hiper }: any) {
+export function HiperContainer({ year, centros, hiper }: any) {
    const [seccio, setSeccio] = useState('aines');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
@@ -27,19 +27,21 @@ export function ChartContainer({ year, centros, hiper }: any) {
    if (isLoading) return <Loading />
 
    return (
-      <article>
-         <div className="m-2 mb-1 flex justify-between bg-bgLight rounded-md p-4 border-4 border-hiper">
-            <h1 className="uppercase text-2xl">Totals Hiperprescipció</h1>
-            {hiper.data.map(({ name, total }: any, index: number) => (
-               <div className="grow text-center centrosHiper" key={index}>
-                  <p className="w-fit m-auto border-y-2 border-hiper px-4 rounded h-full text-xl font-bold">
-                     {name}: {total[total.length - 1]}
-                  </p>
+      <div>
+         <section className="grid grid-cols-2 gap-1 m-2 bg-hiper p-1 rounded-md">
+            <div className="col-span-2 flex bg-bgLight rounded-md p-3">
+               <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals Hiperprescipció</h1>
+               <div className="flex grow justify-around text-center">
+                  {hiper.data.map(({ name, total }: any, index: number) => (
+                     <div className="centrosHiper" key={index}>
+                        <p className="flex p-2 rounded-md border-y-2 h-full text-xl font-bold">
+                           {name}: {total[total.length - 1]}
+                        </p>
+                     </div>
+                  ))}
                </div>
-            ))}
-         </div>
-         <section className="grid grid-cols-2 mx-2 mb-2 bg-hiper p-1 rounded-lg">
-            <div className="p-1 h-auto bg-bgLight rounded-md shadow-xl">
+            </div>
+            <div className="p-1 bg-bgLight rounded-md shadow-xl">
                <Chart
                   name={'Hiperprescripció'}
                   data={hiper.data}
@@ -47,7 +49,7 @@ export function ChartContainer({ year, centros, hiper }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 ml-2 h-auto bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md shadow-xl">
                <ChartDetail
                   name={seccio}
                   data={detall}
@@ -55,6 +57,6 @@ export function ChartContainer({ year, centros, hiper }: any) {
                />
             </div>
          </section>
-      </article>
+      </div>
    );
 }

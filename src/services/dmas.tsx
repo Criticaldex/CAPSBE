@@ -28,7 +28,7 @@ export const getDmaDashboard = async (up: string) => {
    let primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
 
    const data = {
-      name: 'import liquid acumulat',
+      name: 'Import Líquid Acumulat',
       data: dma.import_liquid_acumulat_periode_actual.slice(primerIndiceNoNulo)
    }
    return data;

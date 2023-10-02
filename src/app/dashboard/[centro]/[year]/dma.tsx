@@ -27,13 +27,13 @@ export function Dma({ name, data, objectiu, regresion }: any) {
          data,
          {
             type: 'line',
-            name: 'Línea de Tendencia',
+            name: 'Línia de Tendència',
             data: regresion,
             color: 'var(--yellow)'
          }
       ],
       xAxis: {
-         categories: ['Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
+         categories: ['Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
       },
       yAxis: {
          ...chartOptions.yAxis,

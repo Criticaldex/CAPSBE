@@ -5,6 +5,8 @@ import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 import { getDmaAssignada, getDmaDashboard, getRegressioLineal } from "@/services/dmas";
 import { Dma } from "./dma";
+import { getCallsToday } from "@/services/calls";
+import { CallsTable } from "./callsTable";
 import { getSession } from "@/services/session"
 
 export default async function LayoutDashboard({ children, params }: any) {
@@ -19,10 +21,11 @@ export default async function LayoutDashboard({ children, params }: any) {
       }
    })
    const session = await getSession();
+   const calls = await getCallsToday();
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
-
+  
    let dma = null;
    let dma_assignada = null;
    let dma_regressio_lineal = null;
@@ -33,7 +36,7 @@ export default async function LayoutDashboard({ children, params }: any) {
    }
 
    return (
-      <article className="min-h-fit">
+      <div className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
             <div id='tabla_dashboard' className="w-3/4 h-auto bg-bgLight rounded-md shadow-xl">
                {children}
@@ -64,6 +67,16 @@ export default async function LayoutDashboard({ children, params }: any) {
                />
             </div>
          </div>
-      </article>
+         {session?.user.db == 'Capsbe' &&
+            <div className="flex mx-2 mb-2">
+               <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
+                  <CallsTable
+                     data={calls}
+                     centros={centros}
+                  />
+               </div>
+            </div>
+         }
+      </div>
    );
 }

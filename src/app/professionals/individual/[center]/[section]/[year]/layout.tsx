@@ -8,7 +8,7 @@ export default async function ProfessionalsChart({ children, params }: any) {
 
    return (
       <div className="flex items-stretch">
-         <div className="w-1/4 mb-1 h-[41rem]">
+         <div className="basis-1/4">
             <GetLinksProfessionals
                professionals={professionals}
             />

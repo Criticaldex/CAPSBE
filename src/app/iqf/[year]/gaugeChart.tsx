@@ -32,8 +32,8 @@ export function GaugeChart({ data, numColor }: any) {
          name: data.name,
          data: [{
             color: numColor,
-            radius: '80%',
-            innerRadius: '55%',
+            radius: '90%',
+            innerRadius: '70%',
             y: data.data[data.data.length - 1]
          }]
       }],
@@ -49,7 +49,7 @@ export function GaugeChart({ data, numColor }: any) {
             dataLabels: {
                enabled: true,
                align: 'center',
-               format: '<p style="font-size: 50px;color: {point.color}; font-weight: bold;">{point.y}</p>',
+               format: '<p style="font-size: 35px;color: {point.color}; font-weight: bold;">{point.y}</p>',
                borderWidth: 0,
                style: {
                   textOutline: 'none'
@@ -61,11 +61,10 @@ export function GaugeChart({ data, numColor }: any) {
          }
       },
       pane: {
-         startAngle: 0,
-         endAngle: 360,
+         size: '100%',
          background: {
-            outerRadius: '79%',
-            innerRadius: '56%',
+            outerRadius: '90%',
+            innerRadius: '70%',
             backgroundColor: numColor + '50',
             borderWidth: 0
          }

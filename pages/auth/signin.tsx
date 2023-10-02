@@ -33,9 +33,9 @@ export default function SignIn({ csrfToken }: InferGetServerSidePropsType<typeof
                </div>
             </form>
             {error ?
-               <article id="errorLogin">
+               <div id="errorLogin">
                   Email o contrasenya incorrectes!
-               </article>
+               </div>
                :
                ''
             }

@@ -8,7 +8,7 @@ export default async function ProfilePage() {
    const session = await getSession();
 
    return (
-      <div className="flex mt-2">
+      <div className="flex place-content-center mt-2">
          <ToastContainer />
          <div className="flex basis-1/4 rounded-md bg-light">
             <UsersForm

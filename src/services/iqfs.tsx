@@ -29,13 +29,13 @@ export const getIqfDashboard = async (up: string) => {
    const iqf = await getIqf(up);
    let primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const data = [{
-      name: 'universal',
+      name: 'Universal',
       data: iqf.puntuacio_universals.slice(primerIndiceNoNulo)
    }, {
-      name: 'selecció',
+      name: 'Selecció',
       data: iqf.puntuacio_seleccio.slice(primerIndiceNoNulo)
    }, {
-      name: 'hiperprescripció',
+      name: 'Hiperprescripció',
       data: iqf.puntuacio_hiperprescripcio.slice(primerIndiceNoNulo)
    }]
    return data;
@@ -284,8 +284,8 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
          }
       })
 
-      const dades = iqf['indicadors_dhiperprescripcio'][seccio].dhd;
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const dades = iqf['indicadors_dhiperprescripcio'][seccio].dhd_st;
+      let primerIndiceNoNulo = dades.findIndex((elemento: any) => elemento !== null);
 
       const map = dades.map((item: any) => {
          if (item) return parseFloat((item).toFixed(2));
@@ -293,7 +293,7 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
 
       return {
          name: name,
-         data: map.slice(primerIndiceNoNulo),
+         data: map.slice(primerIndiceNoNulo)
       }
    });
 

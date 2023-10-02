@@ -20,7 +20,7 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
          let contenedor = document.getElementsByClassName(clase)
          for (var i = 0; i < contenedor.length; i++) {
             let p = contenedor[i].getElementsByTagName('p')
-            p[0].style.color = colors[i].toString()
+            p[0].style.borderColor = colors[i].toString()
          };
       })
    }, [])
@@ -49,6 +49,9 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
       xAxis: {
          categories: categories,
       },
+      legend: {
+         enabled: false,
+      },
       tooltip: {
          pointFormat: '{series.name}: <b>{point.y} punts</b><br/>'
       },
@@ -64,7 +67,6 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
             events: {
                click: function (event: any) {
                   setter(event.point.category);
-                  console.log('event: ', event.point.category);
                }
             }
          },

@@ -12,13 +12,16 @@ if (typeof Highcharts === "object") {
 
 export function ChartDetail({ name, data, objectius, categories }: any) {
    let max = 0;
+   let min = 100;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max) ? i : max;
+         min = (i < min) ? i : min;
       });
    });
    objectius.forEach((elem: any) => {
       max = (elem.value > max) ? elem.value : max;
+      min = (elem.value < min) ? elem.value : min;
    });
 
    const options = {
@@ -32,11 +35,15 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
       },
       series: data,
       xAxis: {
-         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Septembre', 'Octubre', 'Novembre', 'Decembre']
+         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+      },
+      legend: {
+         enabled: false,
       },
       yAxis: {
          ...chartOptions.yAxis,
          max: max,
+         min: min,
          plotLines: objectius,
       },
       tooltip: {
