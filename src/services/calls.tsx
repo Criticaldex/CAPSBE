@@ -34,7 +34,7 @@ const getCalls = async (filter: any) => {
 
 export const getCallsToday = async () => {
    const pad = '00';
-   const day = (pad + (new Date().getDate() - 1)).slice(-pad.length);
+   const date = (pad + (new Date().getDate() - 1)).slice(-pad.length);
    const month = (pad + (new Date().getMonth() + 1)).slice(-pad.length);
    const year = new Date().getFullYear().toString();
 
@@ -46,9 +46,39 @@ export const getCallsToday = async () => {
             "Total",
          ]
       },
-      "any": year, "mes": month, "dia": day
+      "any": year, "mes": month, "dia": date
    };
-   return await getCalls(filter);
+   const data = await getCalls(filter);
+   if (!data[0]) {
+      return [{
+         "abandoned": 0,
+         "offered": 0,
+         "answered": 0,
+         "overflowed": 0,
+         "answered_time": "00:00:00",
+         "abandoned_time": "00:00:00",
+         "centro": "0"
+      },
+      {
+         "abandoned": 0,
+         "offered": 0,
+         "answered": 0,
+         "overflowed": 0,
+         "answered_time": "00:00:00",
+         "abandoned_time": "00:00:00",
+         "centro": "1"
+      },
+      {
+         "abandoned": 0,
+         "offered": 0,
+         "answered": 0,
+         "overflowed": 0,
+         "answered_time": "00:00:00",
+         "abandoned_time": "00:00:00",
+         "centro": "2"
+      }]
+   }
+   return data
 }
 
 export const getCallsCenterMonth = async (year: string, month: string, center: string) => {
