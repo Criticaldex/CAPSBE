@@ -10,7 +10,12 @@ const getProfessionals = async (filter: any) => {
          "EQAU0235",
          "EQAU0301",
          "EQAU0239",
-         "EQAU0702"
+         "EQAU0702",
+         "IT001OST",
+         "IT001TOT",
+         "IT001MEN",
+         "IT001ALT",
+         "IT003TOT"
       ]
    }
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
@@ -68,7 +73,6 @@ export const getChartIndicators = async (filtros: any) => {
       })
       results.push(result);
    }
-
    return results;
 }
 
