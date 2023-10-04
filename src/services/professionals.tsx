@@ -118,7 +118,6 @@ export const getCentre = async (professional: string) => {
          }
       }
    }
-
 }
 
 export const getIndicators = async (filtros: any) => {
