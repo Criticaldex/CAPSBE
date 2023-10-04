@@ -15,7 +15,9 @@ const getProfessionals = async (filter: any) => {
          "IT001TOT",
          "IT001MEN",
          "IT001ALT",
-         "IT003TOT"
+         "IT003TOT",
+         "ACC5DF",
+         "CONT0002A"
       ]
    }
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
