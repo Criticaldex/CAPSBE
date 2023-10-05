@@ -15,10 +15,6 @@ const Schema = new mongoose.Schema({
       type: String,
       required: [true, 'L\'identificador es obligatori!']
    },
-   indicador: {
-      type: String,
-      required: [true, 'L\'indicador es obligatori!']
-   },
    any: {
       type: String,
       required: [true, 'L\'Any es obligatori!']
@@ -27,11 +23,8 @@ const Schema = new mongoose.Schema({
       type: String,
       required: [true, 'El Centre es obligatori!']
    },
-   invers: {
-      type: Boolean,
-   },
    objectiu: {
-      type: Number,
+      type: Number
    },
 });
 
