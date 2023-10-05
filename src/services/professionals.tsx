@@ -11,11 +11,11 @@ const getProfessionals = async (filter: any) => {
          "EQAU0301",
          "EQAU0239",
          "EQAU0702",
-         "IT001OST",
          "IT001TOT",
-         "IT001MEN",
-         "IT001ALT",
-         "IT003TOT",
+         // "IT001OST",
+         // "IT001MEN",
+         // "IT001ALT",
+         // "IT003TOT",
          "ACC5DF",
          "CONT0002A"
       ]
