@@ -8,6 +8,7 @@ export interface ProfessionalIface {
    centre: string,
    invers: string,
    objectiu: string,
+   dbName: string
 }
 
 const Schema = new mongoose.Schema({

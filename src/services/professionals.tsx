@@ -13,6 +13,7 @@ const getProfessionals = async (filter: any) => {
          "EQAU0702"
       ]
    }
+
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
       {
          method: 'POST',
@@ -23,14 +24,6 @@ const getProfessionals = async (filter: any) => {
             {
                db: session?.user.db,
                fields: [
-                  "indicador",
-                  "identificador",
-                  "sector",
-                  "any",
-                  "centre",
-                  "professionals",
-                  "objectiu",
-                  "invers",
                   "-_id"
                ],
                filter: filter,
