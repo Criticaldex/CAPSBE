@@ -41,7 +41,6 @@ export const getCallsToday = async () => {
    const filter = {
       centro: {
          $nin: [
-            "GS-PEDIATRIA",
             "Average",
             "Total",
          ]
@@ -76,6 +75,15 @@ export const getCallsToday = async () => {
          "answered_time": "00:00:00",
          "abandoned_time": "00:00:00",
          "centro": "2"
+      },
+      {
+         "abandoned": 0,
+         "offered": 0,
+         "answered": 0,
+         "overflowed": 0,
+         "answered_time": "00:00:00",
+         "abandoned_time": "00:00:00",
+         "centro": "GS-PEDIATRIA"
       }]
    }
    return data
@@ -114,7 +122,7 @@ export const getDashboardChart = async (year: string, month: string, center: str
       name: 'Temps Abandó',
       data: [],
       yAxis: 1
-   },];
+   }];
    data.forEach((ele: any) => {
       const ansArray = ele.answered_time.split(":");
       const abaArray = ele.abandoned_time.split(":");
@@ -137,7 +145,6 @@ export const getDashboardChartDays = async (year: string, month: string, center:
    data.forEach((ele: any) => {
       days.push(ele.dia);
    });
-
    return days;
 }
 
