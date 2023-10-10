@@ -5,7 +5,6 @@ import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 
-
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
@@ -20,11 +19,6 @@ export function Chart({ name, data }: any) {
       series: data,
       title: {
          text: name
-      },
-      yAxis: {
-         ...chartOptions.yAxis,
-         max: 100,
-         min: 0
       }
    }
 

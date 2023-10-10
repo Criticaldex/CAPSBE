@@ -258,7 +258,6 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
          data: map.slice(primerIndiceNoNulo),
       }
    });
-
    return data;
 }
 

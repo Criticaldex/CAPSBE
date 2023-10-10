@@ -2,7 +2,6 @@ import { GetLinksYears } from "./routing";
 import { getYears } from "@/services/contracts";
 
 export default async function ContractsLayout({ children }: any) {
-   // const years = await getYears();
    const years = ['2023'];
    return (
       <div>

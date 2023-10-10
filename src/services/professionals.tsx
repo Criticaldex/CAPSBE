@@ -10,7 +10,51 @@ const getProfessionals = async (filter: any) => {
          "EQAU0235",
          "EQAU0301",
          "EQAU0239",
-         "EQAU0702"
+         "EQAU0702",
+         "IT001TOT",
+         // "IT001OST",
+         // "IT001MEN",
+         // "IT001ALT",
+         // "IT003TOT",
+         "ACC5DF",
+         "CONT0002A"
+      ]
+   }
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
+      {
+         method: 'POST',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(
+            {
+               db: session?.user.db,
+               fields: [
+                  "indicador",
+                  "identificador",
+                  "sector",
+                  "any",
+                  "centre",
+                  "professionals",
+                  "objectiu",
+                  "invers",
+                  "-_id"
+               ],
+               filter: filter,
+            }
+         ),
+      }).then(res => res.json());
+}
+
+const getBaixesProfessionals = async (filter: any) => {
+   const session = await getSession();
+
+   filter.identificador = {
+      $in: [
+         "IT001OST",
+         "IT001MEN",
+         "IT001ALT",
+         "IT003TOT",
       ]
    }
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
@@ -68,12 +112,21 @@ export const getChartIndicators = async (filtros: any) => {
       })
       results.push(result);
    }
-
    return results;
 }
 
 export const getTableIndicators = async (filtros: any) => {
    const data = await getProfessionals(filtros);
+   const ind = _.groupBy(data, 'indicador');
+
+   if (ind['Durada mitjana de les baixes-']) {
+      ind['Durada mitjana de les baixes-'][0]['subtaula'] = await getSubTableIndicators(filtros)
+   }
+   return ind;
+}
+
+export const getSubTableIndicators = async (filtros: any) => {
+   const data = await getBaixesProfessionals(filtros);
    return _.groupBy(data, 'indicador');
 }
 

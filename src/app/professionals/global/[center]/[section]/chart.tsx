@@ -122,11 +122,6 @@ export function Chart({ name, data, index, objectius }: any) {
       xAxis: {
          categories: index,
       },
-      yAxis: {
-         ...chartOptions.yAxis,
-         max: 100,
-         min: 0
-      },
       legend: {
          enabled: false
       },

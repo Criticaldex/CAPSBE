@@ -1,4 +1,4 @@
-import { getChartIndicators, getIndicators, getMonth, getProfessionalsList, getTableIndicators } from "@/services/professionals";
+import { getChartIndicators, getIndicators, getMonth, getProfessionalsList, getSubTableIndicators, getTableIndicators } from "@/services/professionals";
 import { Chart } from "./chart";
 import { ProfessionalsTable } from "./table";
 

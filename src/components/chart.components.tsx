@@ -26,7 +26,7 @@ export const chartOptions = {
       title: {
          enabled: false
       },
-      max: 100,
+      max: null,
       min: null,
       plotLines: [{
          color: 'var(--red)',
