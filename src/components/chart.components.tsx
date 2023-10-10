@@ -20,6 +20,7 @@ export const chartOptions = {
    },
    series: null,
    xAxis: {
+      zoomEnabled: false,
       categories: ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'],
    },
    yAxis: {

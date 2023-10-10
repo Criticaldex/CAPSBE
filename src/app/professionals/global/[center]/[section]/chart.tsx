@@ -121,6 +121,7 @@ export function Chart({ name, data, index, objectius }: any) {
       },
       xAxis: {
          categories: index,
+         zoomEnabled: false
       },
       legend: {
          enabled: false
