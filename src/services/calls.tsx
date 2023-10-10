@@ -1,5 +1,4 @@
 import _ from "lodash"
-import { getSession } from "@/services/session"
 
 const getCalls = async (filter: any) => {
    // const session = await getSession();
