@@ -49,15 +49,10 @@ const ExpandedComponent = ({ data }: any) => {
    const [days, setDays] = useState(null);
    const [isLoading, setLoading] = useState(true);
 
-   console.log(data.centro);
-   console.log(year);
-   console.log(monthString);
-
    useEffect(() => {
       getDashboardChart(yearString, monthString, data.centro)
          .then((res: any) => {
             setDetall(res);
-            console.log(res);
             getDashboardChartDays(yearString, monthString, data.centro)
                .then((res: any) => {
                   setDays(res);
@@ -140,10 +135,13 @@ export function CallsTable({ data, centros }: any) {
       style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
    }];
 
-   data.map((center: any) => {
+   data.map((call: any) => {
       centros.map((centro: any) => {
-         if (center.centro == centro.id) {
-            center.centroName = centro.name;
+         if (call.centro == centro.id) {
+            call.centroName = centro.name;
+         } else if (call.centro == 'GS-PEDIATRIA') {
+            call.centroName = 'Pediatria';
+
          }
       });
    });
