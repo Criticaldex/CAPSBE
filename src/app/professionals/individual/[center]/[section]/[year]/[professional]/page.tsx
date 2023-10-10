@@ -28,7 +28,6 @@ export default async function ProfessionalsChart({ params }: any) {
    let filters = (center == 'all') ? { 'any': year, 'sector': section.replaceAll('_', ' ') } : { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
    const professionals = await getProfessionalsList(filters);
    const infoChart = await getChartIndividual(filters, professional);
-   //const infoTable = await getTableIndividual(filters);
    const infoTable = await getTableIndicators(filters);
 
    let profName = await professionalName(professionals, professional);
@@ -42,7 +41,6 @@ export default async function ProfessionalsChart({ params }: any) {
          />
          <ProfessionalsTable
             data={infoTable}
-            professionals={professionals}
             professional={profName}
          />
       </div>
