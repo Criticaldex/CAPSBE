@@ -47,7 +47,16 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
          plotLines: objectius,
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b><br/>'
+         formatter: function (this: any) {
+            if (this.point.series.userOptions.numeradors) {
+               const numerador: any = this.point.series.userOptions.numeradors[this.point.index].toLocaleString()
+               const denominador: any = this.point.series.userOptions.denominadors[this.point.index].toLocaleString()
+               return `<b>${this.series.name}</b></br>
+               ( ${numerador} / ${denominador} ) x 100 = <b>${this.point.y}%</b>`;
+            } else {
+               return `<b>${this.series.name}</b>: ${this.point.y}<br/>`
+            }
+         },
       },
       plotOptions: {
          series: {

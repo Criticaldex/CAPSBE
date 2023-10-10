@@ -241,21 +241,30 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
       })
 
       let dades: any = '';
+      let numeradors: any = '';
+      let denominadors: any = '';
 
       switch (seccio) {
          case 'biosimilars':
             dades = iqf['indicadors_universals_(biosimilars)'].biosimilars['%'];
+            numeradors = iqf['indicadors_universals_(biosimilars)'].biosimilars.numerador;
+            denominadors = iqf['indicadors_universals_(biosimilars)'].biosimilars.denominador;
             break;
          default:
             dades = iqf.indicadors_universals.matma['%'];
+            numeradors = iqf.indicadors_universals.matma.numerador;
+            denominadors = iqf.indicadors_universals.matma.denominador;
             break;
       }
       let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
 
-      const map = dades.map((item: any) => parseFloat((item * 100).toFixed(2)))
+      const map = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
+
       return {
          name: name,
          data: map.slice(primerIndiceNoNulo),
+         numeradors: numeradors.slice(primerIndiceNoNulo),
+         denominadors: denominadors.slice(primerIndiceNoNulo)
       }
    });
    return data;
@@ -322,14 +331,17 @@ export const getSeleccioDetall = async (year: string, centros: any, seccio: any)
       })
 
       const dades = iqf['indicadors_de_seleccio_de_medicaments'][seccio]['%'];
+      const numeradors = iqf['indicadors_de_seleccio_de_medicaments'][seccio].numerador;
+      const denominadors = iqf['indicadors_de_seleccio_de_medicaments'][seccio].denominador;
       let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
 
-      const map = dades.map((item: any) => {
-         if (item) return parseFloat((item * 100).toFixed(2));
-      })
+      const mapDades = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
+
       return {
          name: name,
-         data: map.slice(primerIndiceNoNulo),
+         data: mapDades.slice(primerIndiceNoNulo),
+         numeradors: numeradors.slice(primerIndiceNoNulo),
+         denominadors: denominadors.slice(primerIndiceNoNulo)
       }
    });
 
