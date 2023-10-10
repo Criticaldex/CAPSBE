@@ -25,7 +25,7 @@ async function centerName(professional: string) {
 export default async function ProfessionalsChart({ params }: any) {
    const { center, section, year, professional } = params;
 
-   let filters = (center == 'all') ? { 'any': year, 'sector': section.replaceAll('_', ' ') } : { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
+   let filters = { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
    const professionals = await getProfessionalsList(filters);
    const infoChart = await getChartIndividual(filters, professional);
    //const infoTable = await getTableIndividual(filters);

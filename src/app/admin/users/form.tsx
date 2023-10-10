@@ -3,7 +3,6 @@
 import { UserIface } from "@/schemas/user";
 import { getUsers, upsertUser } from "@/services/users";
 
-
 export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
    const onSubmit = handleSubmit(async (data: UserIface) => {
       if (isDirty) {

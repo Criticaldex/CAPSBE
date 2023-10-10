@@ -28,7 +28,6 @@ export async function POST(request: Request) {
             start: (body.license) ? new Date().valueOf() : null,
             end: (body.license) ? aYearFromNow.valueOf() : null,
          },
-         server: (body.server) ? body.server : null,
          db: (body.db) ? body.db : null,
          role: (body.role) ? body.role : null
       };
@@ -58,7 +57,7 @@ export async function GET(request: Request) {
          db.model('user', userSchema);
       }
 
-      const users = await db.models.user.find(filter).select('-_id -hash').lean();
+      const users = (await db.models.user.find(filter).select('-_id -hash').lean()) as UserIface[];
 
       return NextResponse.json(users);
    } catch (err) {

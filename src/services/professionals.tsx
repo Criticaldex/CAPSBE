@@ -57,6 +57,7 @@ const getBaixesProfessionals = async (filter: any) => {
          "IT003TOT",
       ]
    }
+
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
       {
          method: 'POST',
@@ -67,14 +68,6 @@ const getBaixesProfessionals = async (filter: any) => {
             {
                db: session?.user.db,
                fields: [
-                  "indicador",
-                  "identificador",
-                  "sector",
-                  "any",
-                  "centre",
-                  "professionals",
-                  "objectiu",
-                  "invers",
                   "-_id"
                ],
                filter: filter,
@@ -171,7 +164,6 @@ export const getCentre = async (professional: string) => {
          }
       }
    }
-
 }
 
 export const getIndicators = async (filtros: any) => {

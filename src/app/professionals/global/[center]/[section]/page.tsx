@@ -7,7 +7,7 @@ export default async function ProfessionalsChart({ params }: any) {
 
    const date = new Date();
    let year = date.getFullYear().toString();
-   let filters = (center == 'all') ? { 'any': year, 'sector': section.replaceAll('_', ' ') } : { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
+   let filters = { 'any': year, 'centre': center, 'sector': section.replaceAll('_', ' ') }
    const indicadors = await getIndicators(filters);
    const infoChart = await getChartIndicators(filters);
    const infoTable = await getTableIndicators(filters);

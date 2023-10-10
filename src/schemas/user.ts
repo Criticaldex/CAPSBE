@@ -10,7 +10,6 @@ export interface UserIface {
       start: string,
       end: string,
    },
-   server: string,
    db: string,
    role: string,
 }
@@ -38,9 +37,6 @@ const UserSchema = new mongoose.Schema({
       end: {
          type: String,
       }
-   },
-   server: {
-      type: String,
    },
    db: {
       type: String,
