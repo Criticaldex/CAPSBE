@@ -30,7 +30,7 @@ const ExpandedComponent = ({ data }: any) => {
       createThemes();
 
       return (
-         <div className="rounded-md mb-5 tablaObjetivos overflow-x-auto bg-bgLight m-1 ml-12 border-2 border-darkBlue">
+         <div className="flex rounded-md m-1 ml-12 border-2 border-darkBlue">
             <DataTable
                className=''
                columns={data.columns}
@@ -44,7 +44,6 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function ProfessionalsTable({ data, professionals }: any) {
-
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -145,7 +144,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md mb-5 tablaObjetivos overflow-x-auto bg-bgLight">
+      <div className="rounded-md mb-5 overflow-x-auto bg-bgLight">
          <DataTable
             className=''
             columns={columns}
