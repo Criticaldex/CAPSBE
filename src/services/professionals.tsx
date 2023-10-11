@@ -82,10 +82,17 @@ export const getChartIndicators = async (filtros: any) => {
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
       value.map((i: any) => {
          for (const [key, value] of (Object.entries(i.professionals) as [string, any][])) {
-            res.push({
-               name: key,
-               data: value[Object.keys(value)[Object.keys(value).length - 1]]
-            })
+            if (value[Object.keys(value)[new Date().getMonth() - 1]]) {
+               res.push({
+                  name: key,
+                  data: value[Object.keys(value)[new Date().getMonth() - 1]]
+               })
+            } else {
+               res.push({
+                  name: key,
+                  data: null
+               })
+            }
          }
       })
    }

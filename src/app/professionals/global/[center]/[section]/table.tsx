@@ -22,7 +22,7 @@ const ExpandedComponent = ({ data }: any) => {
 
          indicador.map((centre: any) => {
             for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
-               fila[key] = prof[Object.keys(prof)[Object.keys(prof).length - 1]];
+               fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
             }
          });
          tableData.push(fila);
@@ -136,7 +136,7 @@ export function ProfessionalsTable({ data, professionals }: any) {
 
       indicador.map((centre: any) => {
          for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
-            fila[key] = prof[Object.keys(prof)[Object.keys(prof).length - 1]];
+            fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
          }
       });
       tableData.push(fila);

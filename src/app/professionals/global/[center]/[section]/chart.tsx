@@ -86,7 +86,6 @@ function renderMarkers(this: any) {
          chart.additionalMarkers = tempArray;
       }
    }
-
 }
 
 export function Chart({ name, data, index, objectius }: any) {
