@@ -79,22 +79,20 @@ const getBaixesProfessionals = async (filter: any) => {
 export const getChartIndicators = async (filtros: any) => {
    const data = await getTableIndicators(filtros);
    let res: any = [];
-   for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      value.map((i: any) => {
-         for (const [key, value] of (Object.entries(i.professionals) as [string, any][])) {
-            if (value[Object.keys(value)[new Date().getMonth() - 1]]) {
-               res.push({
-                  name: key,
-                  data: value[Object.keys(value)[new Date().getMonth() - 1]]
-               })
-            } else {
-               res.push({
-                  name: key,
-                  data: null
-               })
-            }
+   for (const [key, indi] of (Object.entries(data) as [string, any][])) {
+      for (const [key, prof] of (Object.entries(indi.professionals) as [string, any][])) {
+         if (prof[Object.keys(prof)[new Date().getMonth() - 1]]) {
+            res.push({
+               name: key,
+               data: prof[Object.keys(prof)[new Date().getMonth() - 1]]
+            })
+         } else {
+            res.push({
+               name: key,
+               data: null
+            })
          }
-      })
+      }
    }
    let item = _.groupBy(res, 'name');
 
@@ -116,18 +114,13 @@ export const getChartIndicators = async (filtros: any) => {
 }
 
 export const getTableIndicators = async (filtros: any) => {
-   const data = await getProfessionals(filtros);
-   const ind = _.groupBy(data, 'indicador');
-
-   if (ind['Durada mitjana de les baixes-']) {
-      ind['Durada mitjana de les baixes-'][0]['subtaula'] = await getSubTableIndicators(filtros)
-   }
-   return ind;
-}
-
-export const getSubTableIndicators = async (filtros: any) => {
-   const data = await getBaixesProfessionals(filtros);
-   return _.groupBy(data, 'indicador');
+   let data = await getProfessionals(filtros);
+   data.map(async (indi: any) => {
+      if (indi.indicador == 'Durada mitjana de les baixes-') {
+         indi.subtaula = await getBaixesProfessionals(filtros)
+      }
+   });
+   return data;
 }
 
 export const getSections = async () => {
@@ -152,11 +145,12 @@ export const getYears = async () => {
 
 export const getProfessionalsList = async (filtros: any) => {
    const data = await getProfessionals(filtros);
-   let groupByCentre = _.groupBy(data, 'centre');
    let prof: string[] = [];
-   for (const [key, value] of (Object.entries(groupByCentre) as [string, any][])) {
-      for (const [key] of (Object.entries(value[0].professionals) as [string, any][])) {
-         prof.push(key);
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
+      for (const [key] of (Object.entries(value.professionals) as [string, any][])) {
+         if (!prof.includes(key)) {
+            prof.push(key);
+         }
       }
    }
    return prof;
@@ -177,7 +171,7 @@ export const getIndicators = async (filtros: any) => {
    const data = await getTableIndicators(filtros);
    let indi: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      indi.push({ 'name': key, 'obj': data[key][0].invers == false ? data[key][0].objectiu : -data[key][0].objectiu });
+      indi.push({ 'name': key, 'obj': data[key].invers == false ? data[key].objectiu : -data[key].objectiu });
    }
    return indi;
 }
@@ -196,7 +190,6 @@ export const getChartIndividual = async (filtros: any, professional: string) => 
          }
       }
    })
-
    return chart;
 }
 
