@@ -102,12 +102,12 @@ export function Chart({ name, data, index, objectius }: any) {
       })
    });
 
-
    objetivos = objectius
 
    const options = {
       ...chartOptions,
       chart: {
+         ...chartOptions.chart,
          type: 'column',
          spacingTop: 20,
          events: {
