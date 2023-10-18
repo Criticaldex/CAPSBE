@@ -18,7 +18,7 @@ const ExpandedComponent = ({ data }: any) => {
          };
 
          for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
-            fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+            fila[key] = prof[Object.keys(prof)[data.month]];
          }
          tableData.push(fila);
       });
@@ -38,7 +38,7 @@ const ExpandedComponent = ({ data }: any) => {
    return <Loading />
 }
 
-export function ProfessionalsTable({ data, professionals }: any) {
+export function ProfessionalsTable({ data, professionals, month }: any) {
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -127,10 +127,11 @@ export function ProfessionalsTable({ data, professionals }: any) {
          fila.subtaula = indicador.subtaula;
          fila.columns = columns;
          fila.disabled = false;
+         fila.month = month;
       }
 
       for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
-         fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+         fila[key] = prof[Object.keys(prof)[month]];
       }
       tableData.push(fila);
    }
