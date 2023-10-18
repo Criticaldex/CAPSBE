@@ -48,7 +48,6 @@ const getProfessionals = async (filter: any) => {
 
 const getBaixesProfessionals = async (filter: any) => {
    const session = await getSession();
-
    filter.identificador = {
       $in: [
          "IT001OST",
