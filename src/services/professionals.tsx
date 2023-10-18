@@ -77,57 +77,36 @@ const getBaixesProfessionals = async (filter: any) => {
 }
 
 export const getChartIndicators = async (filtros: any) => {
-   const data = await getTableIndicators(filtros);
+   const data = await getProfessionals(filtros);
+   const profList = await getProfessionalsList(filtros);
+   const month = await getMonth(filtros);
    let res: any = [];
-   for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      value.map((i: any) => {
-         for (const [key, value] of (Object.entries(i.professionals) as [string, any][])) {
-            if (value[Object.keys(value)[new Date().getMonth() - 1]]) {
-               res.push({
-                  name: key,
-                  data: value[Object.keys(value)[new Date().getMonth() - 1]]
-               })
-            } else {
-               res.push({
-                  name: key,
-                  data: null
-               })
-            }
-         }
-      })
-   }
-   let item = _.groupBy(res, 'name');
 
-   let results: any = [];
-   for (const [key, value] of (Object.entries(item) as [string, any][])) {
-      let result: { name: string, data: number[], threshold: number, maxPointWidth: number } = {
-         name: "",
+   profList.forEach(prof => {
+      let result: { name: string, data: any[] } = {
+         name: prof,
          data: [],
-         threshold: 0,
-         maxPointWidth: 50
       };
-      result.name = key
-      value.map((i: any) => {
-         result.data.push(i.data)
-      })
-      results.push(result);
-   }
-   return results;
+      data.forEach((indi: any) => {
+         if (indi.professionals[prof] && indi.professionals[prof][month.number]) {
+            result.data.push(indi.professionals[prof][month.number]);
+         } else {
+            result.data.push(null);
+         }
+      });
+      res.push(result);
+   });
+   return res;
 }
 
 export const getTableIndicators = async (filtros: any) => {
-   const data = await getProfessionals(filtros);
-   const ind = _.groupBy(data, 'indicador');
-
-   if (ind['Durada mitjana de les baixes-']) {
-      ind['Durada mitjana de les baixes-'][0]['subtaula'] = await getSubTableIndicators(filtros)
-   }
-   return ind;
-}
-
-export const getSubTableIndicators = async (filtros: any) => {
-   const data = await getBaixesProfessionals(filtros);
-   return _.groupBy(data, 'indicador');
+   let data = await getProfessionals(filtros);
+   data.map(async (indi: any) => {
+      if (indi.indicador == 'Durada mitjana de les baixes-') {
+         indi.subtaula = await getBaixesProfessionals(filtros)
+      }
+   });
+   return data;
 }
 
 export const getSections = async () => {
@@ -152,11 +131,12 @@ export const getYears = async () => {
 
 export const getProfessionalsList = async (filtros: any) => {
    const data = await getProfessionals(filtros);
-   let groupByCentre = _.groupBy(data, 'centre');
    let prof: string[] = [];
-   for (const [key, value] of (Object.entries(groupByCentre) as [string, any][])) {
-      for (const [key] of (Object.entries(value[0].professionals) as [string, any][])) {
-         prof.push(key);
+   for (const [key, value] of (Object.entries(data) as [string, any][])) {
+      for (const [key] of (Object.entries(value.professionals) as [string, any][])) {
+         if (!prof.includes(key)) {
+            prof.push(key);
+         }
       }
    }
    return prof;
@@ -174,10 +154,10 @@ export const getCentre = async (professional: string) => {
 }
 
 export const getIndicators = async (filtros: any) => {
-   const data = await getTableIndicators(filtros);
+   const data = await getProfessionals(filtros);
    let indi: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      indi.push({ 'name': key, 'obj': data[key][0].invers == false ? data[key][0].objectiu : -data[key][0].objectiu });
+      indi.push({ 'name': value.indicador, 'obj': value.invers == false ? value.objectiu : -value.objectiu });
    }
    return indi;
 }
@@ -196,7 +176,6 @@ export const getChartIndividual = async (filtros: any, professional: string) => 
          }
       }
    })
-
    return chart;
 }
 
@@ -204,6 +183,9 @@ export const getMonth = async (filtros: any) => {
    const data = await getProfessionals(filtros);
    const meses = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
    let mes = data[0].professionals[Object.keys(data[0].professionals)[0]].length - 1;
-
-   return meses[mes];
+   const month = {
+      number: mes,
+      string: meses[mes]
+   }
+   return month;
 }

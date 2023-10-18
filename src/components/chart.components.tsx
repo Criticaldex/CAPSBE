@@ -1,6 +1,9 @@
 export const chartOptions = {
    chart: {
-      type: null
+      type: null,
+      zooming: {
+         mouseWheel: false
+      }
    },
    lang: {
       noData: "No hi han dades disponibles"

@@ -5,28 +5,23 @@ import { createThemes } from "@/styles/themes";
 import { Loading } from '@/components/loading.component';
 
 const ExpandedComponent = ({ data }: any) => {
-   console.log('data: ', data);
-
    if (data.subtaula) {
       let tableData: any = [];
-      for (const [key, indicador] of (Object.entries(data.subtaula) as [string, any][])) {
+      data.subtaula.map((indicador: any) => {
          let fila: { [k: string]: any } = {
-            id: key,
-            Indicador: `${indicador[0].identificador} - ${indicador[0].indicador}`,
-            Objectiu: (indicador[0].objectiu) ? ((indicador[0].invers) ? `< ${indicador[0].objectiu}` : indicador[0].objectiu) : '',
-            Invers: indicador[0].invers,
-            any: indicador[0].any,
-            centre: indicador[0].centre,
-            sector: indicador[0].sector
+            Indicador: `${indicador.identificador} - ${indicador.indicador}`,
+            Objectiu: (indicador.objectiu) ? ((indicador.invers) ? `< ${indicador.objectiu}` : indicador.objectiu) : '',
+            Invers: indicador.invers,
+            any: indicador.any,
+            centre: indicador.centre,
+            sector: indicador.sector
          };
 
-         indicador.map((centre: any) => {
-            for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
-               fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
-            }
-         });
+         for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
+            fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+         }
          tableData.push(fila);
-      }
+      });
       createThemes();
 
       return (
@@ -44,7 +39,6 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function ProfessionalsTable({ data, professional }: any) {
-
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -112,23 +106,21 @@ export function ProfessionalsTable({ data, professional }: any) {
    for (const [key, indicador] of (Object.entries(data) as [string, any][])) {
       let fila: { [k: string]: any } = {
          id: key,
-         Indicador: key,
-         Objectiu: (indicador[0].objectiu) ? ((indicador[0].invers) ? `< ${indicador[0].objectiu}` : indicador[0].objectiu) : '',
-         Invers: indicador[0].invers,
+         Indicador: indicador.indicador,
+         Objectiu: (indicador.objectiu) ? ((indicador.invers) ? `< ${indicador.objectiu}` : indicador.objectiu) : '',
+         Invers: indicador.invers,
          disabled: true
       };
 
-      if (indicador[0].subtaula) {
-         fila.subtaula = indicador[0].subtaula;
+      if (indicador.subtaula) {
+         fila.subtaula = indicador.subtaula;
          fila.columns = columns;
          fila.disabled = false;
       }
 
-      indicador.map((centre: any) => {
-         for (const [key, prof] of (Object.entries(centre.professionals) as [string, any][])) {
-            fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
-         }
-      });
+      for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
+         fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+      }
       tableData.push(fila);
    }
    createThemes();
