@@ -5,6 +5,8 @@ import { createThemes } from "@/styles/themes";
 import { Loading } from '@/components/loading.component';
 
 const ExpandedComponent = ({ data }: any) => {
+   console.log('data: ', data);
+
    if (data.subtaula) {
       let tableData: any = [];
       data.subtaula.map((indicador: any) => {
@@ -39,6 +41,7 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function ProfessionalsTable({ data, professional }: any) {
+
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
