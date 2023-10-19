@@ -1,4 +1,4 @@
-import { getCentre, getChartIndividual, getProfessionalsList, getTableIndicators } from "@/services/professionals";
+import { getCentre, getChartIndividual, getMonth, getProfessionalsList, getTableIndicators } from "@/services/professionals";
 import { getCenters } from "@/services/centros";
 import { Chart } from "./chart";
 import { ProfessionalsTable } from "./table";
@@ -32,6 +32,7 @@ export default async function ProfessionalsChart({ params }: any) {
 
    let profName = await professionalName(professionals, professional);
    const chartName = await professionalName(professionals, professional) + ' - ' + await centerName(professional);
+   const month = await getMonth(filters)
 
    return (
       <div className="h-[41rem]">
@@ -42,6 +43,7 @@ export default async function ProfessionalsChart({ params }: any) {
          <ProfessionalsTable
             data={infoTable}
             professional={profName}
+            month={month.number}
          />
       </div>
    )

@@ -5,8 +5,6 @@ import { createThemes } from "@/styles/themes";
 import { Loading } from '@/components/loading.component';
 
 const ExpandedComponent = ({ data }: any) => {
-   console.log('data: ', data);
-
    if (data.subtaula) {
       let tableData: any = [];
       data.subtaula.map((indicador: any) => {
@@ -20,7 +18,7 @@ const ExpandedComponent = ({ data }: any) => {
          };
 
          for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
-            fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+            fila[key] = prof[Object.keys(prof)[data.month]];
          }
          tableData.push(fila);
       });
@@ -40,8 +38,7 @@ const ExpandedComponent = ({ data }: any) => {
    return <Loading />
 }
 
-export function ProfessionalsTable({ data, professional }: any) {
-
+export function ProfessionalsTable({ data, professional, month }: any) {
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -119,10 +116,11 @@ export function ProfessionalsTable({ data, professional }: any) {
          fila.subtaula = indicador.subtaula;
          fila.columns = columns;
          fila.disabled = false;
+         fila.month = month;
       }
 
       for (const [key, prof] of (Object.entries(indicador.professionals) as [string, any][])) {
-         fila[key] = prof[Object.keys(prof)[new Date().getMonth() - 1]];
+         fila[key] = prof[Object.keys(prof)[month]];
       }
       tableData.push(fila);
    }
