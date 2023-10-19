@@ -68,6 +68,9 @@ export function GetSectionButtons() {
       label: 'CPR',
       route: `/dashboard/${up}/${year}/cpr`
    }, {
+      label: 'Sense CPR',
+      route: `/dashboard/${up}/${year}/nocpr`
+   }, {
       label: 'Contractes',
       route: `/dashboard/${up}/${year}/contractes`
    }];

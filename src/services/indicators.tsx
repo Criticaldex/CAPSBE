@@ -14,13 +14,6 @@ const getIndicators = async (filter: any) => {
             {
                db: session?.user.db,
                fields: [
-                  "identificador",
-                  "indicador",
-                  "resultat",
-                  "any",
-                  "centre",
-                  "objectiu",
-                  "invers",
                   "-_id"
                ],
                filter: filter,
@@ -41,48 +34,77 @@ export const getChartIndicators = async (year: string, center: string) => {
    })
 }
 
-export const getTableIndicatorsNoCpr = async (year: string) => {
+export const getTableIndicatorsGeneral = async (year: string) => {
    const filter: any = {
-      identificador: {
+      codi: {
          $nin: [
-            "GESTINF05",
+            "AP19",
+            "AP28",
+            "AP33",
+            "CONT0002A",
+            "CAT0239",
+            "EQA0301",
+            "ESIAP0402",
+            "AP37",
+            "AGC0201",
+            "ACC5DF",
+            "SGAM03_AP",
+            "AP01",
+            "SEGPACAP01",
+            "AP39",
+            "RS_AP25",
+            "RS_AP26",
             "PLA006",
             "POBATINF01",
-            "CRONICITAT_RES",
-            "GC0005",
             "NUT01",
-            "FIS01",
             "BEN01",
-            "BENRES01",
-            "EQA0208"
+            "FIS01"
          ]
       },
       any: year
    };
    const data = await getIndicators(filter);
-   return _.groupBy(data, 'identificador');
+   return _.groupBy(data, 'codi');
+}
+
+export const getTableIndicatorsNoCpr = async (year: string) => {
+   const filter: any = {
+      codi: {
+         $in: [
+            "SEGPACAP01",
+            "AP39",
+            "RS_AP25",
+            "RS_AP26"
+         ]
+      },
+      any: year
+   };
+   const data = await getIndicators(filter);
+   return _.groupBy(data, 'codi');
 }
 
 export const getTableIndicatorsCpr = async (year: string) => {
    const filter: any = {
-      identificador: {
+      codi: {
          $in: [
-            "GESTINF05",
-            "PLA006",
-            "POBATINF01",
-            "CRONICITAT_RES",
-            "GC0005",
-            "NUT01",
-            "FIS01",
-            "BEN01",
-            "BENRES01",
-            "EQA0208"
+            "AP19",
+            "AP28",
+            "AP33",
+            "CONT0002A",
+            "CAT0239",
+            "EQA0301",
+            "ESIAP0402",
+            "AP37",
+            "AGC0201",
+            "ACC5DF",
+            "SGAM03_AP",
+            "AP01"
          ]
       },
       any: year
    };
    const data = await getIndicators(filter);
-   return _.groupBy(data, 'identificador');
+   return _.groupBy(data, 'codi');
 }
 
 export const getYears = async () => {

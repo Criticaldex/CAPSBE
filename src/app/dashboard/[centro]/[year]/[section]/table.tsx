@@ -5,6 +5,8 @@ import { Chart } from "../chart";
 import { createThemes } from "@/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
+   console.log('data: ', data);
+
    const infoChart = data.values.map((i: any) => {
       return {
          name: i.name,
@@ -100,7 +102,7 @@ export function DashboardTable({ data, centros }: any) {
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          value.forEach((val: any) => {
             if (val.centre == centro.id) {
-               indicador.Indicador = `${val.identificador} - ${val.indicador}`;
+               indicador.Indicador = `${val.codi} - ${val.indicador}`;
                indicador[centro.name] = val.resultat[val.resultat.length - 1];
                indicador.invers = val.invers;
                //values for the chart
