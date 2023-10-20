@@ -28,7 +28,7 @@ export function GetLinksYears({ years }: any) {
    )
 }
 
-export function GetLinksCenters(centros: any) {
+export function GetLinksCenters({ centros }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
@@ -36,12 +36,14 @@ export function GetLinksCenters(centros: any) {
 
    let links: any[] = [];
 
-   centros.centros.map(({ id, name, up }: any) => (
-      links.push({
-         label: name,
-         route: `/dashboard/${id}/${year}/${section}`
-      })
-   ))
+   centros.forEach((centro: any) => {
+      if (centro.name != 'Pediatria') {
+         links.push({
+            label: centro.name,
+            route: `/dashboard/${centro.id}/${year}/${section}`
+         })
+      }
+   });
 
    return (
       <div className="flex" >
@@ -59,20 +61,20 @@ export function GetSectionButtons() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
-   const up = (pathArray[2]) ? pathArray[2] : null;
+   const center = (pathArray[2]) ? pathArray[2] : null;
 
    let links: object[] = [{
       label: 'General',
-      route: `/dashboard/${up}/${year}/general`
+      route: `/dashboard/${center}/${year}/general`
    }, {
       label: 'CPR',
-      route: `/dashboard/${up}/${year}/cpr`
+      route: `/dashboard/${center}/${year}/cpr`
    }, {
       label: 'Sense CPR',
-      route: `/dashboard/${up}/${year}/nocpr`
+      route: `/dashboard/${center}/${year}/nocpr`
    }, {
       label: 'Contractes',
-      route: `/dashboard/${up}/${year}/contractes`
+      route: `/dashboard/${center}/${year}/contractes`
    }];
 
    return (
