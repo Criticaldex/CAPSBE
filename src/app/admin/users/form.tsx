@@ -70,10 +70,6 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          </div>
          {errors.lastname && <p role="alert" className="text-red self-end">⚠ {errors.lastname?.message}</p>}
          <div className="inline-flex justify-end">
-            <label htmlFor="server" className="self-center">Servidor:</label>
-            <input id="server" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.server ? 'border-foreground' : 'border-red'}`} {...register("server")} />
-         </div>
-         <div className="inline-flex justify-end">
             <label htmlFor="db" className="self-center">DB:</label>
             <input id="db" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.db ? 'border-foreground' : 'border-red'}`} {...register("db", {
                required: 'Camp obligatori',

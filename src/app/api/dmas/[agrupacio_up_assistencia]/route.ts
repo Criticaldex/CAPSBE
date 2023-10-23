@@ -12,7 +12,6 @@ export async function GET(request: Request, { params }: { params: { agrupacio_up
          db.model('dma', DMASchema);
       }
       const dma = await db.models.dma.findOne(params).select('-_id').lean();
-
       return NextResponse.json(dma);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
