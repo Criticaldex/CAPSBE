@@ -102,7 +102,8 @@ export function DashboardTable({ data, centros }: any) {
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          value.forEach((val: any) => {
             if (val.centre == centro.id) {
-               indicador.Indicador = `${val.codi} - ${val.indicador}`;
+               const ind = (val.codi) ? val.codi : val.identificador;
+               indicador.Indicador = `${ind} - ${val.indicador}`;
                indicador[centro.name] = val.resultat[val.resultat.length - 1];
                indicador.invers = val.invers;
                //values for the chart
