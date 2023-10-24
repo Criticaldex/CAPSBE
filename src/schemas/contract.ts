@@ -5,7 +5,7 @@ export interface ContractsIface {
    indicador: string,
    any: string,
    centre: string,
-   invers: string,
+   invers: boolean,
    objectiu: string,
    dbName: string
 }
@@ -26,6 +26,9 @@ const Schema = new mongoose.Schema({
    objectiu: {
       type: Number
    },
+   invers: {
+      type: Boolean
+   }
 });
 
 export default Schema
