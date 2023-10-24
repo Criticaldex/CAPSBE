@@ -18,8 +18,19 @@ const getIqfs = async (filter: any) => {
       }).then(res => res.json());
 }
 
+export const upsertIQF = async (data: any) => {
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${data.any}/${data.up}`,
+      {
+         method: 'PATCH',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      }).then(res => res.json());
+}
+
 export const getIqf = async (up: string) => {
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${up}`,
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${process.env.IQF_DEFAULT_YEAR}/${up}`,
       {
          method: 'GET'
       }).then(res => res.json());
@@ -344,7 +355,6 @@ export const getSeleccioDetall = async (year: string, centros: any, seccio: any)
          denominadors: denominadors.slice(primerIndiceNoNulo)
       }
    });
-
    return data;
 }
 
