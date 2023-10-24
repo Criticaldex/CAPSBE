@@ -19,3 +19,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ ERROR: (err as Error).message });
    }
 }
+
+export async function PATCH(request: Request) {
+   try {
+      const body: any = await request.json();
+      if (!body.any || !body.up) {
+         return NextResponse.json(`identificador, any i centre obligatoris!`);
+      }
+      const filter = {
+         any: body.any,
+         up: body.up
+      }
+
+      const { dbName, ...bodyWithoutDB } = body
+      await dbConnect();
+      const db = mongoose.connection.useDb(dbName, { useCache: true });
+      if (!db.models.iqf) {
+         db.model('iqf', IQFSchema);
+      }
+      const res = await db.models.iqf.findOneAndUpdate(filter, bodyWithoutDB, {
+         new: true,
+         upsert: false,
+         rawResult: true
+      }).lean();
+      return NextResponse.json(res);
+   } catch (err) {
+      return NextResponse.json({ ERROR: (err as Error).message });
+   }
+}
