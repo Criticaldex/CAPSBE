@@ -2,13 +2,10 @@
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
 
-
 export function GetLinksAdmin({ session }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
-
-
 
    let links: object[] = [
       {
@@ -16,8 +13,8 @@ export function GetLinksAdmin({ session }: any) {
          route: `/admin/profile`
       },
       {
-         label: 'Objectius',
-         route: `/admin/objectives`
+         label: 'Dashboard',
+         route: `/admin/dashboard`
       }
    ];
 
