@@ -1,4 +1,4 @@
-import { GetLinksYears, GetLinksCenters, GetSectionButtons } from "./routing";
+import { GetLinksYears, GetLinksCenters } from "./routing";
 import { getYears } from "@/services/contracts";
 import { getCenters } from "@/services/centros"
 
@@ -10,7 +10,6 @@ export default async function ContractsLayout({ children }: any) {
          <title>Indicadors Contracte</title>
          <div className="mt-2 bg-light text-right flex justify-between items-center">
             <div className="flex justify-between grow mb-2 mx-2">
-               <GetSectionButtons />
                <GetLinksCenters
                   centros={centers}
                />

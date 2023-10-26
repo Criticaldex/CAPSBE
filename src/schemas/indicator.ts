@@ -5,8 +5,8 @@ export interface IndicatorIface {
    indicador: string,
    any: string,
    centre: string,
-   invers: string,
-   objectiu: string,
+   invers: boolean,
+   objectiu: any,
    dbName: string
 }
 
@@ -25,6 +25,9 @@ const Schema = new mongoose.Schema({
    },
    objectiu: {
       type: Number
+   },
+   invers: {
+      type: Boolean
    },
 });
 
