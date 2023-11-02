@@ -82,21 +82,26 @@ export const getChartIndicators = async (filtros: any) => {
    const month = await getMonth(filtros);
    let res: any = [];
 
-   profList.forEach(prof => {
-      let result: { name: string, data: any[] } = {
-         name: prof,
-         data: [],
-      };
-      data.forEach((indi: any) => {
-         if (indi.professionals[prof] && indi.professionals[prof][month.number]) {
-            result.data.push(indi.professionals[prof][month.number]);
-         } else {
-            result.data.push(null);
-         }
+   if (month.number != null) {
+      let mes = month.number
+      profList.forEach(prof => {
+         let result: { name: string, data: any[] } = {
+            name: prof,
+            data: [],
+         };
+         data.forEach((indi: any) => {
+            if (indi.professionals[prof] && indi.professionals[prof][mes]) {
+               result.data.push(indi.professionals[prof][mes]);
+            } else {
+               result.data.push(null);
+            }
+         });
+         res.push(result);
       });
-      res.push(result);
-   });
-   return res;
+      return res;
+   } else {
+      return null
+   }
 }
 
 export const getTableIndicators = async (filtros: any) => {
@@ -109,8 +114,8 @@ export const getTableIndicators = async (filtros: any) => {
    return data;
 }
 
-export const getSections = async () => {
-   const data = await getProfessionals({});
+export const getSections = async (filtros: any) => {
+   const data = await getProfessionals(filtros);
    let groupBySec = _.groupBy(data, 'sector');
    let sectors: string[] = [];
    for (const [key, value] of (Object.entries(groupBySec) as [string, any][])) {
@@ -157,7 +162,7 @@ export const getIndicators = async (filtros: any) => {
    const data = await getProfessionals(filtros);
    let indi: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      indi.push({ 'name': value.indicador, 'obj': value.invers == false ? value.objectiu : -value.objectiu });
+      indi.push({ 'name': value.indicador, 'obj': value.invers == false || value.invers == null ? value.objectiu : -value.objectiu });
    }
    return indi;
 }
@@ -182,10 +187,11 @@ export const getChartIndividual = async (filtros: any, professional: string) => 
 export const getMonth = async (filtros: any) => {
    const data = await getProfessionals(filtros);
    const meses = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
-   let mes = data[0].professionals[Object.keys(data[0].professionals)[0]].length - 1;
+   let mes = data[0] != undefined ? data[0].professionals[Object.keys(data[0].professionals)[0]].length - 1 : null
+   let strMes = mes == null ? null : meses[mes]
    const month = {
       number: mes,
-      string: meses[mes]
+      string: strMes
    }
    return month;
 }

@@ -138,7 +138,7 @@ export function ProfessionalsTable({ data, professionals, month }: any) {
    createThemes();
 
    return (
-      <div className="rounded-md mb-5 overflow-x-auto bg-bgLight">
+      <div className="rounded-md mb-5 overflow-x-auto bg-bgLight barraHori">
          <DataTable
             className=''
             columns={columns}

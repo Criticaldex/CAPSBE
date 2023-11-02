@@ -1,8 +1,7 @@
 'use client'
 import Link from "next/link"
 import { usePathname } from 'next/navigation';
-import React from "react";
-import { BiChevronDown } from 'react-icons/bi'
+import React, { useEffect } from "react";
 
 export function GetLinksView() {
    const pathname = usePathname();
@@ -48,6 +47,8 @@ export function GetLinksCentro({ centros }: any) {
       })
    ))
 
+
+
    return (
       <div className="flex" >
          {links.map((centro: any, i: number) => (
@@ -66,16 +67,21 @@ export function GetLinksSection({ sections }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
 
-   let links: object[] = [];
+   let links: any = [];
    sections.map((label: any) => (
       links.push({
          label: label,
          route: `/professionals/${view}/${center}/${label.replaceAll(' ', '_')}`
       })
    ))
+   useEffect(() => {
+      let coincidencia = links.filter((link: any) => pathname?.includes(link.route))
+      if (coincidencia.length == 0)
+         document.getElementById('secciones')?.getElementsByTagName('a')[0].click()
+   }, []);
 
    return (
-      <div className="flex" >
+      <div id="secciones" className="flex" >
          {links.map((section: any, i: number) => (
             <Link href={section.route} key={i} className={`grow my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
             ${pathname?.includes(section.route) ? 'bg-darkBlue text-textColor' : 'bg-bgDark hover:bg-bgLight'}`}>
