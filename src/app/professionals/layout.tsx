@@ -8,7 +8,6 @@ export default async function ProfessionalsLayout({ children }: any) {
    const years = await getYears();
    const sections = await getSections();
 
-
    return (
       <div>
          <title>Professionals</title>

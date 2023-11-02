@@ -4,19 +4,32 @@ import { usePathname } from 'next/navigation';
 
 export function GetLinksAdmin({ session }: any) {
    const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   // const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   // const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
 
    let links: object[] = [
       {
          label: 'Perfil',
          route: `/admin/profile`
-      },
-      {
-         label: 'Dashboard',
-         route: `/admin/dashboard`
       }
    ];
+
+   if (session?.user.role != "2") {
+      links.push(
+         {
+            label: 'Dashboard',
+            route: `/admin/dashboard`
+         },
+         {
+            label: 'Professionals',
+            route: `/admin/professionals`
+         },
+         {
+            label: 'IQF',
+            route: `/admin/iqf`
+         }
+      )
+   }
 
    if (session?.user.role == "0") {
       links.push({
