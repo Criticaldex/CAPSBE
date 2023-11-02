@@ -8,15 +8,13 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
          const session = await getSession();
-         console.log('session: ', session);
          data.dbName = session?.user.db as string;
          data.objectiu = Math.floor(data.objectiu);
-         console.log('data: ', data);
          const update = await updateIndicators(data);
          if (update.lastErrorObject?.updatedExisting) {
-            toast.success('Usuari Modificat!', { theme: "colored" });
+            toast.success('Indicador Modificat!', { theme: "colored" });
          } else {
-            toast.success('Usuari Afegit!', { theme: "colored" });
+            toast.success('Indicador Afegit!', { theme: "colored" });
          }
          reset(update.value);
          setRows(await getAdminTable(data.any, data.centre, data.dbName));

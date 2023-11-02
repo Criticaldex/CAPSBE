@@ -5,8 +5,6 @@ import { Chart } from "../chart";
 import { createThemes } from "@/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
-   console.log('data: ', data);
-
    const infoChart = data.values.map((i: any) => {
       return {
          name: i.name,

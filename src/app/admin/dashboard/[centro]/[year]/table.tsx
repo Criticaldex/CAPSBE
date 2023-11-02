@@ -8,9 +8,9 @@ import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FilterComponent } from "./filter";
+import { GetLinksCenters, GetLinksYears } from '../../routing';
 
-export function AdminTable({ data }: any) {
+export function AdminTable({ data, centers, years }: any) {
 
    const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
@@ -26,7 +26,23 @@ export function AdminTable({ data }: any) {
 
    const subHeaderComponentMemo = useMemo(() => {
       return (
-         <FilterComponent onFilter={(e: any) => setFilterText(e.target.value)} filterText={filterText} />
+         <div className="flex justify-between grow m-2">
+            <GetLinksCenters
+               centros={centers}
+            />
+            <GetLinksYears
+               years={years}
+            />
+            <input
+               id="search"
+               type="text"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4`}
+               placeholder="Filtrar per id"
+               aria-label="Search Input"
+               value={filterText}
+               onChange={(e: any) => setFilterText(e.target.value)}
+            />
+         </div>
       );
    }, [filterText]);
 
@@ -39,7 +55,6 @@ export function AdminTable({ data }: any) {
    } = useForm<UserIface>();
 
    const editHandler = (row: UserIface, reset: UseFormReset<UserIface>) => (event: any) => {
-      console.log('row: ', row);
       reset()
       reset(row)
    }
@@ -100,7 +115,7 @@ export function AdminTable({ data }: any) {
    return (
       <>
          {isClient ?
-            <div className="flex mt-2">
+            <div className="flex mt-2 rounded-md">
                < ToastContainer />
                <div className="mr-2 basis-3/4 rounded-md">
                   <DataTable
@@ -131,5 +146,3 @@ export function AdminTable({ data }: any) {
       </>
    )
 };
-
-
