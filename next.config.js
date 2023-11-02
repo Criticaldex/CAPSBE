@@ -74,6 +74,16 @@ const nextConfig = {
             source: '/admin/dashboard/:centre',
             destination: `/admin/dashboard/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}`,
             permanent: false,
+         },
+         {
+            source: '/admin/professionals',
+            destination: `/admin/professionals/0/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            permanent: false,
+         },
+         {
+            source: '/admin/professionals/:centre',
+            destination: `/admin/professionals/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            permanent: false,
          }
       ];
    }

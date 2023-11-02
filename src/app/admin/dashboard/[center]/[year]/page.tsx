@@ -1,22 +1,22 @@
 import { getAdminTable } from "@/services/indicators";
-import { AdminTable } from "./table"
+import { AdminTable } from "./table";
 import { getYears } from "@/services/contracts";
-import { getCenters } from "@/services/centros"
+import { getCenters } from "@/services/centros";
 
 export default async function AdminDashboard({ params }: any) {
-   const { year, centro } = params;
+   const { year, center } = params;
    let up: string = '';
    let nameCentro: string = '';
    const centros = await getCenters();
    const years = await getYears();
-   centros.map((center: any) => {
-      if (center.id == centro) {
-         up = center.up
-         nameCentro = center.name
+   centros.map((centro: any) => {
+      if (centro.id == center) {
+         up = centro.up
+         nameCentro = centro.name
       }
    })
 
-   const indicadores = await getAdminTable(year, centro);
+   const indicadores = await getAdminTable(year, center);
 
    return (
       <div className="flex flex-col">
