@@ -4,13 +4,14 @@ import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
+import { objectEach } from 'highcharts'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
 }
 
-export function Iqf({ name, data, objectiu, invers }: any) {
+export function Iqf({ name, data, objectiu }: any) {
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
@@ -18,7 +19,6 @@ export function Iqf({ name, data, objectiu, invers }: any) {
       });
    });
    max = (objectiu > max) ? objectiu : max;
-   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
    const options = {
       ...chartOptions,
       chart: {
@@ -38,7 +38,7 @@ export function Iqf({ name, data, objectiu, invers }: any) {
          plotLines: [{
             color: 'var(--red)',
             width: 2,
-            value: obj
+            value: objectiu
          }],
          stackLabels: {
             enabled: true,

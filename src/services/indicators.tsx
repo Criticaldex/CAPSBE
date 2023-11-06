@@ -1,8 +1,11 @@
 import _ from "lodash"
 import { getSession } from "@/services/session"
 
-const getIndicators = async (filter: any) => {
-   const session = await getSession();
+const getIndicators = async (filter: any, db?: string) => {
+   if (!db) {
+      const session = await getSession();
+      db = session?.user.db;
+   }
 
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/indicators`,
       {
@@ -12,7 +15,7 @@ const getIndicators = async (filter: any) => {
          },
          body: JSON.stringify(
             {
-               db: session?.user.db,
+               db: db,
                fields: [
                   "-_id"
                ],
@@ -23,8 +26,6 @@ const getIndicators = async (filter: any) => {
 }
 
 export const updateIndicators = async (data: any) => {
-   const session = await getSession();
-   data.dbName = session?.user.db;
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/indicators`,
       {
          method: 'PATCH',
@@ -114,7 +115,7 @@ export const getTableIndicatorsCpr = async (year: string) => {
             "AP01"
          ]
       },
-      any: year
+      any: year,
    };
    const data = await getIndicators(filter);
    return _.groupBy(data, 'codi');
@@ -128,4 +129,12 @@ export const getYears = async () => {
       years.push(key);
    }
    return years;
+}
+
+export const getAdminTable = async (year: string, center: string, db?: string) => {
+   const filter: any = {
+      any: year,
+      centre: center
+   };
+   return await getIndicators(filter, db);
 }

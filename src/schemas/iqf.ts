@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const IQFSchema = new mongoose.Schema({
    basal: {
-      type: String,
+      type: Number,
    },
    indicadors_universals: {
       matma: {

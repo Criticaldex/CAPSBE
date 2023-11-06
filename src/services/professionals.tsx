@@ -1,8 +1,11 @@
 import _ from "lodash"
 import { getSession } from "@/services/session"
 
-const getProfessionals = async (filter: any) => {
-   const session = await getSession();
+const getProfessionals = async (filter: any, db?: string) => {
+   if (!db) {
+      const session = await getSession();
+      db = session?.user.db;
+   }
 
    filter.identificador = {
       $in: [
@@ -28,16 +31,8 @@ const getProfessionals = async (filter: any) => {
          },
          body: JSON.stringify(
             {
-               db: session?.user.db,
+               db: db,
                fields: [
-                  "indicador",
-                  "identificador",
-                  "sector",
-                  "any",
-                  "centre",
-                  "professionals",
-                  "objectiu",
-                  "invers",
                   "-_id"
                ],
                filter: filter,
@@ -77,8 +72,6 @@ const getBaixesProfessionals = async (filter: any) => {
 }
 
 export const updateProfessionals = async (data: any) => {
-   const session = await getSession();
-   data.dbName = session?.user.db;
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
       {
          method: 'PATCH',
@@ -207,4 +200,12 @@ export const getMonth = async (filtros: any) => {
       string: strMes
    }
    return month;
+}
+
+export const getAdminTable = async (year: string, center: string, db?: string) => {
+   const filter: any = {
+      any: year,
+      centre: center
+   };
+   return await getProfessionals(filter, db);
 }
