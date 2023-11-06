@@ -65,7 +65,7 @@ export function GetLinksSection({ sections }: any) {
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
 
-   let links: any = [];
+   let links: object[] = [];
    sections.map((label: any) => (
       links.push({
          label: label,
