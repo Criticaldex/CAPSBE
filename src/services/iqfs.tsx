@@ -18,8 +18,9 @@ const getIqfs = async (filter: any) => {
       }).then(res => res.json());
 }
 
-export const upsertIQF = async (data: any) => {
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${data.any}/${data.up}`,
+export const updateIqf = async (data: any) => {
+   data.dbName = "IQF";
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs`,
       {
          method: 'PATCH',
          headers: {

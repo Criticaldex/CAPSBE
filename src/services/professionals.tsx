@@ -76,6 +76,19 @@ const getBaixesProfessionals = async (filter: any) => {
       }).then(res => res.json());
 }
 
+export const updateProfessionals = async (data: any) => {
+   const session = await getSession();
+   data.dbName = session?.user.db;
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
+      {
+         method: 'PATCH',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      }).then(res => res.json());
+}
+
 export const getChartIndicators = async (filtros: any) => {
    const data = await getProfessionals(filtros);
    const profList = await getProfessionalsList(filtros);

@@ -69,13 +69,6 @@ export function AdminTable({ users }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Server',
-         selector: (row: any) => row.server,
-         sortable: true,
-         grow: 2,
-         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
          name: 'database',
          selector: (row: any) => row.db,
          sortable: true,
@@ -113,7 +106,7 @@ export function AdminTable({ users }: any) {
    return (
       <div className="flex mt-2">
          <ToastContainer />
-         <div className="mr-2 mb-2 basis-3/4 rounded-md">
+         <div className="mr-2 basis-3/4 rounded-md">
             <DataTable
                columns={columns}
                data={rows}

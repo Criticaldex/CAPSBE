@@ -22,6 +22,19 @@ const getIndicators = async (filter: any) => {
       }).then(res => res.json());
 }
 
+export const updateIndicators = async (data: any) => {
+   const session = await getSession();
+   data.dbName = session?.user.db;
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/indicators`,
+      {
+         method: 'PATCH',
+         headers: {
+            'Content-type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      }).then(res => res.json());
+}
+
 export const getChartIndicators = async (year: string, center: string) => {
    const filter = { "any": year, "centre": center };
    const data = await getIndicators(filter);
