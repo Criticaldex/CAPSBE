@@ -47,8 +47,6 @@ export function GetLinksCentro({ centros }: any) {
       })
    ))
 
-
-
    return (
       <div className="flex" >
          {links.map((centro: any, i: number) => (
@@ -151,7 +149,6 @@ export function GetLinksProfessionals({ professionals }: any) {
       </ul>
    )
 }
-
 
 export function GetCenter({ centros }: any) {
    const pathname = usePathname();

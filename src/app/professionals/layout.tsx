@@ -6,8 +6,6 @@ import { getSections, getYears } from "@/services/professionals";
 export default async function ProfessionalsLayout({ children }: any) {
    const centros = await getCenters();
    const years = await getYears();
-   // const sections = await getSections();
-
 
    return (
       <div>
