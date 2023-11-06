@@ -23,10 +23,6 @@ export function GetLinksAdmin({ session }: any) {
          {
             label: 'Professionals',
             route: `/admin/professionals`
-         },
-         {
-            label: 'IQF',
-            route: `/admin/iqf`
          }
       )
    }

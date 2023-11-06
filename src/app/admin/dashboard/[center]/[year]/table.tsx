@@ -2,8 +2,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
-import { UsersForm } from "./form";
-import { UserIface } from "@/schemas/user";
+import { DashboardForm } from "./form";
+import { IndicatorIface } from "@/schemas/indicator";
 import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
@@ -52,9 +52,9 @@ export function AdminTable({ data, centers, years }: any) {
       reset,
       clearErrors,
       formState: { errors, isDirty, dirtyFields }
-   } = useForm<UserIface>();
+   } = useForm<IndicatorIface>();
 
-   const editHandler = (row: UserIface, reset: UseFormReset<UserIface>) => (event: any) => {
+   const editHandler = (row: IndicatorIface, reset: UseFormReset<IndicatorIface>) => (event: any) => {
       reset()
       reset(row)
    }
@@ -129,7 +129,7 @@ export function AdminTable({ data, centers, years }: any) {
                   />
                </div>
                <div className="flex basis-1/4 rounded-md bg-light">
-                  <UsersForm
+                  <DashboardForm
                      register={register}
                      handleSubmit={handleSubmit}
                      errors={errors}

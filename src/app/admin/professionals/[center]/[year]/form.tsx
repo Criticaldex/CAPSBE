@@ -1,22 +1,26 @@
 'use client';
 
-import { IndicatorIface } from "@/schemas/indicator";
-import { getAdminTable, updateIndicators } from "@/services/indicators";
+import { ProfessionalIface } from "@/schemas/professional";
+import { getAdminTable, updateProfessionals } from "@/services/professionals";
 import { useSession, getSession } from "next-auth/react"
 
-export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
-   const onSubmit = handleSubmit(async (data: IndicatorIface) => {
+export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+   const onSubmit = handleSubmit(async (data: ProfessionalIface) => {
       if (isDirty) {
+         console.log('data: ', data);
          const session = await getSession();
          data.dbName = session?.user.db as string;
          data.objectiu = Math.floor(data.objectiu);
-         const update = await updateIndicators(data);
+         console.log('data2: ', data);
+         const update = await updateProfessionals(data);
          if (update.lastErrorObject?.updatedExisting) {
             toast.success('Indicador Modificat!', { theme: "colored" });
          } else {
             toast.success('Indicador Afegit!', { theme: "colored" });
          }
          reset(update.value);
+         console.log('data3: ', data);
+
          setRows(await getAdminTable(data.any, data.centre, data.dbName));
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
@@ -30,16 +34,16 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          onSubmit={onSubmit}
       >
          <div className="inline-flex justify-end">
-            <label htmlFor="codi" className="flex self-center">Id:</label>
-            <input id="codi"
+            <label htmlFor="identificador" className="flex self-center">Id:</label>
+            <input id="identificador"
                type="text"
                disabled
-               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.codi ? 'border-foreground' : 'border-red'}`}
-               {...register("codi", {
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.identificador ? 'border-foreground' : 'border-red'}`}
+               {...register("identificador", {
                   required: 'Camp obligatori',
                })} />
          </div>
-         {errors.codi && <p role="alert" className="text-red self-end">⚠ {errors.codi?.message}</p>}
+         {errors.identificador && <p role="alert" className="text-red self-end">⚠ {errors.identificador?.message}</p>}
 
          <div className="inline-flex justify-end">
             <label htmlFor="indicador" className="self-center">Nom:</label>
@@ -93,6 +97,14 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                {...register("invers")} type="checkbox" value="true" />
          </div>
          {errors.invers && <p role="alert" className="text-red self-end">⚠ {errors.invers?.message}</p>}
+
+         <div className="inline-flex justify-end">
+            <label htmlFor="actiu" className="self-center">actiu:</label>
+            <input id="actiu"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12`}
+               {...register("actiu")} type="checkbox" value="true" />
+         </div>
+         {errors.actiu && <p role="alert" className="text-red self-end">⚠ {errors.actiu?.message}</p>}
 
          <div className="inline-flex justify-around">
             <input type="reset" onClick={() => { clearErrors(); }} className={'my-1 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark'} value="Netejar" />

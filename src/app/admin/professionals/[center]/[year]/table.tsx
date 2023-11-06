@@ -2,8 +2,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
-import { UsersForm } from "./form";
-import { UserIface } from "@/schemas/user";
+import { ProfessionalsForm } from "./form";
+import { ProfessionalIface } from "@/schemas/professional";
 import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,7 +21,7 @@ export function AdminTable({ data, centers, years }: any) {
    }, [])
 
    const filteredItems = rows.filter(
-      (item: any) => item.codi && item.codi.toLowerCase().includes(filterText.toLowerCase()),
+      (item: any) => item.identificador && item.identificador.toLowerCase().includes(filterText.toLowerCase()),
    );
 
    const subHeaderComponentMemo = useMemo(() => {
@@ -52,9 +52,9 @@ export function AdminTable({ data, centers, years }: any) {
       reset,
       clearErrors,
       formState: { errors, isDirty, dirtyFields }
-   } = useForm<UserIface>();
+   } = useForm<ProfessionalIface>();
 
-   const editHandler = (row: UserIface, reset: UseFormReset<UserIface>) => (event: any) => {
+   const editHandler = (row: ProfessionalIface, reset: UseFormReset<ProfessionalIface>) => (event: any) => {
       reset()
       reset(row)
    }
@@ -62,7 +62,7 @@ export function AdminTable({ data, centers, years }: any) {
    let columns: any = [
       {
          name: 'id',
-         selector: (row: any) => row.codi,
+         selector: (row: any) => row.identificador,
          grow: 2,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
@@ -99,6 +99,12 @@ export function AdminTable({ data, centers, years }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
+         name: 'Actiu',
+         selector: (row: any) => row.actiu ? "X" : "",
+         sortable: true,
+         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      },
+      {
          name: 'Accions',
          cell: (row: any) => (
             <div className='flex flex-row'>
@@ -129,7 +135,7 @@ export function AdminTable({ data, centers, years }: any) {
                   />
                </div>
                <div className="flex basis-1/4 rounded-md bg-light">
-                  <UsersForm
+                  <ProfessionalsForm
                      register={register}
                      handleSubmit={handleSubmit}
                      errors={errors}

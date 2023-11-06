@@ -4,7 +4,7 @@ import { IndicatorIface } from "@/schemas/indicator";
 import { getAdminTable, updateIndicators } from "@/services/indicators";
 import { useSession, getSession } from "next-auth/react"
 
-export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
          const session = await getSession();

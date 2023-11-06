@@ -1,6 +1,5 @@
-import { getAdminTable } from "@/services/indicators";
+import { getAdminTable, getYears } from "@/services/professionals";
 import { AdminTable } from "./table";
-import { getYears } from "@/services/contracts";
 import { getCenters } from "@/services/centros";
 
 export default async function AdminDashboard({ params }: any) {
@@ -16,12 +15,12 @@ export default async function AdminDashboard({ params }: any) {
       }
    })
 
-   const indicadores = await getAdminTable(year, center);
+   const professionals = await getAdminTable(year, center);
 
    return (
       <div className="flex flex-col">
          <AdminTable
-            data={indicadores}
+            data={professionals}
             centers={centros}
             years={years}
          />
