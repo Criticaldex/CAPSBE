@@ -21,7 +21,7 @@ export function AdminTable({ data, centers, years }: any) {
    }, [])
 
    const filteredItems = rows.filter(
-      (item: any) => item.identificador && item.identificador.toLowerCase().includes(filterText.toLowerCase()),
+      (item: any) => item.identificador && item.identificador.toLowerCase().includes(filterText.toLowerCase())
    );
 
    const subHeaderComponentMemo = useMemo(() => {
@@ -44,7 +44,7 @@ export function AdminTable({ data, centers, years }: any) {
             />
          </div>
       );
-   }, [filterText]);
+   }, [filterText, centers, years]);
 
    const {
       register,
@@ -70,7 +70,14 @@ export function AdminTable({ data, centers, years }: any) {
       {
          name: 'Nom',
          selector: (row: any) => row.indicador,
-         grow: 10,
+         grow: 12,
+         sortable: true,
+         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      },
+      {
+         name: 'Sector',
+         selector: (row: any) => row.sector,
+         grow: 4,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
@@ -81,26 +88,20 @@ export function AdminTable({ data, centers, years }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Centre',
-         selector: (row: any) => row.centre,
-         sortable: true,
-         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
          name: 'Objectiu',
          selector: (row: any) => row.objectiu,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Invers',
-         selector: (row: any) => row.invers ? "X" : "",
+         name: 'Ordre',
+         selector: (row: any) => row.ordre,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Actiu',
-         selector: (row: any) => row.actiu ? "X" : "",
+         name: 'Invers',
+         selector: (row: any) => row.invers ? "X" : "",
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },

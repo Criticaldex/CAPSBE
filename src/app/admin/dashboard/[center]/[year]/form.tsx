@@ -10,6 +10,7 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
          const session = await getSession();
          data.dbName = session?.user.db as string;
          data.objectiu = Math.floor(data.objectiu);
+         data.ordre = Math.floor(data.ordre);
          const update = await updateIndicators(data);
          if (update.lastErrorObject?.updatedExisting) {
             toast.success('Indicador Modificat!', { theme: "colored" });
@@ -63,15 +64,30 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
          {errors.any && <p role="alert" className="text-red self-end">⚠ {errors.any?.message}</p>}
 
          <div className="inline-flex justify-end">
-            <label htmlFor="centre" className="self-center">Centre:</label>
-            <input id="centre"
-               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.centre ? 'border-foreground' : 'border-red'}`}
-               disabled
-               {...register("centre", {
-                  required: 'Camp obligatori',
+            <label htmlFor="grup" className="self-center">Grup:</label>
+            <select id="grup"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.grup ? 'border-foreground' : 'border-red'}`}
+               {...register("grup")}>
+               <option key="" value="">  </option>
+               <option key="general" value="general"> general </option>
+               <option key="cpr" value="cpr"> cpr </option>
+               <option key="nocpr" value="nocpr"> no cpr </option>
+            </select>
+         </div>
+         {errors.grup && <p role="alert" className="text-red self-end">⚠ {errors.grup?.message}</p>}
+
+         <div className="inline-flex justify-end">
+            <label htmlFor="ordre" className="self-center">Ordre:</label>
+            <input id="ordre"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.ordre ? 'border-foreground' : 'border-red'}`}
+               {...register("ordre", {
+                  pattern: {
+                     value: /^[0-9\.]*$/i,
+                     message: "Ha de ser un Numero"
+                  }
                })} />
          </div>
-         {errors.centre && <p role="alert" className="text-red self-end">⚠ {errors.centre?.message}</p>}
+         {errors.ordre && <p role="alert" className="text-red self-end">⚠ {errors.ordre?.message}</p>}
 
          <div className="inline-flex justify-end">
             <label htmlFor="objectiu" className="self-center">Objectiu:</label>
@@ -86,6 +102,8 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
                })} />
          </div>
          {errors.objectiu && <p role="alert" className="text-red self-end">⚠ {errors.objectiu?.message}</p>}
+
+
          <div className="inline-flex justify-end">
             <label htmlFor="invers" className="self-center">Invers:</label>
             <input id="invers"
