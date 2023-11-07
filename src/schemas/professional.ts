@@ -7,7 +7,7 @@ export interface ProfessionalIface {
    any: string,
    centre: string,
    invers: boolean,
-   actiu: boolean,
+   ordre: any,
    objectiu: any,
    dbName: string
 }
@@ -36,8 +36,8 @@ const Schema = new mongoose.Schema({
    invers: {
       type: Boolean,
    },
-   actiu: {
-      type: Boolean,
+   ordre: {
+      type: Number,
    },
    objectiu: {
       type: Number,

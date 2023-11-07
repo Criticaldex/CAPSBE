@@ -44,7 +44,7 @@ export function AdminTable({ data, centers, years }: any) {
             />
          </div>
       );
-   }, [filterText]);
+   }, [filterText, centers, years]);
 
    const {
       register,
@@ -81,8 +81,14 @@ export function AdminTable({ data, centers, years }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Centre',
-         selector: (row: any) => row.centre,
+         name: 'Grup',
+         selector: (row: any) => row.grup,
+         sortable: true,
+         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      },
+      {
+         name: 'Ordre',
+         selector: (row: any) => row.ordre,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
