@@ -10,9 +10,9 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function Chart({ name, data, objectiu, invers }: any) {
+export function Eqa({ name, data, objectiu, invers }: any) {
    let max = 0;
-   let min = 100;
+   let min = 1000;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max) ? i : max;

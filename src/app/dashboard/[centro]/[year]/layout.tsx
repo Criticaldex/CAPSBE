@@ -1,6 +1,6 @@
 import { getCenters } from "@/services/centros";
 import { getEqasContracts } from "@/services/eqas";
-import { Chart } from "./chart";
+import { Eqa } from "./eqa";
 import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 import { getDmaAssignada, getDmaDashboard, getRegressioLineal } from "@/services/dmas";
@@ -46,7 +46,7 @@ export default async function LayoutDashboard({ children, params }: any) {
                {children}
             </div>
             <div className="w-1/4 p-1 ml-2 h-auto bg-bgLight rounded-md shadow-xl">
-               <Chart
+               <Eqa
                   name={'TOTAL EQA'}
                   data={eqas}
                />
