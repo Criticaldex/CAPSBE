@@ -73,6 +73,19 @@ export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors,
          {errors.any && <p role="alert" className="text-red self-end">⚠ {errors.any?.message}</p>}
 
          <div className="inline-flex justify-end">
+            <label htmlFor="ordre" className="self-center">Ordre:</label>
+            <input id="ordre"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12`}
+               {...register("ordre", {
+                  pattern: {
+                     value: /^[0-9\.]*$/i,
+                     message: "Ha de ser un Numero"
+                  }
+               })} />
+         </div>
+         {errors.actiu && <p role="alert" className="text-red self-end">⚠ {errors.actiu?.message}</p>}
+
+         <div className="inline-flex justify-end">
             <label htmlFor="objectiu" className="self-center">Objectiu:</label>
             <input id="objectiu"
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.objectiu ? 'border-foreground' : 'border-red'}`}
@@ -85,19 +98,6 @@ export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors,
                })} />
          </div>
          {errors.objectiu && <p role="alert" className="text-red self-end">⚠ {errors.objectiu?.message}</p>}
-
-         <div className="inline-flex justify-end">
-            <label htmlFor="ordre" className="self-center">Ordre:</label>
-            <input id="ordre"
-               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12`}
-               {...register("ordre", {
-                  pattern: {
-                     value: /^[0-9\.]*$/i,
-                     message: "Ha de ser un Numero"
-                  }
-               })} />
-         </div>
-         {errors.actiu && <p role="alert" className="text-red self-end">⚠ {errors.actiu?.message}</p>}
 
          <div className="inline-flex justify-end">
             <label htmlFor="invers" className="self-center">Invers:</label>

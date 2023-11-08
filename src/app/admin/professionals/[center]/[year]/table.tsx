@@ -82,20 +82,14 @@ export function AdminTable({ data, centers, years }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Any',
-         selector: (row: any) => row.any,
+         name: 'Ordre',
+         selector: (row: any) => row.ordre,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Objectiu',
          selector: (row: any) => row.objectiu,
-         sortable: true,
-         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
-         name: 'Ordre',
-         selector: (row: any) => row.ordre,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
