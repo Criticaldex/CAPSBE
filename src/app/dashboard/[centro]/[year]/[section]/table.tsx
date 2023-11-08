@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import { Chart } from "../chart";
+import { Eqa } from "../eqa";
 import { createThemes } from "@/styles/themes"
 
 const ExpandedComponent = ({ data }: any) => {
@@ -13,7 +13,7 @@ const ExpandedComponent = ({ data }: any) => {
    })
 
    return (
-      <Chart
+      <Eqa
          name={data.id}
          data={infoChart}
          objectiu={data.objectiu}
