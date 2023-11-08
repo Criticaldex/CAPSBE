@@ -94,7 +94,6 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
             <input id="objectiu"
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.objectiu ? 'border-foreground' : 'border-red'}`}
                {...register("objectiu", {
-                  required: 'Camp obligatori',
                   pattern: {
                      value: /^[0-9\.]*$/i,
                      message: "Ha de ser un Numero"
