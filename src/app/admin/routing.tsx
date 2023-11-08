@@ -17,7 +17,7 @@ export function GetLinksAdmin({ session }: any) {
    if (session?.user.role != "2") {
       links.push(
          {
-            label: 'Dashboard',
+            label: 'Quadre Comandament',
             route: `/admin/dashboard`
          },
          {
