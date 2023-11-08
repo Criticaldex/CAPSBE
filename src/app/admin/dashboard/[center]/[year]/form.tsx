@@ -68,7 +68,7 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
             <select id="grup"
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.grup ? 'border-foreground' : 'border-red'}`}
                {...register("grup")}>
-               <option key="" value="">  </option>
+               <option key="-" value="-"> - </option>
                <option key="general" value="general"> general </option>
                <option key="cpr" value="cpr"> cpr </option>
                <option key="nocpr" value="nocpr"> no cpr </option>

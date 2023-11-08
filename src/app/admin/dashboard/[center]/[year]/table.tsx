@@ -75,12 +75,6 @@ export function AdminTable({ data, centers, years }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'Any',
-         selector: (row: any) => row.any,
-         sortable: true,
-         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
          name: 'Grup',
          selector: (row: any) => row.grup,
          sortable: true,
