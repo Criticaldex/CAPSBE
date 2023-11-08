@@ -78,7 +78,7 @@ const ExpandedComponent = ({ data }: any) => {
    );
 }
 
-export function CallsTable({ data, centros }: any) {
+export function CallsTable({ date, data, centros }: any) {
    let columns: any = [{
       name: 'Centre',
       selector: (row: any) => row.centroName,
@@ -151,7 +151,7 @@ export function CallsTable({ data, centros }: any) {
 
    return (
       <div className='flex-col grow'>
-         <a className="flex justify-center text-xl font-bold">Trucades</a>
+         <a className="flex justify-center text-xl font-bold">Trucades {date}</a>
          <DataTable
             className='flex'
             columns={columns}
