@@ -11,6 +11,10 @@ import { getSession } from "@/services/session"
 
 export default async function LayoutDashboard({ children, params }: any) {
    const { year, centro } = params;
+   const pad = '00';
+   const day = (pad + (new Date().getDate() - 1)).slice(-pad.length);
+   const month = (pad + (new Date().getMonth() + 1)).slice(-pad.length);
+   const date = day + '/' + month + '/' + year;
    let up: string = '';
    let nameCentro: string = '';
    const centros = await getCenters();
@@ -71,6 +75,7 @@ export default async function LayoutDashboard({ children, params }: any) {
             <div className="flex mx-2 mb-2">
                <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
                   <CallsTable
+                     date={date}
                      data={calls}
                      centros={centros}
                   />
