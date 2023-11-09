@@ -23,13 +23,21 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
    try {
       const body: IndicatorIface = await request.json();
-      if (!body.identificador || !body.any || !body.centre) {
-         return NextResponse.json(`identificador, any i centre obligatoris!`);
+      if (!body.identificador || !body.any) {
+         return NextResponse.json(`identificador i any obligatoris!`);
       }
-      const filter = {
-         any: body.any,
-         centre: body.centre,
-         identificador: body.identificador
+      let filter = {};
+      if (!body.centre) {
+         filter = {
+            any: body.any,
+            identificador: body.identificador
+         };
+      } else {
+         filter = {
+            any: body.any,
+            centre: body.centre,
+            identificador: body.identificador
+         };
       }
 
       const { dbName, ...bodyWithoutDB } = body
@@ -38,11 +46,10 @@ export async function PATCH(request: Request) {
       if (!db.models.indicator) {
          db.model('indicator', indicatorSchema);
       }
-      const res = await db.models.indicator.findOneAndUpdate(filter, bodyWithoutDB, {
-         new: true,
+      const res = await db.models.indicator.updateMany(filter, bodyWithoutDB, {
          upsert: false,
-         rawResult: true
       }).lean();
+
       return NextResponse.json(res);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

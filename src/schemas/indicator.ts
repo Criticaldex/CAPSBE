@@ -4,7 +4,7 @@ export interface IndicatorIface {
    identificador: string,
    indicador: string,
    any: string,
-   centre: string,
+   centre?: string,
    grup: string,
    invers: boolean,
    objectiu: any,
