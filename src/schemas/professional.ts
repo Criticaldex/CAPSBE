@@ -5,7 +5,7 @@ export interface ProfessionalIface {
    indicador: string,
    sector: string,
    any: string,
-   centre: string,
+   centre?: string,
    invers: boolean,
    ordre: any,
    objectiu: any,

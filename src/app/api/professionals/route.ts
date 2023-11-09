@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.professional) {
          db.model('professional', professionalSchema);
       }
-      const professional: ProfessionalIface = await db.models.professional.find(body.filter).select(fields).lean();
+      const professional: ProfessionalIface = await db.models.professional.find(body.filter).select(fields).sort(body.sort).lean();
       return NextResponse.json(professional);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
@@ -23,14 +23,23 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
    try {
       const body: ProfessionalIface = await request.json();
-      if (!body.identificador || !body.sector || !body.any || !body.centre) {
-         return NextResponse.json(`identificador, sector, any i centre obligatoris!`);
+      if (!body.identificador || !body.sector || !body.any) {
+         return NextResponse.json(`identificador, sector i any obligatoris!`);
       }
-      const filter = {
-         any: body.any,
-         sector: body.sector,
-         centre: body.centre,
-         identificador: body.identificador
+      let filter = {};
+      if (!body.centre) {
+         filter = {
+            any: body.any,
+            sector: body.sector,
+            identificador: body.identificador
+         };
+      } else {
+         filter = {
+            any: body.any,
+            sector: body.sector,
+            centre: body.centre,
+            identificador: body.identificador
+         };
       }
 
       const { dbName, ...bodyWithoutDB } = body
@@ -39,11 +48,10 @@ export async function PATCH(request: Request) {
       if (!db.models.professional) {
          db.model('professional', professionalSchema);
       }
-      const res = await db.models.professional.findOneAndUpdate(filter, bodyWithoutDB, {
-         new: true,
+      const res = await db.models.professional.updateMany(filter, bodyWithoutDB, {
          upsert: false,
-         rawResult: true
       }).lean();
+
       return NextResponse.json(res);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

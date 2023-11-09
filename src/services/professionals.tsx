@@ -7,22 +7,6 @@ const getProfessionals = async (filter: any, db?: string) => {
       db = session?.user.db;
    }
 
-   filter.identificador = {
-      $in: [
-         "EQAU0208",
-         "EQAU0235",
-         "EQAU0301",
-         "EQAU0239",
-         "EQAU0702",
-         "IT001TOT",
-         // "IT001OST",
-         // "IT001MEN",
-         // "IT001ALT",
-         // "IT003TOT",
-         "ACC5DF",
-         "CONT0002A"
-      ]
-   }
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
       {
          method: 'POST',
@@ -36,13 +20,13 @@ const getProfessionals = async (filter: any, db?: string) => {
                   "-_id"
                ],
                filter: filter,
+               sort: 'ordre'
             }
          ),
       }).then(res => res.json());
 }
 
 const getBaixesProfessionals = async (filter: any) => {
-   const session = await getSession();
 
    filter.identificador = {
       $in: [
@@ -51,24 +35,10 @@ const getBaixesProfessionals = async (filter: any) => {
          "IT001ALT",
          "IT003TOT",
       ]
-   }
+   };
+   delete filter.ordre;
 
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/professionals`,
-      {
-         method: 'POST',
-         headers: {
-            'Content-type': 'application/json',
-         },
-         body: JSON.stringify(
-            {
-               db: session?.user.db,
-               fields: [
-                  "-_id"
-               ],
-               filter: filter,
-            }
-         ),
-      }).then(res => res.json());
+   return await getProfessionals(filter);
 }
 
 export const updateProfessionals = async (data: any) => {

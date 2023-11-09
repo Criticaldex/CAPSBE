@@ -24,7 +24,7 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
          }
          data.centre = centre;
          reset(data);
-         setRows(await getAdminTable(data.any, centre, data.dbName));
+         setRows(await getAdminTable(data.any, data.centre, data.dbName));
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
       }
