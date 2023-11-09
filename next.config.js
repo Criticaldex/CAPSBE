@@ -31,6 +31,16 @@ const nextConfig = {
             permanent: false,
          },
          {
+            source: '/dashboard/:centre',
+            destination: `/dashboard/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            permanent: false,
+         },
+         {
+            source: '/dashboard/:centre/:any',
+            destination: `/dashboard/:centre/:any/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            permanent: false,
+         },
+         {
             source: '/professionals',
             destination: `/professionals/${process.env.PROFESSIONALS_DEFAULT_VIEW}/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
