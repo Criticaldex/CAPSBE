@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.indicator) {
          db.model('indicator', indicatorSchema);
       }
-      const indicator: any = await db.models.indicator.find(body.filter).select(fields).lean();
+      const indicator: any = await db.models.indicator.find(body.filter).select(fields).sort(body.sort).lean();
       return NextResponse.json(indicator);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

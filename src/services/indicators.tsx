@@ -20,6 +20,7 @@ const getIndicators = async (filter: any, db?: string) => {
                   "-_id"
                ],
                filter: filter,
+               sort: 'ordre'
             }
          ),
       }).then(res => res.json());
@@ -50,31 +51,7 @@ export const getChartIndicators = async (year: string, center: string) => {
 
 export const getTableIndicatorsGeneral = async (year: string) => {
    const filter: any = {
-      codi: {
-         $nin: [
-            "AP19",
-            "AP28",
-            "AP33",
-            "CONT0002A",
-            "CAT0239",
-            "EQA0301",
-            "ESIAP0402",
-            "AP37",
-            "AGC0201",
-            "ACC5DF",
-            "SGAM03_AP",
-            "AP01",
-            "SEGPACAP01",
-            "AP39",
-            "RS_AP25",
-            "RS_AP26",
-            "PLA006",
-            "POBATINF01",
-            "NUT01",
-            "BEN01",
-            "FIS01"
-         ]
-      },
+      grup: "general",
       any: year
    };
    const data = await getIndicators(filter);
@@ -83,14 +60,7 @@ export const getTableIndicatorsGeneral = async (year: string) => {
 
 export const getTableIndicatorsNoCpr = async (year: string) => {
    const filter: any = {
-      codi: {
-         $in: [
-            "SEGPACAP01",
-            "AP39",
-            "RS_AP25",
-            "RS_AP26"
-         ]
-      },
+      grup: "nocpr",
       any: year
    };
    const data = await getIndicators(filter);
@@ -99,22 +69,7 @@ export const getTableIndicatorsNoCpr = async (year: string) => {
 
 export const getTableIndicatorsCpr = async (year: string) => {
    const filter: any = {
-      codi: {
-         $in: [
-            "AP19",
-            "AP28",
-            "AP33",
-            "CONT0002A",
-            "CAT0239",
-            "EQA0301",
-            "ESIAP0402",
-            "AP37",
-            "AGC0201",
-            "ACC5DF",
-            "SGAM03_AP",
-            "AP01"
-         ]
-      },
+      grup: "cpr",
       any: year,
    };
    const data = await getIndicators(filter);
