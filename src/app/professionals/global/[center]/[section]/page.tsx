@@ -25,7 +25,7 @@ export default async function ProfessionalsChart({ params }: any) {
    const infoChart = await getChartIndicators(filters);
    const infoTable = await getTableIndicators(filters);
    const professionals = await getProfessionalsList(filters);
-   const month = await getMonth(filters)
+   const month = await getMonth(filters);
 
    const indicadorsNames = indicadors.map((ind: any) => ind.name)
    const indicadorsObj = indicadors.map((ind: any) => ind.obj)
