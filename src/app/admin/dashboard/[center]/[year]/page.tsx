@@ -1,6 +1,6 @@
 import { getAdminTable } from "@/services/indicators";
 import { AdminTable } from "./table";
-import { getYears } from "@/services/contracts";
+import { getYears } from "@/services/indicators";
 import { getCenters } from "@/services/centros";
 
 export default async function AdminDashboard({ params }: any) {

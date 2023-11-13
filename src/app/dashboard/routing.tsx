@@ -72,9 +72,6 @@ export function GetSectionButtons() {
    }, {
       label: 'Sense CPR',
       route: `/dashboard/${center}/${year}/nocpr`
-   }, {
-      label: 'Contractes',
-      route: `/dashboard/${center}/${year}/contractes`
    }];
 
    return (

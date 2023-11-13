@@ -1,5 +1,5 @@
 import { GetLinksYears, GetLinksCenters, GetSectionButtons } from "./routing";
-import { getYears } from "@/services/contracts";
+import { getYears } from "@/services/indicators";
 import { getCenters } from "@/services/centros"
 
 export default async function ContractsLayout({ children }: any) {
