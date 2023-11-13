@@ -7,16 +7,21 @@ import { useSession, getSession } from "next-auth/react"
 export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
    const onSubmit = handleSubmit(async (data: ProfessionalIface) => {
       if (isDirty) {
+         const centre = data.centre as string;
+         if (Object.hasOwn(dirtyFields, 'ordre')) {
+            delete data.centre;
+         }
          const session = await getSession();
          data.dbName = session?.user.db as string;
          data.objectiu = Math.floor(data.objectiu);
          const update = await updateProfessionals(data);
-         if (update.lastErrorObject?.updatedExisting) {
-            toast.success('Indicador Modificat!', { theme: "colored" });
+         if (update.acknowledged) {
+            toast.success(`Indicador Modificat a ${update.modifiedCount} centres!`, { theme: "colored" });
          } else {
-            toast.success('Indicador Afegit!', { theme: "colored" });
+            toast.error('Error modificant l\'indicador', { theme: "colored" });
          }
-         reset(update.value);
+         data.centre = centre;
+         reset(data);
          setRows(await getAdminTable(data.any, data.centre, data.dbName));
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
