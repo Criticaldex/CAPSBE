@@ -1,5 +1,4 @@
 import { getTableIndicatorsNoCpr, getTableIndicatorsCpr, getTableIndicatorsGeneral } from "@/services/indicators";
-import { getTableIndicators } from "@/services/contracts";
 import { DashboardTable } from "./table"
 import { getCenters } from "@/services/centros";
 
@@ -14,9 +13,6 @@ export default async function Contracts({ params }: any) {
          break;
       case 'nocpr':
          indicadores = await getTableIndicatorsNoCpr(year);
-         break;
-      case 'contractes':
-         indicadores = await getTableIndicators(year);
          break;
       default:
          indicadores = await getTableIndicatorsGeneral(year);

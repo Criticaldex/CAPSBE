@@ -21,6 +21,7 @@ export default async function ProfessionalsChart({ params }: any) {
          ]
       }
    }
+
    const indicadors = await getIndicators(filters);
    const infoChart = await getChartIndicators(filters);
    const infoTable = await getTableIndicators(filters);
