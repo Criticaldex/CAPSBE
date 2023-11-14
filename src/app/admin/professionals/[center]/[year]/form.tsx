@@ -13,7 +13,7 @@ export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors,
          }
          const session = await getSession();
          data.dbName = session?.user.db as string;
-         data.objectiu = Math.floor(data.objectiu);
+         data.objectiu = data.objectiu ? parseFloat(data.objectiu) : 0;
          const update = await updateProfessionals(data);
          if (update.acknowledged) {
             toast.success(`Indicador Modificat a ${update.modifiedCount} centres!`, { theme: "colored" });
