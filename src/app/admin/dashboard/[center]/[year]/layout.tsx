@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 
 export default async function UsersLayout({ children }: any) {
    const session = await getSession();
-   if (session?.user.role != "0") {
+   if (session?.user.role == "2") {
       redirect("/admin/profile");
    }
    return (
