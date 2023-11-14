@@ -14,8 +14,8 @@ export const DashboardForm = ({ register, handleSubmit, errors, clearErrors, set
 
          const session = await getSession();
          data.dbName = session?.user.db as string;
-         data.objectiu = Math.floor(data.objectiu);
-         data.ordre = Math.floor(data.ordre);
+         data.objectiu = data.objectiu ? parseFloat(data.objectiu) : 0;
+         data.ordre = parseFloat(data.ordre);
          const update = await updateIndicators(data);
          if (update.acknowledged) {
             toast.success(`Indicador Modificat a ${update.modifiedCount} centres!`, { theme: "colored" });
