@@ -115,7 +115,7 @@ export function ProfessionalsTable({ data, professionals, month }: any) {
       let fila: { [k: string]: any } = {
          id: key,
          Indicador: `${indicador.identificador} - ${indicador.indicador}`,
-         Objectiu: (indicador.objectiu) ? ((indicador.invers) ? `< ${indicador.objectiu}` : indicador.objectiu) : '',
+         Objectiu: (indicador.objectiu) ? ((indicador.invers) ? `<${indicador.objectiu}` : indicador.objectiu) : '',
          Invers: indicador.invers,
          any: indicador.any,
          centre: indicador.centre,
