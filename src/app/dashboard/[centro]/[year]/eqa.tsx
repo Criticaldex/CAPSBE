@@ -10,19 +10,24 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function Eqa({ name, data, objectiu, invers }: any) {
+export function Eqa({ name, data, objectius, invers }: any) {
    let max = 0;
    let min = 1000;
-   data.forEach((elem: any) => {
-      elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-         min = (i < min) ? i : min;
+   let plotLines =
+      data.forEach((elem: any) => {
+         elem.data.map((i: any) => {
+            max = (i > max) ? i : max;
+            min = (i < min) ? i : min;
+         });
       });
-   });
-   max = (objectiu > max) ? objectiu : max;
-   min = (objectiu < min) ? objectiu : min;
+   if (objectius) {
+      max = (objectius > max) ? objectius : max;
+      min = (objectius < min) ? objectius : min;
 
-   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
+      const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
+
+   }
+
    const options = {
       ...chartOptions,
       chart: {

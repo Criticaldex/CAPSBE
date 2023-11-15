@@ -16,7 +16,7 @@ const ExpandedComponent = ({ data }: any) => {
       <Eqa
          name={data.id}
          data={infoChart}
-         objectiu={data.objectiu}
+         objectiu={data.objectius}
          invers={data.invers}
       />
    );
