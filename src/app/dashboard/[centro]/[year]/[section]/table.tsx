@@ -11,13 +11,15 @@ const ExpandedComponent = ({ data }: any) => {
          data: i.data
       }
    })
+   console.log('data: ', data);
+   console.log('infoChart: ', infoChart);
+
 
    return (
       <Eqa
          name={data.id}
          data={infoChart}
-         objectiu={data.objectiu}
-         invers={data.invers}
+         objectius={data.objectius}
       />
    );
 }
@@ -35,7 +37,7 @@ export function DashboardTable({ data, centros }: any) {
       columns.push({
          name: centro.name,
          cell: (row: any) => (
-            <div className={`${row.objectiu == '' ? '' : 'tags'} w-full text-center`} data-tag="allowRowEvents" data-gloss={`Objectiu: ${row.objectius[centro.name]}`}>
+            <div className={`${row.objectius[centro.name] ? 'tags' : ''} w-full text-center`} data-tag="allowRowEvents" data-gloss={`Objectiu: ${row.invers[centro.name] ? '<' : ''}${row.objectius[centro.name]}`}>
                {row[centro.name]}
             </div>
          ),
@@ -53,9 +55,7 @@ export function DashboardTable({ data, centros }: any) {
                      if (row[centro.name] >= row.objectius[centro.name]) return true
                      else return false
                   } else {
-                     console.log('row: ', row);
-
-                     if (row[centro.name] <= row.objectius[centro.name].replace(/\D/g, '')) return true
+                     if (row[centro.name] <= row.objectius[centro.name]) return true
                      else return false
                   }
                },
@@ -70,7 +70,7 @@ export function DashboardTable({ data, centros }: any) {
                      if (row[centro.name] <= row.objectius[centro.name]) return true
                      else return false
                   } else {
-                     if (row[centro.name] >= row.objectius[centro.name].replace(/\D/g, '')) return true
+                     if (row[centro.name] >= row.objectius[centro.name]) return true
                      else return false
                   }
                },
@@ -97,7 +97,6 @@ export function DashboardTable({ data, centros }: any) {
 
    let tableData: any = [];
    for (const [key, value] of (Object.entries(data) as [string, any][])) {
-      let obj = (value[0].objectiu) ? ((value[0].invers) ? `<${value[0].objectiu}` : value[0].objectiu) : '';
       let indicador: { [k: string]: any } = { id: key, Indicador: '', values: [], objectius: {}, invers: {} };
       centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
          value.forEach((val: any) => {
@@ -105,7 +104,7 @@ export function DashboardTable({ data, centros }: any) {
                const ind = (val.codi) ? val.codi : val.identificador;
                indicador.Indicador = `${ind} - ${val.indicador}`;
                indicador[centro.name] = val.resultat[val.resultat.length - 1];
-               indicador.objectius[centro.name] = (val.objectiu) ? ((val.invers) ? `<${val.objectiu}` : val.objectiu) : '';
+               indicador.objectius[centro.name] = (val.objectiu) ? val.objectiu : null;
                indicador.invers[centro.name] = val.invers;
                //values for the chart
                indicador.values[centro.id] = {};

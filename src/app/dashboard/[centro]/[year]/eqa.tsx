@@ -10,19 +10,34 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function Eqa({ name, data, objectiu, invers }: any) {
+export function Eqa({ name, data, objectius }: any) {
    let max = 0;
    let min = 1000;
+   let plotLines = [];
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max) ? i : max;
          min = (i < min) ? i : min;
       });
    });
-   max = (objectiu > max) ? objectiu : max;
-   min = (objectiu < min) ? objectiu : min;
 
-   const obj = (invers) ? objectiu.replace(/\D/g, '') : objectiu
+   if (objectius) {
+      for (const [key, obj] of (Object.entries(objectius) as [string, any][])) {
+         plotLines.push({
+            color: 'var(--red)',
+            width: 2,
+            value: obj
+            // label: {
+            //    text: key
+            // }
+         })
+         max = (obj > max) ? obj : max;
+         min = (obj < min) ? obj : min;
+      }
+
+      console.log('objectiu: ', objectius);
+   }
+
    const options = {
       ...chartOptions,
       chart: {
@@ -37,11 +52,7 @@ export function Eqa({ name, data, objectiu, invers }: any) {
          ...chartOptions.yAxis,
          max: max,
          min: min,
-         plotLines: [{
-            color: 'var(--red)',
-            width: 2,
-            value: obj
-         }]
+         plotLines: plotLines
       }
    }
 
