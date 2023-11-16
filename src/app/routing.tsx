@@ -9,12 +9,10 @@ import { RiMedicineBottleLine } from "react-icons/ri"
 import { usePathname } from "next/navigation"
 import { LogoutButton, ProfileButton } from "@/components/loginbuttons.component";
 import { NextAuthProvider } from "@/app/providers";
-import { getSession } from "next-auth/react"
 
-export default async function GetNav() {
+export default function GetNav({ session }: any) {
 
    const pathname = usePathname();
-   const session = await getSession();
 
    const navTitlesIcons = [
       {
