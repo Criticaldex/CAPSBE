@@ -11,9 +11,6 @@ const ExpandedComponent = ({ data }: any) => {
          data: i.data
       }
    })
-   console.log('data: ', data);
-   console.log('infoChart: ', infoChart);
-
 
    return (
       <Eqa

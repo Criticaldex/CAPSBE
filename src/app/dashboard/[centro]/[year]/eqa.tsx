@@ -34,8 +34,6 @@ export function Eqa({ name, data, objectius }: any) {
          max = (obj > max) ? obj : max;
          min = (obj < min) ? obj : min;
       }
-
-      console.log('objectiu: ', objectius);
    }
 
    const options = {
