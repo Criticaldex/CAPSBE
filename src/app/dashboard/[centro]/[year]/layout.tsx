@@ -5,8 +5,6 @@ import { Iqf } from "./iqf";
 import { getBasal, getIqfDashboard } from "@/services/iqfs";
 import { getDmaAssignada, getDmaDashboard, getRegressioLineal } from "@/services/dmas";
 import { Dma } from "./dma";
-import { getCallsToday } from "@/services/calls";
-import { CallsTable } from "./callsTable";
 import { getSession } from "@/services/session"
 
 export default async function LayoutDashboard({ children, params }: any) {
@@ -25,7 +23,6 @@ export default async function LayoutDashboard({ children, params }: any) {
       }
    })
    const session = await getSession();
-   const calls = await getCallsToday();
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up);
    const basal = await getBasal(up);
@@ -71,17 +68,6 @@ export default async function LayoutDashboard({ children, params }: any) {
                />
             </div>
          </div>
-         {session?.user.db == 'Capsbe' &&
-            <div className="flex mx-2 mb-2">
-               <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
-                  <CallsTable
-                     date={date}
-                     data={calls}
-                     centros={centros}
-                  />
-               </div>
-            </div>
-         }
       </div>
    );
 }

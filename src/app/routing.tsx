@@ -2,17 +2,19 @@
 import Link from "next/link"
 
 import { BiPlusMedical } from "react-icons/bi"
-import { FaCapsules, FaUserNurse } from "react-icons/fa"
+import { FaCapsules, FaUserNurse, FaPhoneAlt } from "react-icons/fa"
 import { TbLayoutDashboard } from "react-icons/tb"
 import { RiMedicineBottleLine } from "react-icons/ri"
 
 import { usePathname } from "next/navigation"
 import { LogoutButton, ProfileButton } from "@/components/loginbuttons.component";
 import { NextAuthProvider } from "@/app/providers";
+import { getSession } from "next-auth/react"
 
-export default function GetNav() {
+export default async function GetNav() {
 
    const pathname = usePathname();
+   const session = await getSession();
 
    const navTitlesIcons = [
       {
@@ -26,6 +28,17 @@ export default function GetNav() {
          route: '/professionals'
       }
    ]
+   {
+      session?.user.db == 'Capsbe' &&
+         navTitlesIcons.push(
+            {
+               label: 'Trucades',
+               icon: FaPhoneAlt,
+               route: '/calls'
+            }
+         )
+   }
+
    const navTitlesIconsFarma = [
       {
          label: 'IQF',
@@ -33,7 +46,6 @@ export default function GetNav() {
          route: '/iqf'
       }
    ]
-
 
    return (
       <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
