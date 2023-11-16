@@ -27,9 +27,6 @@ export function Eqa({ name, data, objectius }: any) {
             color: 'var(--red)',
             width: 2,
             value: obj
-            // label: {
-            //    text: key
-            // }
          })
          max = (obj > max) ? obj : max;
          min = (obj < min) ? obj : min;
