@@ -1,6 +1,5 @@
 import { GetLinksAdmin } from "./routing";
 import { getSession } from "@/services/session"
-import { authOptions } from '@/lib/auth';
 
 export default async function ContractsLayout({ children }: any) {
    const session = await getSession();
