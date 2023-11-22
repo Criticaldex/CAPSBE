@@ -2,6 +2,7 @@
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
+import highchartsDrilldown from "highcharts/modules/drilldown";
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 
@@ -24,6 +25,8 @@ export function Chart({ name, data, days, drilldown }: any) {
          {
             type: "column",
             name: "Contestades",
+            color: "var(--green)",
+            // colorByPoint: true,
             data: [
                {
                   name: "17",
@@ -38,7 +41,7 @@ export function Chart({ name, data, days, drilldown }: any) {
                {
                   name: "20",
                   y: 473,
-                  drilldown: "20",
+                  drilldown: "Chrome",
                },
                {
                   name: "21",
@@ -50,6 +53,7 @@ export function Chart({ name, data, days, drilldown }: any) {
          {
             type: "column",
             name: "Abandonades",
+            color: "var(--red)",
             data: [
                {
                   name: "17",
@@ -64,7 +68,7 @@ export function Chart({ name, data, days, drilldown }: any) {
                {
                   name: "20",
                   y: -77,
-                  drilldown: "20",
+                  drilldown: "Chrome",
                },
                {
                   name: "21",
@@ -82,52 +86,80 @@ export function Chart({ name, data, days, drilldown }: any) {
          },
          series: [
             {
-               name: '20',
-               id: '20',
+               type: 'column',
+               name: 'Detall',
+               id: '21',
+               color: "var(--green)",
                data: [
                   [
-                     'v58.0',
+                     '17',
                      1.02
                   ],
                   [
-                     'v57.0',
+                     '18',
                      7.36
                   ],
                   [
-                     'v56.0',
+                     '20',
                      0.35
                   ],
                   [
-                     'v55.0',
+                     '21',
                      0.11
                   ],
                   [
-                     'v54.0',
+                     '22',
                      0.1
+                  ]
+               ]
+            },
+            {
+               type: 'column',
+               name: 'Detall',
+               id: '21',
+               color: "var(--red)",
+               data: [
+                  [
+                     '17',
+                     1.02
                   ],
                   [
-                     'v52.0',
-                     0.95
+                     '18',
+                     7.36
                   ],
                   [
-                     'v51.0',
-                     0.15
+                     '20',
+                     0.35
                   ],
                   [
-                     'v50.0',
+                     '21',
+                     0.11
+                  ],
+                  [
+                     '22',
                      0.1
-                  ],
-                  [
-                     'v48.0',
-                     0.31
-                  ],
-                  [
-                     'v47.0',
-                     0.12
                   ]
                ]
             }
-         ]
+         ],
+         xAxis: {
+            categories: null,
+         },
+         plotOptions: {
+            column: {
+               stacking: 'normal'
+            },
+            series: {
+               borderWidth: 0,
+               maxPointWidth: 50,
+               dataLabels: {
+                  enabled: true,
+                  style: {
+                     textOutline: 'none'
+                  },
+               }
+            }
+         }
       },
       yAxis: {
          title: {
@@ -153,6 +185,8 @@ export function Chart({ name, data, days, drilldown }: any) {
          }
       }
    }
+
+   highchartsDrilldown(Highcharts);
 
    return (
       <HighchartsReact

@@ -58,10 +58,12 @@ export const getDashboardChart = async (year: string, month: string, center: str
    let chartData: any = [{
       type: 'column',
       name: 'Contestades',
+      color: "var(--green)",
       data: [],
    }, {
       type: 'column',
       name: 'Abandonades',
+      color: "var(--red)",
       data: [],
    }];
 

@@ -80,7 +80,7 @@ const ExpandedComponent = ({ data }: any) => {
             name={monthName[month] + ' ' + year}
             data={detall}
             days={days}
-            days={days}
+            drilldown={drilldown}
          />
       </>
    );
