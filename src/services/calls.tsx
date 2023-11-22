@@ -146,25 +146,3 @@ export const getDashboardChartDays = async (year: string, month: string, center:
    });
    return days;
 }
-
-export const getTableIndicatorsNoCpr = async (year: string) => {
-   const filter: any = {
-      identificador: {
-         $nin: [
-            "GESTINF05",
-            "PLA006",
-            "POBATINF01",
-            "CRONICITAT_RES",
-            "GC0005",
-            "NUT01",
-            "FIS01",
-            "BEN01",
-            "BENRES01",
-            "EQA0208"
-         ]
-      },
-      any: year
-   };
-   const data = await getCalls(filter);
-   return _.groupBy(data, 'identificador');
-}
