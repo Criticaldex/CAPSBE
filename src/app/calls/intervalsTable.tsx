@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { Chart } from "./intervalsChart";
 import { createThemes } from "@/styles/themes"
-import { getDashboardChart, getDashboardChartDays } from "@/services/call_intervals";
+import { getDashboardChart, getDashboardChartDays, getDashboardChart2 } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
 
 const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, setYearString: any, modifier: string) => (event: any) => {
@@ -48,6 +48,7 @@ const ExpandedComponent = ({ data }: any) => {
    const [detall, setDetall] = useState(null);
    const [days, setDays] = useState(null);
    const [isLoading, setLoading] = useState(true);
+   const [drilldown, setDrilldown] = useState(true);
 
    useEffect(() => {
       console.log('year, month, centro: ', yearString, monthString, data.centro);
@@ -58,7 +59,11 @@ const ExpandedComponent = ({ data }: any) => {
             getDashboardChartDays(yearString, monthString, data.centro)
                .then((res: any) => {
                   setDays(res);
-                  setLoading(false);
+                  getDashboardChart2(yearString, monthString, data.centro)
+                     .then((res: any) => {
+                        setDrilldown(res);
+                        setLoading(false);
+                     });
                });
          });
    }, [yearString, monthString, data.centro])
@@ -74,6 +79,7 @@ const ExpandedComponent = ({ data }: any) => {
          <Chart
             name={monthName[month] + ' ' + year}
             data={detall}
+            days={days}
             days={days}
          />
       </>
