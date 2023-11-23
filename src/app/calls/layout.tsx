@@ -1,6 +1,6 @@
 import { getCenters } from "@/services/centros";
 import { getCallsToday } from "@/services/calls";
-import { getTotalToday, getDashboardChart, getDashboardChart2 } from "@/services/call_intervals";
+import { getIntervalsDay, getHoursChart, getIntervalsChart } from "@/services/call_intervals";
 import { CallsTable } from "./callsTable";
 import { IntervalsTable } from "./intervalsTable";
 
@@ -12,9 +12,8 @@ export default async function ContractsLayout({ children }: any) {
    const date = day + '/' + month + '/' + year;
    const centros = await getCenters();
    const calls = await getCallsToday();
-   const call_intervals = await getTotalToday();
-   const chart = await getDashboardChart('2023', '11', '0');
-   const chart2 = await getDashboardChart2('2023', '11', '0');
+   // const chart = await getHoursChart('2023', '11', '22', '0');
+   // const chart2 = await getIntervalsChart('2023', '11', '22', '0');
 
    return (
       <div>
@@ -34,15 +33,6 @@ export default async function ContractsLayout({ children }: any) {
                   <CallsTable
                      date={date}
                      data={calls}
-                     centros={centros}
-                  />
-               </div>
-            </div>
-            <div className="flex mx-2 mb-2">
-               <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
-                  <IntervalsTable
-                     date={date}
-                     data={call_intervals}
                      centros={centros}
                   />
                </div>

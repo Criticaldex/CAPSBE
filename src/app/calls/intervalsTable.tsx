@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { Chart } from "./intervalsChart";
+import { IntervalsChart } from "./intervalsChart";
 import { createThemes } from "@/styles/themes"
-import { getDashboardChart, getDashboardChartDays, getDashboardChart2 } from "@/services/call_intervals";
+import { getDaysChart, getHoursChart } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
 
 const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, setYearString: any, modifier: string) => (event: any) => {
@@ -42,7 +42,9 @@ const ExpandedComponent = ({ data }: any) => {
    const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
 
    const [month, setMonth] = useState(new Date().getMonth());
+   const [day, setday] = useState(new Date().getDate());
    const [year, setYear] = useState(new Date().getFullYear());
+   const [dayString, setDayString] = useState((pad + (month + 1)).slice(-pad.length));
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
    const [yearString, setYearString] = useState(new Date().getFullYear().toString());
    const [detall, setDetall] = useState(null);
@@ -53,36 +55,46 @@ const ExpandedComponent = ({ data }: any) => {
    useEffect(() => {
       console.log('year, month, centro: ', yearString, monthString, data.centro);
 
-      getDashboardChart(yearString, monthString, data.centro)
+      getDaysChart(yearString, monthString, data.centro)
          .then((res: any) => {
             setDetall(res);
-            getDashboardChartDays(yearString, monthString, data.centro)
+            getHoursChart(yearString, monthString, dayString, data.centro)
                .then((res: any) => {
-                  setDays(res);
-                  getDashboardChart2(yearString, monthString, data.centro)
-                     .then((res: any) => {
-                        setDrilldown(res);
-                        setLoading(false);
-                     });
+                  setDrilldown(res);
+                  setLoading(false);
                });
          });
-   }, [yearString, monthString, data.centro])
+   }, [yearString, monthString, dayString, data.centro])
 
    if (isLoading) return <Loading />
 
    return (
-      <>
-         <div className='flex justify-center'>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '<')}>&lt;</button>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '>')}>&gt;</button>
+      <div className='flex'>
+         <div className='basis-1/2'>
+            <div className='flex justify-center'>
+               <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '<')}>&lt;</button>
+               <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '>')}>&gt;</button>
+            </div>
+            <IntervalsChart
+               name={monthName[month] + ' ' + year}
+               data={detall}
+               days={days}
+               drilldown={drilldown}
+            />
          </div>
-         <Chart
-            name={monthName[month] + ' ' + year}
-            data={detall}
-            days={days}
-            drilldown={drilldown}
-         />
-      </>
+         <div className='basis-1/2'>
+            <div className='flex justify-center'>
+               <button className='cursor-not-allowed opacity-50 m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'>&lt;</button>
+               <button className='cursor-not-allowed opacity-50 m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'>&gt;</button>
+            </div>
+            <IntervalsChart
+               name={monthName[month] + ' ' + year}
+               data={detall}
+               days={days}
+               drilldown={drilldown}
+            />
+         </div>
+      </div>
    );
 }
 

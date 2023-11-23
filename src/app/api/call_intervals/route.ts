@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.call_interval) {
          db.model('call_interval', CallSchema);
       }
-      const call: any = await db.models.call_interval.find(body.filter).select(fields).lean();
+      const call: any = await db.models.call_interval.find(body.filter).select(fields).sort(body.sort).lean();
       return NextResponse.json(call);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

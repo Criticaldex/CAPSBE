@@ -10,45 +10,37 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function CallsChart({ name, data, setter }: any) {
+export function IntervalsDetailChart({ name, data, days }: any) {
    const options = {
       ...chartOptions,
       chart: {
+         type: 'column',
          spacingTop: 10
       },
       title: {
          text: name
       },
       series: data,
-      yAxis: [{
+      yAxis: {
          title: {
             text: 'Nº Trucades'
          }
-      }, {
-         title: {
-            text: 'Temps (s)'
-         },
-         opposite: true
-      }],
+      },
       xAxis: {
          type: 'category'
       },
       plotOptions: {
+         column: {
+            stacking: 'normal'
+         },
          series: {
             borderWidth: 0,
-            maxPointWidth: 10,
+            maxPointWidth: 50,
             dataLabels: {
                enabled: true,
                style: {
                   textOutline: 'none'
                },
-            },
-            events: {
-               click: function (event: any) {
-                  console.log('event.point: ', event.point);
-
-                  setter(event.point.name);
-               }
             }
          }
       }
