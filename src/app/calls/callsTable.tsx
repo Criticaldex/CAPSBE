@@ -6,7 +6,7 @@ import { IntervalsChart } from "./intervalsChart";
 import { IntervalsDetailChart } from "./intervalsDetailChart";
 import { createThemes } from "@/styles/themes"
 import { getDashboardChart, getDashboardChartDays } from "@/services/calls";
-import { getHoursChart, getIntervalsChart } from "@/services/call_intervals";
+import { getHoursChart, getHoursDrilldown, getIntervalsChart, getIntervalsDrilldown } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
 
 const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, modifier: string) => (event: any) => {
@@ -49,14 +49,15 @@ const ExpandedComponent = ({ data }: any) => {
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
    const [detallMes, setDetallMes] = useState(null);
    const [hores, setHores] = useState(null);
+   const [horesDD, setHoresDD] = useState(null);
    const [intervals, setIntervals] = useState(null);
+   const [intervalsDD, setIntervalsDD] = useState(null);
    const [isLoading, setLoading] = useState(true);
 
    useEffect(() => {
       getDashboardChart(year.toString(), monthString, data.centro)
          .then((res: any) => {
             setDetallMes(res);
-            setLoading(false);
          });
    }, [year, monthString, data.centro, data])
 
@@ -64,10 +65,22 @@ const ExpandedComponent = ({ data }: any) => {
       getHoursChart(year.toString(), monthString, dayString, data.centro)
          .then((res: any) => {
             setHores(res);
+            console.log('hores. ', res);
+            getHoursDrilldown(year.toString(), monthString, dayString, data.centro)
+               .then((res: any) => {
+                  setHoresDD(res);
+                  console.log('horesDD. ', res);
+                  setLoading(false);
+               });
          });
+
       getIntervalsChart(year.toString(), monthString, dayString, data.centro)
          .then((res: any) => {
             setIntervals(res);
+         });
+      getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
+         .then((res: any) => {
+            setIntervalsDD(res);
          });
    }, [year, monthString, data.centro, dayString])
 
@@ -89,12 +102,14 @@ const ExpandedComponent = ({ data }: any) => {
                <IntervalsChart
                   name={'Hores ' + dayString + '/' + monthString + '/' + year.toString()}
                   data={hores}
+                  dd={horesDD}
                />
             </div>
             <div className='basis-1/2'>
                <IntervalsChart
                   name={'Intervals ' + dayString + '/' + monthString + '/' + year.toString()}
                   data={intervals}
+                  dd={intervalsDD}
                />
             </div>
          </div>

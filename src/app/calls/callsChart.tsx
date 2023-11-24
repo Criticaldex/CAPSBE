@@ -45,8 +45,6 @@ export function CallsChart({ name, data, setter }: any) {
             },
             events: {
                click: function (event: any) {
-                  console.log('event.point: ', event.point);
-
                   setter(event.point.name);
                }
             }

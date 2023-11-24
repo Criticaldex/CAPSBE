@@ -1,6 +1,6 @@
 import { getCenters } from "@/services/centros";
 import { getCallsToday } from "@/services/calls";
-import { getIntervalsDay, getHoursChart, getIntervalsChart } from "@/services/call_intervals";
+import { getIntervalsDay, getHoursChart, getIntervalsChart, getHoursDrilldown, getIntervalsDrilldown } from "@/services/call_intervals";
 import { CallsTable } from "./callsTable";
 import { IntervalsTable } from "./intervalsTable";
 
@@ -12,8 +12,8 @@ export default async function ContractsLayout({ children }: any) {
    const date = day + '/' + month + '/' + year;
    const centros = await getCenters();
    const calls = await getCallsToday();
-   // const chart = await getHoursChart('2023', '11', '22', '0');
-   // const chart2 = await getIntervalsChart('2023', '11', '22', '0');
+   const chart2 = await getIntervalsDrilldown('2023', '11', '22', '0');
+   const chart = await getIntervalsChart('2023', '11', '22', '0');
 
    return (
       <div>

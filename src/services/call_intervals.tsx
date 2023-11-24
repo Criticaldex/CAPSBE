@@ -61,11 +61,55 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
       chartData[0].data.push({
          name: ele.interval.split(' ')[0],
          y: ans,
+         drilldown: 'c' + ele.interval.split(' ')[0],
       });
       chartData[1].data.push({
          name: ele.interval.split(' ')[0],
          y: aba,
+         drilldown: 'a' + ele.interval.split(' ')[0],
       });
+   });
+   return chartData;
+}
+
+export const getHoursDrilldown = async (year: string, month: string, day: string, center: string) => {
+   const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
+   const sort = "dia";
+   const data: any = await getIntervals(filter, sort);
+   let chartData: any = {
+      breadcrumbs: {
+         position: {
+            align: 'right'
+         }
+      },
+      series: []
+   };
+
+   data.forEach((ele: any) => {
+      let cSeries: any = {
+         type: 'column',
+         name: '',
+         id: '',
+         color: "var(--green)",
+         data: []
+      };
+      let aSeries: any = {
+         type: 'column',
+         name: '',
+         id: '',
+         color: "var(--red)",
+         data: []
+      };
+      cSeries.name = 'Contestades ' + ele.interval.split(' ')[0];
+      cSeries.id = 'c' + ele.interval.split(' ')[0];
+      aSeries.name = 'Abandonades ' + ele.interval.split(' ')[0];
+      aSeries.id = 'a' + ele.interval.split(' ')[0];
+      ele.titulos.forEach((e: any, i: number) => {
+         cSeries.data.push([e, ele.answered[i]])
+         aSeries.data.push([e, ele.abandoned[i]])
+      });
+      chartData.series.push(cSeries);
+      chartData.series.push(aSeries);
    });
    return chartData;
 }
@@ -97,12 +141,58 @@ export const getIntervalsChart = async (year: string, month: string, day: string
          chartData[0].data.push({
             name: e,
             y: ans,
+            drilldown: 'c' + e,
          });
          chartData[1].data.push({
             name: e,
             y: aba,
+            drilldown: 'a' + e,
          });
       });
    }
    return chartData;
+}
+
+export const getIntervalsDrilldown = async (year: string, month: string, day: string, center: string) => {
+   const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
+   const sort = "dia";
+   const data: any = await getIntervals(filter, sort);
+   let chartData: any = {
+      breadcrumbs: {
+         position: {
+            align: 'left'
+         }
+      },
+      series: []
+   };
+
+   if (data[0]) {
+      data[0].titulos.forEach((e: any, i: number) => {
+         let cSeries: any = {
+            type: 'column',
+            name: '',
+            id: '',
+            color: "var(--green)",
+            data: []
+         };
+         let aSeries: any = {
+            type: 'column',
+            name: '',
+            id: '',
+            color: "var(--red)",
+            data: []
+         };
+         cSeries.name = 'Contestades ' + e;
+         cSeries.id = 'c' + e;
+         aSeries.name = 'Abandonades ' + e;
+         aSeries.id = 'a' + e;
+         data.forEach((ele: any, ind: number) => {
+            cSeries.data.push([ele.interval.split(' ')[0], ele.answered[i]])
+            aSeries.data.push([ele.interval.split(' ')[0], ele.abandoned[i]])
+         });
+         chartData.series.push(cSeries);
+         chartData.series.push(aSeries);
+      });
+      return chartData;
+   }
 }
