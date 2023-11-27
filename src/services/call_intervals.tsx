@@ -160,7 +160,7 @@ export const getIntervalsDrilldown = async (year: string, month: string, day: st
    let chartData: any = {
       breadcrumbs: {
          position: {
-            align: 'left'
+            align: 'right'
          }
       },
       series: []

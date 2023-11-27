@@ -9,6 +9,7 @@ import { chartOptions } from '@/components/chart.components'
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
+   highchartsDrilldown(Highcharts);
 }
 
 export function IntervalsChart({ name, data, dd }: any) {
@@ -19,30 +20,6 @@ export function IntervalsChart({ name, data, dd }: any) {
       chart: {
          type: 'column',
          spacingTop: 10,
-         events: {
-            drillup: function (event: any) {
-               console.log('drillup: ', event);
-            },
-            load: function (event: any) {
-               console.log('load: ', event);
-            },
-            // redraw: function (event: any) {
-            //    console.log('redraw: ', event);
-            // },
-            // render: function (event: any) {
-            //    console.log('render: ', event);
-            // },
-            drilldown: function (event: any) {
-               console.log('drilldown: ', event);
-               this.drillup(event);
-            },
-            click: function (event: any) {
-               console.log('click: ', event);
-            },
-            drillupall: function (event: any) {
-               console.log('drillupall: ', event);
-            },
-         }
       },
       title: {
          text: name
@@ -73,12 +50,9 @@ export function IntervalsChart({ name, data, dd }: any) {
                   textOutline: 'none'
                },
             },
-
          }
       }
    }
-
-   highchartsDrilldown(Highcharts);
 
    return (
       <HighchartsReact

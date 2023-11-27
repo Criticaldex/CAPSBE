@@ -45,7 +45,8 @@ const ExpandedComponent = ({ data }: any) => {
    const [day, setDay] = useState(new Date().getDate());
    const [month, setMonth] = useState(new Date().getMonth());
    const [year, setYear] = useState(new Date().getFullYear());
-   const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
+   // const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
+   const [dayString, setDayString] = useState('23');
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
    const [detallMes, setDetallMes] = useState(null);
    const [hores, setHores] = useState(null);
@@ -59,7 +60,7 @@ const ExpandedComponent = ({ data }: any) => {
          .then((res: any) => {
             setDetallMes(res);
          });
-   }, [year, monthString, data.centro, data])
+   }, [year, monthString, data.centro])
 
    useEffect(() => {
       getHoursChart(year.toString(), monthString, dayString, data.centro)
@@ -70,19 +71,22 @@ const ExpandedComponent = ({ data }: any) => {
                .then((res: any) => {
                   setHoresDD(res);
                   console.log('horesDD. ', res);
-                  setLoading(false);
+
                });
          });
 
       getIntervalsChart(year.toString(), monthString, dayString, data.centro)
          .then((res: any) => {
+            console.log('intervals. ', res);
             setIntervals(res);
+            getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
+               .then((res: any) => {
+                  console.log('intervalsDD. ', res);
+                  setIntervalsDD(res);
+                  setLoading(false);
+               });
          });
-      getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
-         .then((res: any) => {
-            setIntervalsDD(res);
-         });
-   }, [year, monthString, data.centro, dayString])
+   }, [dayString])
 
    if (isLoading) return <Loading />
 

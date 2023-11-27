@@ -2,7 +2,6 @@ import { getCenters } from "@/services/centros";
 import { getCallsToday } from "@/services/calls";
 import { getIntervalsDay, getHoursChart, getIntervalsChart, getHoursDrilldown, getIntervalsDrilldown } from "@/services/call_intervals";
 import { CallsTable } from "./callsTable";
-import { IntervalsTable } from "./intervalsTable";
 
 export default async function ContractsLayout({ children }: any) {
    const year = new Date().getFullYear();
