@@ -14,6 +14,8 @@ export default function GetNav({ session }: any) {
 
    const pathname = usePathname();
 
+   const callsCenters = ['Capsbe', 'Demo']
+
    const navTitlesIcons = [
       {
          label: 'Dashboard',
@@ -27,7 +29,7 @@ export default function GetNav({ session }: any) {
       }
    ]
    {
-      session?.user.db == 'Capsbe' &&
+      callsCenters.includes(session?.user.db) &&
          navTitlesIcons.push(
             {
                label: 'Trucades',
