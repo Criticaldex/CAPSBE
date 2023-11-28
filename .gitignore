@@ -134,3 +134,4 @@ mongo/
 .env.production
 .env.development
 .nvmrc
+.env.local.zip

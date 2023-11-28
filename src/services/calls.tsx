@@ -128,12 +128,12 @@ export const getDashboardChart = async (year: string, month: string, center: str
       const ansTime = ((Number(ansArray[0]) * 60 * 60) + (Number(ansArray[1]) * 60) + Number(ansArray[2]))
       const abaTime = ((Number(abaArray[0]) * 60 * 60) + (Number(abaArray[1]) * 60) + Number(abaArray[2]))
 
-      chartData[0].data.push(ele.abandoned);
-      chartData[1].data.push(ele.answered);
-      chartData[2].data.push(ele.offered);
-      chartData[3].data.push(ele.overflowed);
-      chartData[4].data.push(ansTime);
-      chartData[5].data.push(abaTime);
+      chartData[0].data.push({ name: ele.dia, y: ele.abandoned });
+      chartData[1].data.push({ name: ele.dia, y: ele.answered });
+      chartData[2].data.push({ name: ele.dia, y: ele.offered });
+      chartData[3].data.push({ name: ele.dia, y: ele.overflowed });
+      chartData[4].data.push({ name: ele.dia, y: ansTime });
+      chartData[5].data.push({ name: ele.dia, y: abaTime });
    });
    return chartData;
 }
@@ -145,26 +145,4 @@ export const getDashboardChartDays = async (year: string, month: string, center:
       days.push(ele.dia);
    });
    return days;
-}
-
-export const getTableIndicatorsNoCpr = async (year: string) => {
-   const filter: any = {
-      identificador: {
-         $nin: [
-            "GESTINF05",
-            "PLA006",
-            "POBATINF01",
-            "CRONICITAT_RES",
-            "GC0005",
-            "NUT01",
-            "FIS01",
-            "BEN01",
-            "BENRES01",
-            "EQA0208"
-         ]
-      },
-      any: year
-   };
-   const data = await getCalls(filter);
-   return _.groupBy(data, 'identificador');
 }

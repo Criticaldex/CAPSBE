@@ -1,12 +1,30 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { Chart } from "./callsChart";
+import { CallsChart } from "./callsChart";
+import { IntervalsChart } from "./intervalsChart";
 import { createThemes } from "@/styles/themes"
-import { getDashboardChart, getDashboardChartDays } from "@/services/calls";
+import { getDashboardChart } from "@/services/calls";
+import { getHoursChart, getHoursDrilldown, getIntervalsChart, getIntervalsDrilldown } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
+import { when } from 'jquery';
 
-const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, setYearString: any, modifier: string) => (event: any) => {
+let hoursChart: any = null;
+let intervalsChart: any = null;
+
+const hoursChartCreated = (chart: any) => {
+   if (!chart.options.chart.forExport) {
+      hoursChart = chart;
+   }
+}
+
+const intervalsChartCreated = (chart: any) => {
+   if (!chart.options.chart.forExport) {
+      intervalsChart = chart;
+   }
+}
+
+const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, modifier: string) => (event: any) => {
    const pad = '00';
    switch (modifier) {
       case '<':
@@ -14,7 +32,6 @@ const monthHandler = (month: number, setMonth: any, setMonthString: any, year: n
             setMonth(11)
             setMonthString('12')
             setYear(year - 1)
-            setYearString((year - 1).toString())
          } else {
             setMonth(month - 1)
             setMonthString((pad + month).slice(-pad.length));
@@ -25,7 +42,6 @@ const monthHandler = (month: number, setMonth: any, setMonthString: any, year: n
             setMonth(0)
             setMonthString('1')
             setYear(year + 1)
-            setYearString((year + 1).toString())
          } else {
             setMonth(month + 1);
             setMonthString((pad + (month + 2)).slice(-pad.length));
@@ -41,39 +57,92 @@ const ExpandedComponent = ({ data }: any) => {
    // const year = new Date().getFullYear().toString();
    const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
 
+   const [day, setDay] = useState(new Date().getDate());
    const [month, setMonth] = useState(new Date().getMonth());
    const [year, setYear] = useState(new Date().getFullYear());
+   const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
-   const [yearString, setYearString] = useState(new Date().getFullYear().toString());
-   const [detall, setDetall] = useState(null);
-   const [days, setDays] = useState(null);
+   const [detallMes, setDetallMes] = useState(null);
+   const [hores, setHores] = useState(null);
+   const [horesDD, setHoresDD] = useState(null);
+   const [intervals, setIntervals] = useState(null);
+   const [intervalsDD, setIntervalsDD] = useState(null);
    const [isLoading, setLoading] = useState(true);
 
    useEffect(() => {
-      getDashboardChart(yearString, monthString, data.centro)
+      getDashboardChart(year.toString(), monthString, data.centro)
          .then((res: any) => {
-            setDetall(res);
-            getDashboardChartDays(yearString, monthString, data.centro)
-               .then((res: any) => {
-                  setDays(res);
-                  setLoading(false);
-               });
+            setDetallMes(res);
          });
-   }, [yearString, monthString, data.centro])
+   }, [year, monthString, data.centro])
+
+   useEffect(() => {
+      if (hoursChart) {
+         console.log('callsTable useEffect: ', hoursChart);
+         hoursChart.drillUp();
+      }
+
+      if (intervalsChart) {
+         console.log('callsTable useEffect: ', intervalsChart);
+         intervalsChart.drillUp();
+      }
+
+      when(
+         getHoursChart(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               setHores(res);
+            }),
+         getIntervalsChart(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               // console.log('intervals. ', res);
+               setIntervals(res);
+            }),
+         getHoursDrilldown(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               setHoresDD(res);
+            }),
+         getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               // console.log('intervalsDD. ', res);
+               setIntervalsDD(res);
+               setLoading(false);
+            })
+      ).done(() => {
+         setLoading(false)
+      })
+   }, [data.centro, dayString, monthString, year])
 
    if (isLoading) return <Loading />
 
    return (
       <>
          <div className='flex justify-center'>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '<')}>&lt;</button>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, setYearString, '>')}>&gt;</button>
+            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, '<')}>&lt;</button>
+            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, '>')}>&gt;</button>
          </div>
-         <Chart
+         <CallsChart
             name={monthName[month] + ' ' + year}
-            data={detall}
-            days={days}
+            data={detallMes}
+            setter={setDayString}
          />
+         <div className='flex'>
+            <div className='basis-1/2'>
+               <IntervalsChart
+                  name={'Hores ' + dayString + '/' + monthString + '/' + year.toString()}
+                  data={hores}
+                  dd={horesDD}
+                  callback={hoursChartCreated}
+               />
+            </div>
+            <div className='basis-1/2'>
+               <IntervalsChart
+                  name={'Intervals ' + dayString + '/' + monthString + '/' + year.toString()}
+                  data={intervals}
+                  dd={intervalsDD}
+                  callback={intervalsChartCreated}
+               />
+            </div>
+         </div>
       </>
    );
 }
@@ -145,7 +214,6 @@ export function CallsTable({ date, data, centros }: any) {
          }
       });
    });
-
 
    createThemes();
 

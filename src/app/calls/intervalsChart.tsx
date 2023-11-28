@@ -2,52 +2,53 @@
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
+import highchartsDrilldown from "highcharts/modules/drilldown";
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
+   highchartsDrilldown(Highcharts);
 }
 
-export function CallsChart({ name, data, setter }: any) {
+export function IntervalsChart({ name, data, dd, callback }: any) {
+
    const options = {
       ...chartOptions,
       chart: {
-         spacingTop: 10
+         type: 'column',
+         spacingTop: 10,
       },
       title: {
          text: name
       },
       series: data,
-      yAxis: [{
+      drilldown: dd,
+      yAxis: {
          title: {
             text: 'Nº Trucades'
          }
-      }, {
-         title: {
-            text: 'Temps (s)'
-         },
-         opposite: true
-      }],
+      },
       xAxis: {
          type: 'category'
       },
+      legend: {
+         enabled: false,
+      },
       plotOptions: {
+         column: {
+            stacking: 'normal'
+         },
          series: {
             borderWidth: 0,
-            maxPointWidth: 10,
+            maxPointWidth: 50,
             dataLabels: {
                enabled: true,
                style: {
                   textOutline: 'none'
                },
             },
-            events: {
-               click: function (event: any) {
-                  setter(event.point.name);
-               }
-            }
          }
       }
    }
@@ -56,6 +57,7 @@ export function CallsChart({ name, data, setter }: any) {
       <HighchartsReact
          highcharts={Highcharts}
          options={options}
+         callback={callback}
       />
    )
 }
