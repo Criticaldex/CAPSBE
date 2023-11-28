@@ -3,11 +3,26 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { CallsChart } from "./callsChart";
 import { IntervalsChart } from "./intervalsChart";
-import { IntervalsDetailChart } from "./intervalsDetailChart";
 import { createThemes } from "@/styles/themes"
-import { getDashboardChart, getDashboardChartDays } from "@/services/calls";
+import { getDashboardChart } from "@/services/calls";
 import { getHoursChart, getHoursDrilldown, getIntervalsChart, getIntervalsDrilldown } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
+import { when } from 'jquery';
+
+let hoursChart: any = null;
+let intervalsChart: any = null;
+
+const hoursChartCreated = (chart: any) => {
+   if (!chart.options.chart.forExport) {
+      hoursChart = chart;
+   }
+}
+
+const intervalsChartCreated = (chart: any) => {
+   if (!chart.options.chart.forExport) {
+      intervalsChart = chart;
+   }
+}
 
 const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, modifier: string) => (event: any) => {
    const pad = '00';
@@ -45,8 +60,7 @@ const ExpandedComponent = ({ data }: any) => {
    const [day, setDay] = useState(new Date().getDate());
    const [month, setMonth] = useState(new Date().getMonth());
    const [year, setYear] = useState(new Date().getFullYear());
-   // const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
-   const [dayString, setDayString] = useState('23');
+   const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
    const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
    const [detallMes, setDetallMes] = useState(null);
    const [hores, setHores] = useState(null);
@@ -63,30 +77,40 @@ const ExpandedComponent = ({ data }: any) => {
    }, [year, monthString, data.centro])
 
    useEffect(() => {
-      getHoursChart(year.toString(), monthString, dayString, data.centro)
-         .then((res: any) => {
-            setHores(res);
-            console.log('hores. ', res);
-            getHoursDrilldown(year.toString(), monthString, dayString, data.centro)
-               .then((res: any) => {
-                  setHoresDD(res);
-                  console.log('horesDD. ', res);
+      if (hoursChart) {
+         console.log('callsTable useEffect: ', hoursChart);
+         hoursChart.drillUp();
+      }
 
-               });
-         });
+      if (intervalsChart) {
+         console.log('callsTable useEffect: ', intervalsChart);
+         intervalsChart.drillUp();
+      }
 
-      getIntervalsChart(year.toString(), monthString, dayString, data.centro)
-         .then((res: any) => {
-            console.log('intervals. ', res);
-            setIntervals(res);
-            getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
-               .then((res: any) => {
-                  console.log('intervalsDD. ', res);
-                  setIntervalsDD(res);
-                  setLoading(false);
-               });
-         });
-   }, [dayString])
+      when(
+         getHoursChart(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               setHores(res);
+            }),
+         getIntervalsChart(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               // console.log('intervals. ', res);
+               setIntervals(res);
+            }),
+         getHoursDrilldown(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               setHoresDD(res);
+            }),
+         getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
+            .then((res: any) => {
+               // console.log('intervalsDD. ', res);
+               setIntervalsDD(res);
+               setLoading(false);
+            })
+      ).done(() => {
+         setLoading(false)
+      })
+   }, [data.centro, dayString, monthString, year])
 
    if (isLoading) return <Loading />
 
@@ -107,6 +131,7 @@ const ExpandedComponent = ({ data }: any) => {
                   name={'Hores ' + dayString + '/' + monthString + '/' + year.toString()}
                   data={hores}
                   dd={horesDD}
+                  callback={hoursChartCreated}
                />
             </div>
             <div className='basis-1/2'>
@@ -114,6 +139,7 @@ const ExpandedComponent = ({ data }: any) => {
                   name={'Intervals ' + dayString + '/' + monthString + '/' + year.toString()}
                   data={intervals}
                   dd={intervalsDD}
+                  callback={intervalsChartCreated}
                />
             </div>
          </div>

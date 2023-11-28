@@ -12,8 +12,7 @@ if (typeof Highcharts === "object") {
    highchartsDrilldown(Highcharts);
 }
 
-export function IntervalsChart({ name, data, dd }: any) {
-   console.log('dd: ', dd);
+export function IntervalsChart({ name, data, dd, callback }: any) {
 
    const options = {
       ...chartOptions,
@@ -58,6 +57,7 @@ export function IntervalsChart({ name, data, dd }: any) {
       <HighchartsReact
          highcharts={Highcharts}
          options={options}
+         callback={callback}
       />
    )
 }

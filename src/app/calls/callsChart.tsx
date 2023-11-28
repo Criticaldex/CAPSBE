@@ -46,11 +46,6 @@ export function CallsChart({ name, data, setter }: any) {
             events: {
                click: function (event: any) {
                   setter(event.point.name);
-                  let collection = document.querySelector('.highcharts-no-tooltip.highcharts-button.highcharts-breadcrumbs-button.highcharts-button-normal');
-                  if (collection) {
-                     console.log(collection);
-                     // collection.click();
-                  }
                }
             }
          }
