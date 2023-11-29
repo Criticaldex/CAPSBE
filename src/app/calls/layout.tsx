@@ -11,8 +11,6 @@ export default async function ContractsLayout({ children }: any) {
    const date = day + '/' + month + '/' + year;
    const centros = await getCenters();
    const calls = await getCallsToday();
-   const chart2 = await getIntervalsDrilldown('2023', '11', '22', '0');
-   const chart = await getIntervalsChart('2023', '11', '22', '0');
 
    return (
       <div>

@@ -78,12 +78,10 @@ const ExpandedComponent = ({ data }: any) => {
 
    useEffect(() => {
       if (hoursChart) {
-         console.log('callsTable useEffect: ', hoursChart);
          hoursChart.drillUp();
       }
 
       if (intervalsChart) {
-         console.log('callsTable useEffect: ', intervalsChart);
          intervalsChart.drillUp();
       }
 
@@ -105,7 +103,6 @@ const ExpandedComponent = ({ data }: any) => {
             .then((res: any) => {
                // console.log('intervalsDD. ', res);
                setIntervalsDD(res);
-               setLoading(false);
             })
       ).done(() => {
          setLoading(false)
