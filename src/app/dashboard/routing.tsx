@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link"
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
@@ -58,6 +58,46 @@ export function GetLinksCenters({ centros }: any) {
 }
 
 export function GetSectionButtons() {
+   const pathname = usePathname();
+   const router = useRouter();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const center = (pathArray[2]) ? pathArray[2] : null;
+   const group = (pathArray[4]) ? pathArray[4] : null;
+
+   let links: object[] = [{
+      label: 'General',
+      route: `/dashboard/${center}/${year}/general`
+   }, {
+      label: 'CPR',
+      route: `/dashboard/${center}/${year}/cpr`
+   }, {
+      label: 'Sense CPR',
+      route: `/dashboard/${center}/${year}/nocpr`
+   }];
+
+   return (
+      <>
+         <label>
+            Centre:{' '}
+            <select value={`/dashboard/${center}/${year}/${group}`}
+               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+               onChange={e => {
+                  router.push(e.target.value)
+               }}>
+
+               {links.map((link: any) => {
+                  return <option key={link.route} value={link.route}>
+                     {link.label}
+                  </option>
+               })}
+            </select>
+         </label>
+      </>
+   )
+}
+
+export function GetSectionButtonsOLD() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;

@@ -1,8 +1,9 @@
 'use client'
-import React from 'react';
+import React, { useMemo } from 'react';
 import DataTable from 'react-data-table-component';
 import { Eqa } from "../eqa";
 import { createThemes } from "@/styles/themes"
+import { GetSectionButtons } from '../../../routing';
 
 const ExpandedComponent = ({ data }: any) => {
    const infoChart = data.values.map((i: any) => {
@@ -22,6 +23,15 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function DashboardTable({ data, centros }: any) {
+
+   const subHeaderComponentMemo = useMemo(() => {
+      return (
+         <div className="flex justify-between grow m-2">
+            <GetSectionButtons />
+         </div>
+      );
+   }, []);
+
    let columns: any = [{
       name: 'Indicador',
       selector: (row: any) => row.Indicador,
@@ -123,6 +133,9 @@ export function DashboardTable({ data, centros }: any) {
          expandableRows
          expandOnRowClicked
          expandableRowsComponent={ExpandedComponent}
+         subHeader
+         subHeaderComponent={subHeaderComponentMemo}
+         persistTableHead
       />
    )
 };

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { CallsChart } from "./callsChart";
 import { IntervalsChart } from "./intervalsChart";
-import { createThemes } from "@/styles/themes"
+import { createThemes } from "@/styles/themes";
 import { getDashboardChart } from "@/services/calls";
 import { getHoursChart, getHoursDrilldown, getIntervalsChart, getIntervalsDrilldown } from "@/services/call_intervals";
 import { Loading } from "@/components/loading.component";
