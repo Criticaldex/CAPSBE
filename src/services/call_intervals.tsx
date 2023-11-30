@@ -91,8 +91,6 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
          y: ele.cola
       });
    });
-   console.log('chartData: ', chartData);
-
    return chartData;
 }
 
