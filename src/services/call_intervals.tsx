@@ -44,20 +44,20 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
       name: 'Contestades',
       color: "var(--green)",
       data: [],
+      yAxis: 0
    }, {
       type: 'column',
       name: 'Abandonades',
       color: "var(--red)",
       data: [],
-   },
-   {
+      yAxis: 0
+   }, {
       type: 'spline',
       name: 'Operadors',
       color: "var(--lightBlue)",
       data: [],
       yAxis: 1
-   },
-   {
+   }, {
       type: 'spline',
       name: 'Cua',
       color: "var(--orange)",
