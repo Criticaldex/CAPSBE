@@ -79,7 +79,7 @@ export function GetSectionButtons() {
    return (
       <>
          <label>
-            Centre:{' '}
+            Grup:{' '}
             <select value={`/dashboard/${center}/${year}/${group}`}
                className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
                onChange={e => {
