@@ -44,11 +44,13 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
       name: 'Contestades',
       color: "var(--green)",
       data: [],
+      yAxis: 0
    }, {
       type: 'column',
       name: 'Abandonades',
       color: "var(--red)",
       data: [],
+      yAxis: 0
    },
    {
       type: 'spline',
@@ -91,6 +93,8 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
          y: ele.cola
       });
    });
+   console.log('chartData: ', chartData);
+
    return chartData;
 }
 
