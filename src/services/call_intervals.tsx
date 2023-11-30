@@ -49,6 +49,20 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
       name: 'Abandonades',
       color: "var(--red)",
       data: [],
+   },
+   {
+      type: 'spline',
+      name: 'Operadors',
+      color: "var(--lightBlue)",
+      data: [],
+      yAxis: 1
+   },
+   {
+      type: 'spline',
+      name: 'Cua',
+      color: "var(--orange)",
+      data: [],
+      yAxis: 1
    }];
 
    data.forEach((ele: any) => {
@@ -67,6 +81,14 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
          name: ele.interval.split(' ')[0],
          y: aba,
          drilldown: 'a' + ele.interval.split(' ')[0],
+      });
+      chartData[2].data.push({
+         name: ele.interval.split(' ')[0],
+         y: ele.ready
+      });
+      chartData[3].data.push({
+         name: ele.interval.split(' ')[0],
+         y: ele.cola
       });
    });
    return chartData;

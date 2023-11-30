@@ -25,11 +25,16 @@ export function IntervalsChart({ name, data, dd, callback }: any) {
       },
       series: data,
       drilldown: dd,
-      yAxis: {
+      yAxis: [{
          title: {
             text: 'Nº Trucades'
          }
-      },
+      }, {
+         title: {
+            text: 'Persones'
+         },
+         opposite: true
+      }],
       xAxis: {
          type: 'category'
       },
