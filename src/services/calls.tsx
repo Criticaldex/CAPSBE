@@ -32,10 +32,13 @@ const getCalls = async (filter: any) => {
 }
 
 export const getCallsToday = async () => {
-   const pad = '00';
-   const date = (pad + (new Date().getDate() - 1)).slice(-pad.length);
-   const month = (pad + (new Date().getMonth() + 1)).slice(-pad.length);
-   const year = new Date().getFullYear().toString();
+   const hoy = new Date()
+   const ayer = new Date(hoy)
+   ayer.setDate(hoy.getDate() - 1)
+
+   const date = ayer.getDate().toString();
+   const month = (ayer.getMonth() + 1).toString();
+   const year = ayer.getFullYear().toString();
 
    const filter = {
       centro: {

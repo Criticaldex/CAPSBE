@@ -56,13 +56,16 @@ const ExpandedComponent = ({ data }: any) => {
    const pad = '00';
    // const year = new Date().getFullYear().toString();
    const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+   const hoy = new Date()
+   const ayer = new Date(hoy)
+   ayer.setDate(hoy.getDate() - 1)
 
    const [day, setDay] = useState(new Date().getDate());
    const [month, setMonth] = useState(new Date().getMonth());
    const [year, setYear] = useState(new Date().getFullYear());
-   const [dayString, setDayString] = useState((pad + (day - 1)).slice(-pad.length));
-   const [monthString, setMonthString] = useState((pad + (month + 1)).slice(-pad.length));
-   const [detallMes, setDetallMes] = useState(null);
+   const [dayString, setDayString] = useState(ayer.getDate().toString());
+   const [monthString, setMonthString] = useState("11");
+   const [detallMes, setDetallMes] = useState((ayer.getMonth() + 1).toString());
    const [hores, setHores] = useState(null);
    const [horesDD, setHoresDD] = useState(null);
    const [intervals, setIntervals] = useState(null);
