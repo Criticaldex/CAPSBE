@@ -61,11 +61,11 @@ const ExpandedComponent = ({ data }: any) => {
    const pad = '00';
 
 
-   const [day, setDay] = useState(new Date().getDate());
-   const [month, setMonth] = useState(new Date().getMonth());
-   const [year, setYear] = useState(new Date().getFullYear());
-   const [dayString, setDayString] = useState((pad + ayer.getDate().toString()).slice(-pad.length));
-   const [monthString, setMonthString] = useState((pad + (ayer.getMonth() + 1).toString()).slice(-pad.length));
+   const [day, setDay] = useState(ayer.getDate());
+   const [month, setMonth] = useState(ayer.getMonth());
+   const [year, setYear] = useState(ayer.getFullYear());
+   const [dayString, setDayString] = useState((pad + day.toString()).slice(-pad.length));
+   const [monthString, setMonthString] = useState((pad + (month + 1).toString()).slice(-pad.length));
    const [detallMes, setDetallMes] = useState(null);
    const [hores, setHores] = useState(null);
    const [horesDD, setHoresDD] = useState(null);
@@ -122,7 +122,7 @@ const ExpandedComponent = ({ data }: any) => {
             <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, '>')}>&gt;</button>
          </div>
          <CallsChart
-            name={monthName[month - 1] + ' ' + year}
+            name={monthName[month] + ' ' + year}
             data={detallMes}
             setter={setDayString}
          />
