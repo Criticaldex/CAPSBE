@@ -35,9 +35,10 @@ export const getCallsToday = async () => {
    const hoy = new Date()
    const ayer = new Date(hoy)
    ayer.setDate(hoy.getDate() - 1)
+   const pad = '00';
 
-   const date = ayer.getDate().toString();
-   const month = (ayer.getMonth() + 1).toString();
+   const date = (pad + ayer.getDate().toString()).slice(-pad.length);
+   const month = (pad + (ayer.getMonth() + 1).toString()).slice(-pad.length);
    const year = ayer.getFullYear().toString();
 
    const filter = {
