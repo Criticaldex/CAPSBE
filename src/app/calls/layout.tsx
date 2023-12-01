@@ -4,10 +4,14 @@ import { getIntervalsDay, getHoursChart, getIntervalsChart, getHoursDrilldown, g
 import { CallsTable } from "./callsTable";
 
 export default async function ContractsLayout({ children }: any) {
-   const year = new Date().getFullYear();
+   const hoy = new Date()
+   const ayer = new Date(hoy)
+   ayer.setDate(hoy.getDate() - 1)
    const pad = '00';
-   const day = (pad + (new Date().getDate() - 1)).slice(-pad.length);
-   const month = (pad + (new Date().getMonth() + 1)).slice(-pad.length);
+
+   const day = (pad + ayer.getDate().toString()).slice(-pad.length);
+   const month = (pad + (ayer.getMonth() + 1).toString()).slice(-pad.length);
+   const year = ayer.getFullYear().toString();
    const date = day + '/' + month + '/' + year;
    const centros = await getCenters();
    const calls = await getCallsToday();
