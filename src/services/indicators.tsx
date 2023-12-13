@@ -86,7 +86,15 @@ export const getYears = async () => {
    return years;
 }
 
-export const getAdminTable = async (year: string, center: string, db?: string) => {
+export const getAdminTable = async (year: string, db?: string) => {
+   const filter: any = {
+      any: year
+   };
+   const data = await getIndicators(filter, db);
+   return _.groupBy(data, 'codi');
+}
+
+export const getAdminTable_OLD = async (year: string, center: string, db?: string) => {
    const filter: any = {
       any: year,
       centre: center
