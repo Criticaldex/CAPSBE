@@ -18,7 +18,7 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
          if (Object.hasOwn(dirtyFields, 'grup') || Object.hasOwn(dirtyFields, 'ordre')) {
             const userConf: any = {
                email: session?.user.email,
-               configs: data.configs
+               configs: data.configs ? data.configs : { dashboard: {} }
             };
             userConf.configs.dashboard[data.codi] = {
                grup: grup,
