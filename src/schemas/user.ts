@@ -12,7 +12,7 @@ export interface UserIface {
    },
    db: string,
    role: string,
-   config: {
+   configs: {
       dashboard: any
    }
 }
@@ -46,6 +46,11 @@ const UserSchema = new mongoose.Schema({
    },
    role: {
       type: String,
+   },
+   configs: {
+      dashboard: {
+         type: Object,
+      }
    }
 });
 

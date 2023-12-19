@@ -3,7 +3,6 @@ import { UsersForm } from "./form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export default async function ProfilePage() {
    const session = await getSession();
 

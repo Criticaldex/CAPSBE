@@ -3,13 +3,16 @@ import mongoose from 'mongoose'
 export interface IndicatorIface {
    identificador: string,
    indicador: string,
+   codi: string,
    any: string,
    centre?: string,
-   grup: string,
+   grup?: string,
    invers: boolean,
    objectiu: any,
-   ordre: any,
-   dbName: string
+   ordre?: any,
+   dbName: string,
+   objectius: any,
+   configs?: object
 }
 
 const Schema = new mongoose.Schema({
@@ -25,13 +28,7 @@ const Schema = new mongoose.Schema({
       type: String,
       required: [true, 'El Centre es obligatori!']
    },
-   grup: {
-      type: String
-   },
    objectiu: {
-      type: Number
-   },
-   ordre: {
       type: Number
    },
    invers: {

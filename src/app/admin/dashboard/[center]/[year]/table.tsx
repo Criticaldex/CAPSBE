@@ -12,36 +12,9 @@ import { GetLinksCenters, GetLinksYears } from '../../routing';
 
 export function AdminTable({ data, centers, years }: any) {
 
-   let tableData: any = [];
-
-   for (const [key, value] of (Object.entries(data) as [string, any][])) {
-
-      let indicador: {
-         any: string,
-         centre: string,
-         codi: string,
-         grup: string,
-         identificador: string,
-         indicador: string,
-         invers: boolean,
-         objectius: any,
-         ordre: number
-      } = value[0] ? value[0] : null;
-      indicador.objectius = {};
-
-      value.forEach((val: any) => {
-         centers.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
-            if (val.centre == centro.id) {
-               indicador.objectius[centro.name] = val.objectiu ? val.objectiu : null;
-            }
-         });
-      });
-      tableData.push(indicador);
-   }
-
-   const [rows, setRows] = useState(tableData);
+   const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
-   const [isClient, setIsClient] = useState(false)
+   const [isClient, setIsClient] = useState(false);
 
    useEffect(() => {
       setIsClient(true)
@@ -84,8 +57,6 @@ export function AdminTable({ data, centers, years }: any) {
    const editHandler = (row: IndicatorIface, reset: UseFormReset<IndicatorIface>) => (event: any) => {
       reset()
       reset(row)
-      console.log("ROW: ", row);
-
    }
 
    let columns: any = [
