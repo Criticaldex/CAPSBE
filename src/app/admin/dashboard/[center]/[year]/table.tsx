@@ -14,7 +14,7 @@ export function AdminTable({ data, centers, years }: any) {
 
    const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
-   const [isClient, setIsClient] = useState(false)
+   const [isClient, setIsClient] = useState(false);
 
    useEffect(() => {
       setIsClient(true)
@@ -65,12 +65,17 @@ export function AdminTable({ data, centers, years }: any) {
          selector: (row: any) => row.codi,
          grow: 2,
          sortable: true,
+         minWidth: '30px',
+         compact: false,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Nom',
          selector: (row: any) => row.indicador,
-         grow: 10,
+         grow: 8,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
@@ -78,24 +83,42 @@ export function AdminTable({ data, centers, years }: any) {
          name: 'Grup',
          selector: (row: any) => row.grup,
          sortable: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Ordre',
          selector: (row: any) => row.ordre,
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
-         name: 'Objectiu',
-         selector: (row: any) => row.objectiu,
+      }
+   ];
+   centers.map((centro: any) => {
+      columns.push({
+         name: `Objectiu ${centro.name}`,
+         selector: (row: any) => row.objectius[centro.name],
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
+      })
+   });
+   columns.push(
       {
          name: 'Invers',
          selector: (row: any) => row.invers ? "X" : "",
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
@@ -106,9 +129,10 @@ export function AdminTable({ data, centers, years }: any) {
             </div>
          ),
          ignoreRowClick: true,
+         center: true,
+         wrap: true,
          button: true,
-      }
-   ];
+      });
 
    createThemes();
 
@@ -130,6 +154,7 @@ export function AdminTable({ data, centers, years }: any) {
                </div>
                <div className="flex basis-1/4 rounded-md bg-light">
                   <DashboardForm
+                     centers={centers}
                      register={register}
                      handleSubmit={handleSubmit}
                      errors={errors}

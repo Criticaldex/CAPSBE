@@ -26,19 +26,12 @@ export async function PATCH(request: Request) {
       if (!body.identificador || !body.any) {
          return NextResponse.json(`identificador i any obligatoris!`);
       }
-      let filter = {};
-      if (!body.centre) {
-         filter = {
-            any: body.any,
-            identificador: body.identificador
-         };
-      } else {
-         filter = {
-            any: body.any,
-            centre: body.centre,
-            identificador: body.identificador
-         };
-      }
+
+      let filter = {
+         any: body.any,
+         centre: body.centre,
+         identificador: body.identificador
+      };
 
       const { dbName, ...bodyWithoutDB } = body
       await dbConnect();
@@ -46,8 +39,9 @@ export async function PATCH(request: Request) {
       if (!db.models.indicator) {
          db.model('indicator', indicatorSchema);
       }
-      const res = await db.models.indicator.updateMany(filter, bodyWithoutDB, {
-         upsert: false,
+      const res = await db.models.indicator.findOneAndUpdate(filter, bodyWithoutDB, {
+         new: true,
+         rawResult: true
       }).lean();
 
       return NextResponse.json(res);
