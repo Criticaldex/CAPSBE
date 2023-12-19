@@ -101,8 +101,8 @@ export const getAdminTable = async (year: string, centros: any, email: any, db?:
    for (const [key, value] of (Object.entries(indicadors) as [string, any][])) {
 
       let indicador: IndicatorIface = value[0] ? value[0] : null;
-      indicador.grup = user.configs.dashboard[key]?.grup;
-      indicador.ordre = user.configs.dashboard[key]?.ordre;
+      indicador.grup = user.configs?.dashboard[key]?.grup;
+      indicador.ordre = user.configs?.dashboard[key]?.ordre;
       indicador.configs = user.configs;
 
       indicador.objectius = {};
