@@ -6,21 +6,20 @@ export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const up = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
-   const any = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const any = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
 
    return (
       <>
          <label>
             Any:{' '}
-            <select value={`/admin/dashboard/${up}/${any}`}
+            <select value={`/admin/dashboard/${any}`}
                className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
                onChange={e => {
                   router.push(e.target.value)
                }}>
 
                {years.map((year: any) => {
-                  return <option key={year} value={`/admin/dashboard/${up}/${year}`}>
+                  return <option key={year} value={`/admin/dashboard/${year}`}>
                      {year}
                   </option>
                })}

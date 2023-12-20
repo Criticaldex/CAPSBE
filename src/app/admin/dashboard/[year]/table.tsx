@@ -8,7 +8,7 @@ import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { GetLinksCenters, GetLinksYears } from '../../routing';
+import { GetLinksCenters, GetLinksYears } from '../routing';
 
 export function AdminTable({ data, centers, years }: any) {
 
@@ -27,9 +27,6 @@ export function AdminTable({ data, centers, years }: any) {
    const subHeaderComponentMemo = useMemo(() => {
       return (
          <div className="flex justify-between grow m-2">
-            <GetLinksCenters
-               centros={centers}
-            />
             <GetLinksYears
                years={years}
             />
