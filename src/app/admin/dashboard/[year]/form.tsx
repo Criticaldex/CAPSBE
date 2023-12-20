@@ -143,6 +143,7 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
          <div className="inline-flex justify-end">
             <label htmlFor="invers" className="self-center">Invers:</label>
             <input id="invers"
+               disabled
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12`}
                {...register("invers")} type="checkbox" value="true" />
          </div>
