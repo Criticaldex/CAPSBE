@@ -24,13 +24,14 @@ export const DashboardForm = async ({ centers, register, handleSubmit, errors, c
                grup: grup,
                ordre: ordre
             };
+
             const upsert = await upsertUser(userConf);
             if (upsert.lastErrorObject?.updatedExisting) {
                toast.success('Usuari Modificat!', { theme: "colored" });
             }
          }
 
-         if (Object.hasOwn(dirtyFields, 'objectius')) {
+         if (Object.hasOwn(dirtyFields, 'objectius') && session?.user.role != '2') {
             for (const [key, value] of (Object.entries(dirtyFields.objectius) as [string, any][])) {
                centers.forEach(async (center: { name: string | number; id: string; }, i: any) => {
                   if (center.name == key) {
