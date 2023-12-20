@@ -77,12 +77,7 @@ const nextConfig = {
          },
          {
             source: '/admin/dashboard',
-            destination: `/admin/dashboard/0/${process.env.DASHBOARD_DEFAULT_YEAR}`,
-            permanent: false,
-         },
-         {
-            source: '/admin/dashboard/:centre',
-            destination: `/admin/dashboard/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            destination: `/admin/dashboard/${process.env.DASHBOARD_DEFAULT_YEAR}`,
             permanent: false,
          },
          {

@@ -5,18 +5,10 @@ import { getCenters } from "@/services/centros";
 import { getSession } from "@/services/session";
 
 export default async function AdminDashboard({ params }: any) {
-   const { year, center } = params;
-   let up: string = '';
-   let nameCentro: string = '';
+   const { year } = params;
    const session = await getSession();
    const centros = await getCenters();
    const years = await getYears();
-   centros.map((centro: any) => {
-      if (centro.id == center) {
-         up = centro.up
-         nameCentro = centro.name
-      }
-   })
 
    const indicadores = await getAdminTable(year, centros, session?.user.email);
 
