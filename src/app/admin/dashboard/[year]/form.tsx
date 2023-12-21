@@ -5,11 +5,11 @@ import { getAdminTable, updateIndicators } from "@/services/indicators";
 import { upsertUser } from "@/services/users";
 import { getSession } from "next-auth/react";
 
-export const DashboardForm = ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+export const DashboardForm = async ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+   const session = await getSession();
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
          const centre = data.centre as string;
-         const session = await getSession();
          data.dbName = session?.user.db as string;
          const ordre = Object.hasOwn(data, 'ordre') ? data.ordre : null;
          delete data.ordre;
@@ -24,13 +24,14 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
                grup: grup,
                ordre: ordre
             };
+
             const upsert = await upsertUser(userConf);
             if (upsert.lastErrorObject?.updatedExisting) {
                toast.success('Usuari Modificat!', { theme: "colored" });
             }
          }
 
-         if (Object.hasOwn(dirtyFields, 'objectius')) {
+         if (Object.hasOwn(dirtyFields, 'objectius') && session?.user.role != '2') {
             for (const [key, value] of (Object.entries(dirtyFields.objectius) as [string, any][])) {
                centers.forEach(async (center: { name: string | number; id: string; }, i: any) => {
                   if (center.name == key) {
@@ -128,6 +129,7 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
                <div key={i} className="inline-flex justify-end">
                   <label htmlFor={centro.name} className="self-center">{centro.name}:</label>
                   <input id={centro.name}
+                     disabled={session?.user.role == '2'}
                      className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.objectius?.[centro.name] ? 'border-foreground' : 'border-red'}`}
                      {...register("objectius." + centro.name, {
                         pattern: {
@@ -143,6 +145,7 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
          <div className="inline-flex justify-end">
             <label htmlFor="invers" className="self-center">Invers:</label>
             <input id="invers"
+               disabled
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12`}
                {...register("invers")} type="checkbox" value="true" />
          </div>

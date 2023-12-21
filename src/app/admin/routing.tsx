@@ -11,15 +11,15 @@ export function GetLinksAdmin({ session }: any) {
       {
          label: 'Perfil',
          route: `/admin/profile`
+      },
+      {
+         label: 'Quadre Comandament',
+         route: `/admin/dashboard`
       }
    ];
 
    if (session?.user.role != "2") {
       links.push(
-         {
-            label: 'Quadre Comandament',
-            route: `/admin/dashboard`
-         },
          {
             label: 'Professionals',
             route: `/admin/professionals`
