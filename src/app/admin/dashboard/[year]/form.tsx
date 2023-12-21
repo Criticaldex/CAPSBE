@@ -3,13 +3,12 @@
 import { IndicatorIface } from "@/schemas/indicator";
 import { getAdminTable, updateIndicators } from "@/services/indicators";
 import { upsertUser } from "@/services/users";
-import { getSession } from "next-auth/react";
 
-export const DashboardForm = async ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
-   const session = await getSession();
+export const DashboardForm = ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset, session }: any) => {
+   console.log('session: ', session);
+
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
-         const centre = data.centre as string;
          data.dbName = session?.user.db as string;
          const ordre = Object.hasOwn(data, 'ordre') ? data.ordre : null;
          delete data.ordre;

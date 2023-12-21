@@ -18,6 +18,7 @@ export default async function AdminDashboard({ params }: any) {
             data={indicadores}
             centers={centros}
             years={years}
+            session={session}
          />
       </div >
    )

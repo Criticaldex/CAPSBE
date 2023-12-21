@@ -8,9 +8,9 @@ import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { GetLinksCenters, GetLinksYears } from '../routing';
+import { GetLinksYears } from '../routing';
 
-export function AdminTable({ data, centers, years }: any) {
+export function AdminTable({ data, centers, years, session }: any) {
 
    const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
@@ -41,7 +41,7 @@ export function AdminTable({ data, centers, years }: any) {
             />
          </div>
       );
-   }, [filterText, centers, years]);
+   }, [filterText, years]);
 
    const {
       register,
@@ -161,6 +161,7 @@ export function AdminTable({ data, centers, years }: any) {
                      isDirty={isDirty}
                      dirtyFields={dirtyFields}
                      reset={reset}
+                     session={session}
                   />
                </div>
             </div >
