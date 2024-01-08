@@ -5,7 +5,6 @@ import { ProfessionalsTable } from "./table";
 export default async function ProfessionalsChart({ params }: any) {
    const { center, section } = params;
 
-   const date = new Date();
    let filters = {
       any: process.env.DEFAULT_YEAR,
       centre: center,
