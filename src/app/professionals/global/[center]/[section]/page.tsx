@@ -6,7 +6,6 @@ export default async function ProfessionalsChart({ params }: any) {
    const { center, section } = params;
 
    const date = new Date();
-   // let year = date.getFullYear().toString();
    let filters = {
       any: process.env.DEFAULT_YEAR,
       centre: center,

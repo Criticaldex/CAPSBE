@@ -22,12 +22,12 @@ const nextConfig = {
       return [
          {
             source: '/',
-            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            destination: `/dashboard/${process.env.DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
             source: '/dashboard',
-            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            destination: `/dashboard/${process.env.DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
@@ -42,12 +42,12 @@ const nextConfig = {
          },
          {
             source: '/professionals',
-            destination: `/professionals/${process.env.PROFESSIONALS_DEFAULT_VIEW}/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
+            destination: `/professionals/${process.env.PROFESSIONALS_DEFAULT_VIEW}/${process.env.DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
             source: '/professionals/global',
-            destination: `/professionals/global/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
+            destination: `/professionals/global/${process.env.DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
@@ -57,7 +57,7 @@ const nextConfig = {
          },
          {
             source: '/professionals/individual',
-            destination: `/professionals/individual/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
+            destination: `/professionals/individual/${process.env.DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {

@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 export function GetLinksView() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
 
    const links = [
@@ -63,7 +63,7 @@ export function GetLinksSection({ sections }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
 
    let links: object[] = [];
    sections.map((label: any) => (
@@ -94,7 +94,7 @@ export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
    const professional = (pathArray[6]) ? pathArray[6] : '';
 
@@ -124,7 +124,7 @@ export function GetLinksProfessionals({ professionals }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
    const year = (pathArray[5]) ? pathArray[5] : process.env.DEFAULT_YEAR;
 
@@ -153,7 +153,7 @@ export function GetLinksProfessionals({ professionals }: any) {
 export function GetCenter({ centros }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const center = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
+   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
 
    var centro = 'Tots';
 
