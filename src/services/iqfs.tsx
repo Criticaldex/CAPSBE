@@ -18,6 +18,25 @@ const getIqfs = async (filter: any) => {
       }).then(res => res.json());
 }
 
+export const getYears = async (centros: any) => {
+   const ups: any[] = [];
+   centros.map(({ id, name, up }: any) => (
+      ups.push(up)
+   ))
+
+   const iqfs = await getIqfs({
+      up: {
+         $in: ups
+      }
+   });
+   const yearsGroup = _.groupBy(iqfs, 'any');
+   let years: string[] = []
+   for (const [key, value] of (Object.entries(yearsGroup) as [string, any][])) {
+      years.push(key);
+   }
+   return years;
+}
+
 export const updateIqf = async (data: any) => {
    data.dbName = "IQF";
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs`,

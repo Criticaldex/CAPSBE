@@ -1,7 +1,11 @@
 import { GetLinksYears } from "./routing";
+import { getCenters } from "@/services/centros";
+import { getYears } from "@/services/iqfs";
 
 export default async function ContractsLayout({ children }: any) {
-   const years = ['2023'];
+   const centros = await getCenters();
+   const years = await getYears(centros);
+
    return (
       <div>
          <title>IQF</title>
