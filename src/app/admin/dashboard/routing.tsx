@@ -6,7 +6,7 @@ export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const any = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const any = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
 
    return (
       <>
@@ -33,8 +33,8 @@ export function GetLinksCenters({ centros }: any) {
    const pathname = usePathname();
    const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const up = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_CENTER;
-   const year = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const up = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
+   const year = (pathArray[4]) ? pathArray[4] : process.env.DEFAULT_YEAR;
 
    return (
       <>

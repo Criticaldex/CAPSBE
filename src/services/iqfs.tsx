@@ -18,6 +18,25 @@ const getIqfs = async (filter: any) => {
       }).then(res => res.json());
 }
 
+export const getYears = async (centros: any) => {
+   const ups: any[] = [];
+   centros.map(({ id, name, up }: any) => (
+      ups.push(up)
+   ))
+
+   const iqfs = await getIqfs({
+      up: {
+         $in: ups
+      }
+   });
+   const yearsGroup = _.groupBy(iqfs, 'any');
+   let years: string[] = []
+   for (const [key, value] of (Object.entries(yearsGroup) as [string, any][])) {
+      years.push(key);
+   }
+   return years;
+}
+
 export const updateIqf = async (data: any) => {
    data.dbName = "IQF";
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs`,
@@ -30,15 +49,15 @@ export const updateIqf = async (data: any) => {
       }).then(res => res.json());
 }
 
-export const getIqf = async (up: string) => {
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${process.env.IQF_DEFAULT_YEAR}/${up}`,
+const getIqf = async (up: string, year: string) => {
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/iqfs/${year}/${up}`,
       {
          method: 'GET'
       }).then(res => res.json());
 }
 
-export const getIqfDashboard = async (up: string) => {
-   const iqf = await getIqf(up);
+export const getIqfDashboard = async (up: string, year: string) => {
+   const iqf = await getIqf(up, year);
    let primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const data = [{
       name: 'Universal',
@@ -91,8 +110,8 @@ export const getTotalsIqf = async (year: string, centros: any) => {
    return data;
 }
 
-export const getBasal = async (up: string) => {
-   const iqf = await getIqf(up);
+export const getBasal = async (up: string, year: string) => {
+   const iqf = await getIqf(up, year);
    return iqf.basal;
 }
 

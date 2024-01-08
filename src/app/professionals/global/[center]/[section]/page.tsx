@@ -5,10 +5,8 @@ import { ProfessionalsTable } from "./table";
 export default async function ProfessionalsChart({ params }: any) {
    const { center, section } = params;
 
-   const date = new Date();
-   let year = date.getFullYear().toString();
    let filters = {
-      any: year,
+      any: process.env.DEFAULT_YEAR,
       centre: center,
       sector: section.replaceAll('_', ' '),
       ordre: { $gt: 0 },
@@ -38,7 +36,7 @@ export default async function ProfessionalsChart({ params }: any) {
             <div className="mb-2">
                {month.number != null ?
                   <Chart
-                     name={month.string + ' ' + year}
+                     name={month.string + ' ' + process.env.DEFAULT_YEAR}
                      data={infoChart}
                      index={indicadorsNames}
                      objectius={indicadorsObj}
