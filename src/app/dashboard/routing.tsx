@@ -31,7 +31,7 @@ export function GetLinksYears({ years }: any) {
 export function GetLinksCenters({ centros }: any) {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
    const section = (pathArray[4]) ? pathArray[4] : process.env.DASHBOARD_DEFAULT_SECTION;
 
    let links: any[] = [];
@@ -61,7 +61,7 @@ export function GetSectionButtons() {
    const pathname = usePathname();
    const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
    const center = (pathArray[2]) ? pathArray[2] : null;
    const group = (pathArray[4]) ? pathArray[4] : null;
 
@@ -100,7 +100,7 @@ export function GetSectionButtons() {
 export function GetSectionButtonsOLD() {
    const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[3]) ? pathArray[3] : process.env.PROFESSIONALS_DEFAULT_YEAR;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
    const center = (pathArray[2]) ? pathArray[2] : null;
 
    let links: object[] = [{

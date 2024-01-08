@@ -24,8 +24,8 @@ export default async function LayoutDashboard({ children, params }: any) {
    })
    const session = await getSession();
    const eqas = await getEqasContracts(year, centros);
-   const iqf = await getIqfDashboard(up);
-   const basal = await getBasal(up);
+   const iqf = await getIqfDashboard(up, year);
+   const basal = await getBasal(up, year);
 
    let dma = null;
    let dma_assignada = null;

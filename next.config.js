@@ -22,17 +22,17 @@ const nextConfig = {
       return [
          {
             source: '/',
-            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
             source: '/dashboard',
-            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            destination: `/dashboard/${process.env.DASHBOARD_DEFAULT_CENTER}/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
             source: '/dashboard/:centre',
-            destination: `/dashboard/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
+            destination: `/dashboard/:centre/${process.env.DEFAULT_YEAR}/${process.env.DASHBOARD_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
@@ -57,37 +57,37 @@ const nextConfig = {
          },
          {
             source: '/professionals/individual',
-            destination: `/professionals/individual/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
+            destination: `/professionals/individual/${process.env.PROFESSIONALS_DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/professionals/individual/:centre',
-            destination: `/professionals/individual/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
+            destination: `/professionals/individual/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/professionals/individual/:centre/:section',
-            destination: `/professionals/individual/:centre/:section/${process.env.PROFESSIONALS_DEFAULT_YEAR}`,
+            destination: `/professionals/individual/:centre/:section/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/iqf',
-            destination: `/iqf/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            destination: `/iqf/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/admin/dashboard',
-            destination: `/admin/dashboard/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            destination: `/admin/dashboard/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/admin/professionals',
-            destination: `/admin/professionals/0/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            destination: `/admin/professionals/0/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          },
          {
             source: '/admin/professionals/:centre',
-            destination: `/admin/professionals/:centre/${process.env.DASHBOARD_DEFAULT_YEAR}`,
+            destination: `/admin/professionals/:centre/${process.env.DEFAULT_YEAR}`,
             permanent: false,
          }
       ];
