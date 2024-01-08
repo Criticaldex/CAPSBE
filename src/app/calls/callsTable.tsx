@@ -40,7 +40,7 @@ const monthHandler = (month: number, setMonth: any, setMonthString: any, year: n
       case '>':
          if (month == 11) {
             setMonth(0)
-            setMonthString('1')
+            setMonthString('01')
             setYear(year + 1)
          } else {
             setMonth(month + 1);
@@ -54,10 +54,10 @@ const monthHandler = (month: number, setMonth: any, setMonthString: any, year: n
 
 const ExpandedComponent = ({ data }: any) => {
    // const year = new Date().getFullYear().toString();
-   const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
-   const hoy = new Date()
-   const ayer = new Date(hoy)
-   ayer.setDate(hoy.getDate() - 1)
+   const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
+   const hoy = new Date();
+   let ayer = new Date();
+   ayer.setDate(hoy.getDate() - 1);
    const pad = '00';
 
 
@@ -76,6 +76,7 @@ const ExpandedComponent = ({ data }: any) => {
    useEffect(() => {
       getDashboardChart(year.toString(), monthString, data.centro)
          .then((res: any) => {
+            console.log('Update mes: ', year.toString(), ' / ', monthString, ' / ', data.centro);
             setDetallMes(res);
          });
    }, [year, monthString, data.centro])
