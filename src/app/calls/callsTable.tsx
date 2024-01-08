@@ -76,7 +76,6 @@ const ExpandedComponent = ({ data }: any) => {
    useEffect(() => {
       getDashboardChart(year.toString(), monthString, data.centro)
          .then((res: any) => {
-            console.log('Update mes: ', year.toString(), ' / ', monthString, ' / ', data.centro);
             setDetallMes(res);
          });
    }, [year, monthString, data.centro])
