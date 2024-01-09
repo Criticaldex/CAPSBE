@@ -28,31 +28,3 @@ export function GetLinksYears({ years }: any) {
       </>
    );
 }
-
-export function GetLinksCenters({ centros }: any) {
-   const pathname = usePathname();
-   const router = useRouter();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const up = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
-   const year = (pathArray[4]) ? pathArray[4] : process.env.DEFAULT_YEAR;
-
-   return (
-      <>
-         <label>
-            Centre:{' '}
-            <select value={`/admin/dashboard/${up}/${year}`}
-               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
-               onChange={e => {
-                  router.push(e.target.value)
-               }}>
-
-               {centros.map((centro: any) => {
-                  return <option key={centro.id} value={`/admin/dashboard/${centro.id}/${year}`}>
-                     {centro.name}
-                  </option>
-               })}
-            </select>
-         </label>
-      </>
-   );
-}
