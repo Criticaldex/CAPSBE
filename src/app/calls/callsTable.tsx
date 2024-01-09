@@ -60,7 +60,6 @@ const ExpandedComponent = ({ data }: any) => {
    ayer.setDate(hoy.getDate() - 1);
    const pad = '00';
 
-
    const [day, setDay] = useState(ayer.getDate());
    const [month, setMonth] = useState(ayer.getMonth());
    const [year, setYear] = useState(ayer.getFullYear());

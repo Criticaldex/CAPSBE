@@ -9,7 +9,7 @@ export default async function ProfessionalsChart({ params }: any) {
       any: process.env.DEFAULT_YEAR,
       centre: center,
       sector: section.replaceAll('_', ' '),
-      ordre: { $gt: 0 },
+      actiu: true,
       identificador: {
          $nin: [
             "IT001OST",
