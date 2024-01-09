@@ -21,7 +21,7 @@ export function AdminTable({ data, centers, years }: any) {
    }, [])
 
    const filteredItems = rows.filter(
-      (item: any) => item.identificador && item.identificador.toLowerCase().includes(filterText.toLowerCase())
+      (item: any) => item.indicador && item.indicador.toLowerCase().includes(filterText.toLowerCase())
    );
 
    const subHeaderComponentMemo = useMemo(() => {
@@ -37,7 +37,7 @@ export function AdminTable({ data, centers, years }: any) {
                id="search"
                type="text"
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4`}
-               placeholder="Filtrar per id"
+               placeholder="Filtrar per nom"
                aria-label="Search Input"
                value={filterText}
                onChange={(e: any) => setFilterText(e.target.value)}
@@ -90,6 +90,12 @@ export function AdminTable({ data, centers, years }: any) {
       {
          name: 'Objectiu',
          selector: (row: any) => row.objectiu,
+         sortable: true,
+         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      },
+      {
+         name: 'Actiu',
+         selector: (row: any) => row.actiu ? "X" : "",
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },

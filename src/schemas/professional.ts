@@ -9,7 +9,8 @@ export interface ProfessionalIface {
    invers: boolean,
    ordre: any,
    objectiu: any,
-   dbName: string
+   dbName: string,
+   actiu: boolean
 }
 
 const Schema = new mongoose.Schema({
@@ -34,14 +35,17 @@ const Schema = new mongoose.Schema({
       required: [true, 'El Centre es obligatori!']
    },
    invers: {
-      type: Boolean,
+      type: Boolean
    },
    ordre: {
-      type: Number,
+      type: Number
    },
    objectiu: {
-      type: Number,
+      type: Number
    },
+   actiu: {
+      type: Boolean
+   }
 });
 
 export default Schema;
