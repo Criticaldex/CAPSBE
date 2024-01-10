@@ -1,19 +1,40 @@
 'use client';
 
 import { UserIface } from "@/schemas/user";
-import { getUsers, upsertUser } from "@/services/users";
+import { getUsers, getUsersbyDB, upsertUser } from "@/services/users";
 
-export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset, session }: any) => {
    const onSubmit = handleSubmit(async (data: UserIface) => {
       if (isDirty) {
-         const upsert = await upsertUser(data);
+         let upsertData;
+         if (session.user.role == '1') {
+            upsertData = {
+               ...session.user,
+               email: data.email,
+               password: data.password,
+               name: data.name,
+               lastname: data.lastname,
+               role: "2"
+            }
+         } else {
+            upsertData = data;
+            console.log('data: ', data);
+         }
+         console.log('upsertData: ', upsertData);
+         const upsert = await upsertUser(upsertData);
+         console.log('upsert: ', upsert);
          if (upsert.lastErrorObject?.updatedExisting) {
             toast.success('Usuari Modificat!', { theme: "colored" });
          } else {
             toast.success('Usuari Afegit!', { theme: "colored" });
          }
          reset(upsert.value);
-         setRows(await getUsers());
+
+         if (session?.user.role == '1') {
+            setRows(await getUsersbyDB(session?.user.db));
+         } else if (session?.user.role == '0') {
+            setRows(await getUsers());
+         }
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
       }
@@ -69,36 +90,40 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
             })} />
          </div>
          {errors.lastname && <p role="alert" className="text-red self-end">⚠ {errors.lastname?.message}</p>}
-         <div className="inline-flex justify-end">
-            <label htmlFor="db" className="self-center">DB:</label>
-            <input id="db" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.db ? 'border-foreground' : 'border-red'}`} {...register("db", {
-               required: 'Camp obligatori',
-            })} />
-         </div>
-         {errors.db && <p role="alert" className="text-red self-end">⚠ {errors.db?.message}</p>}
-         <div className="inline-flex justify-end">
-            <label htmlFor="role" className="self-center">Rol:</label>
-            <input id="role" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.role ? 'border-foreground' : 'border-red'}`} {...register("role", {
-               required: 'Camp obligatori',
-            })} />
-         </div>
-         {errors.role && <p role="alert" className="text-red self-end">⚠ {errors.role?.message}</p>}
-         <div className="inline-flex justify-end">
-            <label htmlFor="licenseStart" className="self-center">Inici Llicencia:</label>
-            <input id="licenseStart" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.start ? 'border-foreground' : 'border-red'}`} {...register("license.start", {
-               required: 'Camp obligatori',
-            })} />
-         </div>
-         {errors.license?.start && <p role="alert" className="text-red self-end">⚠ {errors.license?.start?.message}</p>}
-         <div className="inline-flex justify-end">
-            <label htmlFor="licenseEnd" className="self-center">Fi Llicencia:</label>
-            <input id="licenseEnd" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.end ? 'border-foreground' : 'border-red'}`} {...register("license.end", {
-               required: 'Camp obligatori',
-            })} />
-         </div>
-         {errors.license?.end && <p role="alert" className="text-red self-end">⚠ {errors.license?.end.message}</p>}
+         {session.user.role == '0' &&
+            <>
+               <div className="inline-flex justify-end">
+                  <label htmlFor="db" className="self-center">DB:</label>
+                  <input id="db" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.db ? 'border-foreground' : 'border-red'}`} {...register("db", {
+                     required: 'Camp obligatori',
+                  })} />
+               </div>
+               {errors.db && <p role="alert" className="text-red self-end">⚠ {errors.db?.message}</p>}
+               <div className="inline-flex justify-end">
+                  <label htmlFor="role" className="self-center">Rol:</label>
+                  <input id="role" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.role ? 'border-foreground' : 'border-red'}`} {...register("role", {
+                     required: 'Camp obligatori',
+                  })} />
+               </div>
+               {errors.role && <p role="alert" className="text-red self-end">⚠ {errors.role?.message}</p>}
+               <div className="inline-flex justify-end">
+                  <label htmlFor="licenseStart" className="self-center">Inici Llicencia:</label>
+                  <input id="licenseStart" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.start ? 'border-foreground' : 'border-red'}`} {...register("license.start", {
+                     required: 'Camp obligatori',
+                  })} />
+               </div>
+               {errors.license?.start && <p role="alert" className="text-red self-end">⚠ {errors.license?.start?.message}</p>}
+               <div className="inline-flex justify-end">
+                  <label htmlFor="licenseEnd" className="self-center">Fi Llicencia:</label>
+                  <input id="licenseEnd" type="date" className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.license?.end ? 'border-foreground' : 'border-red'}`} {...register("license.end", {
+                     required: 'Camp obligatori',
+                  })} />
+               </div>
+               {errors.license?.end && <p role="alert" className="text-red self-end">⚠ {errors.license?.end.message}</p>}
+            </>
+         }
          <div className="inline-flex justify-around">
-            <input type="reset" onClick={() => { clearErrors(); }} className={'my-1 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark'} value="Netejar" />
+            <input type="reset" onClick={() => { clearErrors(); reset() }} className={'my-1 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark'} value="Netejar" />
             <input className={'my-1 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-darkBlue'} type="submit" value="Enviar" />
          </div>
       </form >

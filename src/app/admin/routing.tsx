@@ -21,15 +21,12 @@ export function GetLinksAdmin({ session }: any) {
          {
             label: 'Professionals',
             route: `/admin/professionals`
+         },
+         {
+            label: 'Usuaris',
+            route: `/admin/users`
          }
       )
-   }
-
-   if (session?.user.role == "0") {
-      links.push({
-         label: 'Usuaris',
-         route: `/admin/users`
-      })
    }
 
    return (

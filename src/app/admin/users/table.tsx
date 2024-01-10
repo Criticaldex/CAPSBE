@@ -11,7 +11,7 @@ import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function AdminTable({ users }: any) {
+export function AdminTable({ users, session }: any) {
 
    const [rows, setRows] = useState(users);
 
@@ -100,7 +100,6 @@ export function AdminTable({ users }: any) {
       }
    ];
 
-
    createThemes();
 
    return (
@@ -124,6 +123,7 @@ export function AdminTable({ users }: any) {
                isDirty={isDirty}
                dirtyFields={dirtyFields}
                reset={reset}
+               session={session}
             />
          </div>
       </div>
