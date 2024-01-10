@@ -92,10 +92,11 @@ const ExpandedComponent = ({ data }: any) => {
          getHoursChart(year.toString(), monthString, dayString, data.centro)
             .then((res: any) => {
                setHores(res);
+               console.log('Hores Table: ', res);
             }),
          getIntervalsChart(year.toString(), monthString, dayString, data.centro)
             .then((res: any) => {
-               // console.log('intervals. ', res);
+               console.log('Intervals Table. ', res);
                setIntervals(res);
             }),
          getHoursDrilldown(year.toString(), monthString, dayString, data.centro)
@@ -104,7 +105,6 @@ const ExpandedComponent = ({ data }: any) => {
             }),
          getIntervalsDrilldown(year.toString(), monthString, dayString, data.centro)
             .then((res: any) => {
-               // console.log('intervalsDD. ', res);
                setIntervalsDD(res);
             })
       ).done(() => {

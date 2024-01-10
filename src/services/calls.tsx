@@ -31,10 +31,7 @@ const getCalls = async (filter: any) => {
       }).then(res => res.json());
 }
 
-export const getCallsToday = async () => {
-   const hoy = new Date()
-   const ayer = new Date(hoy)
-   ayer.setDate(hoy.getDate() - 1)
+export const getCallsToday = async (ayer: Date) => {
    const pad = '00';
 
    const date = (pad + ayer.getDate().toString()).slice(-pad.length);
@@ -51,6 +48,7 @@ export const getCallsToday = async () => {
       "any": year, "mes": month, "dia": date
    };
    const data = await getCalls(filter);
+
    if (!data[0]) {
       return [{
          "abandoned": 0,
