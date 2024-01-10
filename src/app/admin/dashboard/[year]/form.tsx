@@ -5,8 +5,6 @@ import { getAdminTable, updateIndicators } from "@/services/indicators";
 import { upsertUser } from "@/services/users";
 
 export const DashboardForm = ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset, session }: any) => {
-   console.log('session: ', session);
-
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
          data.dbName = session?.user.db as string;

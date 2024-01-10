@@ -39,7 +39,6 @@ export const getHoursChart = async (year: string, month: string, day: string, ce
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
    const sort = "order";
    const data: any = await getIntervals(filter, sort);
-   console.log('Hores getHoursChart: ', data);
 
    let chartData: any = [{
       type: 'column',
@@ -100,7 +99,6 @@ export const getHoursDrilldown = async (year: string, month: string, day: string
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
    const sort = "order";
    const data: any = await getIntervals(filter, sort);
-   console.log('Hores getHoursDrilldown: ', data);
    let chartData: any = {
       breadcrumbs: {
          position: {
@@ -143,7 +141,6 @@ export const getIntervalsChart = async (year: string, month: string, day: string
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
    const sort = "order";
    const data: any = await getIntervals(filter, sort);
-   console.log('getIntervalsChart: ', data);
 
    let chartData: any = [{
       type: 'column',
@@ -184,7 +181,6 @@ export const getIntervalsDrilldown = async (year: string, month: string, day: st
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
    const sort = "order";
    const data: any = await getIntervals(filter, sort);
-   console.log('getIntervalsDrilldown: ', data);
 
    let chartData: any = {
       breadcrumbs: {
