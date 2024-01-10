@@ -37,8 +37,10 @@ export const getIntervalsDay = async (date: string, month: string, year: string,
 
 export const getHoursChart = async (year: string, month: string, day: string, center: string) => {
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
-   const sort = "dia";
+   const sort = "order";
    const data: any = await getIntervals(filter, sort);
+   console.log('Hores getHoursChart: ', data);
+
    let chartData: any = [{
       type: 'column',
       name: 'Contestades',
@@ -138,8 +140,10 @@ export const getHoursDrilldown = async (year: string, month: string, day: string
 
 export const getIntervalsChart = async (year: string, month: string, day: string, center: string) => {
    const filter = { "any": year, "mes": month, "dia": day, "centro": center, order: { "$lt": 25 } };
-   const sort = "dia";
+   const sort = "order";
    const data: any = await getIntervals(filter, sort);
+   console.log('Hores getIntervalsChart: ', data);
+
    let chartData: any = [{
       type: 'column',
       name: 'Contestades',
