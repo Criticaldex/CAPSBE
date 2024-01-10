@@ -6,7 +6,6 @@ import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 import React from 'react'
 
-
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
@@ -15,36 +14,36 @@ if (typeof Highcharts === "object") {
 var objetivos: any[] = []
 
 function renderMarkers(this: any) {
-   if (!isNaN(objetivos[0])) {
-      var positions = objetivos.map(objetivo => Math.abs(objetivo))
-      var objetivosTxt = objetivos.map(objetivo => {
-         if (objetivo < 0) return '< ' + objetivo.toString().substring(1)
-         else return objetivo.toString()
-      })
-      var chart: any
-      if (Highcharts.charts[Highcharts.charts.length - 1] != undefined) {
-         chart = Highcharts.charts[Highcharts.charts.length - 1]
-      } else {
-         chart = this
-      }
-      var xAxis = chart.xAxis[0],
-         yAxis = chart.yAxis[0],
-         renderer = chart.renderer,
-         tempArray: any[] = [],
-         singleMarkerPath;
+   var positions = objetivos.map(objetivo => Math.abs(objetivo))
+   var objetivosTxt = objetivos.map(objetivo => {
+      if (objetivo < 0) return '< ' + objetivo.toString().substring(1)
+      else return objetivo.toString()
+   })
+   var chart: any
+   if (Highcharts.charts[Highcharts.charts.length - 1] != undefined) {
+      chart = Highcharts.charts[Highcharts.charts.length - 1]
+   } else {
+      chart = this
+   }
+   var xAxis = chart.xAxis[0],
+      yAxis = chart.yAxis[0],
+      renderer = chart.renderer,
+      tempArray: any[] = [],
+      singleMarkerPath;
 
-      if (chart.additionalMarkers) {
-         chart.additionalMarkers.forEach(function (marker: any, index: any) {
-            marker.attr({
-               d: "" // Cambia el nuevo path de la marca
-            });
-            marker.dataLabel.attr({
-               text: ""
-            });
+   if (chart.additionalMarkers) {
+      chart.additionalMarkers.forEach(function (marker: any, index: any) {
+         marker.attr({
+            d: "" // Cambia el nuevo path de la marca
          });
-      }
+         marker.dataLabel.attr({
+            text: ""
+         });
+      });
+   }
 
-      positions.forEach(function (position: any, index: any) {
+   positions.forEach(function (position: any, index: any) {
+      if (position != 0) {
          singleMarkerPath = [
             'M', xAxis.toPixels(-0.35 + index), yAxis.toPixels(position),
             'L', xAxis.toPixels(0.34 + index), yAxis.toPixels(position)
@@ -80,11 +79,11 @@ function renderMarkers(this: any) {
             chart.additionalMarkers[index].dataLabel.destroy()
             chart.additionalMarkers[index].dataLabel = label;
          }
-      });
-
-      if (!chart.additionalMarkers) {
-         chart.additionalMarkers = tempArray;
       }
+   });
+
+   if (!chart.additionalMarkers) {
+      chart.additionalMarkers = tempArray;
    }
 }
 
