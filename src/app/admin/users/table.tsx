@@ -5,13 +5,13 @@ import { createThemes } from "@/styles/themes"
 import { UsersForm } from "./form";
 import { UserIface } from "@/schemas/user";
 import { useForm, UseFormReset } from "react-hook-form";
-import { deleteUser, getUsers } from '@/services/users';
+import { deleteUser, getUsers, getUsersbyDB } from '@/services/users';
 import { confirmAlert } from 'react-confirm-alert';
 import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export function AdminTable({ users }: any) {
+export function AdminTable({ users, session }: any) {
 
    const [rows, setRows] = useState(users);
 
@@ -37,7 +37,11 @@ export function AdminTable({ users }: any) {
                   const del = await deleteUser(row.email);
                   if (del) {
                      toast.error('Usuari Eliminat!!', { theme: "colored" });
-                     setRows(await getUsers());
+                     if (session?.user.role == '1') {
+                        setRows(await getUsersbyDB(session?.user.db));
+                     } else if (session?.user.role == '0') {
+                        setRows(await getUsers());
+                     }
                   }
                }
             },
@@ -100,7 +104,6 @@ export function AdminTable({ users }: any) {
       }
    ];
 
-
    createThemes();
 
    return (
@@ -111,6 +114,7 @@ export function AdminTable({ users }: any) {
                columns={columns}
                data={rows}
                theme={'custom'}
+               pagination
             />
          </div>
          <div className="flex basis-1/4 rounded-md bg-light">
@@ -124,6 +128,7 @@ export function AdminTable({ users }: any) {
                isDirty={isDirty}
                dirtyFields={dirtyFields}
                reset={reset}
+               session={session}
             />
          </div>
       </div>

@@ -49,7 +49,7 @@ export async function GET(request: Request) {
    try {
       const { searchParams } = new URL(request.url)
       const database = searchParams.get('db');
-      const filter = database ? { db: database } : {}
+      const filter = database ? { db: database, role: { $nin: ["0"] } } : {}
       const dbName = 'Auth';
       await dbConnect();
       const db = mongoose.connection.useDb(dbName, { useCache: true });

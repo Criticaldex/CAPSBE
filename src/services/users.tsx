@@ -17,9 +17,8 @@ export const getUser = async (email: string) => {
       }).then(res => res.json());
 }
 
-export const getUsersbyDB = async () => {
-   const session = await getSession();
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?db=${session?.user.db}`,
+export const getUsersbyDB = async (db: string) => {
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?db=${db}`,
       {
          method: 'GET'
       }).then(res => res.json());
