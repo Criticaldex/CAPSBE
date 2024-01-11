@@ -9,6 +9,7 @@ import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetLinksYears } from '../routing';
+import { Loading } from "@/components/loading.component";
 
 export function AdminTable({ data, centers, years, session }: any) {
 
@@ -165,7 +166,7 @@ export function AdminTable({ data, centers, years, session }: any) {
                   />
                </div>
             </div >
-            : null}
+            : <Loading />}
       </>
    )
 };
