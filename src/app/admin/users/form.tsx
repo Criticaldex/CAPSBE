@@ -16,7 +16,7 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                lastname: data.lastname,
                role: "2"
             }
-         } else {
+         } else if (session.user.role == '0') {
             upsertData = data;
          }
          const upsert = await upsertUser(upsertData);
@@ -25,7 +25,7 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
          } else {
             toast.success('Usuari Afegit!', { theme: "colored" });
          }
-         reset(upsert.value);
+         reset(data);
 
          if (session?.user.role == '1') {
             setRows(await getUsersbyDB(session?.user.db));
