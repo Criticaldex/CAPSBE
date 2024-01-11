@@ -18,11 +18,8 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
             }
          } else {
             upsertData = data;
-            console.log('data: ', data);
          }
-         console.log('upsertData: ', upsertData);
          const upsert = await upsertUser(upsertData);
-         console.log('upsert: ', upsert);
          if (upsert.lastErrorObject?.updatedExisting) {
             toast.success('Usuari Modificat!', { theme: "colored" });
          } else {
