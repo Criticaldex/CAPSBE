@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes"
 import { UsersForm } from "./form";
@@ -10,10 +10,37 @@ import { confirmAlert } from 'react-confirm-alert';
 import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loading } from "@/components/loading.component";
 
 export function AdminTable({ users, session }: any) {
 
    const [rows, setRows] = useState(users);
+   const [filterText, setFilterText] = useState('');
+   const [isClient, setIsClient] = useState(false);
+
+   useEffect(() => {
+      setIsClient(true)
+   }, [])
+
+   const filteredItems = rows.filter(
+      (item: any) => item.email && item.email.toLowerCase().includes(filterText.toLowerCase()),
+   );
+
+   const subHeaderComponentMemo = useMemo(() => {
+      return (
+         <div className="flex justify-end grow m-2">
+            <input
+               id="search"
+               type="text"
+               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4`}
+               placeholder="Filtrar per email"
+               aria-label="Search Input"
+               value={filterText}
+               onChange={(e: any) => setFilterText(e.target.value)}
+            />
+         </div>
+      );
+   }, [filterText]);
 
    const {
       register,
@@ -107,31 +134,38 @@ export function AdminTable({ users, session }: any) {
    createThemes();
 
    return (
-      <div className="flex mt-2">
-         <ToastContainer />
-         <div className="mr-2 basis-3/4 rounded-md">
-            <DataTable
-               columns={columns}
-               data={rows}
-               theme={'custom'}
-               pagination
-            />
-         </div>
-         <div className="flex basis-1/4 rounded-md bg-light">
-            <UsersForm
-               register={register}
-               handleSubmit={handleSubmit}
-               errors={errors}
-               clearErrors={clearErrors}
-               setRows={setRows}
-               toast={toast}
-               isDirty={isDirty}
-               dirtyFields={dirtyFields}
-               reset={reset}
-               session={session}
-            />
-         </div>
-      </div>
+      <>
+         {isClient ?
+            <div className="flex mt-2">
+               <ToastContainer />
+               <div className="mr-2 basis-3/4 rounded-md">
+                  <DataTable
+                     columns={columns}
+                     data={filteredItems}
+                     theme={'custom'}
+                     pagination
+                     subHeader
+                     subHeaderComponent={subHeaderComponentMemo}
+                     persistTableHead
+                  />
+               </div>
+               <div className="flex basis-1/4 rounded-md bg-light">
+                  <UsersForm
+                     register={register}
+                     handleSubmit={handleSubmit}
+                     errors={errors}
+                     clearErrors={clearErrors}
+                     setRows={setRows}
+                     toast={toast}
+                     isDirty={isDirty}
+                     dirtyFields={dirtyFields}
+                     reset={reset}
+                     session={session}
+                  />
+               </div>
+            </div>
+            : <Loading />}
+      </>
    )
 };
 
