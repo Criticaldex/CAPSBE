@@ -4,7 +4,6 @@ import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
-import { objectEach } from 'highcharts'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
@@ -13,11 +12,12 @@ if (typeof Highcharts === "object") {
 
 export function Iqf({ name, data, objectiu }: any) {
    let max = 0;
-   data.forEach((elem: any) => {
-      elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-      });
+   let sum = 0;
+   data[0].data.forEach((elem: any, i: number) => {
+      sum = data[0].data[i] + data[1].data[i] + data[2].data[i];
+      max = (sum > max) ? sum : max;
    });
+
    max = (objectiu > max) ? objectiu : max;
    const options = {
       ...chartOptions,
