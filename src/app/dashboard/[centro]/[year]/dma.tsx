@@ -13,6 +13,7 @@ if (typeof Highcharts === "object") {
 export function Dma({ name, data, objectiu, regresion }: any) {
    let max = 0;
    max = Math.max(...data.data)
+   max = Math.max(...regresion) > max ? Math.max(...regresion) : max;
    max = (objectiu > max) ? objectiu : max;
    const options = {
       ...chartOptions,
