@@ -118,11 +118,3 @@ export const getAdminTable = async (year: string, centros: any, email: any, db?:
    }
    return tableData;
 }
-
-export const getAdminTable_OLD = async (year: string, center: string, db?: string) => {
-   const filter: any = {
-      any: year,
-      centre: center
-   };
-   return await getIndicators(filter, db);
-}
