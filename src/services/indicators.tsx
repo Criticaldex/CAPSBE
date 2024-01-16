@@ -51,31 +51,28 @@ export const getChartIndicators = async (year: string, center: string) => {
    })
 }
 
-export const getTableIndicatorsGeneral = async (year: string) => {
+export const getTableIndicators = async (year: string, section: string) => {
+   const session = await getSession();
+   let codis = [];
+   for (const [key, value] of (Object.entries(session?.user.configs.dashboard) as [string, any][])) {
+      if (section == value.grup) {
+         codis.push(key);
+      }
+   }
+
    const filter: any = {
-      grup: "general",
+      codi: {
+         $in: codis
+      },
       any: year
    };
-   const data = await getIndicators(filter);
-   return _.groupBy(data, 'codi');
-}
 
-export const getTableIndicatorsNoCpr = async (year: string) => {
-   const filter: any = {
-      grup: "nocpr",
-      any: year
-   };
    const data = await getIndicators(filter);
-   return _.groupBy(data, 'codi');
-}
-
-export const getTableIndicatorsCpr = async (year: string) => {
-   const filter: any = {
-      grup: "cpr",
-      any: year,
-   };
-   const data = await getIndicators(filter);
-   return _.groupBy(data, 'codi');
+   data.map((indicador: any) => {
+      indicador.ordre = parseFloat(session?.user.configs.dashboard[indicador.codi].ordre);
+   });
+   const orderData = _.sortBy(data, 'ordre');
+   return _.groupBy(orderData, 'codi');
 }
 
 export const getYears = async () => {

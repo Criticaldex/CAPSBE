@@ -11,11 +11,10 @@ declare module "next-auth" {
          email: string,
          password: string,
          license: {
-            token: string,
             start: Date,
             end: Date,
          },
-         server: string,
+         configs: any,
          db: string,
          role: string,
       } & DefaultSession["user"]
