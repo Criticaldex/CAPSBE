@@ -82,12 +82,12 @@ const nextConfig = {
          },
          {
             source: '/admin/professionals',
-            destination: `/admin/professionals/0/${process.env.DEFAULT_YEAR}`,
+            destination: `/admin/professionals/${process.env.DEFAULT_YEAR}/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          },
          {
-            source: '/admin/professionals/:centre',
-            destination: `/admin/professionals/:centre/${process.env.DEFAULT_YEAR}`,
+            source: '/admin/professionals/:year',
+            destination: `/admin/professionals/:year/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
          }
       ];

@@ -129,7 +129,7 @@ export function AdminTable({ data, centers, years, session }: any) {
          ignoreRowClick: true,
          center: true,
          wrap: true,
-         button: true,
+         button: true
       });
 
    createThemes();

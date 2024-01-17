@@ -10,7 +10,8 @@ export interface ProfessionalIface {
    ordre: any,
    objectiu: any,
    dbName: string,
-   actiu: boolean
+   actiu: boolean,
+   objectius: any,
 }
 
 const Schema = new mongoose.Schema({

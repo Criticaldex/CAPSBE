@@ -23,24 +23,16 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
    try {
       const body: ProfessionalIface = await request.json();
-      if (!body.identificador || !body.sector || !body.any) {
-         return NextResponse.json(`identificador, sector i any obligatoris!`);
+      if (!body.identificador || !body.sector || !body.any || !body.centre) {
+         return NextResponse.json(`identificador, sector, centre i any obligatoris!`);
       }
-      let filter = {};
-      if (!body.centre) {
-         filter = {
-            any: body.any,
-            sector: body.sector,
-            identificador: body.identificador
-         };
-      } else {
-         filter = {
-            any: body.any,
-            sector: body.sector,
-            centre: body.centre,
-            identificador: body.identificador
-         };
-      }
+      let filter = {
+         any: body.any,
+         sector: body.sector,
+         centre: body.centre,
+         identificador: body.identificador
+      };
+
 
       const { dbName, ...bodyWithoutDB } = body
       await dbConnect();
@@ -48,8 +40,9 @@ export async function PATCH(request: Request) {
       if (!db.models.professional) {
          db.model('professional', professionalSchema);
       }
-      const res = await db.models.professional.updateMany(filter, bodyWithoutDB, {
-         upsert: false,
+      const res = await db.models.professional.findOneAndUpdate(filter, bodyWithoutDB, {
+         new: true,
+         rawResult: true
       }).lean();
 
       return NextResponse.json(res);

@@ -1,5 +1,7 @@
 import _ from "lodash"
 import { getSession } from "@/services/session"
+import { ProfessionalIface } from "@/schemas/professional";
+
 
 const getProfessionals = async (filter: any, db?: string) => {
    if (!db) {
@@ -172,10 +174,27 @@ export const getMonth = async (filtros: any) => {
    return month;
 }
 
-export const getAdminTable = async (year: string, center: string, db?: string) => {
+export const getAdminTable = async (year: string, sector: any, centros: any, db?: string) => {
    const filter: any = {
       any: year,
-      centre: center
+      sector: sector
    };
-   return await getProfessionals(filter, db);
+   let tableData: any = [];
+
+   const data = await getProfessionals(filter, db);
+   const professionals = _.groupBy(data, 'identificador');
+
+   for (const [key, value] of (Object.entries(professionals) as [string, any][])) {
+      let profesional: ProfessionalIface = value[0] ? value[0] : null;
+      profesional.objectius = {};
+      value.forEach((val: any) => {
+         centros.forEach((centro: { name: string | number; id: string | number; }, i: any) => {
+            if (val.centre == centro.id) {
+               profesional.objectius[centro.name] = (typeof (val.objectiu) != "undefined") ? val.objectiu : null;
+            }
+         });
+      });
+      tableData.push(profesional);
+   }
+   return tableData;
 }

@@ -4,25 +4,30 @@ import { ProfessionalIface } from "@/schemas/professional";
 import { getAdminTable, updateProfessionals } from "@/services/professionals";
 import { useSession, getSession } from "next-auth/react"
 
-export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
+export const ProfessionalsForm = ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset }: any) => {
    const onSubmit = handleSubmit(async (data: ProfessionalIface) => {
       if (isDirty) {
-         const centre = data.centre as string;
-         if (Object.hasOwn(dirtyFields, 'ordre')) {
-            delete data.centre;
-         }
          const session = await getSession();
          data.dbName = session?.user.db as string;
-         data.objectiu = data.objectiu ? parseFloat(data.objectiu) : 0;
-         const update = await updateProfessionals(data);
-         if (update.acknowledged) {
-            toast.success(`Indicador Modificat a ${update.modifiedCount} centres!`, { theme: "colored" });
-         } else {
-            toast.error('Error modificant l\'indicador', { theme: "colored" });
+
+         for (const [key, value] of (Object.entries(dirtyFields.objectius) as [string, any][])) {
+            centers.forEach(async (center: { name: string | number; id: string; }, i: any) => {
+               if (center.name == key) {
+                  data.centre = center.id;
+                  data.objectiu = data.objectius[key] ? parseFloat(data.objectius[key]) : 0;
+                  const update = await updateProfessionals(data);
+                  if (update.ok) {
+                     if (update.lastErrorObject.updatedExisting) {
+                        toast.success(`Objectiu Modificat a ${center.name}`, { theme: "colored" });
+                     }
+                  } else {
+                     toast.error(`Error modificant l\'objectiu de ${center.name}`, { theme: "colored" });
+                  }
+               }
+            });
          }
-         data.centre = centre;
          reset(data);
-         setRows(await getAdminTable(data.any, data.centre, data.dbName));
+         setRows(await getAdminTable(data.any, data.sector, centers, data.dbName));
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
       }
@@ -90,18 +95,26 @@ export const ProfessionalsForm = ({ register, handleSubmit, errors, clearErrors,
          </div>
          {errors.actiu && <p role="alert" className="text-red self-end">⚠ {errors.actiu?.message}</p>}
 
-         <div className="inline-flex justify-end">
-            <label htmlFor="objectiu" className="self-center">Objectiu:</label>
-            <input id="objectiu"
-               className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.objectiu ? 'border-foreground' : 'border-red'}`}
-               {...register("objectiu", {
-                  pattern: {
-                     value: /^[0-9\.]*$/i,
-                     message: "Ha de ser un Numero"
-                  }
-               })} />
+         <div className="inline-flex justify-center">
+            <label htmlFor="objectiu" className="self-center">--- Objectius ---</label>
          </div>
-         {errors.objectiu && <p role="alert" className="text-red self-end">⚠ {errors.objectiu?.message}</p>}
+
+         {centers.map((centro: { name: string; id: string | number; }, i: any) => (
+            <>
+               <div key={i} className="inline-flex justify-end">
+                  <label htmlFor={centro.name} className="self-center">{centro.name}:</label>
+                  <input id={centro.name}
+                     className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12 ${!errors.objectius?.[centro.name] ? 'border-foreground' : 'border-red'}`}
+                     {...register("objectius." + centro.name, {
+                        pattern: {
+                           value: /^[0-9\.]*$/i,
+                           message: "Ha de ser un Numero"
+                        }
+                     })} />
+               </div>
+               {errors.objectius?.[centro.name] && <p role="alert" className="text-red self-end">⚠ {errors.objectius?.[centro.name].message}</p>}
+            </>
+         ))}
 
          <div className="inline-flex justify-end">
             <label htmlFor="actiu" className="self-center">Actiu:</label>
