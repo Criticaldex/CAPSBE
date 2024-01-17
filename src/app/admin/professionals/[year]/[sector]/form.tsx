@@ -10,22 +10,18 @@ export const ProfessionalsForm = ({ centers, register, handleSubmit, errors, cle
          const session = await getSession();
          data.dbName = session?.user.db as string;
 
-         for (const [key, value] of (Object.entries(dirtyFields.objectius) as [string, any][])) {
-            centers.forEach(async (center: { name: string | number; id: string; }, i: any) => {
-               if (center.name == key) {
-                  data.centre = center.id;
-                  data.objectiu = data.objectius[key] ? parseFloat(data.objectius[key]) : 0;
-                  const update = await updateProfessionals(data);
-                  if (update.ok) {
-                     if (update.lastErrorObject.updatedExisting) {
-                        toast.success(`Objectiu Modificat a ${center.name}`, { theme: "colored" });
-                     }
-                  } else {
-                     toast.error(`Error modificant l\'objectiu de ${center.name}`, { theme: "colored" });
-                  }
+         centers.forEach(async (center: { name: string | number; id: string; }, i: any) => {
+            data.centre = center.id;
+            data.objectiu = data.objectius[center.name] ? parseFloat(data.objectius[center.name]) : 0;
+            const update = await updateProfessionals(data);
+            if (update.ok) {
+               if (update.lastErrorObject.updatedExisting) {
+                  toast.success(`Objectiu Modificat a ${center.name}`, { theme: "colored" });
                }
-            });
-         }
+            } else {
+               toast.error(`Error modificant l\'objectiu de ${center.name}`, { theme: "colored" });
+            }
+         });
          reset(data);
          setRows(await getAdminTable(data.any, data.sector, centers, data.dbName));
       } else {
