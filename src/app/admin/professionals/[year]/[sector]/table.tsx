@@ -8,10 +8,10 @@ import { useForm, UseFormReset } from "react-hook-form";
 import { FaPenToSquare } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { GetLinksCenters, GetLinksYears } from '../../routing';
+import { GetLinksYears, GetLinksSections } from '../../routing';
 import { Loading } from "@/components/loading.component";
 
-export function AdminTable({ data, centers, years }: any) {
+export function AdminTable({ data, centers, years, sections }: any) {
 
    const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
@@ -28,11 +28,11 @@ export function AdminTable({ data, centers, years }: any) {
    const subHeaderComponentMemo = useMemo(() => {
       return (
          <div className="flex justify-between grow m-2">
-            <GetLinksCenters
-               centros={centers}
-            />
             <GetLinksYears
                years={years}
+            />
+            <GetLinksSections
+               sections={sections}
             />
             <input
                id="search"
@@ -45,7 +45,7 @@ export function AdminTable({ data, centers, years }: any) {
             />
          </div>
       );
-   }, [filterText, centers, years]);
+   }, [filterText, years]);
 
    const {
       register,
@@ -64,46 +64,75 @@ export function AdminTable({ data, centers, years }: any) {
       {
          name: 'id',
          selector: (row: any) => row.identificador,
-         grow: 2,
+         grow: 1.5,
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Nom',
          selector: (row: any) => row.indicador,
-         grow: 12,
+         grow: 7,
          sortable: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Sector',
          selector: (row: any) => row.sector,
-         grow: 4,
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Ordre',
          selector: (row: any) => row.ordre,
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
-      {
-         name: 'Objectiu',
-         selector: (row: any) => row.objectiu,
+      }
+   ];
+   centers.map((centro: any) => {
+      columns.push({
+         name: `Objectiu ${centro.name}`,
+         selector: (row: any) => row.objectius[centro.name],
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
-      },
+      })
+   });
+   columns.push(
       {
          name: 'Actiu',
          selector: (row: any) => row.actiu ? "X" : "",
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
          name: 'Invers',
          selector: (row: any) => row.invers ? "X" : "",
          sortable: true,
+         center: true,
+         minWidth: '30px',
+         compact: true,
+         wrap: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
@@ -114,9 +143,10 @@ export function AdminTable({ data, centers, years }: any) {
             </div>
          ),
          ignoreRowClick: true,
-         button: true,
-      }
-   ];
+         center: true,
+         wrap: true,
+         button: true
+      });
 
    createThemes();
 
@@ -138,6 +168,7 @@ export function AdminTable({ data, centers, years }: any) {
                </div>
                <div className="flex basis-1/4 rounded-md bg-light">
                   <ProfessionalsForm
+                     centers={centers}
                      register={register}
                      handleSubmit={handleSubmit}
                      errors={errors}
