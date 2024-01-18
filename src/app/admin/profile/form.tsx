@@ -22,6 +22,7 @@ export const UsersForm = ({ session, toast }: any) => {
 
    const onSubmit: SubmitHandler<UserIface> = async (data) => {
       if (isDirty == true) {
+         delete data.license;
          const upsert = await upsertUser(data);
          if (upsert.lastErrorObject?.updatedExisting) {
             toast.success('Usuari Modificat!', { theme: "colored" });
