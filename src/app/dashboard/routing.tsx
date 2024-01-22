@@ -4,27 +4,29 @@ import { usePathname, useRouter } from 'next/navigation';
 
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
+   const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const section = (pathArray[4]) ? pathArray[4] : process.env.DASHBOARD_DEFAULT_SECTION;
+   const any = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
    const up = (pathArray[2]) ? pathArray[2] : null;
 
-   let links: object[] = [];
-   years.map((label: any) => (
-      links.push({
-         label: label,
-         route: `/dashboard/${up}/${label}/${section}`
-      })
-   ))
-
    return (
-      <div className="flex">
-         {links.map(({ label, route }: any) => (
-            <Link className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'bg-bgDark hover:bg-bgLight'}`} key={route} href={route}>
-               {label}
-            </Link>
-         ))}
-      </div>
+      <>
+         <label className="flex">
+            <select value={`/dashboard/${up}/${any}/${section}`}
+               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+               onChange={e => {
+                  router.push(e.target.value)
+               }}>
+
+               {years.map((year: any) => {
+                  return <option key={year} value={`/dashboard/${up}/${year}/${section}`}>
+                     {year}
+                  </option>
+               })}
+            </select>
+         </label>
+      </>
    )
 }
 

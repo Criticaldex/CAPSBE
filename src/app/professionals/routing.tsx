@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link"
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from "react";
 
 export function GetLinksView() {
@@ -92,32 +92,34 @@ export function GetLinksSection({ sections }: any) {
 
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
+   const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
+   const any = (pathArray[5]) ? pathArray[5] : process.env.DEFAULT_YEAR;
    const professional = (pathArray[6]) ? pathArray[6] : '';
 
-   let links: object[] = [];
-   years.map((label: any) => (
-      links.push({
-         label: label,
-         route: `/professionals/${view}/${center}/${section}/${label}/${professional}`
-      })
-   ))
-
    return (
-      <div className="flex" >
+      <>
          {view == 'individual' &&
-            links.map((year: any, i: number) => (
-               <Link href={year.route} key={i} className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(year.label) ? 'bg-darkBlue text-textColor' : 'bg-bgDark hover:bg-bgLight'}`}>
-                  {year.label}
-               </Link>
-            ))
+            <label className="flex">
+               <select value={`/professionals/${view}/${center}/${section}/${any}/${professional}`}
+                  className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+                  onChange={e => {
+                     router.push(e.target.value)
+                  }}>
+
+                  {years.map((year: any) => {
+                     return <option key={year} value={`/professionals/${view}/${center}/${section}/${year}/${professional}`}>
+                        {year}
+                     </option>
+                  })}
+               </select>
+            </label>
          }
-      </div>
-   )
+      </>
+   );
 }
 
 export function GetLinksProfessionals({ professionals }: any) {
