@@ -12,10 +12,9 @@ import { GetLinksYears, GetLinksSections } from '../../routing';
 import { Loading } from "@/components/loading.component";
 
 export function AdminTable({ data, centers, years, sections }: any) {
-
    const [rows, setRows] = useState(data);
    const [filterText, setFilterText] = useState('');
-   const [isClient, setIsClient] = useState(false)
+   const [isClient, setIsClient] = useState(false);
 
    useEffect(() => {
       setIsClient(true)

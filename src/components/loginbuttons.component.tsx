@@ -35,7 +35,6 @@ export const LogoutButton = () => {
    } else {
       return (null);
    }
-
 };
 
 export const ProfileButton = () => {

@@ -96,32 +96,3 @@ export function GetSectionButtons() {
       </>
    )
 }
-
-export function GetSectionButtonsOLD() {
-   const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
-   const center = (pathArray[2]) ? pathArray[2] : null;
-
-   let links: object[] = [{
-      label: 'General',
-      route: `/dashboard/${center}/${year}/general`
-   }, {
-      label: 'CPR',
-      route: `/dashboard/${center}/${year}/cpr`
-   }, {
-      label: 'Sense CPR',
-      route: `/dashboard/${center}/${year}/nocpr`
-   }];
-
-   return (
-      <div className="flex">
-         {links.map(({ label, route }: any) => (
-            <Link className={`my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(route) ? 'bg-darkBlue text-textColor' : 'bg-bgDark hover:bg-bgLight'}`} key={route} href={route}>
-               {label}
-            </Link>
-         ))}
-      </div>
-   )
-}

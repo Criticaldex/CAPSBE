@@ -17,7 +17,16 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                role: "2"
             }
          } else if (session.user.role == '0') {
-            upsertData = data;
+            upsertData = {
+               ...session.user,
+               email: data.email,
+               password: data.password,
+               name: data.name,
+               lastname: data.lastname,
+               role: data.role,
+               db: data.db,
+               license: data.license
+            };
          }
          const upsert = await upsertUser(upsertData);
          if (upsert.lastErrorObject?.updatedExisting) {
