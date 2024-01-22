@@ -23,7 +23,6 @@ export const UsersForm = ({ user, toast }: any) => {
 
    const onSubmit: SubmitHandler<UserIface> = async (data) => {
       if (dirtyFields.license) {
-         console.log('user.email: ', user.email);
          await deleteUser(user.email);
          toast.error('¡Usuari Eliminat! 🖕🤓', { theme: "colored" });
          signOut({ redirect: false, callbackUrl: "/" })
@@ -31,13 +30,11 @@ export const UsersForm = ({ user, toast }: any) => {
          toast.warning('No es pot Modificar el correu!', { theme: "colored" });
          reset(user);
       } else if (isDirty == true && (dirtyFields.password || dirtyFields.name || dirtyFields.lastname)) {
-         console.log('dirtyFields: ', dirtyFields);
          delete data.license;
          const upsert = await upsertUser(data);
          if (upsert.lastErrorObject?.updatedExisting) {
             toast.success('Usuari Modificat!', { theme: "colored" });
          }
-         console.log('upsert: ', upsert);
          reset(upsert.value);
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });

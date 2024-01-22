@@ -27,7 +27,6 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                db: data.db,
                license: data.license
             };
-            console.log('upsertData: ', upsertData);
          }
          const upsert = await upsertUser(upsertData);
          if (upsert.lastErrorObject?.updatedExisting) {
