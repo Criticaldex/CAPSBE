@@ -1,11 +1,12 @@
 'use client';
 
 import { UserIface } from "@/schemas/user";
-import { upsertUser } from "@/services/users";
+import { upsertUser, deleteUser } from "@/services/users";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { signOut } from "next-auth/react";
 
-export const UsersForm = ({ session, toast }: any) => {
+export const UsersForm = ({ user, toast }: any) => {
    const {
       register,
       handleSubmit,
@@ -15,19 +16,29 @@ export const UsersForm = ({ session, toast }: any) => {
    } = useForm<UserIface>();
 
    useEffect(() => {
-      if (session.user) {
-         reset(session.user);
+      if (user) {
+         reset(user);
       }
-   }, [reset, session.user])
+   }, [reset, user])
 
    const onSubmit: SubmitHandler<UserIface> = async (data) => {
-      if (isDirty == true) {
+      if (dirtyFields.license) {
+         console.log('user.email: ', user.email);
+         await deleteUser(user.email);
+         toast.error('¡Usuari Eliminat! 🖕🤓', { theme: "colored" });
+         signOut({ redirect: false, callbackUrl: "/" })
+      } else if (dirtyFields.email) {
+         toast.warning('No es pot Modificar el correu!', { theme: "colored" });
+         reset(user);
+      } else if (isDirty == true && (dirtyFields.password || dirtyFields.name || dirtyFields.lastname)) {
+         console.log('dirtyFields: ', dirtyFields);
          delete data.license;
          const upsert = await upsertUser(data);
          if (upsert.lastErrorObject?.updatedExisting) {
             toast.success('Usuari Modificat!', { theme: "colored" });
          }
-         // reset(upsert.value);
+         console.log('upsert: ', upsert);
+         reset(upsert.value);
       } else {
          toast.warning('No s\'ha Modificat cap camp!', { theme: "colored" });
       }
