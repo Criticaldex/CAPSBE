@@ -52,7 +52,7 @@ function renderMarkers(this: any) {
          if (!chart.additionalMarkers) {
             var marker = renderer.path(singleMarkerPath)
                .attr({
-                  'stroke-width': 1.5,
+                  'strokeWidth': 1.5,
                   stroke: 'var(--red)',
                })
                .add();
