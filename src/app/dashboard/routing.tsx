@@ -32,6 +32,45 @@ export function GetLinksYears({ years }: any) {
 
 export function GetLinksCenters({ centros }: any) {
    const pathname = usePathname();
+   const router = useRouter();
+   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
+   const up = (pathArray[2]) ? pathArray[2] : null;
+   const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
+   const section = (pathArray[4]) ? pathArray[4] : process.env.DASHBOARD_DEFAULT_SECTION;
+
+   let links: any[] = [];
+
+   centros.forEach((centro: any) => {
+      if (centro.name != 'Pediatria') {
+         links.push({
+            label: centro.name,
+            route: `/dashboard/${centro.id}/${year}/${section}`
+         })
+      }
+   });
+
+   return (
+      <>
+         <label className="flex">
+            <select value={`/dashboard/${up}/${year}/${section}`}
+               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+               onChange={e => {
+                  router.push(e.target.value)
+               }}>
+
+               {centros.map((centro: any) => {
+                  return <option key={centro.name} value={`/dashboard/${centro.id}/${year}/${section}`}>
+                     {centro.name}
+                  </option>
+               })}
+            </select>
+         </label>
+      </>
+   )
+}
+
+export function GetLinksCenters_OLD({ centros }: any) {
+   const pathname = usePathname();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const year = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
    const section = (pathArray[4]) ? pathArray[4] : process.env.DASHBOARD_DEFAULT_SECTION;

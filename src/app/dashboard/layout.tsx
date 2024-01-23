@@ -9,7 +9,7 @@ export default async function ContractsLayout({ children }: any) {
       <div>
          <title>Quadre Comandament</title>
          <div className="mt-2 bg-light text-right flex justify-between items-center">
-            <div className="flex justify-between grow mb-2 mx-2">
+            <div className="flex justify-end grow mb-2 mx-2">
                <GetLinksCenters
                   centros={centers}
                />
