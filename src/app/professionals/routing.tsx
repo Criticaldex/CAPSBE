@@ -88,8 +88,7 @@ export function GetLinksSection({ sections }: any) {
    ))
 
    useEffect(() => {
-      let coincidencia = links.filter((link: any) => pathname?.includes(link.route))
-      if (coincidencia.length == 0)
+      if (!links.filter((link: any) => pathname?.includes(link.route)).length)
          router.push(`/professionals/${view}/${center}/${sections[0].replaceAll(' ', '_')}`)
    }, []);
 
