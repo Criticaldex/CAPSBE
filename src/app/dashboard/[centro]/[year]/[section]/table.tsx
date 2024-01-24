@@ -26,7 +26,7 @@ export function DashboardTable({ data, centros }: any) {
 
    const subHeaderComponentMemo = useMemo(() => {
       return (
-         <div className="flex justify-between grow m-2">
+         <div className="flex justify-end grow m-2">
             <GetSectionButtons />
          </div>
       );

@@ -26,7 +26,7 @@ export function GetLinksView() {
       <>
          <label className="flex">
             <select value={`/professionals/${view}/${center}/${section}`}
-               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+               className={'my-1 mr-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
                onChange={e => {
                   router.push(e.target.value)
                }}>
@@ -96,7 +96,7 @@ export function GetLinksSection({ sections }: any) {
       <>
          <label>
             <select value={`/professionals/${view}/${center}/${sect}`}
-               className={'mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
+               className={'my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
                onChange={e => {
                   router.push(e.target.value)
                }}>
