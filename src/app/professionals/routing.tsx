@@ -112,37 +112,6 @@ export function GetLinksSection({ sections }: any) {
    )
 }
 
-export function GetLinksSection_OLD({ sections }: any) {
-   const pathname = usePathname();
-   const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
-   const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
-
-   let links: object[] = [];
-   sections.map((label: any) => (
-      links.push({
-         label: label,
-         route: `/professionals/${view}/${center}/${label.replaceAll(' ', '_')}`
-      })
-   ))
-   useEffect(() => {
-      let coincidencia = links.filter((link: any) => pathname?.includes(link.route))
-      if (coincidencia.length == 0)
-         document.getElementById('secciones')?.getElementsByTagName('a')[0].click()
-   }, []);
-
-   return (
-      <div id="secciones" className="flex" >
-         {links.map((section: any, i: number) => (
-            <Link href={section.route} key={i} className={`grow my-1 mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue
-            ${pathname?.includes(section.route) ? 'bg-darkBlue text-textColor' : 'bg-bgDark hover:bg-bgLight'}`}>
-               {section.label}
-            </Link>
-         ))}
-      </div>
-   )
-}
-
 export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const router = useRouter();
@@ -177,6 +146,7 @@ export function GetLinksYears({ years }: any) {
 
 export function GetLinksProfessionals({ professionals }: any) {
    const pathname = usePathname();
+   const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
    const view = (pathArray[2]) ? pathArray[2] : process.env.PROFESSIONALS_DEFAULT_VIEW;
    const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
@@ -191,6 +161,11 @@ export function GetLinksProfessionals({ professionals }: any) {
          route: `/professionals/${view}/${center}/${section}/${year}/${label.split('(').pop().split(')')[0]}`
       })
    ))
+
+   useEffect(() => {
+      if (!links.filter((link: any) => pathname?.includes(link.route)).length)
+         router.push(`/professionals/${view}/${center}/${section}/${year}/${professionals[0].split('(').pop().split(')')[0]}`)
+   }, []);
 
    return (
       <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] bg-bgDark rounded-md">

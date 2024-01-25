@@ -13,7 +13,6 @@ export default async function ProfessionalsLayout({ children, params }: any) {
    return (
       <div>
          <title>Professionals</title>
-
          <main className="m-2">
             {children}
          </main>
