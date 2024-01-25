@@ -14,14 +14,14 @@ export default async function ProfessionalsCenter({ children, params }: any) {
          <div className="flex justify-between grow mb-2 mx-2">
             <div className="flex justify-start grow">
                <GetLinksView />
-               <GetLinksYears
-                  years={years}
-               />
                <GetLinksCentro
                   centros={centros}
                />
                <GetLinksSection
                   sections={sections}
+               />
+               <GetLinksYears
+                  years={years}
                />
             </div>
             <div className="bg-light text-right flex items-center">
