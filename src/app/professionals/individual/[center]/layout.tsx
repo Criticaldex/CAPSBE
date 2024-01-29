@@ -1,4 +1,4 @@
-import { GetLinksCentro, GetLinksSection, GetLinksView, GetLinksYears } from "@/app/professionals/routing";
+import { GetLinksCentro, GetLinksSection, GetLinksView, GetLinksYears } from "@/app/professionals/individual/routing";
 import { getCenters } from "@/services/centros";
 import { getSections, getYears } from "@/services/professionals";
 
