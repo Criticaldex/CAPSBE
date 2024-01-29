@@ -1,22 +1,18 @@
-import { GetLinksCentro, GetLinksSection, GetLinksView, GetLinksYears } from "@/app/professionals/routing";
+import { GetLinksCentro, GetLinksSection, GetLinksView } from "@/app/professionals/global/routing";
 import { getCenters } from "@/services/centros";
-import { getSections, getYears } from "@/services/professionals";
+import { getSections } from "@/services/professionals";
 
 export default async function ProfessionalsCenter({ children, params }: any) {
    const { center } = params;
    let filters = { 'any': process.env.DEFAULT_YEAR, 'centre': center }
    const sections = await getSections(filters)
    const centros = await getCenters();
-   const years = await getYears();
 
    return (
       <div className="mt-2 bg-light flex-col items-center">
          <div className="flex justify-between grow mb-2 mx-2">
             <div className="flex justify-start grow">
                <GetLinksView />
-               <GetLinksYears
-                  years={years}
-               />
                <GetLinksCentro
                   centros={centros}
                />
