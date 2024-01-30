@@ -2,7 +2,7 @@
 import Link from "next/link"
 
 import { BiPlusMedical } from "react-icons/bi"
-import { FaCapsules, FaUserNurse, FaPhoneAlt } from "react-icons/fa"
+import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock } from "react-icons/fa"
 import { TbLayoutDashboard } from "react-icons/tb"
 import { RiMedicineBottleLine } from "react-icons/ri"
 
@@ -44,6 +44,10 @@ export default function GetNav({ session }: any) {
          label: 'IQF',
          icon: FaCapsules,
          route: '/iqf'
+      }, {
+         label: 'Seguretat',
+         icon: FaUnlock,
+         route: '/seguretat'
       }
    ]
 
