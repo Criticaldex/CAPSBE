@@ -13,14 +13,13 @@ if (typeof Highcharts === "object") {
 
 export function Chart({ name, data, objectiu, categories, setter }: any) {
 
-   let colors = ["#2caffe", "#544fc5", "#00e272", "#fe6a35", "#6b8abc", "#d568fb", "#2ee0ca", "#fa4b42", "#feb56a", "#91e8e12"]
    let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
    useEffect(() => {
       centrosClass.forEach(clase => {
          let contenedor = document.getElementsByClassName(clase)
          for (var i = 0; i < contenedor.length; i++) {
             let p = contenedor[i].getElementsByTagName('p')
-            p[0].style.borderColor = colors[i].toString()
+            p[0].style.borderColor = `var(--highcharts${i})`
          };
       })
    }, [])

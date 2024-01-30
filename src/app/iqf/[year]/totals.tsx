@@ -4,7 +4,6 @@ import { TrendChart } from "./trendChart";
 
 export function Totals({ iqfTotals }: any) {
    const iqf = iqfTotals
-   const colores = ["#2caffe", "#544fc5", "#00e272", "#fe6a35", "#6b8abc", "#d568fb", "#2ee0ca", "#fa4b42", "#feb56a", "#91e8e12"]
 
    return (
       <section className="flex m-2 justify-around bg-bgLight rounded-md p-3 overflow-hidden">
@@ -16,14 +15,15 @@ export function Totals({ iqfTotals }: any) {
                <div className="text-center grow m-2">
                   <GaugeChart
                      data={total}
-                     numColor={colores[index]}
+                     numColor={`var(--highcharts${index})`}
+                     numColorBg={`var(--highcharts${index}_bg)`}
                   />
                </div>
                <div className="text-center max-w-sm m-auto flex">
                   <div>
                      <TrendChart
                         data={total}
-                        numColor={colores[index]}
+                        numColor={`var(--highcharts${index})`}
                      />
                   </div>
                   <div>

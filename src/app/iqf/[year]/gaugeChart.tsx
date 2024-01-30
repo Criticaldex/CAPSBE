@@ -14,8 +14,7 @@ if (typeof Highcharts === "object") {
    solidGauge(Highcharts);
 }
 
-export function GaugeChart({ data, numColor }: any) {
-
+export function GaugeChart({ data, numColor, numColorBg }: any) {
    const options = {
       ...chartOptions,
       chart: {
@@ -65,7 +64,7 @@ export function GaugeChart({ data, numColor }: any) {
          background: {
             outerRadius: '90%',
             innerRadius: '70%',
-            backgroundColor: numColor + '50',
+            backgroundColor: numColorBg,
             borderWidth: 0
          }
       },
