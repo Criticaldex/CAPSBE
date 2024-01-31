@@ -27,7 +27,7 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
    let max = 0;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
+         max = (i > max && i != null) ? i : max;
       });
    });
    max = (objectiu > max) ? objectiu : max;

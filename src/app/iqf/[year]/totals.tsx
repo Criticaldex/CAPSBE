@@ -28,7 +28,7 @@ export function Totals({ iqfTotals }: any) {
                   </div>
                   <div>
                      {total.diferencia != null ? (
-                        <p className={`text-xl font-bold ${total.diferencia < 0 ? "text-red" : total.diferencia > 0 ? "text-green" : 'text-yellowCustom'}`}>
+                        <p className={`text-xl font-bold ${total.diferencia < 0 ? "text-red" : total.diferencia > 0 ? "text-green" : 'text-yellow'}`}>
                            {total.diferencia < 0 ?
                               <span>&#8600;</span> :
                               total.diferencia > 0 ?

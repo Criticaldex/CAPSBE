@@ -15,8 +15,8 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
    let min = 100;
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-         min = (i < min) ? i : min;
+         max = (i > max && i != null) ? i : max;
+         min = (i < min && i != null) ? i : min;
       });
    });
    objectius.forEach((elem: any) => {
