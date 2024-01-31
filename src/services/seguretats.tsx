@@ -13,6 +13,7 @@ const getSeguretats = async (filter: any) => {
                   "-_id"
                ],
                filter: filter,
+               sort: '-up'
             }
          ),
       }).then(res => res.json());
@@ -92,7 +93,7 @@ export const getTotalsSeguretat = async (year: string, centros: any) => {
             name = centro.name;
          }
       })
-      const dades = seguretat.puntuacio_total
+      const dades = seguretat.total_punts
 
       let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
       let diferencia = null
@@ -129,7 +130,7 @@ export const getGeriatria = async (year: string, centros: any) => {
       }
    });
 
-   const geriatria = 'Medicaments potencialment inapropiats en Geratria';
+   const geriatria = 'Medicaments potencialment inapropiats en Geriatria';
    const gastrolesius = 'Combinacions F gastrolesius sense IBP';
    const aines = "Combinacio d'AINES amb risc CV + Patologia CV";
    const renal75 = "Combinacions de risc pel Sist Renal +75";
@@ -164,6 +165,9 @@ export const getGeriatria = async (year: string, centros: any) => {
       return {
          name: name,
          data: dades,
+         total: dades.reduce((accumulator, currentValue, index) => {
+            return accumulator + currentValue;
+         })
       }
    });
 
@@ -173,9 +177,9 @@ export const getGeriatria = async (year: string, centros: any) => {
    };
 }
 
-export const getHiper = async (year: string, centros: any) => {
+export const getSnc = async (year: string, centros: any) => {
    const ups: any[] = [];
-   const categories = ['aines', 'condoprotectors', 'antiulcerosos', 'benzodiazepines', 'antibacterians', 'antiespasmodics']
+   // const categories = ['Medicaments inapropiats geriatria', 'Gastrolesius sense IBP', 'AINES risc CV', 'Risc Sist. Renal 75', 'Risc Sist. Renal 18', 'AIU i antiespasmòdics urinaris']
    centros.map(({ id, name, up }: any) => (
       ups.push(up)
    ))
@@ -187,6 +191,18 @@ export const getHiper = async (year: string, centros: any) => {
       }
    });
 
+   const antipsicotics75 = "Pac 75 >=2 antipsicòtics";
+   const antipsicotics18 = "Pac 18 antipsicòtics + F demència";
+   const anticolinergics75 = "Pac 75 >=3 F anticolinèrgics";
+   const anticolUrin = "anticol. urin. +F demència colinèrgics";
+   const opiodesFD = "Pac 18 Opiodes Forts + debils";
+   const opiodesFB = "Pac 18 Opiodes Forts + Benzos";
+   const opiodesFG = "Pac 18 Forts + Gaba o Pregabalina";
+   const benzos2 = "Pac 18 amb 2 Benzos";
+   const benzos3 = "Pac 18 amb >=3 Benzos";
+   const farmacsSNC = "Pac 75 amb >=4 Fàrmacs SNC";
+   const categories = [antipsicotics75, antipsicotics18, anticolinergics75, anticolUrin, opiodesFD, opiodesFB, opiodesFG, benzos2, benzos3, farmacsSNC]
+
    const data: any[] = seguretats.map((seguretat: any) => {
       let name: string = '';
       centros.map((centro: { up: any; name: string; }) => {
@@ -195,18 +211,36 @@ export const getHiper = async (year: string, centros: any) => {
          }
       })
 
-      let dades: any = [];
+      const antipsicotics75 = seguretat['dos_o_mes_antipsicotics_(exclou'].punts;
+      const antipsicotics18 = seguretat['tractament_per_la_demencia_i'].punts;
+      const anticolinergics75 = seguretat['tres_o_mes_medicaments_amb'].punts;
+      const anticolUrin = seguretat['anticolinergics_urinaris_i_farmacs_per'].punts;
+      const opiodesFD = seguretat['concomitant_dopioides_forts_i_opioides'].punts;
+      const opiodesFB = seguretat['concomitant_dopioides_forts_i_benzodiazepines'].punts;
+      const opiodesFG = seguretat['concomitant_dopioides_forts_i_gabapentina'].punts;
+      const benzos2 = seguretat['benzodiazepines_o_farmacs_relacionats_diferents'].punts;
+      const benzos3 = seguretat['tres_o_mes_benzodiazepines_o'].punts;
+      const farmacsSNC = seguretat['quatre_o_mes_farmacs_depressors'].punts;
 
-      for (const [key, value] of (Object.entries(seguretat.indicadors_dhiperprescripcio) as [string, any][])) {
-         if (value.puntuacio) {
-            dades.push(value.puntuacio[value.puntuacio.length - 1])
-         }
-      }
+      const dades = [
+         antipsicotics75[antipsicotics75.length - 1],
+         antipsicotics18[antipsicotics18.length - 1],
+         anticolinergics75[anticolinergics75.length - 1],
+         anticolUrin[anticolUrin.length - 1],
+         opiodesFD[opiodesFD.length - 1],
+         opiodesFB[opiodesFB.length - 1],
+         opiodesFG[opiodesFG.length - 1],
+         benzos2[benzos2.length - 1],
+         benzos3[benzos3.length - 1],
+         farmacsSNC[farmacsSNC.length - 1],
+      ]
 
       return {
          name: name,
          data: dades,
-         total: seguretat.puntuacio_hiperprescripcio
+         total: dades.reduce((accumulator, currentValue, index) => {
+            return accumulator + currentValue;
+         })
       }
    });
 
@@ -216,7 +250,7 @@ export const getHiper = async (year: string, centros: any) => {
    };
 }
 
-export const getUniversalsDetall = async (year: string, centros: any, seccio: any) => {
+export const getGeriatriaDetall = async (year: string, centros: any, seccio: any) => {
    const ups: any[] = [];
    centros.map(({ id, name, up }: any) => (
       ups.push(up)
@@ -242,25 +276,46 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
       let numeradors: any = '';
       let denominadors: any = '';
 
+      const pacients75 = seguretat['pacients_>=75a_us_cronic_(especialitats)'];
+      const pacients18 = seguretat['pacients_>=18a_us_cronic_(especialitats)'];
+
       switch (seccio) {
-         case 'biosimilars':
-            dades = seguretat['indicadors_universals_(biosimilars)'].biosimilars['%'];
-            numeradors = seguretat['indicadors_universals_(biosimilars)'].biosimilars.numerador;
-            denominadors = seguretat['indicadors_universals_(biosimilars)'].biosimilars.denominador;
+         case "Combinacions F gastrolesius sense IBP":
+            dades = seguretat['medicacio_gastrolesiva_sense_inhibidor_de'].taxa;
+            numeradors = seguretat['medicacio_gastrolesiva_sense_inhibidor_de'].pacients;
+            denominadors = pacients75;
+            break;
+         case "Combinacio d'AINES amb risc CV + Patologia CV":
+            dades = seguretat['cox2_diclofenac_o_aceclofenac_i'].taxa;
+            numeradors = seguretat['cox2_diclofenac_o_aceclofenac_i'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Combinacions de risc pel Sist Renal +75":
+            dades = seguretat['isra__aine__diuretic'].taxa;
+            numeradors = seguretat['isra__aine__diuretic'].pacients;
+            denominadors = pacients75;
+            break;
+         case "Combinacions de risc pel Sist Renal +18":
+            dades = seguretat['o_mes_inhibidors_del_sistema'].taxa;
+            numeradors = seguretat['o_mes_inhibidors_del_sistema'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Combinació AIU (>2 AIU/dia) + Antiespasmòdics urinaris":
+            dades = seguretat['dabsorbents_urinaris_(exclou_cips_amb'].taxa;
+            numeradors = seguretat['dabsorbents_urinaris_(exclou_cips_amb'].pacients;
+            denominadors = pacients18;
             break;
          default:
-            dades = seguretat.indicadors_universals.matma['%'];
-            numeradors = seguretat.indicadors_universals.matma.numerador;
-            denominadors = seguretat.indicadors_universals.matma.denominador;
+            dades = seguretat['medicacio_potencialment_inapropiada'].taxa;
+            numeradors = seguretat['medicacio_potencialment_inapropiada'].pacients;
+            denominadors = pacients75;
             break;
       }
       let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
 
-      const map = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
-
       return {
          name: name,
-         data: map.slice(primerIndiceNoNulo),
+         data: dades.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
          denominadors: denominadors.slice(primerIndiceNoNulo)
       }
@@ -268,7 +323,7 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
    return data;
 }
 
-export const getHiperDetall = async (year: string, centros: any, seccio: any) => {
+export const getSncDetall = async (year: string, centros: any, seccio: any) => {
    const ups: any[] = [];
    centros.map(({ id, name, up }: any) => (
       ups.push(up)
@@ -290,54 +345,70 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
          }
       })
 
-      const dades = seguretat['indicadors_dhiperprescripcio'][seccio].dhd_st;
-      let primerIndiceNoNulo = dades.findIndex((elemento: any) => elemento !== null);
+      let dades: any = '';
+      let numeradors: any = '';
+      let denominadors: any = '';
 
-      const map = dades.map((item: any) => {
-         if (item) return parseFloat((item).toFixed(2));
-      })
+      const pacients75 = seguretat['pacients_>=75a_us_cronic_(especialitats)'];
+      const pacients18 = seguretat['pacients_>=18a_us_cronic_(especialitats)'];
 
-      return {
-         name: name,
-         data: map.slice(primerIndiceNoNulo)
+      switch (seccio) {
+         case "Pac 18 antipsicòtics + F demència":
+            dades = seguretat['tractament_per_la_demencia_i'].taxa;
+            numeradors = seguretat['tractament_per_la_demencia_i'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 75 >=3 F anticolinèrgics":
+            dades = seguretat['tres_o_mes_medicaments_amb'].taxa;
+            numeradors = seguretat['tres_o_mes_medicaments_amb'].pacients;
+            denominadors = pacients75;
+            break;
+         case "anticol. urin. +F demència colinèrgics":
+            dades = seguretat['anticolinergics_urinaris_i_farmacs_per'].taxa;
+            numeradors = seguretat['anticolinergics_urinaris_i_farmacs_per'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 18 Opiodes Forts + debils":
+            dades = seguretat['concomitant_dopioides_forts_i_opioides'].taxa;
+            numeradors = seguretat['concomitant_dopioides_forts_i_opioides'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 18 Opiodes Forts + Benzos":
+            dades = seguretat['concomitant_dopioides_forts_i_benzodiazepines'].taxa;
+            numeradors = seguretat['concomitant_dopioides_forts_i_benzodiazepines'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 18 Forts + Gaba o Pregabalina":
+            dades = seguretat['concomitant_dopioides_forts_i_gabapentina'].taxa;
+            numeradors = seguretat['concomitant_dopioides_forts_i_gabapentina'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 18 amb 2 Benzos":
+            dades = seguretat['benzodiazepines_o_farmacs_relacionats_diferents'].taxa;
+            numeradors = seguretat['benzodiazepines_o_farmacs_relacionats_diferents'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 18 amb >=3 Benzos":
+            dades = seguretat['tres_o_mes_benzodiazepines_o'].taxa;
+            numeradors = seguretat['tres_o_mes_benzodiazepines_o'].pacients;
+            denominadors = pacients18;
+            break;
+         case "Pac 75 amb >=4 Fàrmacs SNC":
+            dades = seguretat['quatre_o_mes_farmacs_depressors'].taxa;
+            numeradors = seguretat['quatre_o_mes_farmacs_depressors'].pacients;
+            denominadors = pacients75;
+            break;
+         default:
+            dades = seguretat['dos_o_mes_antipsicotics_(exclou'].taxa;
+            numeradors = seguretat['dos_o_mes_antipsicotics_(exclou'].pacients;
+            denominadors = pacients75;
+            break;
       }
-   });
-
-   return data;
-}
-
-export const getSeleccioDetall = async (year: string, centros: any, seccio: any) => {
-   const ups: any[] = [];
-   centros.map(({ id, name, up }: any) => (
-      ups.push(up)
-   ))
-
-   const seguretats = await getSeguretats({
-      any: year,
-      up: {
-         $in: ups
-      }
-   });
-
-   const data: any[] = seguretats.map((seguretat: any) => {
-      let name: string = '';
-
-      centros.map((centro: { up: any; name: string; }) => {
-         if (centro.up == seguretat.up) {
-            name = centro.name;
-         }
-      })
-
-      const dades = seguretat['indicadors_de_seleccio_de_medicaments'][seccio]['%'];
-      const numeradors = seguretat['indicadors_de_seleccio_de_medicaments'][seccio].numerador;
-      const denominadors = seguretat['indicadors_de_seleccio_de_medicaments'][seccio].denominador;
       let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
 
-      const mapDades = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
-
       return {
          name: name,
-         data: mapDades.slice(primerIndiceNoNulo),
+         data: dades.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
          denominadors: denominadors.slice(primerIndiceNoNulo)
       }
@@ -347,571 +418,371 @@ export const getSeleccioDetall = async (year: string, centros: any, seccio: any)
 
 export const getPlotLines = async (seccio: any) => {
    let plotlines: any = '';
+
    switch (seccio) {
-      case 'matma':
+
+      //Geriatria
+
+      case "Medicaments potencialment inapropiats en Geriatria":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
-            value: 0.71,
-            label: {
-               text: '10p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 0.81,
+            value: 159.19,
             label: {
                text: '8p'
             }
          }, {
-            color: 'var(--orange)',
+            color: 'var(--yellow)',
             width: 2,
-            value: 0.94,
-            label: {
-               text: '6p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 1.04,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 1.30,
-            label: {
-               text: '2p'
-            }
-         }]
-         break;
-
-      case 'biosimilars':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 32,
+            value: 168.75,
             label: {
                text: '5p'
             }
          }, {
-            color: 'var(--yellow)',
+            color: 'var(--red)',
             width: 2,
-            value: 24,
+            value: 189.18,
             label: {
                text: '3p'
             }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 17,
-            label: {
-               text: '1p'
-            }
          }]
          break;
-
-      //Hiperprescripcio
-
-      case 'aines':
+      case "Combinacions F gastrolesius sense IBP":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
-            value: 22.3,
+            value: 2.81,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
             width: 2,
-            value: 26.7,
+            value: 3.97,
             label: {
                text: '4p'
             }
          }, {
-            color: 'var(--orange)',
+            color: 'var(--red)',
             width: 2,
-            value: 30,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 33.7,
+            value: 4.45,
             label: {
                text: '2p'
             }
-         }, {
+         }]
+         break;
+      case "Combinacio d'AINES amb risc CV + Patologia CV":
+         plotlines = [{
             color: 'var(--red)',
             width: 2,
-            value: 37.5,
+            value: 0.13,
             label: {
-               text: '1p'
+               text: '2p'
             }
          }]
          break;
-
-      case 'antiulcerosos':
+      case "Combinacions de risc pel Sist Renal +75":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
-            value: 96.1,
+            value: 6.70,
             label: {
-               text: '9p'
+               text: '8p'
             }
          }, {
             color: 'var(--yellow)',
             width: 2,
-            value: 103.9,
-            label: {
-               text: '7p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 112.9,
+            value: 8.02,
             label: {
                text: '5p'
             }
          }, {
-            color: 'var(--orange-1)',
+            color: 'var(--red)',
             width: 2,
-            value: 119.9,
+            value: 10.24,
             label: {
                text: '3p'
             }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 126.1,
-            label: {
-               text: '1p'
-            }
          }]
          break;
-
-      case 'condoprotectors':
-         //SYSADOA al pdf
+      case "Combinacions de risc pel Sist Renal +18":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
-            value: 1,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 1.6,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'benzodiazepines':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 56.2,
-            label: {
-               text: '7p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 63.4,
-            label: {
-               text: '5p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 68.8,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 77.1,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 86.1,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'antiespasmodics':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 5.8,
+            value: 0.28,
             label: {
                text: '6p'
             }
          }, {
             color: 'var(--yellow)',
             width: 2,
-            value: 6.7,
+            value: 0.35,
             label: {
                text: '4p'
             }
          }, {
-            color: 'var(--orange)',
+            color: 'var(--red)',
             width: 2,
-            value: 7.4,
+            value: 0.53,
+            label: {
+               text: '2p'
+            }
+         }]
+         break;
+      case "Combinació AIU (>2 AIU/dia) + Antiespasmòdics urinaris":
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 2.02,
+            label: {
+               text: '8p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 2.65,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 3.02,
             label: {
                text: '3p'
             }
-         }, {
-            color: 'var(--orange-1)',
+         }]
+         break;
+
+      //Snc
+
+      case 'Pac 75 >=2 antipsicòtics':
+         plotlines = [{
+            color: 'var(--green)',
             width: 2,
-            value: 8.2,
+            value: 6.13,
+            label: {
+               text: '8p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 7.31,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 8.64,
+            label: {
+               text: '3p'
+            }
+         }]
+         break;
+      case 'Pac 18 antipsicòtics + F demència':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 2.75,
+            label: {
+               text: '4p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 3.44,
             label: {
                text: '2p'
             }
          }, {
             color: 'var(--red)',
             width: 2,
-            value: 9.1,
+            value: 4.14,
             label: {
                text: '1p'
             }
          }]
          break;
-
-      case 'antibacterians':
+      case 'Pac 75 >=3 F anticolinèrgics':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 19.94,
+            label: {
+               text: '8p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 21.29,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 25.20,
+            label: {
+               text: '3p'
+            }
+         }]
+         break;
+      case 'anticol. urin. +F demència colinèrgics':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 0.12,
+            label: {
+               text: '8p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 0.21,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 0.33,
+            label: {
+               text: '3p'
+            }
+         }]
+         break;
+      case 'Pac 18 Opiodes Forts + debils':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 1.03,
+            label: {
+               text: '8p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 1.17,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 1.46,
+            label: {
+               text: '3p'
+            }
+         }]
+         break;
+      case 'Pac 18 Opiodes Forts + Benzos':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 5.41,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 6.56,
+            label: {
+               text: '3p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 8.09,
+            label: {
+               text: '1p'
+            }
+         }]
+         break;
+      case 'Pac 18 Forts + Gaba o Pregabalina':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 3.35,
+            label: {
+               text: '5p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 3.98,
+            label: {
+               text: '3p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 4.93,
+            label: {
+               text: '1p'
+            }
+         }]
+         break;
+      case 'Pac 18 amb 2 Benzos':
+         plotlines = [{
+            color: 'var(--red)',
+            width: 2,
+            value: 22.30,
+            label: {
+               text: '2p'
+            }
+         }]
+         break;
+      case 'Pac 18 amb >=3 Benzos':
+         plotlines = [{
+            color: 'var(--green)',
+            width: 2,
+            value: 0.93,
+            label: {
+               text: '6p'
+            }
+         }, {
+            color: 'var(--yellow)',
+            width: 2,
+            value: 1.17,
+            label: {
+               text: '4p'
+            }
+         }, {
+            color: 'var(--red)',
+            width: 2,
+            value: 1.47,
+            label: {
+               text: '2p'
+            }
+         }]
+         break;
+      case 'Pac 75 amb >=4 Fàrmacs SNC':
          //Antibiotics al pdf
          plotlines = [{
             color: 'var(--green)',
             width: 2,
-            value: 5.8,
-            label: {
-               text: '10p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 6.8,
+            value: 28.12,
             label: {
                text: '8p'
             }
          }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 7.7,
-            label: {
-               text: '6p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 8.6,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 9.3,
-            label: {
-               text: '2p'
-            }
-         }]
-         break;
-
-      //Seleccio
-
-      case 'antihipertensius':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 71,
-            label: {
-               text: '6p'
-            }
-         }, {
             color: 'var(--yellow)',
             width: 2,
-            value: 70,
+            value: 31.15,
             label: {
                text: '5p'
             }
          }, {
-            color: 'var(--orange)',
+            color: 'var(--red)',
             width: 2,
-            value: 68,
+            value: 33.70,
             label: {
                text: '3p'
             }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 66,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 64,
-            label: {
-               text: '1p'
-            }
          }]
          break;
-
-      case 'ibp':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 90,
-            label: {
-               text: '6p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 89,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 87,
-            label: {
-               text: '2p'
-            }
-         }]
-         break;
-
-      case 'osteoporosi':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 64,
-            label: {
-               text: '5p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 61,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 58,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 53,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 48,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'hipocolesterolemiants':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 80,
-            label: {
-               text: '6p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 78,
-            label: {
-               text: '5p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 75,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 73,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'antidepressius_1a_linia':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 66,
-            label: {
-               text: '6p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 65,
-            label: {
-               text: '5p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 63,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 62,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 59,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'antidepressius_2a_linia':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 41,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 36,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
-      case 'hipoglucemiants_monoterapia_recomanada':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 77,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 75,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 74,
-            label: {
-               text: '2p'
-            }
-         }]
-         break;
-
-      case 'hipoglucemiants_biterapia_recomanada':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 46,
-            label: {
-               text: '4p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 41,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 39,
-            label: {
-               text: '2p'
-            }
-         }]
-         break;
-
-      case 'mpoc_seleccio':
-         plotlines = [{
-            color: 'var(--green)',
-            width: 2,
-            value: 37,
-            label: {
-               text: '7p'
-            }
-         }, {
-            color: 'var(--yellow)',
-            width: 2,
-            value: 35,
-            label: {
-               text: '5p'
-            }
-         }, {
-            color: 'var(--orange)',
-            width: 2,
-            value: 32,
-            label: {
-               text: '3p'
-            }
-         }, {
-            color: 'var(--orange-1)',
-            width: 2,
-            value: 30,
-            label: {
-               text: '2p'
-            }
-         }, {
-            color: 'var(--red)',
-            width: 2,
-            value: 26,
-            label: {
-               text: '1p'
-            }
-         }]
-         break;
-
       default:
          plotlines = [];
          break;
