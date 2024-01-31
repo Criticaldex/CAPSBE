@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.iqf) {
          db.model('iqf', IQFSchema);
       }
-      const iqf: any = await db.models.iqf.find(body.filter).select(fields).lean();
+      const iqf: any = await db.models.iqf.find(body.filter).select(fields).sort(body.sort).lean();
       return NextResponse.json(iqf);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

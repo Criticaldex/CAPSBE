@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.seguretat) {
          db.model('seguretat', SeguretatSchema);
       }
-      const seguretat: any = await db.models.seguretat.find(body.filter).select(fields).lean();
+      const seguretat: any = await db.models.seguretat.find(body.filter).select(fields).sort(body.sort).lean();
       return NextResponse.json(seguretat);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });

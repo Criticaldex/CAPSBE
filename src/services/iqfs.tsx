@@ -13,6 +13,7 @@ const getIqfs = async (filter: any) => {
                   "-_id"
                ],
                filter: filter,
+               sort: "-up"
             }
          ),
       }).then(res => res.json());
