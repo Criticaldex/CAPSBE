@@ -24,7 +24,7 @@ module.exports = {
             red: 'var(--red)',
             green: 'var(--green)',
             darkRed: 'var(--darkRed)',
-            yellowCustom: 'var(--yellow)',
+            yellow: 'var(--yellow)',
             bgLight: 'var(--bg-light)',
             bgDark: 'var(--bg-dark)',
             contrario: 'var(--contrario)',
