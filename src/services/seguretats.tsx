@@ -118,7 +118,6 @@ export const getBasal = async (up: string, year: string) => {
 
 export const getGeriatria = async (year: string, centros: any) => {
    const ups: any[] = [];
-   // const categories = ['Medicaments inapropiats geriatria', 'Gastrolesius sense IBP', 'AINES risc CV', 'Risc Sist. Renal 75', 'Risc Sist. Renal 18', 'AIU i antiespasmòdics urinaris']
    centros.map(({ id, name, up }: any) => (
       ups.push(up)
    ))
@@ -130,12 +129,12 @@ export const getGeriatria = async (year: string, centros: any) => {
       }
    });
 
-   const geriatria = 'Medicaments potencialment inapropiats en Geriatria';
-   const gastrolesius = 'Combinacions F gastrolesius sense IBP';
-   const aines = "Combinacio d'AINES amb risc CV + Patologia CV";
-   const renal75 = "Combinacions de risc pel Sist Renal +75";
-   const renal18 = "Combinacions de risc pel Sist Renal +18";
-   const antiespasmodics = "Combinació AIU (>2 AIU/dia) + Antiespasmòdics urinaris";
+   const geriatria = 'Pac 75 medicaments inapropiats';
+   const gastrolesius = 'Pac 75 F gastrol. i no IBP';
+   const aines = "Pac 18 AINES CV + Patologia CV";
+   const renal75 = "Pac 75 AINES + ISRA + Diüretics";
+   const renal18 = "Pac 18 >=2 inh. Sist Ren-Angiotens";
+   const antiespasmodics = "Pac 18 AIU + antiespam. urinaris";
    const categories = [geriatria, gastrolesius, aines, renal75, renal18, antiespasmodics]
 
    const data: any[] = seguretats.map((seguretat: any) => {
@@ -280,27 +279,27 @@ export const getGeriatriaDetall = async (year: string, centros: any, seccio: any
       const pacients18 = seguretat['pacients_>=18a_us_cronic_(especialitats)'];
 
       switch (seccio) {
-         case "Combinacions F gastrolesius sense IBP":
+         case "Pac 75 F gastrol. i no IBP":
             dades = seguretat['medicacio_gastrolesiva_sense_inhibidor_de'].taxa;
             numeradors = seguretat['medicacio_gastrolesiva_sense_inhibidor_de'].pacients;
             denominadors = pacients75;
             break;
-         case "Combinacio d'AINES amb risc CV + Patologia CV":
+         case "Pac 18 AINES CV + Patologia CV":
             dades = seguretat['cox2_diclofenac_o_aceclofenac_i'].taxa;
             numeradors = seguretat['cox2_diclofenac_o_aceclofenac_i'].pacients;
             denominadors = pacients18;
             break;
-         case "Combinacions de risc pel Sist Renal +75":
+         case "Pac 75 AINES + ISRA + Diüretics":
             dades = seguretat['isra__aine__diuretic'].taxa;
             numeradors = seguretat['isra__aine__diuretic'].pacients;
             denominadors = pacients75;
             break;
-         case "Combinacions de risc pel Sist Renal +18":
+         case "Pac 18 >=2 inh. Sist Ren-Angiotens":
             dades = seguretat['o_mes_inhibidors_del_sistema'].taxa;
             numeradors = seguretat['o_mes_inhibidors_del_sistema'].pacients;
             denominadors = pacients18;
             break;
-         case "Combinació AIU (>2 AIU/dia) + Antiespasmòdics urinaris":
+         case "Pac 18 AIU + antiespam. urinaris":
             dades = seguretat['dabsorbents_urinaris_(exclou_cips_amb'].taxa;
             numeradors = seguretat['dabsorbents_urinaris_(exclou_cips_amb'].pacients;
             denominadors = pacients18;
@@ -420,10 +419,8 @@ export const getPlotLines = async (seccio: any) => {
    let plotlines: any = '';
 
    switch (seccio) {
-
       //Geriatria
-
-      case "Medicaments potencialment inapropiats en Geriatria":
+      case "Pac 75 medicaments inapropiats":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -447,7 +444,7 @@ export const getPlotLines = async (seccio: any) => {
             }
          }]
          break;
-      case "Combinacions F gastrolesius sense IBP":
+      case "Pac 75 F gastrol. i no IBP":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -471,7 +468,7 @@ export const getPlotLines = async (seccio: any) => {
             }
          }]
          break;
-      case "Combinacio d'AINES amb risc CV + Patologia CV":
+      case "Pac 18 AINES CV + Patologia CV":
          plotlines = [{
             color: 'var(--red)',
             width: 2,
@@ -481,7 +478,7 @@ export const getPlotLines = async (seccio: any) => {
             }
          }]
          break;
-      case "Combinacions de risc pel Sist Renal +75":
+      case "Pac 75 AINES + ISRA + Diüretics":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -505,7 +502,7 @@ export const getPlotLines = async (seccio: any) => {
             }
          }]
          break;
-      case "Combinacions de risc pel Sist Renal +18":
+      case "Pac 18 >=2 inh. Sist Ren-Angiotens":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -529,7 +526,7 @@ export const getPlotLines = async (seccio: any) => {
             }
          }]
          break;
-      case "Combinació AIU (>2 AIU/dia) + Antiespasmòdics urinaris":
+      case "Pac 18 AIU + antiespam. urinaris":
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -555,7 +552,6 @@ export const getPlotLines = async (seccio: any) => {
          break;
 
       //Snc
-
       case 'Pac 75 >=2 antipsicòtics':
          plotlines = [{
             color: 'var(--green)',

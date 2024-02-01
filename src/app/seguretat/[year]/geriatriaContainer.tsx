@@ -6,7 +6,7 @@ import { getPlotLines, getGeriatriaDetall } from "@/services/seguretats";
 import { Loading } from "@/components/loading.component";
 
 export function GeriatriaContainer({ year, centros, geriatria }: any) {
-   const [seccio, setSeccio] = useState('Medicaments potencialment inapropiats en Geriatria');
+   const [seccio, setSeccio] = useState('Pac 75 medicaments inapropiats');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
    const [isLoading, setLoading] = useState(true)

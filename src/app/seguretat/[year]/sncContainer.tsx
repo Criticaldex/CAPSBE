@@ -6,7 +6,7 @@ import { getPlotLines, getSncDetall } from "@/services/seguretats";
 import { Loading } from "@/components/loading.component";
 
 export function SncContainer({ year, centros, snc }: any) {
-   const [seccio, setSeccio] = useState('Medicaments potencialment inapropiats en Geriatria');
+   const [seccio, setSeccio] = useState('Pac 75 >=2 antipsicòtics');
    const [detall, setDetall] = useState(null);
    const [plotLines, setPlotLines] = useState(null);
    const [isLoading, setLoading] = useState(true)
@@ -29,7 +29,7 @@ export function SncContainer({ year, centros, snc }: any) {
       <div>
          <section className="grid grid-cols-2 gap-1 m-2 bg-snc p-1 rounded-md">
             <div className="col-span-2 flex bg-bgLight rounded-md p-3">
-               <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals Universals</h1>
+               <h1 className="flex self-center basis-2/6 uppercase text-2xl">Totals</h1>
                <div className="flex grow justify-around text-center">
                   {snc.data.map(({ name, total }: any, index: number) => (
                      <div className="centrosSnc" key={index}>
