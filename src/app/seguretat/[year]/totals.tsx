@@ -2,12 +2,10 @@
 import { GaugeChart } from "./gaugeChart";
 import { TrendChart } from "./trendChart";
 
-export function Totals({ iqfTotals }: any) {
-   const iqf = iqfTotals
-
+export function Totals({ seguretatTotals }: any) {
    return (
       <section className="flex m-2 justify-around bg-bgLight rounded-md p-3 overflow-hidden">
-         {iqf.map((total: any, index: number) => (
+         {seguretatTotals.map((total: any, index: number) => (
             <div key={index} className={`text-center flex-auto w-48 max-w-sm flex flex-col`}>
                <div className="text-2xl font-bold">
                   {total.name}
@@ -19,7 +17,7 @@ export function Totals({ iqfTotals }: any) {
                      numColorBg={`var(--highcharts${index}_bg)`}
                   />
                </div>
-               <div className="text-center max-w-sm m-auto flex">
+               {/* <div className="text-center max-w-sm m-auto flex">
                   <div>
                      <TrendChart
                         data={total}
@@ -41,7 +39,7 @@ export function Totals({ iqfTotals }: any) {
                         <p></p>
                      )}
                   </div>
-               </div>
+               </div> */}
             </div>
          ))}
       </section>

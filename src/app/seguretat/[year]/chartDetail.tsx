@@ -12,7 +12,8 @@ if (typeof Highcharts === "object") {
 
 export function ChartDetail({ name, data, objectius, categories }: any) {
    let max = 0;
-   let min = 100;
+   let min = 10000;
+
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max && i != null) ? i : max;
@@ -52,7 +53,7 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
                const numerador: any = this.point.series.userOptions.numeradors[this.point.index].toLocaleString()
                const denominador: any = this.point.series.userOptions.denominadors[this.point.index].toLocaleString()
                return `<b>${this.series.name}</b></br>
-               ( ${numerador} / ${denominador} ) x 100 = <b>${this.point.y}%</b>`;
+               ( ${numerador} / ${denominador} ) x 1000 = <b>${this.point.y}</b>`;
             } else {
                return `<b>${this.series.name}</b>: ${this.point.y}<br/>`
             }
@@ -66,7 +67,8 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
                style: {
                   textOutline: 'none'
                }
-            }
+            },
+            connectNulls: true
          }
       }
    }

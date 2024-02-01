@@ -30,12 +30,31 @@
    --bg-nav-global: #161616;
    --textNav: #ddd;
    --spacerNav: #424242;
-   --hiper: #B1B163;
-   --hiper2: #B1B16350;
-   --seleccio: #9DA2EE;
-   --seleccio2: #9DA2EE50;
-   --universals: #B05AAA;
-   --universals2: #B05AAA50;
+   --hiper: #b1b163;
+   --seleccio: #9da2ee;
+   --universals: #ff8585;
+   --geriatria: #9a3300;
+   --snc: #9da2ee;
+   --highcharts0: #2caffe;
+   --highcharts1: #544fc5;
+   --highcharts2: #00e272;
+   --highcharts3: #fe6a35;
+   --highcharts5: #6b8abc;
+   --highcharts6: #d568fb;
+   --highcharts7: #2ee0ca;
+   --highcharts8: #fa4b42;
+   --highcharts9: #feb56a;
+   --highcharts10: #91e8e1;
+   --highcharts0_bg: #2caffe50;
+   --highcharts1_bg: #544fc550;
+   --highcharts2_bg: #00e27250;
+   --highcharts3_bg: #fe6a3550;
+   --highcharts5_bg: #6b8abc50;
+   --highcharts6_bg: #d568fb50;
+   --highcharts7_bg: #2ee0ca50;
+   --highcharts8_bg: #fa4b4250;
+   --highcharts9_bg: #feb56a50;
+   --highcharts10_bg: #91e8e150;
 }
 
 @media (prefers-color-scheme: dark) {

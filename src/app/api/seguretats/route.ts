@@ -1,20 +1,20 @@
 import mongoose from 'mongoose'
 import dbConnect from '@/lib/dbConnect'
-import IQFSchema from '@/schemas/iqf'
+import SeguretatSchema from '@/schemas/seguretat'
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
    try {
       const body = await request.json();
       const fields = (body.fields) ? body.fields.join(' ') : '';
-      const dbName = 'IQF';
+      const dbName = 'Seguretat';
       await dbConnect();
       const db = mongoose.connection.useDb(dbName, { useCache: true });
-      if (!db.models.iqf) {
-         db.model('iqf', IQFSchema);
+      if (!db.models.seguretat) {
+         db.model('seguretat', SeguretatSchema);
       }
-      const iqf: any = await db.models.iqf.find(body.filter).select(fields).sort(body.sort).lean();
-      return NextResponse.json(iqf);
+      const seguretat: any = await db.models.seguretat.find(body.filter).select(fields).sort(body.sort).lean();
+      return NextResponse.json(seguretat);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
    }
@@ -34,10 +34,10 @@ export async function PATCH(request: Request) {
       const { dbName, ...bodyWithoutDB } = body
       await dbConnect();
       const db = mongoose.connection.useDb(dbName, { useCache: true });
-      if (!db.models.iqf) {
-         db.model('iqf', IQFSchema);
+      if (!db.models.seguretat) {
+         db.model('seguretat', SeguretatSchema);
       }
-      const res = await db.models.iqf.findOneAndUpdate(filter, bodyWithoutDB, {
+      const res = await db.models.seguretat.findOneAndUpdate(filter, bodyWithoutDB, {
          new: true,
          upsert: false,
          rawResult: true

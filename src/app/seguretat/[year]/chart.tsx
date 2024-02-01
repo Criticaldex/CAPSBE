@@ -13,7 +13,7 @@ if (typeof Highcharts === "object") {
 
 export function Chart({ name, data, objectiu, categories, setter }: any) {
 
-   let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
+   let centrosClass = ['centrosGeriatria', 'centrosSnc']
    useEffect(() => {
       centrosClass.forEach(clase => {
          let contenedor = document.getElementsByClassName(clase)

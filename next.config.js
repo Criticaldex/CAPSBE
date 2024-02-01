@@ -76,6 +76,11 @@ const nextConfig = {
             permanent: false,
          },
          {
+            source: '/seguretat',
+            destination: `/seguretat/${process.env.DEFAULT_YEAR}`,
+            permanent: false,
+         },
+         {
             source: '/admin/dashboard',
             destination: `/admin/dashboard/${process.env.DEFAULT_YEAR}`,
             permanent: false,

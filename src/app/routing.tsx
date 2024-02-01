@@ -2,7 +2,7 @@
 import Link from "next/link"
 
 import { BiPlusMedical } from "react-icons/bi"
-import { FaCapsules, FaUserNurse, FaPhoneAlt } from "react-icons/fa"
+import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock } from "react-icons/fa"
 import { TbLayoutDashboard } from "react-icons/tb"
 import { RiMedicineBottleLine } from "react-icons/ri"
 
@@ -44,6 +44,10 @@ export default function GetNav({ session }: any) {
          label: 'IQF',
          icon: FaCapsules,
          route: '/iqf'
+      }, {
+         label: 'Seguretat',
+         icon: FaUnlock,
+         route: '/seguretat'
       }
    ]
 
@@ -51,7 +55,7 @@ export default function GetNav({ session }: any) {
       <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
          <nav className="text-TextNav flex flex-col justify-between h-full overflow-hidden">
             <div>
-               <Link href="/" className="text-yellowCustom text-xl font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+               <Link href="/" className="text-yellow text-xl font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
                   <BiPlusMedical size={20} />
                   <span className="text-lg">CAPFA</span>
                </Link>
@@ -66,7 +70,7 @@ export default function GetNav({ session }: any) {
                      </Link>
                   ))}
                   <hr className="my-4 ml-2 border-spacerNav" />
-                  <div className="text-yellowCustom text-lg font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+                  <div className="text-yellow text-lg font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
                      <RiMedicineBottleLine size={20} />
                      <h3>
                         Farmàcia

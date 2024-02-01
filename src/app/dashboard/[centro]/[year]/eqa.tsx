@@ -16,8 +16,8 @@ export function Eqa({ name, data, objectius }: any) {
    let plotLines = [];
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
-         max = (i > max) ? i : max;
-         min = (i < min) ? i : min;
+         max = (i > max && i != null) ? i : max;
+         min = (i < min && i != null) ? i : min;
       });
    });
 
