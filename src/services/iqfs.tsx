@@ -233,7 +233,7 @@ export const getSeleccio = async (year: string, centros: any) => {
       for (const [key, value] of (Object.entries(iqf.indicadors_de_seleccio_de_medicaments) as [string, any][])) {
          if (value.puntuacio) {
             dades.push(value.puntuacio[value.puntuacio.length - 1])
-            cat.push(key);
+            cat.push(key.replace(/_/g, " "));
          }
       }
 
@@ -808,7 +808,7 @@ export const getPlotLines = async (seccio: any) => {
          }]
          break;
 
-      case 'antidepressius_1a_linia':
+      case 'antidepressius 1a linia':
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -847,7 +847,7 @@ export const getPlotLines = async (seccio: any) => {
          }]
          break;
 
-      case 'antidepressius_2a_linia':
+      case 'antidepressius 2a linia':
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -865,7 +865,7 @@ export const getPlotLines = async (seccio: any) => {
          }]
          break;
 
-      case 'hipoglucemiants_monoterapia_recomanada':
+      case 'hipoglucemiants monoterapia recomanada':
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -890,7 +890,7 @@ export const getPlotLines = async (seccio: any) => {
          }]
          break;
 
-      case 'hipoglucemiants_biterapia_recomanada':
+      case 'hipoglucemiants biterapia recomanada':
          plotlines = [{
             color: 'var(--green)',
             width: 2,
@@ -915,7 +915,7 @@ export const getPlotLines = async (seccio: any) => {
          }]
          break;
 
-      case 'mpoc_seleccio':
+      case 'mpoc seleccio':
          plotlines = [{
             color: 'var(--green)',
             width: 2,
