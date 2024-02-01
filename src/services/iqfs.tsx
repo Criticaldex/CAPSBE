@@ -59,10 +59,12 @@ const getIqf = async (up: string, year: string) => {
 
 export const getIqfDashboard = async (up: string, year: string) => {
    const iqf = await getIqf(up, year);
-   let primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
+   const primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
+   const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
    const data = [{
       name: 'Universal',
-      data: iqf.puntuacio_universals.slice(primerIndiceNoNulo)
+      data: iqf.puntuacio_universals.slice(primerIndiceNoNulo),
+      mesos: mesos.slice(primerIndiceNoNulo)
    }, {
       name: 'Selecció',
       data: iqf.puntuacio_seleccio.slice(primerIndiceNoNulo)
@@ -95,7 +97,7 @@ export const getTotalsIqf = async (year: string, centros: any) => {
       })
       const dades = iqf.puntuacio_total
 
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
       let diferencia = null
       if (dades.slice(primerIndiceNoNulo).length > 1) {
          diferencia = dades[dades.length - 1] - dades[dades.length - 2]
@@ -288,7 +290,8 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
             denominadors = iqf.indicadors_universals.matma.denominador;
             break;
       }
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
       const map = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
 
@@ -296,7 +299,8 @@ export const getUniversalsDetall = async (year: string, centros: any, seccio: an
          name: name,
          data: map.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
-         denominadors: denominadors.slice(primerIndiceNoNulo)
+         denominadors: denominadors.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
       }
    });
    return data;
@@ -325,7 +329,8 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
       })
 
       const dades = iqf['indicadors_dhiperprescripcio'][seccio].dhd_st;
-      let primerIndiceNoNulo = dades.findIndex((elemento: any) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: any) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
       const map = dades.map((item: any) => {
          if (item) return parseFloat((item).toFixed(2));
@@ -333,7 +338,8 @@ export const getHiperDetall = async (year: string, centros: any, seccio: any) =>
 
       return {
          name: name,
-         data: map.slice(primerIndiceNoNulo)
+         data: map.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
       }
    });
 
@@ -365,7 +371,8 @@ export const getSeleccioDetall = async (year: string, centros: any, seccio: any)
       const dades = iqf['indicadors_de_seleccio_de_medicaments'][seccio]['%'];
       const numeradors = iqf['indicadors_de_seleccio_de_medicaments'][seccio].numerador;
       const denominadors = iqf['indicadors_de_seleccio_de_medicaments'][seccio].denominador;
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
       const mapDades = dades.map((item: any) => parseFloat((item * 100).toFixed(2)));
 
@@ -373,7 +380,8 @@ export const getSeleccioDetall = async (year: string, centros: any, seccio: any)
          name: name,
          data: mapDades.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
-         denominadors: denominadors.slice(primerIndiceNoNulo)
+         denominadors: denominadors.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
       }
    });
    return data;

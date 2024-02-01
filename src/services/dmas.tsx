@@ -25,11 +25,13 @@ const getDma = async (up: string) => {
 
 export const getDmaDashboard = async (up: string) => {
    const dma = await getDma(up);
-   let primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
+   const primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
+   const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
    const data = {
       name: 'Import Líquid Acumulat',
-      data: dma.import_liquid_acumulat_periode_actual.slice(primerIndiceNoNulo)
+      data: dma.import_liquid_acumulat_periode_actual.slice(primerIndiceNoNulo),
+      mesos: mesos.slice(primerIndiceNoNulo)
    }
    return data;
 }
@@ -43,7 +45,7 @@ export const getRegressioLineal = async (up: string, data: any) => {
    const dma = await getDma(up);
    const linea = dma['previsio_de_tancament_(lineal)'][dma['previsio_de_tancament_(lineal)'].length - 1];
 
-   let primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
+   const primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
    let primerPunto = dma.import_liquid_acumulat_periode_actual[primerIndiceNoNulo]
 
    let regresion = []
