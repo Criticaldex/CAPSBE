@@ -59,7 +59,7 @@ export const updateSeguretat = async (data: any) => {
 
 export const getSeguretatDashboard = async (up: string, year: string) => {
    const seguretat = await getSeguretat(up, year);
-   let primerIndiceNoNulo = seguretat.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
+   const primerIndiceNoNulo = seguretat.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const data = [{
       name: 'Universal',
       data: seguretat.puntuacio_universals.slice(primerIndiceNoNulo)
@@ -95,7 +95,7 @@ export const getTotalsSeguretat = async (year: string, centros: any) => {
       })
       const dades = seguretat.total_punts
 
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
       let diferencia = null
       if (dades.slice(primerIndiceNoNulo).length > 1) {
          diferencia = dades[dades.length - 1] - dades[dades.length - 2]
@@ -310,13 +310,15 @@ export const getGeriatriaDetall = async (year: string, centros: any, seccio: any
             denominadors = pacients75;
             break;
       }
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
       return {
          name: name,
          data: dades.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
-         denominadors: denominadors.slice(primerIndiceNoNulo)
+         denominadors: denominadors.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
       }
    });
    return data;
@@ -403,13 +405,15 @@ export const getSncDetall = async (year: string, centros: any, seccio: any) => {
             denominadors = pacients75;
             break;
       }
-      let primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const primerIndiceNoNulo = dades.findIndex((elemento: null) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
       return {
          name: name,
          data: dades.slice(primerIndiceNoNulo),
          numeradors: numeradors.slice(primerIndiceNoNulo),
-         denominadors: denominadors.slice(primerIndiceNoNulo)
+         denominadors: denominadors.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
       }
    });
    return data;

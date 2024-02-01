@@ -34,7 +34,7 @@ export function Dma({ name, data, objectiu, regresion }: any) {
          }
       ],
       xAxis: {
-         categories: ['Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+         categories: data.mesos
       },
       yAxis: {
          ...chartOptions.yAxis,

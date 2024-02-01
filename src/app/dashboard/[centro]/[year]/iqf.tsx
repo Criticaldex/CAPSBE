@@ -30,7 +30,7 @@ export function Iqf({ name, data, objectiu }: any) {
       },
       series: data,
       xAxis: {
-         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+         categories: data[0].mesos
       },
       yAxis: {
          ...chartOptions.yAxis,

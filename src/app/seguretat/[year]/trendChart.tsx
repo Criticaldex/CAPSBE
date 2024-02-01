@@ -30,9 +30,6 @@ export function TrendChart({ data, numColor }: any) {
          text: ""
       },
       series: [data],
-      xAxis: {
-         categories: ['Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
-      },
       yAxis: {
          ...chartOptions.yAxis,
          max: Math.max(...data.data) + 1,
