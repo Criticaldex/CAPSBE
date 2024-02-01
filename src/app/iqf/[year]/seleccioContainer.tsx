@@ -41,7 +41,7 @@ export function SeleccioContainer({ year, centros, seleccio }: any) {
                   ))}
                </div>
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <Chart
                   name={'Selecció'}
                   data={seleccio.data}
@@ -49,7 +49,7 @@ export function SeleccioContainer({ year, centros, seleccio }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <ChartDetail
                   name={seccio}
                   data={detall}

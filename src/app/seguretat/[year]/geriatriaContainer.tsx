@@ -40,7 +40,7 @@ export function GeriatriaContainer({ year, centros, geriatria }: any) {
                   ))}
                </div>
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md">
                <Chart
                   name={'Geriatria, Sistema Cardiovascular, Renal / Digestiu'}
                   data={geriatria.data}
@@ -48,7 +48,7 @@ export function GeriatriaContainer({ year, centros, geriatria }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md">
                <ChartDetail
                   name={seccio}
                   data={detall}

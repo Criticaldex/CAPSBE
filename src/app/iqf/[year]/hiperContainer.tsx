@@ -41,7 +41,7 @@ export function HiperContainer({ year, centros, hiper }: any) {
                   ))}
                </div>
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <Chart
                   name={'Hiperprescripció'}
                   data={hiper.data}
@@ -49,7 +49,7 @@ export function HiperContainer({ year, centros, hiper }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <ChartDetail
                   name={seccio}
                   data={detall}

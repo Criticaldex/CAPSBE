@@ -29,7 +29,7 @@ export default async function ContractsLayout({ children }: any) {
          <hr className="w-11/12 m-auto border-b border-darkBlue" />
          <main className="m-2">
             <div className="flex mx-2 mb-2">
-               <div className="flex grow p-1 bg-bgLight rounded-md shadow-xl">
+               <div className="flex grow p-1 bg-bgLight rounded-md ">
                   <CallsTable
                      date={date}
                      data={calls}
