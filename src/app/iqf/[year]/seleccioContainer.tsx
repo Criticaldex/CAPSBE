@@ -12,7 +12,7 @@ export function SeleccioContainer({ year, centros, seleccio }: any) {
    const [isLoading, setLoading] = useState(true)
 
    useEffect(() => {
-      getSeleccioDetall(year, centros, seccio)
+      getSeleccioDetall(year, centros, seccio.replace(/ /g, "_"))
          .then((res: any) => {
             setDetall(res)
             getPlotLines(seccio)
