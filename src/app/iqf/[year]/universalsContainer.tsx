@@ -40,7 +40,7 @@ export function UniversalsContainer({ year, centros, universals }: any) {
                   ))}
                </div>
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <Chart
                   name={'Universals'}
                   data={universals.data}
@@ -48,7 +48,7 @@ export function UniversalsContainer({ year, centros, universals }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <ChartDetail
                   name={seccio}
                   data={detall}

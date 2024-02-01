@@ -39,10 +39,10 @@ export default async function LayoutDashboard({ children, params }: any) {
    return (
       <div className="min-h-fit">
          <section className="flex flex-row justify-between mx-2 mb-2">
-            <div id='tabla_dashboard' className="w-3/4 h-auto bg-bgLight rounded-md shadow-xl">
+            <div id='tabla_dashboard' className="w-3/4 h-auto bg-bgLight rounded-md ">
                {children}
             </div>
-            <div className="w-1/4 p-1 ml-2 h-auto bg-bgLight rounded-md shadow-xl">
+            <div className="w-1/4 p-1 ml-2 h-auto bg-bgLight rounded-md ">
                <Eqa
                   name={'TOTAL EQA'}
                   data={eqas}
@@ -50,7 +50,7 @@ export default async function LayoutDashboard({ children, params }: any) {
             </div>
          </section>
          <div className="flex flex-row justify-between mx-2 mb-2">
-            <div className="w-1/2 p-1 mr-1 bg-bgLight rounded-md shadow-xl">
+            <div className="w-1/2 p-1 mr-1 bg-bgLight rounded-md ">
                {session?.user.db != 'Centelles' &&
                   <Dma
                      name={`DMA ${nameCentro}`}
@@ -60,7 +60,7 @@ export default async function LayoutDashboard({ children, params }: any) {
                   />
                }
             </div>
-            <div className="w-1/2 p-1 ml-1 bg-bgLight rounded-md shadow-xl">
+            <div className="w-1/2 p-1 ml-1 bg-bgLight rounded-md ">
                <Iqf
                   name={`IQF ${nameCentro}`}
                   data={iqf}

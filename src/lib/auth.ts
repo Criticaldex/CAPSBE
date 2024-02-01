@@ -37,15 +37,19 @@ export const authOptions: NextAuthOptions = {
                   ),
                }
             ).then(res => res.json());
-            if (!user || user?.ERROR) {
+            if (!user) {
                return null;
+            } else if (user?.ERROR) {
+               throw new Error(user.ERROR)
             }
             return user;
          }
       }),
    ],
    pages: {
-      signIn: "/auth/signin"
+      signIn: "/auth/signin",
+      signOut: '/auth/signout',
+      error: '/auth/error'
    },
    callbacks: {
       session: ({ session, token }) => {

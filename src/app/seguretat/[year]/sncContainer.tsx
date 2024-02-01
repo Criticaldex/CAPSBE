@@ -40,7 +40,7 @@ export function SncContainer({ year, centros, snc }: any) {
                   ))}
                </div>
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <Chart
                   name={'Medicaments Snc'}
                   data={snc.data}
@@ -48,7 +48,7 @@ export function SncContainer({ year, centros, snc }: any) {
                   setter={setSeccio}
                />
             </div>
-            <div className="p-1 bg-bgLight rounded-md shadow-xl">
+            <div className="p-1 bg-bgLight rounded-md ">
                <ChartDetail
                   name={seccio}
                   data={detall}
