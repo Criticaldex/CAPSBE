@@ -71,9 +71,6 @@ export function Dma({ name, data, objectiu, regresion }: any) {
             },
             connectNulls: true
          }
-      },
-      tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b>'
       }
    }
 

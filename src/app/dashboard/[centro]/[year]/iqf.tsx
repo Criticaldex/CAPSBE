@@ -63,9 +63,6 @@ export function Iqf({ name, data, objectiu }: any) {
                },
             }
          }
-      },
-      tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)<br/>'
       }
    }
 
