@@ -49,10 +49,10 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
          categories: categories,
       },
       legend: {
-         enabled: false,
+         enabled: false
       },
       tooltip: {
-         pointFormat: '{series.name}: <b>{point.y} punts</b><br/>'
+         enabled: false
       },
       plotOptions: {
          series: {
