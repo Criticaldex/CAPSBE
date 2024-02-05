@@ -2,7 +2,6 @@ import _ from "lodash"
 import { getSession } from "@/services/session"
 import { ProfessionalIface } from "@/schemas/professional";
 
-
 const getProfessionals = async (filter: any, db?: string) => {
    if (!db) {
       const session = await getSession();
@@ -38,9 +37,11 @@ const getBaixesProfessionals = async (filter: any) => {
          "IT003TOT",
       ]
    };
-   delete filter.ordre;
 
-   return await getProfessionals(filter);
+   const baixesProf = await getProfessionals(filter);
+
+   delete filter.identificador;
+   return baixesProf;
 }
 
 export const updateProfessionals = async (data: any) => {
@@ -86,7 +87,10 @@ export const getTableIndicators = async (filtros: any) => {
    let data = await getProfessionals(filtros);
    data.map(async (indi: any) => {
       if (indi.indicador == 'Durada mitjana de les baixes-') {
-         indi.subtaula = await getBaixesProfessionals(filtros)
+         let subtaula = await getBaixesProfessionals(filtros);
+         if (subtaula.length > 0) {
+            indi.subtaula = subtaula;
+         }
       }
    });
    return data;
