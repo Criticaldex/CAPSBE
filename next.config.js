@@ -71,6 +71,16 @@ const nextConfig = {
             permanent: false,
          },
          {
+            source: '/demora',
+            destination: `/demora/${process.env.DEFAULT_YEAR}/${process.env.DEFAULT_CENTER}`,
+            permanent: false,
+         },
+         {
+            source: '/demora/:year',
+            destination: `/demora/:year/${process.env.DEFAULT_CENTER}`,
+            permanent: false,
+         },
+         {
             source: '/iqf',
             destination: `/iqf/${process.env.DEFAULT_YEAR}`,
             permanent: false,
