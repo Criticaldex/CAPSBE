@@ -1,25 +1,22 @@
-import { GetLinksCenters, GetLinksYears } from "./routing";
+import { GetLinksCenters } from "./routing";
 import { getCenters } from "@/services/centros";
-import { getYears } from "@/services/iqfs";
+import { getChartDemoras, getChartDemorasSector, getYears } from "@/services/demoras";
 
 export default async function ContractsLayout({ children }: any) {
    const centros = await getCenters();
-   const years = await getYears(centros);
+   const AAA = await getChartDemorasSector({ "any": 2024, "mes": '02', "centre": 0 })
 
    return (
       <div>
          <title>IQF</title>
          <div className="mt-2 bg-light text-right flex justify-between items-center">
             <div className="flex justify-start grow mb-2 mx-2">
-               <GetLinksYears
-                  years={years}
-               />
                <GetLinksCenters
                   centers={centros}
                />
             </div>
             <div className="bg-light text-right flex justify-end items-center">
-               <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Qualitat Farmacèutica</h1>
+               <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Demora</h1>
             </div>
          </div>
          <hr className="w-11/12 m-auto mt-0 border-t-2 border-darkBlue" />
