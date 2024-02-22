@@ -43,13 +43,13 @@ export const getChartDemoras = async (filter: any, db?: string) => {
    const data = await getDemoras(filter, sort, db);
    const daysGroup = _.groupBy(data, 'dia');
    const sectorGroup = _.groupBy(data, 'sector');
-   const sectors = Object.keys(sectorGroup);
+   const sectors = _.orderBy(Object.keys(sectorGroup), 'desc');
 
    let chartData: any = [];
 
    sectors.forEach((sector, i) => {
       chartData.push({
-         type: 'column',
+         type: 'spline',
          name: sector,
          data: []
       });
@@ -67,21 +67,24 @@ export const getChartDemoras = async (filter: any, db?: string) => {
             }
          })
       };
-      chartData[i].data = _.orderBy(chartData[i].data, 'name')
+      chartData[i].data = _.orderBy(chartData[i].data, 'name');
    });
    return chartData;
+}
+
+export const getLastDay = async (filter: any, db?: string) => {
+   const sort = 'dia'
+   const data = await getDemoras(filter, sort, db);
+   const daysGroup = _.groupBy(data, 'dia');
+   const days = Object.keys(daysGroup);
+   const lastDay = _.orderBy(days);
+   return lastDay[lastDay.length - 1];
 }
 
 export const getChartDemorasSector = async (filter: any, db?: string) => {
    const sort = ''
    let data = await getDemoras(filter, sort, db);
-   if (data.length > 1) {
-      throw new Error('Error de dades');
-   }
-   else data = data[0];
-   let chartData: any = [];
-
-   chartData.push({
+   let chartData: any = [{
       type: 'column',
       name: 'Minim',
       data: []
@@ -93,7 +96,11 @@ export const getChartDemorasSector = async (filter: any, db?: string) => {
       type: 'column',
       name: 'Mitjana',
       data: []
-   });
+   }];
+   if (data.length != 1) {
+      return chartData;
+   }
+   else data = data[0];
 
    for (const [prof, dataProf] of (Object.entries(data.professionals) as [string, any][])) {
       chartData[0].data.push({ name: prof, y: dataProf.minim });
