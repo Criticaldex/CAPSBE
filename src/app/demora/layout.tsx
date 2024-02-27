@@ -1,25 +1,8 @@
 import { GetLinksCenters } from "./routing";
 import { getCenters } from "@/services/centros";
-import { getChartDemoras, getChartDemorasSector, getYears } from "@/services/demoras";
-import { DemorasChart } from "./[centre]/demorasChart";
 
 export default async function ContractsLayout({ children }: any) {
    const centros = await getCenters();
-   // const BBB = await getChartDemoras({
-   //    "any": 2024,
-   //    "mes": '02',
-   //    "centre": 0,
-   // });
-
-   // const AAA = await getChartDemorasSector({
-   //    "any": 2024,
-   //    "mes": '02',
-   //    "dia": "14",
-   //    "centre": 0,
-   //    "sector": "MEDICINA DE FAMÍLIA"
-   // });
-
-   // console.log('AAA: ', AAA);
 
    return (
       <div>

@@ -81,33 +81,70 @@ export const getLastDay = async (filter: any, db?: string) => {
    return lastDay[lastDay.length - 1];
 }
 
-export const getChartDemorasSector = async (filter: any, db?: string) => {
+export const getChartDemorasSector = async (filter: any, db?: string, color?: string) => {
    const sort = ''
    let data = await getDemoras(filter, sort, db);
    let chartData: any = [{
       type: 'column',
-      name: 'Minim',
-      data: []
-   }, {
-      type: 'column',
-      name: 'Maxim',
-      data: []
-   }, {
-      type: 'column',
       name: 'Mitjana',
+      color: color,
       data: []
    }];
+
    if (data.length != 1) {
       return chartData;
    }
    else data = data[0];
 
    for (const [prof, dataProf] of (Object.entries(data.professionals) as [string, any][])) {
-      chartData[0].data.push({ name: prof, y: dataProf.minim });
-      chartData[1].data.push({ name: prof, y: dataProf.maxim });
-      chartData[2].data.push({ name: prof, y: dataProf.mediana });
+      const split: string[] = (prof) ? prof.split(',') : [];
+      const nom = (split[1]) ? split[1] : split[0];
+      chartData[0].data.push({ name: prof, y: dataProf.mediana, max: dataProf.maxim, min: dataProf.minim });
    };
-   // chartData[i].data = _.orderBy(chartData[i].data, 'y')
+   chartData[0].data = _.orderBy(chartData[0].data, 'y', 'desc')
+   return chartData;
+}
+
+export const getProfessionalMonth = async (filter: any, professional: string, db?: string, color?: string) => {
+   const sort = 'dia'
+   let data = await getDemoras(filter, sort, db);
+
+   let chartData: any = [{
+      type: 'spline',
+      name: 'Mitjana',
+      color: color,
+      zIndex: 1,
+      marker: {
+         fillColor: 'white',
+         lineWidth: 2,
+         lineColor: color
+      },
+      data: []
+   }, {
+      type: 'columnrange',
+      name: 'Rang',
+      color: color,
+      lineWidth: 0,
+      linkedTo: ':previous',
+      opacity: 0.6,
+      zIndex: 0,
+      marker: {
+         enabled: false
+      },
+      data: []
+   }];
+
+   data.map((dia: any) => {
+      chartData[0].data.push({
+         name: dia.dia,
+         y: dia.professionals[professional].mediana,
+      });
+      chartData[1].data.push({
+         name: dia.dia,
+         high: dia.professionals[professional].maxim,
+         low: dia.professionals[professional].minim,
+      });
+   })
    return chartData;
 }
 

@@ -1,20 +1,24 @@
 'use client'
 import Highcharts from 'highcharts'
+import HighchartsMore from 'highcharts/highcharts-more'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
+import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import HighchartsReact from 'highcharts-react-official'
 import { chartOptions } from '@/components/chart.components'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
+   HighchartsAccessibility(Highcharts)
+   HighchartsMore(Highcharts)
 }
 
-export function DemorasChart({ name, data, setterDay, setterSector, setterColor }: any) {
+export function ProfessionalChart({ name, data, setterProfessional }: any) {
    const options = {
       ...chartOptions,
       chart: {
-         spacingTop: 10
+         spacingTop: 10,
       },
       title: {
          text: name
@@ -28,6 +32,14 @@ export function DemorasChart({ name, data, setterDay, setterSector, setterColor 
       xAxis: {
          type: 'category'
       },
+      legend: {
+         enabled: false,
+      },
+      tooltip: {
+         crosshairs: true,
+         shared: true,
+         valueSuffix: ' dies'
+      },
       plotOptions: {
          series: {
             borderWidth: 0,
@@ -40,9 +52,7 @@ export function DemorasChart({ name, data, setterDay, setterSector, setterColor 
             },
             events: {
                click: function (event: any) {
-                  setterDay(event.point.name);
-                  setterSector(event.point.series.name);
-                  setterColor(event.point.color);
+                  setterProfessional(event.point.nomComplet);
                }
             }
          }
