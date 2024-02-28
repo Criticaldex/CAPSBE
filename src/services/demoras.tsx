@@ -1,6 +1,7 @@
 import _ from "lodash"
 import { getSession } from "@/services/session";
 import { DemoraIface } from "@/schemas/demora";
+import { getCenters } from "./centros";
 
 const getDemoras = async (filter: any, sort?: string, db?: string) => {
    if (!db) {
@@ -72,13 +73,16 @@ export const getChartDemoras = async (filter: any, db?: string) => {
    return chartData;
 }
 
-export const getLastDay = async (filter: any, db?: string) => {
+export const getLastDate = async (filter?: any, db?: string) => {
    const sort = 'dia'
    const data = await getDemoras(filter, sort, db);
    const daysGroup = _.groupBy(data, 'dia');
    const days = Object.keys(daysGroup);
-   const lastDay = _.orderBy(days);
-   return lastDay[lastDay.length - 1];
+   const dayArray = _.orderBy(days);
+   const lastDay = dayArray[dayArray.length - 1].toString();
+   const lastMonth = daysGroup[lastDay][0].mes.toString();
+   const lastYear = daysGroup[lastDay][0].any.toString();
+   return { dia: lastDay, mes: lastMonth, any: lastYear };
 }
 
 export const getChartDemorasSector = async (filter: any, db?: string, color?: string) => {
@@ -156,4 +160,52 @@ export const getYears = async () => {
       years.push(key);
    }
    return years;
+}
+
+export const getSectors = async (filter: any, db?: string) => {
+   const data = await getDemoras(filter);
+   const sectorsGroup = _.groupBy(data, 'sector');
+   return Object.keys(sectorsGroup);
+}
+
+export const getDemorasToday = async (date: { dia: string, mes: string, any: string }) => {
+   const filter = {
+      centro: {
+         $nin: [
+            "Average",
+            "Total",
+         ]
+      },
+      ...date
+   };
+   const centros = await getCenters();
+   const data = await getDemoras(filter);
+
+   if (data[0]) {
+      let emptyValues: { centro: string, centroName: string }[] = [];
+      centros.forEach((centro: { name: string, up: string, id: string }) => {
+         emptyValues.push({
+            "centro": centro.id,
+            "centroName": centro.name
+         })
+      });
+      return emptyValues;
+   }
+
+   let tableData: any = [{
+      centro: '0'
+   }, {
+      type: 'columnrange',
+      name: 'Rang',
+      lineWidth: 0,
+      linkedTo: ':previous',
+      opacity: 0.6,
+      zIndex: 0,
+      marker: {
+         enabled: false
+      },
+      data: []
+   }];
+
+   return tableData;
 }

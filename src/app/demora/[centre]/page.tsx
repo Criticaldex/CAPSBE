@@ -1,123 +1,29 @@
-'use client'
-import { getChartDemoras, getChartDemorasSector, getProfessionalMonth } from "@/services/demoras";
-import { DemorasChart } from "./demorasChart";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react"
-import Loading from "./loading";
-import { DetallChart } from "./detallChart";
-import { ProfessionalChart } from "./professionalChart";
+import { getCenters } from "@/services/centros";
+import { getCallsToday } from "@/services/calls";
+import { DemorasTable } from "./demoraTable";
+import { getDemorasToday, getLastDate, getSectors } from "@/services/demoras";
 
-const monthHandler = (month: number, setMonth: any, setMonthString: any, year: number, setYear: any, modifier: string) => (event: any) => {
-   const pad = '00';
-   switch (modifier) {
-      case '<':
-         if (month == 0) {
-            setMonth(11)
-            setMonthString('12')
-            setYear(year - 1)
-         } else {
-            setMonth(month - 1)
-            setMonthString((pad + month).slice(-pad.length));
-         }
-         break;
-      case '>':
-         if (month == 11) {
-            setMonth(0)
-            setMonthString('01')
-            setYear(year + 1)
-         } else {
-            setMonth(month + 1);
-            setMonthString((pad + (month + 2)).slice(-pad.length));
-         }
-         break;
-      default:
-         break;
-   }
-};
+export default async function ContractsLayout({ children }: any) {
+   const lastDate = await getLastDate();
+   const day = lastDate.dia;
+   const month = lastDate.mes;
+   const year = lastDate.any;
+   const date = day + '/' + month + '/' + year;
 
-export default function Demora({ children, params }: any) {
-   const { centre } = params;
-   const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
-   const hoy = new Date();
-   const pad = '00';
-   const { data: session, status } = useSession();
-   const day = hoy.getDate();
-   const [month, setMonth] = useState(hoy.getMonth());
-   const [year, setYear] = useState(hoy.getFullYear());
-   const [dayString, setDayString] = useState((pad + day.toString()).slice(-pad.length));
-   const [sector, setSector] = useState();
-   const [color, setColor] = useState();
-   const [monthString, setMonthString] = useState((pad + (month + 1).toString()).slice(-pad.length));
-   const [chartDemoras, setChartDemoras] = useState({} as any);
-   const [chartDemorasSector, setChartDemorasSector] = useState([] as any[]);
-   const [chartProfessional, setChartProfessional] = useState([] as any[]);
-   const [professional, setProfessional] = useState('');
-   const [isLoading, setLoading] = useState(true);
-
-   useEffect(() => {
-      if (status === "authenticated") {
-         getChartDemoras({ "any": year, "mes": monthString, "centre": centre }, session?.user.db)
-            .then((sectors: any) => {
-               setChartDemoras(sectors);
-               setSector(sectors[0].name);
-            })
-      }
-   }, [centre, monthString, session?.user.db, status, year])
-
-   useEffect(() => {
-      if (status === "authenticated") {
-         getChartDemorasSector({ "any": year, "mes": monthString, "dia": dayString, "centre": centre, "sector": sector }, session?.user.db, color)
-            .then((res: any) => {
-               setChartDemorasSector(res);
-               if (res[0].data[0]) {
-                  setProfessional(res[0].data[0].name)
-               }
-               setLoading(false);
-            })
-      }
-   }, [centre, color, dayString, monthString, sector, session?.user.db, status, year])
-
-   useEffect(() => {
-      if (status === "authenticated") {
-         getProfessionalMonth({ "any": year, "mes": monthString, "centre": centre, "sector": sector }, professional, session?.user.db, color)
-            .then((res: any) => {
-               setChartProfessional(res);
-               setLoading(false);
-            })
-      }
-   }, [centre, color, monthString, professional, sector, session?.user.db, status, year])
-
-   if (isLoading) return <Loading />
+   const centros = await getCenters();
+   const sectors = await getSectors({ ...lastDate, centre: '0' });
+   const demoras = await getDemorasToday(lastDate);
 
    return (
-      <div className=" p-1 m-2 rounded-md bg-bgLight">
-         <div className='flex justify-center'>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, '<')}>&lt;</button>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, setMonthString, year, setYear, '>')}>&gt;</button>
-         </div>
-
-         <DemorasChart
-            name={monthName[month] + ' ' + year}
-            data={chartDemoras}
-            setterDay={setDayString}
-            setterSector={setSector}
-            setterColor={setColor}
-         />
-         <div className='flex'>
-            <div className='basis-1/2'>
-               <DetallChart
-                  name={dayString + '/' + monthString + '/' + year.toString()}
-                  data={chartDemorasSector}
-                  setterProfessional={setProfessional}
-               />
-            </div>
-            <div className='basis-1/2'>
-               <ProfessionalChart
-                  name={professional}
-                  data={chartProfessional}
-               />
-            </div>
+      <div className="flex mx-2 mb-2">
+         <div className="flex grow p-1 bg-bgLight rounded-md ">
+            <DemorasTable
+               date={date}
+               data={demoras}
+               centros={centros}
+               sectors={sectors}
+            />
          </div>
       </div>
-   );
+   )
 }
