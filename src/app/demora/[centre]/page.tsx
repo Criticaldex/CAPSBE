@@ -39,13 +39,11 @@ export default function Demora({ children, params }: any) {
    const { centre } = params;
    const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
    const hoy = new Date();
-   let ayer = new Date();
-   ayer.setDate(hoy.getDate() - 1);
    const pad = '00';
    const { data: session, status } = useSession();
-   const day = ayer.getDate();
-   const [month, setMonth] = useState(ayer.getMonth());
-   const [year, setYear] = useState(ayer.getFullYear());
+   const day = hoy.getDate();
+   const [month, setMonth] = useState(hoy.getMonth());
+   const [year, setYear] = useState(hoy.getFullYear());
    const [dayString, setDayString] = useState((pad + day.toString()).slice(-pad.length));
    const [sector, setSector] = useState();
    const [color, setColor] = useState();
@@ -108,7 +106,7 @@ export default function Demora({ children, params }: any) {
          <div className='flex'>
             <div className='basis-1/2'>
                <DetallChart
-                  name={sector + ' ' + dayString + '/' + monthString + '/' + year.toString()}
+                  name={dayString + '/' + monthString + '/' + year.toString()}
                   data={chartDemorasSector}
                   setterProfessional={setProfessional}
                />

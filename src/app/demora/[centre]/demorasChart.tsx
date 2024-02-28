@@ -22,7 +22,7 @@ export function DemorasChart({ name, data, setterDay, setterSector, setterColor 
       series: data,
       yAxis: [{
          title: {
-            text: 'Mitjana Demora'
+            text: 'Mitjana Demora per Centre'
          }
       }],
       xAxis: {
