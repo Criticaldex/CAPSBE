@@ -118,7 +118,6 @@ const ExpandedComponent = ({ data }: any) => {
 }
 
 export function DemorasTable({ date, data, sectors }: any) {
-
    let columns: any = [{
       name: 'Centre',
       selector: (row: any) => row.centroName,
