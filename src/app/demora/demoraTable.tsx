@@ -78,7 +78,8 @@ const ExpandedComponent = ({ data }: any) => {
                setLoading(false);
             })
       }
-   }, [color, data.centro, month, professional, session?.user.db, status, year])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [data.centro, month, professional, session?.user.db, status, year])
 
    if (isLoading) return <Loading />
 
