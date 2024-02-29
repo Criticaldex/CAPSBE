@@ -22,7 +22,7 @@ export function AdminTable({ data, centers, years, session }: any) {
    }, [])
 
    const filteredItems = rows.filter(
-      (item: any) => item.indicador && item.indicador.toLowerCase().includes(filterText.toLowerCase()),
+      (item: any) => item.codi && item.codi.toLowerCase().includes(filterText.toLowerCase()),
    );
 
    const subHeaderComponentMemo = useMemo(() => {
@@ -35,7 +35,7 @@ export function AdminTable({ data, centers, years, session }: any) {
                id="search"
                type="text"
                className={`text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4`}
-               placeholder="Filtrar per nom"
+               placeholder="Filtrar per ID"
                aria-label="Search Input"
                value={filterText}
                onChange={(e: any) => setFilterText(e.target.value)}

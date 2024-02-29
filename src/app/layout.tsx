@@ -5,7 +5,10 @@ import { NextAuthProvider } from "./providers";
 import { getSession } from "@/services/session"
 
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+   subsets: ['latin'],
+   display: 'swap',
+})
 
 export const metadata = {
    title: 'Create Next App',
@@ -15,8 +18,8 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
    const session = await getSession();
    return (
-      <html lang="en">
-         <body className={inter.className}>
+      <html lang="en" className={inter.className}>
+         <body>
             <GetNav
                session={session}
             />

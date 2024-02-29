@@ -14,9 +14,6 @@ export function ChartDetail({ name, data, objectius, categories }: any) {
    let max = 0;
    let min = 10000;
 
-   console.log('data: ', data);
-
-
    data.forEach((elem: any) => {
       elem.data.map((i: any) => {
          max = (i > max && i != null) ? i : max;
