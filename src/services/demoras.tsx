@@ -103,7 +103,7 @@ export const getChartDemorasSector = async (filter: any, db?: string, color?: st
    for (const [prof, dataProf] of (Object.entries(data.professionals) as [string, any][])) {
       const split: string[] = (prof) ? prof.split(',') : [];
       const nom = (split[1]) ? split[1] : split[0];
-      if (dataProf.mediana) {
+      if (dataProf.mediana != undefined || dataProf.mediana != null) {
          chartData[0].data.push({ name: prof, y: dataProf.mediana, max: dataProf.maxim, min: dataProf.minim });
       }
    };
