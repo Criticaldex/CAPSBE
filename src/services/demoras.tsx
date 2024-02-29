@@ -179,33 +179,42 @@ export const getDemorasToday = async (date: { dia: string, mes: string, any: str
       ...date
    };
    const centros = await getCenters();
-   const data = await getDemoras(filter);
+   const demoras = await getDemoras(filter);
+   const lastDate = await getLastDate();
+   const sectorGroup = _.groupBy(demoras, 'sector');
+   // const sectors = _.orderBy(Object.keys(sectorGroup), 'desc');
 
-   if (data[0]) {
-      let emptyValues: { centro: string, centroName: string }[] = [];
-      centros.forEach((centro: { name: string, up: string, id: string }) => {
-         emptyValues.push({
+   let tableData: { centro: string, centroName: string }[] = [];
+   centros.forEach(async (centro: { name: string, up: string, id: string }) => {
+      if (!demoras[0]) {
+         tableData.push({
             "centro": centro.id,
             "centroName": centro.name
          })
-      });
-      return emptyValues;
-   }
+      } else {
+         let tableLine: any = {};
+         for (const [key, sector] of (Object.entries(sectorGroup) as [string, any][])) {
+            sector.forEach((demora: any) => {
+               if (centro.id == demora.centre) {
+                  let total = 0;
+                  let length = Object.keys(demora.professionals).length;
+                  for (const [key, prof] of (Object.entries(demora.professionals) as [string, any][])) {
+                     total += prof.mediana;
+                  };
+                  let mitja = Number((total / length).toFixed(2));
 
-   let tableData: any = [{
-      centro: '0'
-   }, {
-      type: 'columnrange',
-      name: 'Rang',
-      lineWidth: 0,
-      linkedTo: ':previous',
-      opacity: 0.6,
-      zIndex: 0,
-      marker: {
-         enabled: false
-      },
-      data: []
-   }];
-
+                  tableLine = {
+                     ...tableLine,
+                     centro: demora.centre,
+                     centroName: centro.name,
+                     [key.replaceAll(' ', '_')]: mitja,
+                     lastDate
+                  };
+               }
+            });
+         }
+         tableData.push(tableLine);
+      };
+   });
    return tableData;
 }
