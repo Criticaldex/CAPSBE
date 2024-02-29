@@ -14,7 +14,7 @@ if (typeof Highcharts === "object") {
    HighchartsMore(Highcharts)
 }
 
-export function ProfessionalChart({ name, data, setterProfessional }: any) {
+export function ProfessionalChart({ name, data }: any) {
    const options = {
       ...chartOptions,
       chart: {
@@ -49,11 +49,6 @@ export function ProfessionalChart({ name, data, setterProfessional }: any) {
                style: {
                   textOutline: 'none'
                },
-            },
-            events: {
-               click: function (event: any) {
-                  setterProfessional(event.point.nomComplet);
-               }
             }
          }
       }
