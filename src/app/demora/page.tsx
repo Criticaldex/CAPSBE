@@ -1,5 +1,3 @@
-import { getCenters } from "@/services/centros";
-import { getCallsToday } from "@/services/calls";
 import { DemorasTable } from "./demoraTable";
 import { getDemorasToday, getLastDate, getSectors } from "@/services/demoras";
 
