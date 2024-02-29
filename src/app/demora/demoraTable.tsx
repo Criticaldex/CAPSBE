@@ -53,6 +53,7 @@ const ExpandedComponent = ({ data }: any) => {
             .then((sectors: any) => {
                setChartDemoras(sectors);
                setSector(sectors[0].name);
+               setColor('var(--highcharts0)');
             })
       }
    }, [data.centro, month, session?.user.db, status, year])
