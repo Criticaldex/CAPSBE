@@ -74,14 +74,11 @@ export const getChartDemoras = async (filter: any, db?: string) => {
 }
 
 export const getLastDate = async (filter?: any, db?: string) => {
-   const sort = 'dia'
+   const sort = '_id'
    const data = await getDemoras(filter, sort, db);
-   const daysGroup = _.groupBy(data, 'dia');
-   const days = Object.keys(daysGroup);
-   const dayArray = _.orderBy(days);
-   const lastDay = dayArray[dayArray.length - 1].toString();
-   const lastMonth = daysGroup[lastDay][0].mes.toString();
-   const lastYear = daysGroup[lastDay][0].any.toString();
+   const lastDay = data[data.length - 1].dia.toString();
+   const lastMonth = data[data.length - 1].mes.toString();
+   const lastYear = data[data.length - 1].any.toString();
    return { dia: lastDay, mes: lastMonth, any: lastYear };
 }
 
