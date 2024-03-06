@@ -217,3 +217,69 @@ export const getDemorasToday = async (date: { dia: string, mes: string, any: str
    });
    return tableData;
 }
+
+export const getMitjaSetmanal = async () => {
+   const lastDate = await getLastDate();
+   const today = new Date(lastDate.any, lastDate.mes, lastDate.dia);
+   let lastweek = new Date();
+   lastweek.setDate(today.getDate() - 7);
+   let pad = '00';
+   const lastWeek = { any: lastweek.getFullYear().toString(), mes: (pad + (lastweek.getMonth() + 1).toString()).slice(-pad.length), dia: (pad + lastweek.getDate().toString()).slice(-pad.length) }
+
+   let dates: any = {};
+
+   if (parseInt(lastDate.dia) < 7) {
+      let days = [];
+      let days2 = [];
+      for (let i = 0; i < 7; i++) {
+         days.push(('00' + (parseInt(lastWeek.dia) + i).toString()).slice(-2));
+      }
+      for (let i = 0; i < 7; i++) {
+         days2.push(('00' + (parseInt(lastDate.dia) - i).toString()).slice(-2));
+      }
+      dates = {
+         $or: [{
+            dia: {
+               $in: days
+            },
+            any: lastWeek.any,
+            mes: lastWeek.mes,
+         }, {
+            dia: {
+               $in: days2
+            },
+            any: lastDate.any,
+            mes: lastDate.mes,
+         }]
+      }
+
+   } else {
+      let days = [];
+      for (let i = 0; i < 7; i++) {
+         days.push('00' + (parseInt(lastWeek.dia) + i).toString().slice(-2));
+      }
+      dates = {
+         dia: {
+            $in: days
+         },
+         any: lastDate.any,
+         mes: lastDate.mes,
+      }
+   }
+
+   let demoras = await getDemoras(dates);
+   const centreGroup = _.groupBy(demoras, 'centre');
+   let mitjaCentres: any = {};
+   for (const [key, centre] of (Object.entries(centreGroup) as [string, any][])) {
+      let divident = 0;
+      let divisor = 0;
+      centre.forEach((element: any) => {
+         for (const [key, prof] of (Object.entries(element.professionals) as [string, any][])) {
+            divident += prof.mediana;
+            divisor++;
+         }
+      });
+      mitjaCentres[key] = divident / divisor;
+   };
+   return mitjaCentres;
+}
