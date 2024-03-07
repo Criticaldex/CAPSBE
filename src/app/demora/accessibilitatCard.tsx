@@ -1,6 +1,7 @@
 import { GaugeChart } from "./gaugeChart";
+import { GetLinkCenter } from "./routing";
 
-export function CardsAccessibilitat({ accessibilitats }: any) {
+export function CardsAccessibilitat({ accessibilitats, centro }: any) {
    return (
       <section className="flex justify-around bg-bgLight rounded-md p-2">
          <div className={`text-center flex-col`}>
@@ -33,6 +34,11 @@ export function CardsAccessibilitat({ accessibilitats }: any) {
                   <td>{accessibilitats.ACC5DF_PED}</td>
                </tr>
             </table>
+            <div className="m-4">
+               <GetLinkCenter
+                  center={centro}
+               />
+            </div>
          </div >
       </section >
    )

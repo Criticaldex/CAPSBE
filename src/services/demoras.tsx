@@ -228,7 +228,7 @@ export const getMitjaSetmanal = async () => {
 
    let dates: any = {};
 
-   if (parseInt(lastDate.dia) < 7) {
+   if (parseInt(lastDate.dia) < 8) {
       let days = [];
       let days2 = [];
       for (let i = 0; i < 7; i++) {
@@ -252,11 +252,10 @@ export const getMitjaSetmanal = async () => {
             mes: lastDate.mes,
          }]
       }
-
    } else {
       let days = [];
-      for (let i = 0; i < 7; i++) {
-         days.push('00' + (parseInt(lastWeek.dia) + i).toString().slice(-2));
+      for (let i = 0; i < 8; i++) {
+         days.push(('00' + (parseInt(lastDate.dia) - i).toString()).slice(-2));
       }
       dates = {
          dia: {
