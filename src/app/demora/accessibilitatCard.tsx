@@ -2,6 +2,20 @@ import { GaugeChart } from "./gaugeChart";
 import { GetLinkCenter } from "./routing";
 
 export function CardsAccessibilitat({ accessibilitats, centro }: any) {
+   let color;
+   let colorBG;
+
+   if (accessibilitats.ACC5DF_EAP_AC < 50) {
+      color = `var(--red)`;
+      colorBG = `var(--redBG)`;
+   } else if (accessibilitats.ACC5DF_EAP_AC < 75) {
+      color = `var(--orange)`;
+      colorBG = `var(--orangeBG)`;
+   } else {
+      color = `var(--green)`;
+      colorBG = `var(--greenBG)`;
+   }
+
    return (
       <section className="flex justify-around bg-bgLight rounded-md p-2">
          <div className={`text-center flex-col`}>
@@ -12,8 +26,8 @@ export function CardsAccessibilitat({ accessibilitats, centro }: any) {
                <GaugeChart
                   nom={'nom'}
                   data={accessibilitats.ACC5DF_EAP_AC}
-                  numColor={`var(--highcharts${0})`}
-                  numColorBg={`var(--highcharts${0}_bg)`}
+                  numColor={color}
+                  numColorBg={colorBG}
                />
             </div>
             <table className="table mx-10 p-4">
