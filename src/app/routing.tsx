@@ -25,7 +25,7 @@ export default function GetNav({ session }: any) {
          route: '/professionals'
       },
       {
-         label: 'Demora',
+         label: 'Accessibilitat\ni Demora',
          icon: FaUserClock,
          route: '/demora'
       },
@@ -66,7 +66,7 @@ export default function GetNav({ session }: any) {
                      <Link key={navTI.route} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-center gap-x-4 pt-2 pr-0 pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={19} />
-                        <span className="text-base">
+                        <span className="text-base whitespace-pre-line">
                            {navTI.label}
                         </span>
                      </Link>
