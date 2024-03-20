@@ -13,7 +13,7 @@ if (typeof Highcharts === "object") {
 
 export function Chart({ name, data, objectiu, categories, setter }: any) {
 
-   let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio']
+   let centrosClass = ['centrosUniversals', 'centrosHiper', 'centrosSeleccio'];
    useEffect(() => {
       centrosClass.forEach(clase => {
          let contenedor = document.getElementsByClassName(clase)
@@ -22,6 +22,7 @@ export function Chart({ name, data, objectiu, categories, setter }: any) {
             p[0].style.borderColor = `var(--highcharts${i})`
          };
       })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    let max = 0;

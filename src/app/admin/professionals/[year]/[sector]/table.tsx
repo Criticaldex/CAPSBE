@@ -44,7 +44,7 @@ export function AdminTable({ data, centers, years, sections }: any) {
             />
          </div>
       );
-   }, [filterText, years]);
+   }, [filterText, sections, years]);
 
    const {
       register,
