@@ -104,6 +104,8 @@ const ExpandedComponent = ({ data }: any) => {
                <DemorasChart
                   name={monthName[parseInt(month) - 1] + ' ' + year}
                   data={chartDemoras}
+                  setterSector={setSector}
+                  setterColor={setColor}
                />
             </div>
          </div>

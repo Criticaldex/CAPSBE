@@ -10,7 +10,7 @@ if (typeof Highcharts === "object") {
    HighchartsExportData(Highcharts)
 }
 
-export function DemorasChart({ name, data }: any) {
+export function DemorasChart({ name, data, setterSector, setterColor }: any) {
    const options = {
       ...chartOptions,
       chart: {
@@ -37,6 +37,12 @@ export function DemorasChart({ name, data }: any) {
                style: {
                   textOutline: 'none'
                },
+            },
+            events: {
+               click: function (event: any) {
+                  setterSector(event.point.series.name);
+                  setterColor(event.point.color);
+               }
             }
          }
       }
