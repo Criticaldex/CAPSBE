@@ -44,7 +44,7 @@ export const getChartDemoras = async (filter: any, db?: string) => {
    const data = await getDemoras(filter, sort, db);
    const daysGroup = _.groupBy(data, 'dia');
    const sectorGroup = _.groupBy(data, 'sector');
-   const sectors = _.orderBy(Object.keys(sectorGroup), 'desc');
+   const sectors = Object.keys(sectorGroup).sort();
 
    let chartData: any = [];
 
@@ -92,17 +92,21 @@ export const getChartDemorasSector = async (filter: any, db?: string, color?: st
       data: []
    }];
 
-   if (data.length != 1) {
-      return chartData;
-   }
-   else data = data[0];
+   let professionals: any = {};
 
-   for (const [prof, dataProf] of (Object.entries(data.professionals) as [string, any][])) {
-      const split: string[] = (prof) ? prof.split(',') : [];
-      const nom = (split[1]) ? split[1] : split[0];
-      if (dataProf.mediana != undefined || dataProf.mediana != null) {
-         chartData[0].data.push({ name: prof, y: dataProf.mediana, max: dataProf.maxim, min: dataProf.minim });
-      }
+   for (const [dia, sectorsDia] of (Object.entries(data) as [string, any][])) {
+      for (const [prof, dataProf] of (Object.entries(sectorsDia.professionals) as [string, any][])) {
+         if (dataProf.mediana != undefined || dataProf.mediana != null) {
+            if (professionals[prof]) {
+               professionals[prof] += dataProf.mediana;
+            } else {
+               professionals[prof] = dataProf.mediana;
+            }
+         };
+      };
+   };
+   for (const [prof, total] of (Object.entries(professionals) as [string, any][])) {
+      chartData[0].data.push({ name: prof, y: parseFloat((total / data.length).toFixed(2)) });
    };
    chartData[0].data = _.orderBy(chartData[0].data, 'y', 'desc')
    return chartData;
@@ -140,12 +144,12 @@ export const getProfessionalMonth = async (filter: any, professional: string, db
    data.map((dia: any) => {
       chartData[0].data.push({
          name: dia.dia,
-         y: dia.professionals[professional].mediana,
+         y: (dia.professionals[professional]) ? dia.professionals[professional].mediana : null,
       });
       chartData[1].data.push({
          name: dia.dia,
-         high: dia.professionals[professional].maxim,
-         low: dia.professionals[professional].minim,
+         high: (dia.professionals[professional]) ? dia.professionals[professional].maxim : null,
+         low: (dia.professionals[professional]) ? dia.professionals[professional].minim : null,
       });
    })
    return chartData;
@@ -281,4 +285,40 @@ export const getMitjaSetmanal = async () => {
       mitjaCentres[key] = divident / divisor;
    };
    return mitjaCentres;
+}
+
+export const getChartDemorasYear = async (filter: any, db?: string) => {
+   const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
+   const sort = 'dia'
+   const data = await getDemoras(filter, sort, db);
+   const monthsGroup = _.groupBy(data, 'mes');
+   const sectorGroup = _.groupBy(data, 'sector');
+   const sectors = Object.keys(sectorGroup).sort();
+
+   let chartData: any = [];
+
+   sectors.forEach((sector, i) => {
+      chartData.push({
+         type: 'spline',
+         name: sector,
+         data: []
+      });
+
+      for (const [mes, sectorsMes] of (Object.entries(monthsGroup) as [string, any][])) {
+         let mitjanaSuma: number = 0;
+         let numProf: number = 0;
+         sectorsMes.map((sec: any) => {
+            if (sec.sector == sector) {
+               for (const [k, val] of (Object.entries(sec.professionals) as [string, any][])) {
+                  mitjanaSuma += val.mediana;
+                  numProf++;
+               }
+            }
+         })
+         let mitjanaGlobal = Number((mitjanaSuma / numProf).toFixed(2));
+         chartData[i].data.push({ name: monthName[Number(mes) - 1], monthNum: mes, y: mitjanaGlobal });
+      };
+      chartData[i].data = _.orderBy(chartData[i].data, 'name');
+   });
+   return chartData;
 }

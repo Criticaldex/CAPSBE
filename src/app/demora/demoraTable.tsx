@@ -3,30 +3,20 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { createThemes } from "@/styles/themes";
 import { Loading } from "@/components/loading.component";
-import { getChartDemoras, getChartDemorasSector, getProfessionalMonth } from '@/services/demoras';
+import { getChartDemoras, getChartDemorasSector, getChartDemorasYear, getProfessionalMonth } from '@/services/demoras';
 import { DemorasChart } from './demorasChart';
 import { DetallChart } from './detallChart';
 import { ProfessionalChart } from './professionalChart';
 import { useSession } from 'next-auth/react';
+import { DemorasChartYear } from './demorasChartYear';
 
-const monthHandler = (month: string, setMonth: any, year: string, setYear: any, modifier: string) => (event: any) => {
-   const pad = '00';
+const yearHandler = (year: string, setYear: any, modifier: string) => (event: any) => {
    switch (modifier) {
       case '<':
-         if (month == '01') {
-            setMonth('12')
-            setYear((parseInt(year) - 1).toString())
-         } else {
-            setMonth((pad + (parseInt(month) - 1)).slice(-pad.length))
-         }
+         setYear((parseInt(year) - 1).toString())
          break;
       case '>':
-         if (month == '12') {
-            setMonth('01')
-            setYear((parseInt(year) + 1).toString())
-         } else {
-            setMonth((pad + (parseInt(month) + 1)).slice(-pad.length));
-         }
+         setYear((parseInt(year) + 1).toString())
          break;
       default:
          break;
@@ -42,6 +32,7 @@ const ExpandedComponent = ({ data }: any) => {
    const [sector, setSector] = useState();
    const [color, setColor] = useState('var(--highcharts0)');
    const [chartDemoras, setChartDemoras] = useState({} as any);
+   const [chartDemorasYear, setChartDemorasYear] = useState({} as any);
    const [chartDemorasSector, setChartDemorasSector] = useState([] as any[]);
    const [chartProfessional, setChartProfessional] = useState([] as any[]);
    const [professional, setProfessional] = useState();
@@ -49,30 +40,39 @@ const ExpandedComponent = ({ data }: any) => {
 
    useEffect(() => {
       if (status === "authenticated") {
+         getChartDemorasYear({ "any": year, "centre": data.centro }, session?.user.db)
+            .then((sectors: any) => {
+               setChartDemorasYear(sectors);
+               setSector(sectors[0].name);
+               setColor('var(--highcharts0)');
+            })
+      }
+   }, [data.centro, session?.user.db, status, year])
+
+   useEffect(() => {
+      if (status === "authenticated") {
          getChartDemoras({ "any": year, "mes": month, "centre": data.centro }, session?.user.db)
             .then((sectors: any) => {
                setChartDemoras(sectors);
-               setSector(sectors[0].name);
-               setColor('var(--highcharts0)');
             })
       }
    }, [data.centro, month, session?.user.db, status, year])
 
    useEffect(() => {
       if (status === "authenticated") {
-         getChartDemorasSector({ "any": year, "mes": month, "dia": day, "centre": data.centro, "sector": sector }, session?.user.db, color)
+         getChartDemorasSector({ "any": year, "mes": month, "centre": data.centro, "sector": sector }, session?.user.db, color)
             .then((res: any) => {
                setChartDemorasSector(res);
                if (res[0].data[0]) {
                   setProfessional(res[0].data[0].name)
                }
-               setLoading(false);
             })
       }
-   }, [data.centro, color, day, month, sector, session?.user.db, status, year])
+   }, [data.centro, color, sector, session?.user.db, status, year, month])
 
    useEffect(() => {
       if (status === "authenticated" && professional) {
+
          getProfessionalMonth({ "any": year, "mes": month, "centre": data.centro, "sector": sector }, professional, session?.user.db, color)
             .then((res: any) => {
                setChartProfessional(res);
@@ -86,22 +86,31 @@ const ExpandedComponent = ({ data }: any) => {
 
    return (
       <div className=" p-1 m-2 rounded-md bg-bgLight">
-         <div className='flex justify-center'>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, year, setYear, '<')}>&lt;</button>
-            <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={monthHandler(month, setMonth, year, setYear, '>')}>&gt;</button>
+         <div className='flex'>
+            <div className='basis-1/2'>
+               <div className='flex justify-center'>
+                  <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={yearHandler(year, setYear, '<')}>&lt;</button>
+                  <button className='m-1 px-2 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight' onClick={yearHandler(year, setYear, '>')}>&gt;</button>
+               </div>
+               <DemorasChartYear
+                  name={year}
+                  data={chartDemorasYear}
+                  setterMonth={setMonth}
+                  setterSector={setSector}
+                  setterColor={setColor}
+               />
+            </div>
+            <div className='basis-1/2'>
+               <DemorasChart
+                  name={monthName[parseInt(month) - 1] + ' ' + year}
+                  data={chartDemoras}
+               />
+            </div>
          </div>
-
-         <DemorasChart
-            name={monthName[parseInt(month) - 1] + ' ' + year}
-            data={chartDemoras}
-            setterDay={setDay}
-            setterSector={setSector}
-            setterColor={setColor}
-         />
          <div className='flex'>
             <div className='basis-1/2'>
                <DetallChart
-                  name={day + '/' + month + '/' + year.toString()}
+                  name={monthName[parseInt(month) - 1] + ' ' + year}
                   data={chartDemorasSector}
                   setterProfessional={setProfessional}
                   setterColor={setColor}
@@ -145,7 +154,6 @@ export function DemorasTable({ date, data, sectors }: any) {
 
    return (
       <div className='flex-col grow'>
-         <a className="flex justify-center text-xl font-bold">Demores {date}</a>
          <DataTable
             className='flex'
             columns={columns}

@@ -84,3 +84,9 @@ export const getLastYear = async () => {
    let years: string[] = Object.keys(yearsGroup);
    return years[years.length - 1];
 }
+
+export const getLastMonth = async (any: string) => {
+   const monthName = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
+   const data = await getAccessibilitats({ any: any });
+   return monthName[data[0].resultat.length - 1]
+}
