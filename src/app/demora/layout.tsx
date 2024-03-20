@@ -1,12 +1,13 @@
 import { DemorasTable } from "./demoraTable";
 import { getDemorasToday, getLastDate, getSectors } from "@/services/demoras";
-import { getCardAccessibilitats, getLastYear } from "@/services/accessibilitat";
+import { getCardAccessibilitats, getLastYear, getLastMonth } from "@/services/accessibilitat";
 import { getCenters } from "@/services/centros";
 import { CardsAccessibilitat } from "./accessibilitatCard";
 
 export default async function DemorasLayout({ children, params }: any) {
    const lastDate = await getLastDate();
    const lastYear = await getLastYear();
+   const lastMonth = await getLastMonth(lastYear);
    const centers = await getCenters();
 
    const day = lastDate.dia;
@@ -22,9 +23,8 @@ export default async function DemorasLayout({ children, params }: any) {
       <div>
          <title>Accessibilitat i Demora</title>
          <div className="mt-2 bg-light text-right flex justify-between items-center">
-            <div className="bg-light text-right flex justify-end items-center">
-               <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Accessibilitat</h1>
-            </div>
+            <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Accessibilitat</h1>
+            <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">{lastMonth} {lastYear}</h1>
          </div>
          <hr className="w-11/12 m-auto mt-0 border-t-2 border-darkBlue" />
          <main className="m-2">
@@ -42,9 +42,8 @@ export default async function DemorasLayout({ children, params }: any) {
                   {children}
                </div>
                <div className="mt-2 bg-light text-right flex justify-between items-center">
-                  <div className="bg-light text-right flex justify-end items-center">
-                     <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Demora</h1>
-                  </div>
+                  <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">Indicadors Demora</h1>
+                  <h1 className="right-0 w-auto mx-10 font-semibold text-2xl italic">{date}</h1>
                </div>
                <hr className="w-11/12 m-auto my-2 border-t-2 border-darkBlue" />
                <div className="flex grow p-1 bg-bgLight rounded-md ">

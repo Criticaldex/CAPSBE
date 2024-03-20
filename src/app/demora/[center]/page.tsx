@@ -15,7 +15,7 @@ export default async function Accessibilitat({ params }: any) {
       <div className="bg-bgLight rounded-md p-3 mb-2">
          <title>Accessibilitat i Demora</title>
          <AccessibilitatChart
-            name={centers[center].name}
+            name={centers[center].name + ' ' + lastYear}
             data={chartData}
          />
       </div>

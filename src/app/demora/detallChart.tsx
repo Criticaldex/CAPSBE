@@ -26,7 +26,7 @@ export function DetallChart({ name, data, setterProfessional, setterColor }: any
       series: data,
       yAxis: [{
          title: {
-            text: 'Dies demora per Professional'
+            text: 'Mitjana demora per Professional'
          }
       }],
       xAxis: {
