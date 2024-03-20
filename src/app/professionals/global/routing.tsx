@@ -79,6 +79,7 @@ export function GetLinksSection({ sections }: any) {
    const center = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_CENTER;
    const sect = (pathArray[4]) ? pathArray[4] : sections[0].replaceAll(' ', '_');
 
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    let links: object[] = [];
    sections.map((label: any) => (
       links.push({
@@ -90,7 +91,7 @@ export function GetLinksSection({ sections }: any) {
    useEffect(() => {
       if (!links.filter((link: any) => pathname?.includes(link.route)).length)
          router.push(`/professionals/${view}/${center}/${sections[0].replaceAll(' ', '_')}`)
-   }, []);
+   }, [center, links, pathname, router, sections, view]);
 
    return (
       <>

@@ -81,6 +81,7 @@ export function GetLinksSection({ sections }: any) {
    const sect = (pathArray[4]) ? pathArray[4] : sections[0].replaceAll(' ', '_');
    const year = (pathArray[5]) ? pathArray[5] : process.env.DEFAULT_YEAR;
 
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    let links: object[] = [];
    sections.map((label: any) => (
       links.push({
@@ -92,7 +93,7 @@ export function GetLinksSection({ sections }: any) {
    useEffect(() => {
       if (!links.filter((link: any) => pathname?.includes(link.route)).length)
          router.push(`/professionals/${view}/${center}/${sections[0].replaceAll(' ', '_')}/${year}`)
-   }, []);
+   }, [center, links, pathname, router, sections, view, year]);
 
    return (
       <>
@@ -155,6 +156,7 @@ export function GetLinksProfessionals({ professionals }: any) {
    const section = (pathArray[4]) ? pathArray[4] : process.env.PROFESSIONALS_DEFAULT_SECTION;
    const year = (pathArray[5]) ? pathArray[5] : process.env.DEFAULT_YEAR;
 
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    let links: object[] = [];
    professionals.map((label: any) => (
       links.push({
@@ -167,7 +169,7 @@ export function GetLinksProfessionals({ professionals }: any) {
    useEffect(() => {
       if (!links.filter((link: any) => pathname?.includes(link.route)).length)
          router.push(`/professionals/${view}/${center}/${section}/${year}/${professionals[0].split('(').pop().split(')')[0]}`)
-   }, []);
+   }, [center, links, pathname, professionals, router, section, view, year]);
 
    return (
       <ul id="scrollDiv" className="overflow-y-scroll h-[41rem] bg-bgDark rounded-md">
