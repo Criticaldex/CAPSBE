@@ -1,19 +1,12 @@
 import { getCenters } from "@/services/centros";
-import { getCallsToday } from "@/services/calls";
-import { getIntervalsDay, getHoursChart, getIntervalsChart, getHoursDrilldown, getIntervalsDrilldown } from "@/services/call_intervals";
+import { getCallsToday, getLastDate } from "@/services/calls";
 import { CallsTable } from "./callsTable";
 
 export default async function ContractsLayout({ children }: any) {
-   let ayer = new Date();
-   ayer.setDate(ayer.getDate() - 1);
-   const pad = '00';
-
-   const day = (pad + ayer.getDate().toString()).slice(-pad.length);
-   const month = (pad + (ayer.getMonth() + 1).toString()).slice(-pad.length);
-   const year = ayer.getFullYear().toString();
-   const date = day + '/' + month + '/' + year;
+   const lastDate = await getLastDate();
+   const date = lastDate.dia + '/' + lastDate.mes + '/' + lastDate.any;
    const centros = await getCenters();
-   const calls = await getCallsToday(ayer);
+   const calls = await getCallsToday(lastDate);
 
    return (
       <div>
