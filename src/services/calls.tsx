@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-const getCalls = async (filter: any) => {
+const getCalls = async (filter: any, sort?: string) => {
    // const session = await getSession();
 
    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/calls`,
@@ -26,18 +26,13 @@ const getCalls = async (filter: any) => {
                   "-_id"
                ],
                filter: filter,
+               sort: sort
             }
          ),
       }).then(res => res.json());
 }
 
-export const getCallsToday = async (ayer: Date) => {
-   const pad = '00';
-
-   const date = (pad + ayer.getDate().toString()).slice(-pad.length);
-   const month = (pad + (ayer.getMonth() + 1).toString()).slice(-pad.length);
-   const year = ayer.getFullYear().toString();
-
+export const getCallsToday = async (date: { dia: string, mes: string, any: string }) => {
    const filter = {
       centro: {
          $nin: [
@@ -45,7 +40,7 @@ export const getCallsToday = async (ayer: Date) => {
             "Total",
          ]
       },
-      "any": year, "mes": month, "dia": date
+      ...date
    };
    const data = await getCalls(filter);
 
@@ -147,4 +142,13 @@ export const getDashboardChartDays = async (year: string, month: string, center:
       days.push(ele.dia);
    });
    return days;
+}
+
+export const getLastDate = async (filter?: any, db?: string) => {
+   const sort = '_id'
+   const data = await getCalls(filter, sort);
+   const lastDay = data[data.length - 1].dia.toString();
+   const lastMonth = data[data.length - 1].mes.toString();
+   const lastYear = data[data.length - 1].any.toString();
+   return { dia: lastDay, mes: lastMonth, any: lastYear };
 }
