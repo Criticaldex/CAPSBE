@@ -2,7 +2,7 @@
 import Link from "next/link"
 
 import { BiPlusMedical } from "react-icons/bi"
-import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock, FaUserClock, FaPlus } from "react-icons/fa"
+import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock, FaUserClock, FaPlus, FaMoneyBillWave, FaMoneyCheck } from "react-icons/fa"
 import { TbLayoutDashboard } from "react-icons/tb"
 import { RiMedicineBottleLine } from "react-icons/ri"
 
@@ -53,6 +53,14 @@ export default function GetNav({ session }: any) {
       }
    ]
 
+   const navTitlesIconsFinances = [
+      {
+         label: 'Inversions',
+         icon: FaMoneyCheck,
+         route: '/inversions'
+      }
+   ]
+
    return (
       <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
          <nav className="text-TextNav flex flex-col justify-between h-full overflow-hidden">
@@ -79,6 +87,24 @@ export default function GetNav({ session }: any) {
                      </h3>
                   </div>
                   {navTitlesIconsFarma.map((navTI) => (
+                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
+                     ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
+                        <navTI.icon size={19} />
+                        <span className="text-base">
+                           {navTI.label}
+                        </span>
+                     </Link>
+                  ))}
+
+
+                  <hr className="my-4 ml-2 border-spacerNav" />
+                  <div className="text-yellow text-lg font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+                     <FaMoneyBillWave size={20} />
+                     <h3>
+                        Finances
+                     </h3>
+                  </div>
+                  {navTitlesIconsFinances.map((navTI) => (
                      <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={19} />

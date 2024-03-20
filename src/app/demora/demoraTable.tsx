@@ -72,7 +72,6 @@ const ExpandedComponent = ({ data }: any) => {
 
    useEffect(() => {
       if (status === "authenticated" && professional) {
-
          getProfessionalMonth({ "any": year, "mes": month, "centre": data.centro, "sector": sector }, professional, session?.user.db, color)
             .then((res: any) => {
                setChartProfessional(res);
