@@ -15,11 +15,11 @@ export default async function AdminDashboard({ params }: any) {
    return (
       <div className="flex flex-col">
          <AdminTable
-            data={indicadores}
-            centers={centros}
-            years={years}
-            session={session}
+         // data={indicadores}
+         // centers={centros}
+         // years={years}
+         // session={session}
          />
-      </div >
+      </div>
    )
 }

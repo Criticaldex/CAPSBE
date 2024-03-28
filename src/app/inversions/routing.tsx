@@ -11,7 +11,6 @@ export function GetLinksYears({ years }: any) {
    return (
       <>
          <label>
-            <strong>Any:{' '}</strong>
             <select value={`/inversions/${any}`}
                className={'mx-2 py-2 px-5 rounded-md text-textColor font-bold border border-darkBlue bg-bgDark hover:bg-bgLight'}
                onChange={e => {
