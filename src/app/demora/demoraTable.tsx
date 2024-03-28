@@ -71,15 +71,14 @@ const ExpandedComponent = ({ data }: any) => {
    }, [data.centro, color, sector, session?.user.db, status, year, month])
 
    useEffect(() => {
-      if (status === "authenticated" && professional) {
+      if (status === "authenticated" && professional && sector) {
          getProfessionalMonth({ "any": year, "mes": month, "centre": data.centro, "sector": sector }, professional, session?.user.db, color)
             .then((res: any) => {
                setChartProfessional(res);
                setLoading(false);
             })
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [data.centro, month, professional, session?.user.db, status, year])
+   }, [status, month, professional, sector, year, data.centro, session?.user.db, color])
 
    if (isLoading) return <Loading />
 
