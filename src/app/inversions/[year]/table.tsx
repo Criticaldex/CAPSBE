@@ -12,9 +12,12 @@ import {
    SortingState,
    flexRender,
    RowData,
+   ColumnResizeMode,
+   ColumnResizeDirection
 } from '@tanstack/react-table'
 import 'react-toastify/dist/ReactToastify.css';
-import { Person, makeData } from './makeData';
+import { InversioIface } from '@/schemas/inversio';
+
 
 declare module '@tanstack/react-table' {
    interface TableMeta<TData extends RowData> {
@@ -39,7 +42,7 @@ function useSkipper() {
 }
 
 // Give our default column cell renderer editing superpowers!
-const defaultColumn: Partial<ColumnDef<Person>> = {
+const defaultColumn: Partial<ColumnDef<InversioIface>> = {
    cell: ({ getValue, row: { index }, column: { id }, table }) => {
       const initialValue = getValue();
       // We need to keep and update the state of the cell normally
@@ -68,59 +71,128 @@ const defaultColumn: Partial<ColumnDef<Person>> = {
    },
 };
 
-export function AdminTable() {
+export function AdminTable({ data, session }: any) {
 
-   const rerender = useReducer(() => ({}), {})[1];
+   const columnResizeMode = useState<ColumnResizeMode>('onChange')
+   const columnResizeDirection = useState<ColumnResizeDirection>('ltr')
    const [sorting, setSorting] = useState<SortingState>([])
 
-   const columns = useMemo<ColumnDef<Person>[]>(
+   const defaultColumns = useMemo<ColumnDef<InversioIface>[]>(
       () => [
          {
-            accessorKey: 'firstName',
-            header: () => <span>First Name</span>,
+            accessorKey: 'control_def',
+            header: () => 'Control DEF',
             footer: (props) => props.column.id,
          },
          {
-            accessorKey: 'lastName',
-            header: () => <span>Last Name</span>,
+            accessorKey: 'element_dinversio',
+            header: () => "Element d'inversió",
             footer: (props) => props.column.id,
          },
          {
-            accessorKey: 'age',
-            header: () => 'Age',
+            accessorKey: 'u',
+            header: () => 'U',
             footer: (props) => props.column.id,
          },
          {
-            accessorKey: 'visits',
-            header: () => <span>Visits</span>,
+            accessorKey: 'p_u',
+            header: () => 'P/U',
             footer: (props) => props.column.id,
          },
          {
-            accessorKey: 'status',
-            header: 'Status',
+            accessorKey: 't',
+            header: 'T',
             footer: (props) => props.column.id,
          },
          {
-            accessorKey: 'progress',
-            header: 'Profile Progress',
+            accessorKey: 'unitats_definitives',
+            header: 'Unitats definitives',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'preu_u_definitiu',
+            header: 'Preu/u definitiu',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'total',
+            header: 'Total',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'diferencia',
+            header: 'Diferència',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'classificacio',
+            header: 'Classificació',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'centre',
+            header: 'Centre',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'contractacio',
+            header: 'Contractació',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'previsio_execucio',
+            header: 'Previsió execució',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'estat',
+            header: 'Estat',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'data_compra',
+            header: 'Data Compra',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'data_entrega',
+            header: 'Data Entrega',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'data_factura',
+            header: 'Data Factura',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'n_factura',
+            header: 'Nº Factura',
+            footer: (props) => props.column.id,
+         },
+         {
+            accessorKey: 'proveidor',
+            header: 'Proveïdor',
             footer: (props) => props.column.id,
          },
       ],
       []
    );
 
-   const [data, setData] = useState(() => makeData(1000));
-   const refreshData = () => setData(() => makeData(1000));
+   const [columns] = useState<typeof defaultColumns>(() => [
+      ...defaultColumns,
+   ])
 
    const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
 
    const table = useReactTable({
       data,
       columns,
-      defaultColumn,
+      defaultColumns,
       state: {
          sorting,
       },
+      columnResizeMode,
+      columnResizeDirection,
       onSortingChange: setSorting,
       getCoreRowModel: getCoreRowModel(),
       getSortedRowModel: getSortedRowModel(),
@@ -133,25 +205,16 @@ export function AdminTable() {
          updateData: (rowIndex, columnId, value) => {
             // Skip page index reset until after next rerender
             skipAutoResetPageIndex();
-            setData((old: any) =>
-               old.map((row: any, index: any) => {
-                  if (index === rowIndex) {
-                     return {
-                        ...old[rowIndex]!,
-                        [columnId]: value,
-                     };
-                  }
-                  return row;
-               })
-            );
          },
       },
+      debugHeaders: true,
+      debugColumns: true,
    });
 
    return (
       <div className="p-2 rounded-md bg-bgLight">
          <div className="h-2" />
-         <table className="text-textColor bg-bgDark rounded-md p-1 ml-4">
+         <table className="text-textColor bg-bgDark rounded-md p-1 ml-4 self-stretch justify-items-stretch">
             <thead className="bg-bgLight">
                {table.getHeaderGroups().map((headerGroup) => (
                   <tr className="bg-bgLight" key={headerGroup.id}>
@@ -186,6 +249,16 @@ export function AdminTable() {
                                     }[header.column.getIsSorted() as string] ?? null}
                                  </div>
                               )}
+                              <div
+                                 {...{
+                                    onDoubleClick: () => header.column.resetSize(),
+                                    onMouseDown: header.getResizeHandler(),
+                                    onTouchStart: header.getResizeHandler(),
+                                    className: `resizer ${table.options.columnResizeDirection
+                                       } ${header.column.getIsResizing() ? 'isResizing' : ''
+                                       }`
+                                 }}
+                              />
                            </th>
                         );
                      })}
@@ -209,6 +282,17 @@ export function AdminTable() {
                      </tr>
                   );
                })}
+               <tr key={'create'}>
+                  <td className="bg-bgDark" key={'fname'}>
+                     <input className="bg-bgDark" name="fname" type="text" placeholder="Nom" />
+                  </td>
+                  <td className="bg-bgDark" key={'lname'}>
+                     <input className="bg-bgDark" name="lname" type="text" placeholder="Cognom" />
+                  </td>
+                  <td className="bg-bgDark" key={'lname'}>
+                     <input className="bg-bgDark" name="lname" type="text" placeholder="Edat" />
+                  </td>
+               </tr>
             </tbody>
          </table>
          <div className="h-2" />

@@ -20,7 +20,7 @@ export interface InversioIface {
    data_factura: Date,
    n_factura: string,
    proveidor: string,
-   year: string
+   any: string
 }
 
 const Schema = new mongoose.Schema({
@@ -81,7 +81,7 @@ const Schema = new mongoose.Schema({
    proveidor: {
       type: String,
    },
-   year: {
+   any: {
       type: String,
    },
 });
