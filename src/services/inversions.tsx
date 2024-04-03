@@ -16,11 +16,7 @@ const getInversions = async (filter: any, db?: string) => {
          body: JSON.stringify(
             {
                db: db,
-               fields: [
-                  "-_id"
-               ],
                filter: filter,
-               sort: 'ordre'
             }
          ),
       }).then(res => res.json());
@@ -38,7 +34,11 @@ export const updateInversions = async (data: any) => {
 }
 
 export const getTableInversions = async (filter: any) => {
-   return await getInversions(filter);
+   let data: object[] = await getInversions(filter);
+   data.map((inversio: any) => {
+      inversio.id = inversio._id
+   })
+   return data;
 }
 
 export const getYears = async () => {
