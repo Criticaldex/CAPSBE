@@ -134,16 +134,19 @@ body {
 /* ----------------------------------------------- */
 
 #scrollDiv::-webkit-scrollbar,
+.scrollable::-webkit-scrollbar,
 .barraHori>div::-webkit-scrollbar {
    width: 7px;
 }
 
 #scrollDiv::-webkit-scrollbar-track,
+.scrollable::-webkit-scrollbar-track,
 .barraHori>div::-webkit-scrollbar-track {
    border-radius: 10px;
 }
 
 #scrollDiv::-webkit-scrollbar-thumb,
+.scrollable::-webkit-scrollbar-thumb,
 .barraHori>div::-webkit-scrollbar-thumb {
    background: var(--foreground);
    border-radius: 5px;

@@ -94,6 +94,11 @@ const nextConfig = {
             source: '/admin/professionals/:year',
             destination: `/admin/professionals/:year/${process.env.PROFESSIONALS_DEFAULT_SECTION}`,
             permanent: false,
+         },
+         {
+            source: '/ordres',
+            destination: `/ordres/${process.env.DEFAULT_YEAR_2}`,
+            permanent: false,
          }
       ];
    }
