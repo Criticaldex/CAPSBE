@@ -5,12 +5,9 @@ export function CardsAccessibilitat({ accessibilitats, centro }: any) {
    let color;
    let colorBG;
 
-   if (accessibilitats.ACC5DF_EAP_AC < 50) {
+   if (accessibilitats.ACC5DF_EAP_AC < 70) {
       color = `var(--red)`;
       colorBG = `var(--redBG)`;
-   } else if (accessibilitats.ACC5DF_EAP_AC < 75) {
-      color = `var(--orange)`;
-      colorBG = `var(--orangeBG)`;
    } else {
       color = `var(--green)`;
       colorBG = `var(--greenBG)`;
