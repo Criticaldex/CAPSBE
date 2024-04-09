@@ -2,7 +2,7 @@
 import Link from "next/link"
 
 import { BiPlusMedical } from "react-icons/bi"
-import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock, FaUserClock, FaPlus } from "react-icons/fa"
+import { FaCapsules, FaUserNurse, FaPhoneAlt, FaUnlock, FaUserClock, FaFileMedical } from "react-icons/fa"
 import { TbLayoutDashboard } from "react-icons/tb"
 import { RiMedicineBottleLine } from "react-icons/ri"
 
@@ -28,6 +28,11 @@ export default function GetNav({ session }: any) {
          label: 'Accessibilitat\ni Demora',
          icon: FaUserClock,
          route: '/demora'
+      },
+      {
+         label: 'Ordres Clíniques',
+         icon: FaFileMedical,
+         route: '/ordres'
       },
    ]
    {
