@@ -1,5 +1,6 @@
 import _ from "lodash"
 import { getSession } from "@/services/session"
+import { InversioIface } from "@/schemas/inversio";
 
 const getInversions = async (filter: any, db?: string) => {
    if (!db) {
@@ -22,20 +23,31 @@ const getInversions = async (filter: any, db?: string) => {
       }).then(res => res.json());
 }
 
-export const updateInversions = async (data: any) => {
-   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/indicators`,
+export const upsertInversions = async (data: any) => {
+   const { id, ...bodyWithoutID } = data;
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inversions/${id}`,
       {
          method: 'PATCH',
          headers: {
             'Content-type': 'application/json',
          },
-         body: JSON.stringify(data),
+         body: JSON.stringify(bodyWithoutID),
+      }).then(res => res.json());
+}
+
+export const deleteInversions = async (id: any) => {
+   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/inversions/${id}`,
+      {
+         method: 'DELETE',
+         headers: {
+            'Content-type': 'application/json',
+         },
       }).then(res => res.json());
 }
 
 export const getTableInversions = async (filter: any) => {
-   let data: object[] = await getInversions(filter);
-   data.map((inversio: any) => {
+   let data: InversioIface[] = await getInversions(filter);
+   data.map((inversio: InversioIface) => {
       inversio.id = inversio._id
    })
    return data;

@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
 export interface InversioIface {
+   _id: string,
+   id: string,
    control_def: string,
    element_dinversio: string,
    u: number,
@@ -13,11 +15,11 @@ export interface InversioIface {
    classificacio: string,
    centre: string,
    contractacio: string,
-   previsio_execucio: Date,
+   previsio_execucio: string,
    estat: string,
-   data_compra: Date,
-   data_entrega: Date,
-   data_factura: Date,
+   data_compra: string,
+   data_entrega: string,
+   data_factura: string,
    n_factura: string,
    proveidor: string,
    any: string

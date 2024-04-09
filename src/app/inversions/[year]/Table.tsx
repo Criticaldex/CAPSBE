@@ -1,6 +1,8 @@
-/* eslint-disable react/jsx-key */
 'use client'
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -22,7 +24,12 @@ import {
    GridRowEditStopReasons,
    GridSlots,
 } from '@mui/x-data-grid';
-import InversioIface from '@/schemas/inversio'
+
+import {
+   randomCreatedDate,
+} from '@mui/x-data-grid-generator';
+
+import { deleteInversions, upsertInversions } from '@/services/inversions';
 
 interface EditToolbarProps {
    setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
@@ -32,11 +39,14 @@ interface EditToolbarProps {
 }
 
 function EditToolbar(props: EditToolbarProps) {
+
    const { setRows, setRowModesModel } = props;
 
    const handleClick = () => {
-      const id = 0;
-      setRows((oldRows) => [...oldRows, { id: '0', control_def: '', element_dinversio: '', isNew: true }]);
+      //necessita 24 caracters per ser id MongoDB
+      const genRanHex = (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+      const id = genRanHex(24);
+      setRows((oldRows) => [...oldRows, { id, control_def: '', element_dinversio: '', isNew: true }]);
       setRowModesModel((oldModel) => ({
          ...oldModel,
          [id]: { mode: GridRowModes.Edit, fieldToFocus: 'control_def' },
@@ -52,8 +62,13 @@ function EditToolbar(props: EditToolbarProps) {
    );
 }
 
-export function AdminTable({ data, session }: any) {
-   const [rows, setRows] = useState(data);
+export function AdminTable({ data, session, year }: any) {
+   console.log(new Date('2023-01-15'));
+   console.log('random: ', randomCreatedDate());
+
+   const initialRows: GridRowsProp = data;
+
+   const [rows, setRows] = useState(initialRows);
    const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
    const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
@@ -63,19 +78,35 @@ export function AdminTable({ data, session }: any) {
    };
 
    const handleEditClick = (id: GridRowId) => () => {
-      console.log('rowModesModelPre: ', rowModesModel);
       setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-      console.log('rowModesModel: ', rowModesModel);
-
    };
 
    const handleSaveClick = (id: GridRowId) => () => {
-      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+      setRowModesModel({
+         ...rowModesModel,
+         [id]: { mode: GridRowModes.View }
+      });
    };
 
    const handleDeleteClick = (id: GridRowId) => () => {
-      console.log('AAAAAAAAAAAAAAAAAAAA');
-      setRows(rows.filter((row: typeof InversioIface) => row.id !== id));
+      confirmAlert({
+         message: 'Vols eliminar el registre?',
+         buttons: [
+            {
+               label: 'Eliminar!',
+               onClick: async () => {
+                  const del = await deleteInversions(id);
+                  if (del) {
+                     toast.error('Registre Eliminat!!', { theme: "colored" });
+                     setRows(rows.filter((row) => row.id !== id));
+                  }
+               }
+            },
+            {
+               label: 'Nooo!',
+            }
+         ]
+      });
    };
 
    const handleCancelClick = (id: GridRowId) => () => {
@@ -84,23 +115,40 @@ export function AdminTable({ data, session }: any) {
          [id]: { mode: GridRowModes.View, ignoreModifications: true },
       });
 
-      const editedRow = rows.find(({ row }: any) => row.id === id);
+      const editedRow = rows.find((row) => row.id === id);
       if (editedRow!.isNew) {
-         setRows(rows.filter(({ row }: any) => row.id !== id));
+         setRows(rows.filter((row) => row.id !== id));
       }
    };
 
-   const processRowUpdate = (newRow: GridRowModel) => {
+   const processRowUpdate = async (newRow: GridRowModel) => {
+      console.log('b NewRow: ', newRow);
+      newRow.t = (newRow.u * newRow.p_u);
+      newRow.total = (newRow.unitats_definitives * newRow.preu_u_definitiu);
+      newRow.diferencia = (newRow.total - newRow.t);
+      console.log('a NewRow: ', newRow);
+
+      const upsert = await upsertInversions({ ...newRow, any: year });
+      console.log('upsert: ', upsert);
+
+      if (upsert.lastErrorObject?.updatedExisting) {
+         toast.success('Registre Modificat!', { theme: "colored" });
+      } else {
+         toast.success('Registre Afegit!', { theme: "colored" });
+      }
       const updatedRow = { ...newRow, isNew: false };
-      setRows(rows.map(({ row }: any) => (row.id === newRow.id ? updatedRow : row)));
+      setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
       return updatedRow;
+   };
+
+   const handleProcessRowUpdateError = () => {
    };
 
    const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
       setRowModesModel(newRowModesModel);
    };
 
-   const columns: GridColDef<(typeof InversioIface)[]>[] = [
+   const columns: GridColDef[] = [
       {
          field: 'actions',
          type: 'actions',
@@ -113,15 +161,16 @@ export function AdminTable({ data, session }: any) {
 
             if (isInEditMode) {
                return [
+                  // eslint-disable-next-line react/jsx-key
                   <GridActionsCellItem
                      icon={< SaveIcon />}
                      label="Save"
                      sx={{
                         color: 'primary.main',
-                     }
-                     }
+                     }}
                      onClick={handleSaveClick(id)}
                   />,
+                  // eslint-disable-next-line react/jsx-key
                   < GridActionsCellItem
                      icon={< CancelIcon />}
                      label="Cancel"
@@ -133,6 +182,7 @@ export function AdminTable({ data, session }: any) {
             }
 
             return [
+               // eslint-disable-next-line react/jsx-key
                <GridActionsCellItem
                   icon={<EditIcon />}
                   label="Edit"
@@ -140,6 +190,7 @@ export function AdminTable({ data, session }: any) {
                   onClick={handleEditClick(id)}
                   color="inherit"
                />,
+               // eslint-disable-next-line react/jsx-key
                <GridActionsCellItem
                   icon={<DeleteIcon />}
                   label="Delete"
@@ -152,6 +203,8 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'control_def',
          headerName: 'Control DEF',
+         type: 'singleSelect',
+         valueOptions: ['CR', 'Plus'],
          width: 100,
          editable: true,
          headerAlign: 'center',
@@ -188,7 +241,7 @@ export function AdminTable({ data, session }: any) {
          headerName: 'T',
          type: 'number',
          width: 30,
-         editable: true,
+         editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
       },
@@ -215,7 +268,7 @@ export function AdminTable({ data, session }: any) {
          headerName: 'Total',
          type: 'number',
          width: 110,
-         editable: true,
+         editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
       },
@@ -223,13 +276,23 @@ export function AdminTable({ data, session }: any) {
          field: 'diferencia',
          headerName: 'Diferència',
          width: 150,
-         editable: true,
+         editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
       },
       {
          field: 'classificacio',
          headerName: 'Classificació',
+         type: 'singleSelect',
+         valueOptions: [
+            'MAQUINARIA I APARELLS US CLINIC',
+            'MOBILIARI ÚS CLINIC',
+            'MOBILIARI ÚS NO CLINIC',
+            'CONSTRUCCIONS',
+            "EQUIP PROCESSOS D'INFORMACIÓ (HARDWARE)",
+            "EQUIPS I PROCESSOS D'INFORMACIÓ (SOFTWARE)",
+            'ALTRE IMMOBILITZAT'
+         ],
          width: 150,
          editable: true,
          headerAlign: 'center',
@@ -238,6 +301,18 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'centre',
          headerName: 'Centre',
+         type: 'singleSelect',
+         valueOptions: [
+            'Casanova',
+            'Comte Borrell',
+            'Les Corts',
+            'Odontologia',
+            'Unitat Docent',
+            'Nutricionistes',
+            'Recerca',
+            'UTSI',
+            'Pediatria'
+         ],
          width: 110,
          editable: true,
          headerAlign: 'center',
@@ -246,6 +321,11 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'contractacio',
          headerName: 'Contractació',
+         type: 'singleSelect',
+         valueOptions: [
+            'Contracte Menor',
+            'Expedient licitació'
+         ],
          width: 150,
          editable: true,
          headerAlign: 'center',
@@ -254,6 +334,13 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'previsio_execucio',
          headerName: 'Previsió execució',
+         type: 'singleSelect',
+         valueOptions: [
+            '1r trimestre',
+            '2n trimestre',
+            '3r trimestre',
+            '4t trimestre',
+         ],
          width: 150,
          editable: true,
          headerAlign: 'center',
@@ -262,6 +349,13 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'estat',
          headerName: 'Estat',
+         type: 'singleSelect',
+         valueOptions: [
+            'Aprovat',
+            'Rebutjat',
+            'Comprat',
+            'Lliurat pel proveïdor',
+         ],
          width: 110,
          editable: true,
          headerAlign: 'center',
@@ -270,26 +364,38 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'data_compra',
          headerName: 'Data Compra',
+         type: 'date',
          width: 150,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
+         valueGetter: (value, row, column, apiRef) => {
+            return new Date(value);
+         }
       },
       {
          field: 'data_entrega',
          headerName: 'Data Entrega',
+         type: 'date',
          width: 150,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
+         valueGetter: (value, row, column, apiRef) => {
+            return new Date(value);
+         }
       },
       {
          field: 'data_factura',
          headerName: 'Data Factura',
+         type: 'date',
          width: 110,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
+         valueGetter: (value, row, column, apiRef) => {
+            return new Date(value);
+         }
       },
       {
          field: 'n_factura',
@@ -302,6 +408,14 @@ export function AdminTable({ data, session }: any) {
       {
          field: 'proveidor',
          headerName: 'Proveïdor',
+         type: 'singleSelect',
+         valueOptions: [
+            'MEINSA S.L.',
+            'SONMEDICA S.L.',
+            'ASMEDIC S.L.',
+            'ARJO IBERICA S.L.U.',
+            'INQUALAB DISTRIBUCIONES, S.L.',
+         ],
          width: 150,
          editable: true,
          headerAlign: 'center',
@@ -316,29 +430,35 @@ export function AdminTable({ data, session }: any) {
          rowBorderColor: 'var(--background-color)',
          borderColor: 'var(--background-color)',
          '& .actions': {
-            color: 'text.secondary',
+            color: 'var(--darkBlue)',
          },
          '& .textPrimary': {
-            color: 'text.primary',
+            color: 'var(--text-color)',
          }
-      }}>
+      }} >
+         <ToastContainer />
          <DataGrid
-            rows={data}
+            rows={rows}
             columns={columns}
             editMode="row"
             rowModesModel={rowModesModel}
             onRowModesModelChange={handleRowModesModelChange}
             onRowEditStop={handleRowEditStop}
             processRowUpdate={processRowUpdate}
+            onProcessRowUpdateError={handleProcessRowUpdateError}
             slots={{
                toolbar: EditToolbar as GridSlots['toolbar'],
             }}
             slotProps={{
                toolbar: { setRows, setRowModesModel },
             }}
+            // processRowUpdate={(updatedRow, originalRow) => {
+            //    updateInversions(updatedRow);
+            // }}
             sx={{
                border: 2,
                color: 'var(--text-color)',
+               accentColor: 'var(--darkBlue)',
                backgroundColor: 'var(--bg-light)',
                borderColor: 'var(--bg-light)',
                rowBorderColor: 'var(--background-color)',
@@ -366,6 +486,6 @@ export function AdminTable({ data, session }: any) {
 
             }}
          />
-      </Box>
+      </Box >
    );
 }
