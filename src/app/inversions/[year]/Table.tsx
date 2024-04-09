@@ -25,10 +25,6 @@ import {
    GridSlots,
 } from '@mui/x-data-grid';
 
-import {
-   randomCreatedDate,
-} from '@mui/x-data-grid-generator';
-
 import { deleteInversions, upsertInversions } from '@/services/inversions';
 
 interface EditToolbarProps {
@@ -39,9 +35,7 @@ interface EditToolbarProps {
 }
 
 function EditToolbar(props: EditToolbarProps) {
-
    const { setRows, setRowModesModel } = props;
-
    const handleClick = () => {
       //necessita 24 caracters per ser id MongoDB
       const genRanHex = (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
@@ -56,15 +50,14 @@ function EditToolbar(props: EditToolbarProps) {
    return (
       <GridToolbarContainer>
          <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-            Add record
+            Afegir Registre (al final de la taula)
          </Button>
       </GridToolbarContainer>
    );
 }
 
 export function AdminTable({ data, session, year }: any) {
-   console.log(new Date('2023-01-15'));
-   console.log('random: ', randomCreatedDate());
+   console.log('session: ', session);
 
    const initialRows: GridRowsProp = data;
 
@@ -142,6 +135,7 @@ export function AdminTable({ data, session, year }: any) {
    };
 
    const handleProcessRowUpdateError = () => {
+      toast.error("No s'han guardat els cambis!", { theme: "colored" });
    };
 
    const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
@@ -153,7 +147,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'actions',
          type: 'actions',
          headerName: 'Actions',
-         width: 100,
+         width: 70,
          cellClassName: 'actions',
          headerClassName: 'super-app-theme--header',
          getActions: ({ id }) => {
@@ -213,7 +207,7 @@ export function AdminTable({ data, session, year }: any) {
       {
          field: 'element_dinversio',
          headerName: "Element d'inversió",
-         width: 260,
+         width: 280,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -222,7 +216,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'u',
          headerName: 'U',
          type: 'number',
-         width: 30,
+         width: 70,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -231,7 +225,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'p_u',
          headerName: 'P/U',
          type: 'number',
-         width: 30,
+         width: 70,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -240,7 +234,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 't',
          headerName: 'T',
          type: 'number',
-         width: 30,
+         width: 70,
          editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -249,7 +243,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'unitats_definitives',
          headerName: 'Unitats definitives',
          type: 'number',
-         width: 150,
+         width: 130,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -258,7 +252,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'preu_u_definitiu',
          headerName: 'Preu/u definitiu',
          type: 'number',
-         width: 150,
+         width: 110,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -267,7 +261,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'total',
          headerName: 'Total',
          type: 'number',
-         width: 110,
+         width: 60,
          editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -275,7 +269,8 @@ export function AdminTable({ data, session, year }: any) {
       {
          field: 'diferencia',
          headerName: 'Diferència',
-         width: 150,
+         type: 'number',
+         width: 80,
          editable: false,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -285,6 +280,7 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Classificació',
          type: 'singleSelect',
          valueOptions: [
+            '',
             'MAQUINARIA I APARELLS US CLINIC',
             'MOBILIARI ÚS CLINIC',
             'MOBILIARI ÚS NO CLINIC',
@@ -303,6 +299,7 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Centre',
          type: 'singleSelect',
          valueOptions: [
+            '',
             'Casanova',
             'Comte Borrell',
             'Les Corts',
@@ -323,6 +320,7 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Contractació',
          type: 'singleSelect',
          valueOptions: [
+            '',
             'Contracte Menor',
             'Expedient licitació'
          ],
@@ -336,12 +334,13 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Previsió execució',
          type: 'singleSelect',
          valueOptions: [
+            '',
             '1r trimestre',
             '2n trimestre',
             '3r trimestre',
             '4t trimestre',
          ],
-         width: 150,
+         width: 130,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -351,12 +350,13 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Estat',
          type: 'singleSelect',
          valueOptions: [
+            '',
             'Aprovat',
             'Rebutjat',
             'Comprat',
             'Lliurat pel proveïdor',
          ],
-         width: 110,
+         width: 150,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -365,7 +365,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'data_compra',
          headerName: 'Data Compra',
          type: 'date',
-         width: 150,
+         width: 100,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -377,7 +377,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'data_entrega',
          headerName: 'Data Entrega',
          type: 'date',
-         width: 150,
+         width: 100,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -389,7 +389,7 @@ export function AdminTable({ data, session, year }: any) {
          field: 'data_factura',
          headerName: 'Data Factura',
          type: 'date',
-         width: 110,
+         width: 100,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -400,7 +400,7 @@ export function AdminTable({ data, session, year }: any) {
       {
          field: 'n_factura',
          headerName: 'Nº Factura',
-         width: 150,
+         width: 100,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -410,13 +410,14 @@ export function AdminTable({ data, session, year }: any) {
          headerName: 'Proveïdor',
          type: 'singleSelect',
          valueOptions: [
+            '',
             'MEINSA S.L.',
             'SONMEDICA S.L.',
             'ASMEDIC S.L.',
             'ARJO IBERICA S.L.U.',
             'INQUALAB DISTRIBUCIONES, S.L.',
          ],
-         width: 150,
+         width: 300,
          editable: true,
          headerAlign: 'center',
          headerClassName: 'super-app-theme--header',
@@ -425,7 +426,7 @@ export function AdminTable({ data, session, year }: any) {
 
    return (
       <Box sx={{
-         height: '100%',
+         height: '90vh',
          width: '100%',
          rowBorderColor: 'var(--background-color)',
          borderColor: 'var(--background-color)',
@@ -434,6 +435,9 @@ export function AdminTable({ data, session, year }: any) {
          },
          '& .textPrimary': {
             color: 'var(--text-color)',
+         },
+         '& .MuiDataGrid-row, .MuiDataGrid-row--editing, .MuiDataGrid-cell, .MuiDataGrid-cell--editing': {
+            backgroundColor: 'var(--bg-light)',
          }
       }} >
          <ToastContainer />
@@ -452,9 +456,6 @@ export function AdminTable({ data, session, year }: any) {
             slotProps={{
                toolbar: { setRows, setRowModesModel },
             }}
-            // processRowUpdate={(updatedRow, originalRow) => {
-            //    updateInversions(updatedRow);
-            // }}
             sx={{
                border: 2,
                color: 'var(--text-color)',
@@ -478,12 +479,9 @@ export function AdminTable({ data, session, year }: any) {
                '& .MuiToolbar-root, .MuiButtonBase-root': {
                   color: 'var(--text-color)'
                },
-               '& .MuiDataGrid-cell, .MuiDataGrid-cell:editing .MuiDataGrid-columnHeaders .MuiDataGrid-topContainer, .MuiDataGrid-columnHeaders': {
-                  borderColor: 'var(--background-color)',
-                  rowBorderColor: 'var(--background-color)',
+               '& .MuiDataGrid-row, .MuiDataGrid-row--editing, .MuiDataGrid-cell, .MuiDataGrid-cell--editing': {
                   backgroundColor: 'var(--bg-light)',
-               },
-
+               }
             }}
          />
       </Box >
