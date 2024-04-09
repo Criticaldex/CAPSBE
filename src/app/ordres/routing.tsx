@@ -5,7 +5,7 @@ export function GetLinksYears({ years }: any) {
    const pathname = usePathname();
    const router = useRouter();
    const pathArray: string[] = (pathname) ? pathname.split('/') : [];
-   const any = (pathArray[3]) ? pathArray[3] : process.env.DEFAULT_YEAR;
+   const any = (pathArray[3]) ? pathArray[3] : process.env.CURRENT_YEAR;
 
    return (
       <>

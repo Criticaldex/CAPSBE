@@ -97,7 +97,7 @@ const nextConfig = {
          },
          {
             source: '/ordres',
-            destination: `/ordres/${process.env.DEFAULT_YEAR_2}`,
+            destination: `/ordres/${process.env.CURRENT_YEAR}`,
             permanent: false,
          }
       ];

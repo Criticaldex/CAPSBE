@@ -8,7 +8,7 @@ export default async function OrdresLayout({ children }: any) {
 
    return (
       <div>
-         <title>Quadre Comandament</title>
+         <title>Ordres Clíniques</title>
          <div className="mt-2 bg-light text-right flex justify-between items-center">
             <div className="flex justify-start grow mb-2 mx-2">
                <GetLinksYears

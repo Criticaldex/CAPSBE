@@ -11,8 +11,8 @@ export default async function OrdresYear({ params }: { params: any }) {
    const indicadores = await getOrdresIndicators(filter);
 
    return (
-      <section className="w-full h-screen m-auto flex justify-center mt-10">
-         <article className="w-2/3 h-3/4 overflow-auto rounded-lg scrollable">
+      <section className="w-full h-screen m-auto flex justify-center mt-10 p-2">
+         <article className="w-full h-3/4 overflow-auto rounded-lg scrollable">
             <OrdresTable
                data={indicadores}
                centros={centros}

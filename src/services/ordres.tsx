@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { getSession } from "./session";
 
-export const getIndicators = async (filter: any, db?: string) => {
+const getIndicators = async (filter: any, db?: string) => {
    if (!db) {
       const session = await getSession();
       db = session?.user.db;
