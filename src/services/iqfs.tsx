@@ -61,8 +61,19 @@ export const getIqfDashboard = async (up: string, year: string) => {
    const iqf = await getIqf(up, year);
    const primerIndiceNoNulo = iqf?.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
-   if (primerIndiceNoNulo) {
-      const data = [{
+   let data = [{
+      name: 'Universal',
+      data: [],
+      mesos: mesos.slice(primerIndiceNoNulo)
+   }, {
+      name: 'Selecció',
+      data: [],
+   }, {
+      name: 'Hiperprescripció',
+      data: []
+   }]
+   if (iqf) {
+      data = [{
          name: 'Universal',
          data: iqf.puntuacio_universals.slice(primerIndiceNoNulo),
          mesos: mesos.slice(primerIndiceNoNulo)
@@ -73,9 +84,8 @@ export const getIqfDashboard = async (up: string, year: string) => {
          name: 'Hiperprescripció',
          data: iqf.puntuacio_hiperprescripcio.slice(primerIndiceNoNulo)
       }]
-      return data;
    }
-   return null
+   return data;
 }
 
 export const getTotalsIqf = async (year: string, centros: any) => {

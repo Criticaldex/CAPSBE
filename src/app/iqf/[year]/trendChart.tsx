@@ -3,6 +3,7 @@ import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
+import HighchartsNoData from 'highcharts/modules/no-data-to-display'
 import { chartOptions } from '@/components/chart.components'
 import highchartsMore from "highcharts/highcharts-more.js"
 import solidGauge from "highcharts/modules/solid-gauge.js";
@@ -10,6 +11,7 @@ import solidGauge from "highcharts/modules/solid-gauge.js";
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
+   HighchartsNoData(Highcharts)
    highchartsMore(Highcharts);
    solidGauge(Highcharts);
 }
