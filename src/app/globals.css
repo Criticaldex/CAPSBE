@@ -58,6 +58,17 @@
    --highcharts8_bg: #fa4b4250;
    --highcharts9_bg: #feb56a50;
    --highcharts10_bg: #91e8e150;
+   --datagrid-hover: #42424270;
+   --datagrid-selected: #42424290;
+   --datagrid-hover-selected: #424242b0;
+   --datagrid-ok: #32c87d50;
+   --datagrid-ko: #ff4f6850;
+   --datagrid-ok-hover: #32c87d70;
+   --datagrid-ko-hover: #ff4f6870;
+   --datagrid-ok-selected: #32c87d90;
+   --datagrid-ko-selected: #ff4f6890;
+   --datagrid-ok-hover-selected: #32c87db0;
+   --datagrid-ko-hover-selected: #ff4f68b0;
 }
 
 @media (prefers-color-scheme: dark) {

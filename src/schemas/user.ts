@@ -14,7 +14,8 @@ export interface UserIface {
    role: string,
    configs: {
       dashboard: any
-   }
+   },
+   centre: string
 }
 
 const UserSchema = new mongoose.Schema({
@@ -51,7 +52,10 @@ const UserSchema = new mongoose.Schema({
       dashboard: {
          type: Object,
       }
-   }
+   },
+   centre: {
+      type: String,
+   },
 });
 
 export default UserSchema;
