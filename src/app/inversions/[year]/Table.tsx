@@ -103,15 +103,13 @@ function EditToolbar(props: EditToolbarProps) {
    return (
       <GridToolbarContainer>
          <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-            Afegir Registre (al final de la taula)
+            Afegir Registre
          </Button>
       </GridToolbarContainer>
    );
 }
 
 export function AdminTable({ data, session, year }: any) {
-   console.log('session: ', session);
-
    const initialRows: GridRowsProp = data;
 
    const [rows, setRows] = useState(initialRows);
