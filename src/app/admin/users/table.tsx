@@ -100,13 +100,19 @@ export function AdminTable({ users, session }: any) {
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'database',
+         name: 'Database',
          selector: (row: any) => row.db,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
       },
       {
-         name: 'role',
+         name: 'Centre',
+         selector: (row: any) => row.centre,
+         sortable: true,
+         style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
+      },
+      {
+         name: 'Role',
          selector: (row: any) => row.role,
          sortable: true,
          style: { fontSize: 'var(--table-font)', backgroundColor: '', color: '' },
