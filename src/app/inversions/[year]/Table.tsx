@@ -26,6 +26,59 @@ import {
 } from '@mui/x-data-grid';
 
 import { deleteInversions, upsertInversions } from '@/services/inversions';
+import { styled } from '@mui/material/styles';
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+   border: 2,
+   color: 'var(--text-color)',
+   backgroundColor: 'var(--bg-light)',
+   '& .super-app-theme--header': {
+      backgroundColor: 'var(--bg-light)',
+      color: 'var(--text-color)',
+   },
+   '& .MuiToolbar-root, .MuiButtonBase-root': {
+      color: 'var(--text-color)'
+   },
+   '& .super-app-theme--Open': {
+      backgroundColor: 'var(--bg-light)',
+      '&:hover': {
+         backgroundColor: 'var(--datagrid-hover)',
+      },
+      '&.Mui-selected': {
+         backgroundColor: 'var(--datagrid-selected)',
+         '&:hover': {
+            backgroundColor: 'var(--datagrid-hover-selected)',
+         },
+      },
+      '&.Mui-editing': {
+         backgroundColor: 'var(--red)',
+      },
+   },
+   '& .super-app-theme--Aprovat, .super-app-theme--Comprat': {
+      backgroundColor: 'var(--datagrid-ok)',
+      '&:hover': {
+         backgroundColor: 'var(--datagrid-ok-hover)',
+      },
+      '&.Mui-selected': {
+         backgroundColor: 'var(--datagrid-ok-selected)',
+         '&:hover': {
+            backgroundColor: 'var(--datagrid-ok-hover-selected)',
+         },
+      },
+   },
+   '& .super-app-theme--Rebutjat': {
+      backgroundColor: 'var(--datagrid-ko)',
+      '&:hover': {
+         backgroundColor: 'var(--datagrid-ko-hover)',
+      },
+      '&.Mui-selected': {
+         backgroundColor: 'var(--datagrid-ko-selected)',
+         '&:hover': {
+            backgroundColor: 'var(--datagrid-ko-hover-selected)',
+         },
+      },
+   },
+}));
 
 interface EditToolbarProps {
    setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
@@ -115,14 +168,11 @@ export function AdminTable({ data, session, year }: any) {
    };
 
    const processRowUpdate = async (newRow: GridRowModel) => {
-      console.log('b NewRow: ', newRow);
       newRow.t = (newRow.u * newRow.p_u);
       newRow.total = (newRow.unitats_definitives * newRow.preu_u_definitiu);
       newRow.diferencia = (newRow.total - newRow.t);
-      console.log('a NewRow: ', newRow);
 
       const upsert = await upsertInversions({ ...newRow, any: year });
-      console.log('upsert: ', upsert);
 
       if (upsert.lastErrorObject?.updatedExisting) {
          toast.success('Registre Modificat!', { theme: "colored" });
@@ -142,7 +192,7 @@ export function AdminTable({ data, session, year }: any) {
       setRowModesModel(newRowModesModel);
    };
 
-   const columns: GridColDef[] = [
+   let columns: GridColDef[] = [
       {
          field: 'actions',
          type: 'actions',
@@ -152,7 +202,6 @@ export function AdminTable({ data, session, year }: any) {
          headerClassName: 'super-app-theme--header',
          getActions: ({ id }) => {
             const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
             if (isInEditMode) {
                return [
                   // eslint-disable-next-line react/jsx-key
@@ -174,7 +223,6 @@ export function AdminTable({ data, session, year }: any) {
                   />,
                ];
             }
-
             return [
                // eslint-disable-next-line react/jsx-key
                <GridActionsCellItem
@@ -424,66 +472,168 @@ export function AdminTable({ data, session, year }: any) {
       },
    ];
 
+   if (session.user.role == '2') {
+      columns = [
+         {
+            field: 'element_dinversio',
+            headerName: "Element d'inversió",
+            width: 800,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'u',
+            headerName: 'U',
+            type: 'number',
+            width: 70,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'centre',
+            headerName: 'Centre',
+            type: 'singleSelect',
+            valueOptions: [
+               '',
+               'Casanova',
+               'Comte Borrell',
+               'Les Corts',
+               'Odontologia',
+               'Unitat Docent',
+               'Nutricionistes',
+               'Recerca',
+               'UTSI',
+               'Pediatria'
+            ],
+            width: 110,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'contractacio',
+            headerName: 'Contractació',
+            type: 'singleSelect',
+            valueOptions: [
+               '',
+               'Contracte Menor',
+               'Expedient licitació'
+            ],
+            width: 150,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'previsio_execucio',
+            headerName: 'Previsió execució',
+            type: 'singleSelect',
+            valueOptions: [
+               '',
+               '1r trimestre',
+               '2n trimestre',
+               '3r trimestre',
+               '4t trimestre',
+            ],
+            width: 130,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'estat',
+            headerName: 'Estat',
+            type: 'singleSelect',
+            valueOptions: [
+               '',
+               'Aprovat',
+               'Rebutjat',
+               'Comprat',
+               'Lliurat pel proveïdor',
+            ],
+            width: 150,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+         {
+            field: 'data_compra',
+            headerName: 'Data Compra',
+            type: 'date',
+            width: 100,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+            valueGetter: (value, row, column, apiRef) => {
+               return new Date(value);
+            }
+         },
+         {
+            field: 'data_entrega',
+            headerName: 'Data Entrega',
+            type: 'date',
+            width: 100,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+            valueGetter: (value, row, column, apiRef) => {
+               return new Date(value);
+            }
+         },
+         {
+            field: 'proveidor',
+            headerName: 'Proveïdor',
+            type: 'singleSelect',
+            valueOptions: [
+               '',
+               'MEINSA S.L.',
+               'SONMEDICA S.L.',
+               'ASMEDIC S.L.',
+               'ARJO IBERICA S.L.U.',
+               'INQUALAB DISTRIBUCIONES, S.L.',
+            ],
+            width: 300,
+            editable: false,
+            headerAlign: 'center',
+            headerClassName: 'super-app-theme--header',
+         },
+      ];
+   }
+
    return (
       <Box sx={{
          height: '90vh',
-         width: '100%',
-         rowBorderColor: 'var(--background-color)',
-         borderColor: 'var(--background-color)',
-         '& .actions': {
-            color: 'var(--darkBlue)',
-         },
-         '& .textPrimary': {
-            color: 'var(--text-color)',
-         },
-         '& .MuiDataGrid-row, .MuiDataGrid-row--editing, .MuiDataGrid-cell, .MuiDataGrid-cell--editing': {
-            backgroundColor: 'var(--bg-light)',
-         }
+         width: '100%'
       }} >
          <ToastContainer />
-         <DataGrid
-            rows={rows}
-            columns={columns}
-            editMode="row"
-            rowModesModel={rowModesModel}
-            onRowModesModelChange={handleRowModesModelChange}
-            onRowEditStop={handleRowEditStop}
-            processRowUpdate={processRowUpdate}
-            onProcessRowUpdateError={handleProcessRowUpdateError}
-            slots={{
-               toolbar: EditToolbar as GridSlots['toolbar'],
-            }}
-            slotProps={{
-               toolbar: { setRows, setRowModesModel },
-            }}
-            sx={{
-               border: 2,
-               color: 'var(--text-color)',
-               accentColor: 'var(--darkBlue)',
-               backgroundColor: 'var(--bg-light)',
-               borderColor: 'var(--bg-light)',
-               rowBorderColor: 'var(--background-color)',
-               '& .MuiDataGrid-cell:hover': {
-                  backgroundColor: 'var(--bg-dark)',
-               },
-               '& .super-app-theme--header': {
-                  backgroundColor: 'var(--bg-light)',
-                  color: 'var(--text-color)',
-                  borderColor: 'var(--background-color)',
-                  rowBorderColor: 'var(--background-color)',
-               },
-               '& .MuiDataGrid-footerContainer': {
-                  backgroundColor: 'var(--bg-light)',
-                  borderColor: 'var(--background-color)',
-               },
-               '& .MuiToolbar-root, .MuiButtonBase-root': {
-                  color: 'var(--text-color)'
-               },
-               '& .MuiDataGrid-row, .MuiDataGrid-row--editing, .MuiDataGrid-cell, .MuiDataGrid-cell--editing': {
-                  backgroundColor: 'var(--bg-light)',
-               }
-            }}
-         />
+         {session.user.role != '2' &&
+            <StyledDataGrid
+               rows={rows}
+               columns={columns}
+               editMode="row"
+               rowModesModel={rowModesModel}
+               onRowModesModelChange={handleRowModesModelChange}
+               onRowEditStop={handleRowEditStop}
+               processRowUpdate={processRowUpdate}
+               onProcessRowUpdateError={handleProcessRowUpdateError}
+               slots={{
+                  toolbar: EditToolbar as GridSlots['toolbar'],
+               }}
+               slotProps={{
+                  toolbar: { setRows, setRowModesModel },
+               }}
+               getRowClassName={(params) => `super-app-theme--${params.row.estat}`}
+            />
+         }
+         {session.user.role == '2' &&
+            <StyledDataGrid
+               rows={rows}
+               columns={columns}
+               getRowClassName={(params) => `super-app-theme--${params.row.estat}`}
+            />
+         }
       </Box >
    );
 }

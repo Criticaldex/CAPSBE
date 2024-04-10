@@ -4,10 +4,16 @@ import { getSession } from "@/services/session";
 
 import * as React from 'react';
 
-export default async function AdminDashboard({ params }: any) {
+export default async function InversioPage({ params }: any) {
    const { year } = params;
    const session = await getSession();
-   const filtro = { any: year };
+   let filtro: any = { any: year };
+   if (session?.user.role == '2') {
+      filtro = {
+         any: year,
+         centre: session.user.centre
+      }
+   };
 
    const indicadores = await getTableInversions(filtro);
    return (

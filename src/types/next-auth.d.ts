@@ -17,6 +17,7 @@ declare module "next-auth" {
          configs: any,
          db: string,
          role: string,
+         centre: string
       } & DefaultSession["user"]
    }
 }
