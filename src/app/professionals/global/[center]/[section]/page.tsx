@@ -6,7 +6,7 @@ export default async function ProfessionalsChart({ params }: any) {
    const { center, section } = params;
 
    let filters = {
-      any: process.env.DEFAULT_YEAR,
+      any: process.env.CURRENT_YEAR,
       centre: center,
       sector: section.replaceAll('_', ' '),
       actiu: true,
@@ -36,7 +36,7 @@ export default async function ProfessionalsChart({ params }: any) {
             <div className="mb-2">
                {month.number != null ?
                   <Chart
-                     name={month.string + ' ' + process.env.DEFAULT_YEAR}
+                     name={month.string + ' ' + process.env.CURRENT_YEAR}
                      data={infoChart}
                      index={indicadorsNames}
                      objectius={indicadorsObj}

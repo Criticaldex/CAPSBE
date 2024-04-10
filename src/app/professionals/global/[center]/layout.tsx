@@ -4,7 +4,7 @@ import { getSections } from "@/services/professionals";
 
 export default async function ProfessionalsCenter({ children, params }: any) {
    const { center } = params;
-   let filters = { 'any': process.env.DEFAULT_YEAR, 'centre': center }
+   let filters = { 'any': process.env.CURRENT_YEAR, 'centre': center }
    const sections = await getSections(filters)
    const centros = await getCenters();
 

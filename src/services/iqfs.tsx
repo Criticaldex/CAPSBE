@@ -59,20 +59,23 @@ const getIqf = async (up: string, year: string) => {
 
 export const getIqfDashboard = async (up: string, year: string) => {
    const iqf = await getIqf(up, year);
-   const primerIndiceNoNulo = iqf.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
+   const primerIndiceNoNulo = iqf?.puntuacio_universals.findIndex((elemento: null) => elemento !== null);
    const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
-   const data = [{
-      name: 'Universal',
-      data: iqf.puntuacio_universals.slice(primerIndiceNoNulo),
-      mesos: mesos.slice(primerIndiceNoNulo)
-   }, {
-      name: 'Selecció',
-      data: iqf.puntuacio_seleccio.slice(primerIndiceNoNulo)
-   }, {
-      name: 'Hiperprescripció',
-      data: iqf.puntuacio_hiperprescripcio.slice(primerIndiceNoNulo)
-   }]
-   return data;
+   if (primerIndiceNoNulo) {
+      const data = [{
+         name: 'Universal',
+         data: iqf.puntuacio_universals.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
+      }, {
+         name: 'Selecció',
+         data: iqf.puntuacio_seleccio.slice(primerIndiceNoNulo)
+      }, {
+         name: 'Hiperprescripció',
+         data: iqf.puntuacio_hiperprescripcio.slice(primerIndiceNoNulo)
+      }]
+      return data;
+   }
+   return null
 }
 
 export const getTotalsIqf = async (year: string, centros: any) => {
@@ -115,7 +118,7 @@ export const getTotalsIqf = async (year: string, centros: any) => {
 
 export const getBasal = async (up: string, year: string) => {
    const iqf = await getIqf(up, year);
-   return iqf.basal;
+   return iqf?.basal;
 }
 
 export const getUniversals = async (year: string, centros: any) => {
