@@ -16,7 +16,6 @@ export default async function OrdresYear({ params }: { params: any }) {
                data={indicadores}
                centros={centros}
             />
-
          </article>
       </section>
    )
