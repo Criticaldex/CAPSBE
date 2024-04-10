@@ -99,6 +99,11 @@ const nextConfig = {
             source: '/inversions',
             destination: `/inversions/${process.env.CURRENT_YEAR}`,
             permanent: false,
+         },
+         {
+            source: '/ordres',
+            destination: `/ordres/${process.env.CURRENT_YEAR}`,
+            permanent: false,
          }
       ];
    }
