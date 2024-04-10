@@ -13,6 +13,9 @@ if (typeof Highcharts === "object") {
 export function Iqf({ name, data, objectiu }: any) {
    let max = 0;
    let sum = 0;
+
+   if (!data) return null
+
    data[0].data.forEach((elem: any, i: number) => {
       sum = data[0].data[i] + data[1].data[i] + data[2].data[i];
       max = (sum > max) ? sum : max;

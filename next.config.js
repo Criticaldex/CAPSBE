@@ -57,17 +57,17 @@ const nextConfig = {
          },
          {
             source: '/professionals/individual',
-            destination: `/professionals/individual/${process.env.DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
+            destination: `/professionals/individual/${process.env.DEFAULT_CENTER}/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.CURRENT_YEAR}`,
             permanent: false,
          },
          {
             source: '/professionals/individual/:centre',
-            destination: `/professionals/individual/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.DEFAULT_YEAR}`,
+            destination: `/professionals/individual/:centre/${process.env.PROFESSIONALS_DEFAULT_SECTION}/${process.env.CURRENT_YEAR}`,
             permanent: false,
          },
          {
             source: '/professionals/individual/:centre/:section',
-            destination: `/professionals/individual/:centre/:section/${process.env.DEFAULT_YEAR}`,
+            destination: `/professionals/individual/:centre/:section/${process.env.CURRENT_YEAR}`,
             permanent: false,
          },
          {
