@@ -14,6 +14,7 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                password: data.password,
                name: data.name,
                lastname: data.lastname,
+               centre: data.centre,
                role: "2"
             }
          } else if (session.user.role == '0') {
@@ -25,6 +26,7 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
                lastname: data.lastname,
                role: data.role,
                db: data.db,
+               centre: data.centre,
                license: data.license
             };
          }
@@ -96,6 +98,22 @@ export const UsersForm = ({ register, handleSubmit, errors, clearErrors, setRows
             })} />
          </div>
          {errors.lastname && <p role="alert" className="text-red self-end">⚠ {errors.lastname?.message}</p>}
+         <div className="inline-flex justify-end">
+            <label htmlFor="centre" className="self-center">Centre:</label>
+            <select id="centre" className='text-textColor border-b-2 bg-bgDark rounded-md p-1 ml-4 basis-8/12' {...register("centre")}>
+               <option value="">Select...</option>
+               <option value="Casanova">Casanova</option>
+               <option value="Comte Borrell">Comte Borrell</option>
+               <option value="Les Corts">Les Corts</option>
+               <option value="Odontologia">Odontologia</option>
+               <option value="Unitat Docent">Unitat Docent</option>
+               <option value="Nutricionistes">Nutricionistes</option>
+               <option value="Recerca">Recerca</option>
+               <option value="UTSI">UTSI</option>
+               <option value="Pediatria">Pediatria</option>
+            </select>
+         </div>
+         {errors.centre && <p role="alert" className="text-red self-end">⚠ {errors.centre?.message}</p>}
          {session.user.role == '0' &&
             <>
                <div className="inline-flex justify-end">
