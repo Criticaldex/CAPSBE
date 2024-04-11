@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
          };
       },
       jwt: ({ token, user, trigger, session }) => {
-         console.log("JWT Callback", { token, session, trigger });
+         // console.log("JWT Callback", { token, user, trigger, session });
          if (session && trigger === "update") {
             const u = session as unknown as any;
             return {
