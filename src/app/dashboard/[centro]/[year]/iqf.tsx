@@ -10,7 +10,6 @@ if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
    HighchartsNoData(Highcharts)
-   HighchartsNoData(Highcharts)
 }
 
 export function Iqf({ name, data, objectiu }: any) {
