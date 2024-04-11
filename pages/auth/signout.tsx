@@ -9,7 +9,7 @@ export default function SignOut() {
          <div className="bg-image"></div>
          <div className="title">
             <BiPlusMedical size={50} className="icono" />
-            <h1>CAPFA</h1>
+            <h1>ARIADN&apos;AP</h1>
          </div>
          <section>
             <h1>SIGN OUT</h1>
