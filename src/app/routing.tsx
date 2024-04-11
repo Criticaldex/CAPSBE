@@ -67,8 +67,8 @@ export default function GetNav({ session }: any) {
    ]
 
    return (
-      <div className="group fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
-         <nav className="text-TextNav flex flex-col justify-between h-full overflow-hidden">
+      <div className="group fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500 overflow-y-auto">
+         <nav className="text-TextNav flex flex-col justify-between h-full overflow-x-hidden">
             <div>
                <Link href="/" className="text-yellow text-xl font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
                   <BiPlusMedical size={20} />
