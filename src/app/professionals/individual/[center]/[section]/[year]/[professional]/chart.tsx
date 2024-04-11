@@ -3,11 +3,13 @@ import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsExportData from 'highcharts/modules/export-data'
 import HighchartsReact from 'highcharts-react-official'
+import HighchartsNoData from 'highcharts/modules/no-data-to-display'
 import { chartOptions } from '@/components/chart.components'
 
 if (typeof Highcharts === "object") {
    HighchartsExporting(Highcharts)
    HighchartsExportData(Highcharts)
+   HighchartsNoData(Highcharts)
 }
 
 export function Chart({ name, data }: any) {

@@ -4,9 +4,10 @@ import { UserIface } from "@/schemas/user";
 import { upsertUser, deleteUser } from "@/services/users";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export const UsersForm = ({ user, toast }: any) => {
+   const { update } = useSession();
    const {
       register,
       handleSubmit,
@@ -33,6 +34,7 @@ export const UsersForm = ({ user, toast }: any) => {
          delete data.license;
          const upsert = await upsertUser(data);
          if (upsert.lastErrorObject?.updatedExisting) {
+            update(upsert.value);
             toast.success('Usuari Modificat!', { theme: "colored" });
          }
          reset(upsert.value);
