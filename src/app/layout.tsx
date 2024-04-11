@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import GetNav from './routing'
 import { NextAuthProvider } from "./providers";
 import { getSession } from "@/services/session"
-
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
    subsets: ['latin'],
@@ -25,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             />
             <NextAuthProvider>
                {children}
+               <SpeedInsights />
             </NextAuthProvider>
          </body>
       </html>
