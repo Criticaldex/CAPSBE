@@ -1,10 +1,13 @@
 'use client';
 
+import { useSession } from "next-auth/react"
 import { IndicatorIface } from "@/schemas/indicator";
 import { getAdminTable, updateIndicators } from "@/services/indicators";
 import { upsertUser } from "@/services/users";
 
 export const DashboardForm = ({ centers, register, handleSubmit, errors, clearErrors, setRows, toast, isDirty, dirtyFields, reset, session }: any) => {
+   const { update } = useSession();
+
    const onSubmit = handleSubmit(async (data: IndicatorIface) => {
       if (isDirty) {
          data.dbName = session?.user.db as string;
@@ -21,9 +24,9 @@ export const DashboardForm = ({ centers, register, handleSubmit, errors, clearEr
                grup: grup,
                ordre: ordre
             };
-
             const upsert = await upsertUser(userConf);
             if (upsert.lastErrorObject?.updatedExisting) {
+               update(upsert.value);
                toast.success('Usuari Modificat!', { theme: "colored" });
             }
          }

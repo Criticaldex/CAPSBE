@@ -17,7 +17,6 @@ export function Iqf({ name, data, objectiu }: any) {
    let max = 0;
    let sum = 0;
    let mesos: any = [];
-   console.log('data: ', data);
 
    if (data[0].data) {
       data[0].data.forEach((elem: any, i: number) => {
