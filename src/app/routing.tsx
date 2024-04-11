@@ -67,7 +67,7 @@ export default function GetNav({ session }: any) {
    ]
 
    return (
-      <div className="fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
+      <div className="group fixed top-0 left-0 z-50 w-16 h-screen bg-bgNavGlobal pt-4 pr-3 pb-0 pl-0 hover:w-52 transition-all duration-500">
          <nav className="text-TextNav flex flex-col justify-between h-full overflow-hidden">
             <div>
                <Link href="/" className="text-yellow text-xl font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
@@ -76,7 +76,7 @@ export default function GetNav({ session }: any) {
                </Link>
                <div className="flex flex-col justify-between" id="lista">
                   {navTitlesIcons.map((navTI) => (
-                     <Link key={navTI.route} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-center gap-x-4 pt-2 pr-0 pl-3 items-center ml-3
+                     <Link key={navTI.route} href={navTI.route} className={`hover:text-darkBlue transition-all duration-300 pb-6 grid grid-cols-[max-content_max-content] place-items-center gap-x-4 pt-2 pr-0 pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={19} />
                         <span className="text-base whitespace-pre-line">
@@ -85,14 +85,13 @@ export default function GetNav({ session }: any) {
                      </Link>
                   ))}
                   <hr className="my-4 ml-2 border-spacerNav" />
-                  <div className="text-yellow text-lg font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
-                     <RiMedicineBottleLine size={20} />
-                     <h3>
+                  <div className="text-lg grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+                     <small className="text-nav transition-all duration-300 uppercase tracking-widest group-hover:text-yellow2">
                         Farmàcia
-                     </h3>
+                     </small>
                   </div>
                   {navTitlesIconsFarma.map((navTI) => (
-                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
+                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue transition-all duration-300 pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={19} />
                         <span className="text-base">
@@ -103,14 +102,13 @@ export default function GetNav({ session }: any) {
 
 
                   <hr className="my-4 ml-2 border-spacerNav" />
-                  <div className="text-yellow text-lg font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
-                     <FaMoneyBillWave size={20} />
-                     <h3>
+                  <div className="text-yellow text-lg grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+                     <small className="text-nav transition-all duration-300 uppercase tracking-widest group-hover:text-yellow2">
                         Finances
-                     </h3>
+                     </small>
                   </div>
                   {navTitlesIconsFinances.map((navTI) => (
-                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
+                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue transition-all duration-300 pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
                         <navTI.icon size={19} />
                         <span className="text-base">

@@ -26,8 +26,8 @@ export const LogoutButton = () => {
       return (
          <button className="hover:text-darkBlue py-2 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-2 pl-3 items-center ml-3"
             onClick={() => signOut({ redirect: true, callbackUrl: "/" })}>
-            <IoIosLogOut size={20} />
-            <span className="text-lg">
+            <IoIosLogOut size={18} />
+            <span className="text-sm">
                Sortir
             </span>
          </button>
@@ -41,8 +41,8 @@ export const ProfileButton = () => {
    const { data: session } = useSession();
    return (
       <Link href="/admin/profile" className="hover:text-darkBlue py-2 grid grid-cols-[max-content_max-content] gap-x-4 pt-2 pr-0 pb-2 pl-3 items-center ml-3">
-         <IoIosPerson size={20} />
-         <span className="text-lg">
+         <IoIosPerson size={18} />
+         <span className="text-sm">
             {session?.user.lastname}, {session?.user.name}
          </span>
       </Link>
