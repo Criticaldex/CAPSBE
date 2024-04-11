@@ -72,7 +72,7 @@ export default function GetNav({ session }: any) {
             <div>
                <Link href="/" className="text-yellow text-xl font-bold grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
                   <BiPlusMedical size={20} />
-                  <span className="text-lg">CAPFA</span>
+                  <span className="text-lg">ARIADN&apos;AP</span>
                </Link>
                <div className="flex flex-col justify-between" id="lista">
                   {navTitlesIcons.map((navTI) => (
