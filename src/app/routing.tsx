@@ -13,6 +13,7 @@ import { NextAuthProvider } from "@/app/providers";
 export default function GetNav({ session }: any) {
    const pathname = usePathname();
    const callsCenters = ['Capsbe', 'Demo']
+   const financesCenters = ['Capsbe', 'Demo']
    const navTitlesIcons = [
       {
          label: 'Dashboard',
@@ -100,22 +101,25 @@ export default function GetNav({ session }: any) {
                      </Link>
                   ))}
 
-
-                  <hr className="my-4 ml-2 border-spacerNav" />
-                  <div className="text-yellow text-lg grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
-                     <small className="text-nav transition-all duration-300 uppercase tracking-widest group-hover:text-yellow2">
-                        Finances
-                     </small>
-                  </div>
-                  {navTitlesIconsFinances.map((navTI) => (
-                     <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue transition-all duration-300 pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
+                  {financesCenters.includes(session?.user.db) &&
+                     <>
+                        <hr className="my-4 ml-2 border-spacerNav" />
+                        <div className="text-yellow text-lg grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0 pb-7 pl-3 ml-3">
+                           <small className="text-nav transition-all duration-300 uppercase tracking-widest group-hover:text-yellow2">
+                              Finances
+                           </small>
+                        </div>
+                        {navTitlesIconsFinances.map((navTI) => (
+                           <Link key={navTI.label} href={navTI.route} className={`hover:text-darkBlue transition-all duration-300 pb-6 grid grid-cols-[max-content_max-content] place-items-cente gap-x-4 pt-2 pr-0  pl-3 items-center ml-3
                      ${pathname?.includes(navTI.route) ? 'text-darkBlue' : ''}`}>
-                        <navTI.icon size={19} />
-                        <span className="text-base">
-                           {navTI.label}
-                        </span>
-                     </Link>
-                  ))}
+                              <navTI.icon size={19} />
+                              <span className="text-base">
+                                 {navTI.label}
+                              </span>
+                           </Link>
+                        ))}
+                     </>
+                  }
                </div>
             </div>
             <div>
