@@ -318,7 +318,7 @@ export const getChartDemorasYear = async (filter: any, db?: string) => {
          let mitjanaGlobal = Number((mitjanaSuma / numProf).toFixed(2));
          chartData[i].data.push({ name: monthName[Number(mes) - 1], monthNum: mes, y: mitjanaGlobal });
       };
-      chartData[i].data = _.orderBy(chartData[i].data, 'name');
+      chartData[i].data = _.orderBy(chartData[i].data, 'monthNum');
    });
    return chartData;
 }
