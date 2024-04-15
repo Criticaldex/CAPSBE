@@ -56,6 +56,4 @@ export const getRegressioLineal = async (up: string, data: any) => {
    regresion.push(parseFloat(linea.toFixed(2)))
 
    return regresion
-
-
 }
