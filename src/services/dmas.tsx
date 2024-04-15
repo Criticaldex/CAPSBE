@@ -23,26 +23,40 @@ const getDma = async (up: string) => {
       }).then(res => res.json());
 }
 
-export const getDmaDashboard = async (up: string) => {
-   const dma = await getDma(up);
-   const primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
-   const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
+export const getDmaDashboard = async (up: string, year: string) => {
+   const dma = await getDmas({ "agrupacio_up_assistencia": up, "any": year });
+   if (dma) {
+      const primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);
+      const mesos = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'];
 
-   const data = {
-      name: 'Import Líquid Acumulat',
-      data: dma.import_liquid_acumulat_periode_actual.slice(primerIndiceNoNulo),
-      mesos: mesos.slice(primerIndiceNoNulo)
+      const data = {
+         name: 'Import Líquid Acumulat',
+         data: dma.import_liquid_acumulat_periode_actual.slice(primerIndiceNoNulo),
+         mesos: mesos.slice(primerIndiceNoNulo)
+      }
+      return data;
+   } else {
+      return {
+         name: 'Import Líquid Acumulat',
+         data: [],
+         mesos: []
+      }
    }
-   return data;
 }
 
-export const getDmaAssignada = async (up: string) => {
-   const dma = await getDma(up);
+export const getDmaAssignada = async (up: string, year: string) => {
+   const dma = await getDmas({ agrupacio_up_assistencia: up, any: year });
+   if (!dma) {
+      return null;
+   }
    return dma.dma_assignada[dma.dma_assignada.length - 1];
 }
 
-export const getRegressioLineal = async (up: string, data: any) => {
-   const dma = await getDma(up);
+export const getRegressioLineal = async (up: string, year: string) => {
+   const dma = await getDmas({ agrupacio_up_assistencia: up, any: year });
+   if (!dma) {
+      return [];
+   }
    const linea = dma['previsio_de_tancament_(lineal)'][dma['previsio_de_tancament_(lineal)'].length - 1];
 
    const primerIndiceNoNulo = dma.import_liquid_acumulat_periode_actual.findIndex((elemento: null) => elemento !== null);

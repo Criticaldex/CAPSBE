@@ -22,6 +22,7 @@ export default async function LayoutDashboard({ children, params }: any) {
          nameCentro = center.name
       }
    })
+
    const session = await getSession();
    const eqas = await getEqasContracts(year, centros);
    const iqf = await getIqfDashboard(up, year);
@@ -31,9 +32,9 @@ export default async function LayoutDashboard({ children, params }: any) {
    let dma_assignada = null;
    let dma_regressio_lineal = null;
    if (session?.user.db != 'Centelles') {
-      dma = await getDmaDashboard(up);
-      dma_assignada = await getDmaAssignada(up);
-      dma_regressio_lineal = await getRegressioLineal(up, dma);
+      dma = await getDmaDashboard(up, year);
+      dma_assignada = await getDmaAssignada(up, year);
+      dma_regressio_lineal = await getRegressioLineal(up, year);
    }
 
    return (
