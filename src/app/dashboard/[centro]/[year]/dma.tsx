@@ -47,7 +47,7 @@ export function Dma({ name, data, objectiu, regresion }: any) {
             width: 2,
             value: objectiu,
             label: {
-               text: parseFloat(objectiu.toFixed(2)).toLocaleString()
+               text: (objectiu) ? parseFloat(objectiu.toFixed(2)).toLocaleString() : ''
 
             }
          }]

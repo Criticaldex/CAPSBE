@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       if (!db.models.dma) {
          db.model('dma', DMASchema);
       }
-      const dma: any = await db.models.dma.find(body.filter).select(fields).lean();
+      const dma: any = await db.models.dma.findOne(body.filter).select(fields).lean();
       return NextResponse.json(dma);
    } catch (err) {
       return NextResponse.json({ ERROR: (err as Error).message });
