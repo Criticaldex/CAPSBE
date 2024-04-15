@@ -147,19 +147,22 @@ body {
 
 #scrollDiv::-webkit-scrollbar,
 .scrollable::-webkit-scrollbar,
-.barraHori>div::-webkit-scrollbar {
+.barraHori>div::-webkit-scrollbar,
+.scroll-menu::-webkit-scrollbar {
    width: 7px;
 }
 
 #scrollDiv::-webkit-scrollbar-track,
 .scrollable::-webkit-scrollbar-track,
-.barraHori>div::-webkit-scrollbar-track {
+.barraHori>div::-webkit-scrollbar-track,
+.scroll-menu::-webkit-scrollbar-track {
    border-radius: 10px;
 }
 
 #scrollDiv::-webkit-scrollbar-thumb,
 .scrollable::-webkit-scrollbar-thumb,
-.barraHori>div::-webkit-scrollbar-thumb {
+.barraHori>div::-webkit-scrollbar-thumb,
+.scroll-menu::-webkit-scrollbar-thumb {
    background: var(--foreground);
    border-radius: 5px;
 }
